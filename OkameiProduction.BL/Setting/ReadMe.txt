@@ -1,0 +1,1 @@
+Please place the "Okamei.ini" file in "c:\Okamei\".

@@ -1,0 +1,118 @@
+﻿@model Models.BukkenShousaiModel
+
+@{
+    ViewBag.Title = "Entry";
+}
+<style>
+    #SitenCD {
+        display: inline-block;
+        padding-right: 0px;
+    }
+
+    #btnSet {
+        font-size: 12px;
+        width: 70px !important;
+        margin-top: 1px;
+    }
+
+</style>
+<h4>物件詳細登録</h4>
+<div id="main" class="main-content">
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label title-label pk">物件番号</label>
+        </div>
+        <div class="col-sm-10">
+            <input type="text" class="form-control width-len8" disabled maxlength="8" id="BukkenNO" name="BukkenNO" value="@Model.BukkenNO" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label title-label">担当支店<span class="require-mark">*</span></label>
+        </div>
+        <div class="col-sm-4">
+            @Html.DropDownListFor(
+            model => model.SitenCD,
+            new SelectList(Model.SitenSelectList, "Value", "DisplayText"),
+            "全社",
+            new { @class = "form-control" })
+            <button type="button" id="btnSet" class="btn btn-secondary" focus-skip>セット</button>
+        </div>
+        <div class="col-sm-2">
+            <label for="TantouEigyouCD" class="col-form-label title-label">担当営業マン<span class="require-mark">*</span></label>
+        </div>
+        <div class="col-sm-4">
+            @Html.DropDownListFor(
+            model => model.TantouEigyouCD,
+            new SelectList(Model.EigyouStaffSelectList, "Value", "DisplayText"),
+            "",
+            new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label title-label">物件名<span class="require-mark">*</span></label>
+        </div>
+        <div class="col-sm-4">
+            <input type="text" class="form-control width-len16" required maxlength="16" id="BukkenName" name="BukkenName" />
+        </div>
+        <div class="col-sm-2">
+            <label class="col-form-label title-label">担当PCサポート</label>
+        </div>
+        <div class="col-sm-4">
+            @Html.DropDownListFor(
+            model => model.PCSupportCD,
+            new SelectList(Model.PCSupportSelectList, "Value", "DisplayText"),
+            "",
+            new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label title-label">住所</label>
+        </div>
+        <div class="col-sm-4">
+            <input type="text" class="form-control width-len50" maxlength="50" id="BukkenNO" name="BukkenNO" />
+        </div>
+        <div class="col-sm-2">
+            <label class="col-form-label title-label">担当CADマン</label>
+        </div>
+        <div class="col-sm-4">
+            @Html.DropDownListFor(
+            model => model.TantouCadCD,
+            new SelectList(Model.CADStaffSelectList, "Value", "DisplayText"),
+            "",
+            new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="footer-btn mx-auto">
+            <button type="button" id="btnReturn" class="btn btn-info">加工指示</button>
+            <button type="button" id="btnReturn" class="btn btn-info">加工承諾書</button>
+            <button type="button" id="btnReturn" class="btn btn-info">ﾌﾟﾚｶｯﾄ実績日報</button>
+            <button type="button" id="btnReturn" class="btn btn-secondary">戻る</button>
+            <button type="button" id="btnSave" class="btn btn-primary active">登録</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#btnReturn').click(function () {
+                showConfirmMessage("Q004", function () {
+                    window.location.reload();
+                });
+            });
+
+            $('#btnSave').click(function () {
+            });
+
+            //初期表示
+            $('#SitenCD').focus();
+        });
+
+    </script>
+}

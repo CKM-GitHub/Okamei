@@ -1,0 +1,109 @@
+﻿@{
+    string userId = "";
+    string userName = "nameless";
+    string applicationPath = System.Web.Hosting.HostingEnvironment.ApplicationVirtualPath;
+    if (Session["UserInfo"] != null)
+    {
+        userId = Session["UserInfo"].ToString().Split('_')[0];
+        userName = Session["UserInfo"].ToString().Split('_')[1];
+    }
+}
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Okamei Production Web System">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>OkameiProduction.Web</title>
+    @Styles.Render("~/Menu/css")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" type='text/css' />
+    <link rel="stylesheet" href="https://cdn.datatables.net/v/bs4/jq-3.6.0/dt-1.11.3/datatables.min.css" type="text/css" />
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div id="nav-toggle">
+        <div>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <aside id="nav-sidebar" class="scroll">
+        <nav id="nav-menu">
+            <ul id="accordion-menu">
+                <li class="sub-menu">
+                    <a href="~/Home/Index">Home</a>
+                </li>
+                <li class="sub-menu">
+                    <a data-toggle="collapse" href="#menu01" aria-controls="#menu01" aria-expanded="false">物件詳細登録</a>
+                    <ul id="menu01" class="collapse" data-parent="#accordion-menu">
+                        <li><a href="~/BukkenShousai/Entry">物件詳細登録</a></li>
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a data-toggle="collapse" href="#menu02" aria-controls="#menu02" aria-expanded="false">物件情報</a>
+                    <ul id="menu02" class="collapse" data-parent="#accordion-menu">
+                        <li><a href="~/BukkenItiran/SetCondition">物件一覧</a></li>
+                        <li><a href="~/KadouKeikaku/SetCondition">稼働計画</a></li>
+                        <li><a href="~/HundeggerItiran/SetCondition">フンデガー</a></li>
+                        <li><a href="~/HiuchiItiran/SetCondition">火打</a></li>
+                        <li><a href="~/MoulderItiran/SetCondition">モルダー</a></li>
+                        <li><a href="~/CADInputStaff/SetCondition">CAD入力者担当状況</a></li>
+                        <li><a href="~/HonMitumoriMiteisyutu/SetCondition">伏図未提出物件</a></li>
+                        <li><a href="#">担当者未定物件</a></li>
+                        <li><a href="#">入力段階別</a></li>
+                        <li><a href="#">S見積管理表</a></li>
+                        <li><a href="#">営業実績･見込み</a></li>
+                        <li><a href="#">運送会社倉庫入</a></li>
+                        <li><a href="#">区分対象物件</a></li>
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a data-toggle="collapse" href="#menu03" aria-controls="#menu03" aria-expanded="false">マスタメンテ</a>
+                    <ul id="menu03" class="collapse" data-parent="#accordion-menu">
+                        <li><a href="#">汎用マスタ検索</a></li>
+                        <li><a href="#">汎用マスタメンテ</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <div id="global-container">
+        <header id="global-head">
+            <div id="brand-logo">
+                <img src="@Url.Content("~/Images/brandlogo.png")" alt="Logo">
+            </div>
+            <div id="user-area" class="dropdown">
+                <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img id="user-avatar" class="-disabled-" src="@Url.Content("~/Images/user.png")" alt="User Avatar">
+                    <label hidden id="user-id">@userId</label><label id="user-name">@userName</label>
+                </a>
+                <div id="user-menu" class="dropdown-menu">
+                    <a id="user-link" href="~/User/Login"><i id="user-power-off" class="fa fa-power-off"></i>サインアウト</a>
+                </div>
+            </div>
+        </header>
+        <main id="global-sub-container" class="container-fluid">
+            @RenderBody()
+            <section class="inner"></section>
+        </main>
+    </div><!-- /#container -->
+    @Scripts.Render("~/bundles/Menu")
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.6.0/dt-1.11.3/datatables.min.js"></script>
+    <script type="text/javascript">
+        gPath = '@applicationPath';
+        (function ($) {
+            $(function () {
+                $('#nav-toggle').on('click', function () {
+                    $('body').toggleClass('closeMenu');
+                });
+            });
+        })(jQuery);
+    </script>
+    @RenderSection("scripts", required: false)
+    @RenderSection("styles", required: false)
+</body>
+</html>

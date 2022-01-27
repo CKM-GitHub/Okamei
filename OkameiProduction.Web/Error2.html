@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        * {
+            margin: 0px auto;
+            padding: 0px;
+            text-align: center;
+        }
+
+        body {
+            background-color: #66cdaa;
+        }
+
+        .cont_principal {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .cont_error {
+            position: absolute;
+            width: 100%;
+            height: 300px;
+            top: 50%;
+            margin-top: -150px;
+        }
+
+            .cont_error > h1 {
+                font-family: sans-serif;
+                font-weight: 400;
+                font-size: 100px;
+                color: #fff;
+                position: relative;
+                /*left: -100%;*/
+                transition: all 0.5s;
+            }
+
+
+            .cont_error > p {
+                font-family: sans-serif;
+                font-weight: 300;
+                font-size: 24px;
+                letter-spacing: 5px;
+                /*color: #9294AE;*/
+                color: #033560;
+                position: relative;
+                /*left: 100%;*/
+                transition: all 0.5s;
+                transition-delay: 0.5s;
+                -webkit-transition: all 0.5s;
+                -webkit-transition-delay: 0.5s;
+            }
+
+        .cont_error_active > .cont_error > h1 {
+            left: 0%;
+        }
+
+        .cont_error_active > .cont_error > p {
+            left: 0%;
+        }
+    </style>
+</head>
+<body>
+    <div class="cont_principal">
+        <div class="cont_error">
+            <h1>404</h1>
+            <p>ご指定のページが見つかりませんでした。システム管理者にご連絡ください。</p>
+        </div>
+    </div>
+    <script>
+        //window.onload = function () {
+        //    document.querySelector('.cont_principal').className = "cont_principal cont_error_active";
+        //}
+    </script>
+</body>
+</html>

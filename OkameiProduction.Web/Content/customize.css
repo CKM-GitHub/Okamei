@@ -1,0 +1,136 @@
+﻿/* bootstrap 
+--------------------------------------------------*/
+.form-group {
+    margin-bottom: 0.8rem;
+}
+
+.form-control {
+    font-size: 14px;
+}
+
+.col-form-label {
+    font-size: 14px;
+}
+
+.btn-secondary {
+    width: 120px;
+    margin-top: 5px;
+    margin-right: 2px;
+    margin-left: 2px;
+}
+
+.btn-primary {
+    width: 220px;
+    margin-top: 5px;
+    margin-right: 2px;
+    margin-left: 2px;
+}
+
+.btn-info {
+    min-width: 120px;
+    margin-top: 5px;
+    margin-right: 2px;
+    margin-left: 2px;
+    /*background-color: #FFDBE1;*/
+}
+
+.custom-radio {
+    padding-bottom:0px;
+    padding-left:0px !important;
+}
+
+/* Okamei 
+--------------------------------------------------*/
+.main-content {
+    padding: 20px 15px 2px 15px;
+    background-color: #fff;
+    margin: 0px;
+    font-family: sans-serif;
+    font-size: 14px;
+    min-height: 840px;
+}
+
+    .main-content select {
+        max-width: 396px;
+    }
+
+.footer-btn {
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.title-label {
+    background-color: #f0f8ff;
+    border-radius: 0.25rem;
+    width: 100%;
+    padding-left: 15px;
+    margin-left: 10px;
+}
+
+    .title-label.pk {
+        background-color: #FFDBE1;
+    }
+
+.require-mark {
+    color: red;
+    margin-left: 2px;
+}
+
+.custom-radio-label {
+    margin-bottom: 0px;
+    padding-right: 20px;
+    padding-top: 8px;
+}
+
+.width-len6 {
+    max-width: 80px!important;
+}
+
+.width-len7 {
+    max-width: 88px !important;
+}
+
+.width-len8 {
+    max-width: 98px !important;
+}
+
+.width-len10 {
+    max-width: 116px !important;
+}
+
+.width-len16 {
+    max-width: 170px !important;
+}
+.width-len20 {
+    max-width: 204px !important;
+}
+
+.width-len38 {
+    max-width: 360px !important;
+}
+
+.width-len40 {
+    max-width: 376px !important;
+}
+
+.width-len50 {
+    max-width: 462px !important;
+}
+
+@media (max-width: 575px) {
+    .main-content {
+        margin: 0px;
+    }
+
+    .title-label {
+        font-weight: bold;
+        background-color: transparent;
+        margin-left: 0px;
+        padding-left: 0px;
+    }
+
+        .title-label.pk {
+            background-color: transparent;
+            color: #FF4F6F;
+        }
+}

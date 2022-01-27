@@ -1,0 +1,232 @@
+﻿@model Models.BukkenItiranModel
+
+@{
+    ViewBag.Title = "BukkenItiranCondition";
+    var serverDate = ViewBag.ServerDate;
+}
+
+<h4>物件一覧</h4>
+<div id="main" class="main-content">
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label title-label">支店</label>
+        </div>
+        <div class="col-sm-10">
+            @Html.DropDownListFor(
+            model => model.SitenCD,
+            new SelectList(Model.SitenSelectList, "Value", "DisplayText"),
+            "全社",
+            new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label title-label">受注残・キャンセル失注</label>
+        </div>
+        <div class="col-sm-10">
+            <div class="custom-control custom-radio">
+                <input id="JuchuuOption1" name="JuchuuOption" type="radio" value="1" checked>
+                <label for="JuchuuOption1" class="custom-radio-label">受注残</label>
+                <input id="JuchuuOption2" name="JuchuuOption" type="radio" value="2">
+                <label for="JuchuuOption2" class="custom-radio-label">キャンセル</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label title-label">物件指定</label>
+        </div>
+        <div class="col-sm-10">
+            <div class="custom-control custom-radio">
+                <input id="BukkenSiteiOption1" name="BukkenSiteiOption" type="radio" value="1" checked>
+                <label for="BukkenSiteiOption1" class="custom-radio-label">全物件</label>
+                <input id="BukkenSiteiOption2" name="BukkenSiteiOption" type="radio" value="2">
+                <label for="BukkenSiteiOption2" class="custom-radio-label">自分関連の物件</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label title-label">納期</label>
+        </div>
+        <div class="col-sm-10 form-inline">
+            <input type="text" id="NoukiStart" name="NoukiStart" class="form-control width-len10" maxlength="10" />
+            <span>&nbsp;～&nbsp;</span>
+            <input type="text" id="NoukiEnd" name="NoukiEnd" class="form-control width-len10" maxlength="10" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label title-label">担当営業マン</label>
+        </div>
+        <div class="col-sm-10">
+            @Html.DropDownListFor(
+            model => model.TantouEigyouCD,
+            new SelectList(Model.EigyouStaffSelectList, "Value", "DisplayText"),
+            "",
+            new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label title-label">担当CADマン</label>
+        </div>
+        <div class="col-sm-10">
+            @Html.DropDownListFor(
+            model => model.TantouCadCD,
+            new SelectList(Model.CADStaffSelectList, "Value", "DisplayText"),
+            "",
+            new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label title-label">担当PCサポート</label>
+        </div>
+        <div class="col-sm-10">
+            @Html.DropDownListFor(
+            model => model.PCSupportCD,
+            new SelectList(Model.PCSupportSelectList, "Value", "DisplayText"),
+            "",
+            new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label title-label">並び順</label>
+        </div>
+        <div class="col-sm-10">
+            <div class="custom-control custom-radio">
+                <input id="SortOption1" name="SortOption" type="radio" value="1" checked>
+                <label for="SortOption1" class="custom-radio-label">納期順</label>
+                <input id="SortOption2" name="SortOption" type="radio" value="2">
+                <label for="SortOption2" class="custom-radio-label">工務店順</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label title-label">区分</label>
+        </div>
+        <div class="col-sm-10">
+            @Html.DropDownListFor(
+            model => model.KubunCD,
+            new SelectList(Model.KubunSelectList, "Value", "DisplayText"),
+            "",
+            new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label title-label">物件番号</label>
+        </div>
+        <div class="col-sm-10">
+            <input type="text" class="form-control width-len8" maxlength="8" id="BukkenNO" name="BukkenNO" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label title-label">物件名</label>
+        </div>
+        <div class="col-sm-10 form-inline">
+            <input type="text" class="form-control width-len16" maxlength="16" id="BukkenName" name="BukkenName" />
+            <span>&nbsp;※あいまい検索</span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label title-label">工務店名</label>
+        </div>
+        <div class="col-sm-10 form-inline">
+            <input type="text" class="form-control width-len20" maxlength="20" id="KoumutenName" name="KoumutenName" />
+            <span>&nbsp;※あいまい検索</span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label title-label">特注材有無</label>
+        </div>
+        <div class="col-sm-10">
+            @Html.DropDownListFor(
+            model => model.TokuchuuzaiUmu,
+            new SelectList(Model.TokuchuuzaiUmuSelectList, "Value", "DisplayText"),
+            "",
+            new { @class = "form-control width-len7" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="footer-btn mx-auto">
+            <button type="button" id="btnReturn" class="btn btn-secondary" focus-skip>戻る</button>
+            <button type="button" id="btnDisplay" class="btn btn-primary active">表示</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#btnReturn').click(function () {
+                showConfirmMessage("Q004", function () {
+                    window.location.reload();
+                });
+            });
+
+            $('#btnDisplay').click(function () {
+                if (checkErrorOnSave()) {
+                    showConfirmMessage("Q201", btnDisplayClick);
+                }
+            });
+
+            //日付チェック
+            setDateTypeValidate('#NoukiStart')
+            setDateTypeValidate('#NoukiEnd')
+            //日付大小チェック
+            setCompareDateValidate('#NoukiEnd', '#NoukiStart')
+            //半角チェック
+            setIsHalfWidthValidate('#BukkenNO');
+            //全角桁数チェック
+            setDoubleByteValidate('#BukkenName');
+            setDoubleByteValidate('#KoumutenName');
+
+            //初期表示
+            $('#NoukiStart').val('@serverDate');
+            $('#SitenCD').focus();
+        });
+
+        function btnDisplayClick() {
+            var model =
+            {
+                SitenCD: $('#SitenCD').val(),
+                JuchuuOption: $('input[name=JuchuuOption]:checked').val(),
+                BukkenSiteiOption: $('input[name=BukkenSiteiOption]:checked').val(),
+                NoukiStart: $('#NoukiStart').val(),
+                NoukiEnd: $('#NoukiEnd').val(),
+                TantouEigyouCD: $('#TantouEigyouCD').val(),
+                TantouCadCD: $('#TantouCadCD').val(),
+                PCSupportCD: $('#PCSupportCD').val(),
+                SortOption: $('input[name=SortOption]:checked').val(),
+                KubunCD: $('#KubunCD').val(),
+                BukkenNO: $('#BukkenNO').val(),
+                BukkenName: $('#BukkenName').val(),
+                KoumutenName: $('#KoumutenName').val(),
+                TokuchuuzaiUmu: $('#TokuchuuzaiUmu').val(),
+                UserID: $('#user-id').text()
+            };
+
+            var result = callApiController('@Url.Action("ExistsDisplayResult", "api/BukkenItiranApi")', model);
+            if (!result || !result.status) {
+                return false;
+            }
+            if (result && result.MessageID) {
+                showMessage(result);
+                return false;
+            }
+
+            location.href = '@Url.Action("DisplayResult", "BukkenItiran")' + querySerialize(model);
+            return true;
+        }
+
+    </script>
+}
