@@ -8,7 +8,8 @@ namespace OkameiProduction.BL
     {
         public static DBInfoEntity DBInfo { get; set; }
 
-        public static Dictionary<string, MessageInfo> SystemMessages { get; set; }
+        public static Dictionary<string, MessageInfo> SystemMessages { get; set; } 
+            = new Dictionary<string, MessageInfo>();
 
         private static readonly object _lockObject = new object();
 
@@ -19,8 +20,8 @@ namespace OkameiProduction.BL
         }
         public static void SetMessageCache()
         {
-            MessageBL dl = new MessageBL();
-            SystemMessages = dl.SelecetAll();
+            //MessageBL dl = new MessageBL();
+            //SystemMessages = dl.SelecetAll();
         }
         public static MessageInfo GetMessageInfo(string id)
         {

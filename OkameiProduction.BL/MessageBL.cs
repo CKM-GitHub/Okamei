@@ -46,7 +46,7 @@ namespace OkameiProduction.BL
             sqlParams[0] = new SqlParameter("@MessageID", SqlDbType.VarChar) { Value = messageid };
 
             DBAccess db = new DBAccess();
-            var dt = db.SelectDatatable("M_Message_SelectByID");
+            var dt = db.SelectDatatable("M_Message_SelectByID", sqlParams);
 
             //未登録
             if (dt.Rows.Count == 0)
