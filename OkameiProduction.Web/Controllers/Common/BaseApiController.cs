@@ -46,10 +46,5 @@ namespace OkameiProduction.Web.Controllers
         {
             return Newtonsoft.Json.JsonConvert.SerializeObject(table);
         }
-
-        protected void CreateSession(string key, string value)
-        {
-            HttpContext.Current.Session[key] = value;
-        }
     }
 }

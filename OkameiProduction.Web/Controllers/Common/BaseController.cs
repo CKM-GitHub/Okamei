@@ -6,6 +6,7 @@ using Models;
 
 namespace OkameiProduction.Web.Controllers
 {
+    [CustomHandleErrorAttribute]
     [SessionFilter]
     public class BaseController : Controller
     {

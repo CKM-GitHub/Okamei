@@ -9,74 +9,57 @@
             <div class="login-pic js-tilt" data-tilt>
                 <img src="@Url.Content("~/images/brandlogo.png")" alt="IMG">
             </div>
-
-            <form id="f1">
+            <form id="f1" method="post" action="@Url.Action("Login", "User")">
                 <span class="login-form-title">
                     生産管理システム
                 </span>
 
                 <div class="wrap-input-login">
-                    <input id="UserID" class="input-login" type="text" name="user" required placeholder="User ID" maxlength="40" autocomplete="off">
+                    <input id="UserID" class="input-login" type="text" name="UserID" required placeholder="User ID" maxlength="40" autocomplete="off">
                     <span class="symbol-input-login">
                         <i class="fas fa-user-circle" aria-hidden="true"></i>
                     </span>
                 </div>
 
                 <div class="wrap-input-login">
-                    <input id="Password" class="input-login" type="password" name="pass" required placeholder="Password" maxlength="40" autocomplete="off">
+                    <input id="Password" class="input-login" type="password" name="Password" required placeholder="Password" maxlength="40" autocomplete="off">
                     <span class="symbol-input-login">
                         <i class="fa fa-lock" aria-hidden="true"></i>
                     </span>
                 </div>
 
                 <div class="container-login-form-btn">
-                    <button id="btnLogin" class="login-form-btn">
+                    <button type="submit" id="btnLogin" class="login-form-btn">
                         ログイン
                     </button>
                 </div>
-
             </form>
         </div>
     </div>
 </div>
 
 @section Scripts{
-    <script type="text/javascript">
+<script type="text/javascript">
         $(document).ready(function () {
             $("#UserID").focus();
 
-            //prevent default submit
             $("#f1").submit(function (e) {
-                return false;
-            });
-
-            $('#btnLogin').click(function () {
-                btnLoginClick();
-            });
-        });
-
-        function btnLoginClick() {
-            if (!($('#UserID').val().trim() == '' || $('#Password').val().trim() == '')) {
-                var model = {
-                    UserID: $('#UserID').val(),
-                    Password: $('#Password').val()
-                };
-
-                var result = callApiController('@Url.Action("SelectForLogin", "api/UserApi")', model);
-                if (!result || !result.status) {
+                if ($('#UserID').val().trim() == '' || $('#Password').val().trim() == '') {
                     return false;
                 }
-                if (result && result.MessageID) {
-                    showMessage(result, function () {
-                        $('#UserID').val('');
-                        $('#Password').val('');
-                        return false;
-                    });
+                return true;
+            });
+
+            if ('@ViewBag.IsPostback' == "true")
+            {
+                var msg = { MessageID: '@ViewBag.MessageID', MessageText1: '@ViewBag.MessageText1', MessageIcon: '@ViewBag.MessageIcon'};
+                showMessage(msg, function () {
+                    $('#UserID').val('');
+                    $('#Password').val('');
                     return false;
-                }
-                location.href = '@Url.Action("Index", "Home")';
+                });
             }
-        }
+        });
 
         function showMessage(msg, callback) {
             Swal.fire({
@@ -86,29 +69,5 @@
             }).then(callback);
         }
 
-        function callApiController(url, model) {
-            var result;
-            $.ajax({
-                url: url.replace("%2F", "/"),
-                method: 'POST',
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(model),
-                async: false,
-                headers:
-                {
-                    Authorization: 'Basic ' + btoa('ogUzkq=EopiYA,U33yzf' + ':' + 'e>gW0BXP85@7-#*~k1@a')
-                },
-                success: function (data) {
-                    result = JSON.parse(data);
-                    result.status = true;
-                },
-                error: function (data) {
-                    alert(data.status + ':' + data.statusText);
-                    result.status = false;
-                }
-            });
-            return result;
-        }
-    </script>
+</script>
 }

@@ -172,7 +172,6 @@
     <Compile Include="Controllers\Common\HomeController.cs" />
     <Compile Include="Controllers\Common\CommonApiController.cs" />
     <Compile Include="Filters\SessionFilterAttribute.cs" />
-    <Compile Include="Controllers\User\UserApiController.cs" />
     <Compile Include="Filters\UserAuthentication.cs" />
     <Compile Include="Controllers\User\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -376,7 +375,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>61795</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:61795/Test/</IISUrl>
+          <IISUrl>http://localhost:61795/Okamei/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

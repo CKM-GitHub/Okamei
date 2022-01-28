@@ -19,7 +19,7 @@ namespace OkameiProduction.Web.Controllers
         }
 
         // GET: 
-        public ActionResult DisplayResult (string id)
+        public ActionResult DisplayResult ()
         {
             var vm = GetFromQueryString<BukkenItiranModel>();
 

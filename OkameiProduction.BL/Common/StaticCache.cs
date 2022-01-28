@@ -20,8 +20,8 @@ namespace OkameiProduction.BL
         }
         public static void SetMessageCache()
         {
-            //MessageBL dl = new MessageBL();
-            //SystemMessages = dl.SelecetAll();
+            MessageBL dl = new MessageBL();
+            SystemMessages = dl.SelecetAll();
         }
         public static MessageInfo GetMessageInfo(string id)
         {

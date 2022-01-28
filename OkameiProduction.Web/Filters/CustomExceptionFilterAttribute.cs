@@ -23,8 +23,16 @@ namespace OkameiProduction.Web
                 actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(HttpStatusCode.NotImplemented, ex);
             }
 
-            string userInfo = "LoginUser:" + HttpContext.Current.Session["UserInfo"].ToStringOrEmpty();
-            Logger.GetInstance().Error(ex, userInfo);
+            var logInfo = new
+            {
+                HTTPStatus = (actionExecutedContext.Response == null) ? "" : actionExecutedContext.Response.StatusCode.ToString(),
+                Request = actionExecutedContext.Request.ToString(),
+                Parameter = actionExecutedContext.ActionContext.ActionArguments,
+                Response = (actionExecutedContext.Response == null || actionExecutedContext.Response.Content == null) ? ""
+                    : actionExecutedContext.Response.Content.ReadAsStringAsync().Result
+            };
+
+            Logger.GetInstance().Error(ex, Newtonsoft.Json.JsonConvert.SerializeObject(logInfo));
 
             base.OnException(actionExecutedContext);
         }
