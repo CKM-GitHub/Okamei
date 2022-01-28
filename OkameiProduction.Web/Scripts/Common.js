@@ -1,4 +1,4 @@
-﻿var gPath = ""; //value is set in "_Layout.cshtml"
+﻿var gAbsolutePath = ""; //value is set in "_Layout.cshtml"
 var gCommonApiUrl = "/api/CommonApi/";
 var gCustomValidate = function (ctrl) { return true; }
 
@@ -60,7 +60,7 @@ function bindDataTables(table, dispLength) {
         paging: true,
         scrollX: true,
         scrollY: false,
-        searching: true,
+        searching: false,
         ordering: false,
         lengthChange: false,
         autowidth: false
@@ -100,7 +100,7 @@ function showConfirmMessage(msgid, callback) {
     var model = {
         MessageID: msgid,
     };
-    var msgdata = callApiController(gPath + gCommonApiUrl + "GetMessage", model);
+    var msgdata = callApiController(gAbsolutePath + gCommonApiUrl + "GetMessage", model);
     if (!msgdata || !msgdata.status) {
         return false;
     }
@@ -176,7 +176,7 @@ function checkCommon(ctrl) {
 
     var required = ctrl.attr("validate-required");
     if (required && !ctrl.val()) {
-        var msgdata = callApiController(gPath + gCommonApiUrl + "GetMessage", { MessageID: "E102" });
+        var msgdata = callApiController(gAbsolutePath + gCommonApiUrl + "GetMessage", { MessageID: "E102" });
         if (!msgdata || !msgdata.status) {
             return false;
         }
@@ -205,7 +205,7 @@ function checkCommon(ctrl) {
                 model.MaxLength = ctrl.attr('maxlength');
             }
 
-            var result = callApiController(gPath + gCommonApiUrl + 'CheckValid', model);
+            var result = callApiController(gAbsolutePath + gCommonApiUrl + 'CheckValid', model);
             if (!result || !result.status) {
                 return false;
             }
