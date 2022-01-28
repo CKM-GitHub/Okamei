@@ -56,6 +56,12 @@ namespace OkameiProduction.Web
                         return;
                     }
 
+                    if (ex is CustomException)
+                    {
+                        // Iniファイル設定
+                        return;
+                    }
+
                     try
                     {
                         string userInfo = "LoginUser:" + HttpContext.Current.Session["UserInfo"].ToStringOrEmpty();

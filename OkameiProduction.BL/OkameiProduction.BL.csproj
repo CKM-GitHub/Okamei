@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="BukkenItiranBL.cs" />
     <Compile Include="CommonBL.cs" />
+    <Compile Include="Common\CustomException.cs" />
     <Compile Include="Common\Logger.cs" />
     <Compile Include="Common\DBAccess.cs" />
     <Compile Include="Common\DBInfoEntity.cs" />

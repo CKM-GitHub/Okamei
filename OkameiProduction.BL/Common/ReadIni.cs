@@ -14,7 +14,7 @@
             string[] iniString = GetValue("Database", "Okamei").Split(',');
             if (iniString.Length < 4)
             {
-                throw new System.Exception("INIファイルが正しく設定されていません。");
+                throw new CustomException("INIファイルが正しく設定されていません。");
             }
 
             DBInfoEntity dbInfo = new DBInfoEntity(iniString[0], iniString[1], iniString[2], iniString[3]);
