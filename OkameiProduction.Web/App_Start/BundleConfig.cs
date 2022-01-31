@@ -8,6 +8,7 @@ namespace OkameiProduction.Web
         // バンドルの詳細については、https://go.microsoft.com/fwlink/?LinkId=301862 を参照してください
         public static void RegisterBundles(BundleCollection bundles)
         {
+            //js
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/lib/modernizr-*"
                         ));
@@ -15,24 +16,25 @@ namespace OkameiProduction.Web
                         "~/Scripts/lib/jquery-{version}.js"
                         ));
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                        "~/Scripts/lib/bootstrap.bundle.min.js"
+                        "~/Scripts/lib/bootstrap.bundle.js"
                         ));
-            bundles.Add(new ScriptBundle("~/bundles/menu").Include(
-                        "~/Scripts/lib/SweetAlert2.js",
+            bundles.Add(new ScriptBundle("~/bundles/common").Include(
+                        "~/Scripts/SweetAlert2.js",
                         "~/Scripts/Common.js"
                         ));
             bundles.Add(new ScriptBundle("~/bundles/login").Include(
-                        "~/Scripts/lib/SweetAlert2.js",
-                        "~/Scripts/lib/tilt.jquery.js"
+                        "~/Scripts/SweetAlert2.js",
+                        "~/Scripts/tilt.jquery.js"
                         ));
 
-
-            bundles.Add(new StyleBundle("~/Content/loginCss").Include(
-                        "~/Content/lib/bootstrap.css",
+            //css
+            bundles.Add(new StyleBundle("~/Content/lib/css").Include(
+                        "~/Content/lib/bootstrap.css"
+                        ));
+            bundles.Add(new StyleBundle("~/Content/login/Css").Include(
                         "~/Content/login.css"
                         ));
-            bundles.Add(new StyleBundle("~/Content/Css").Include(
-                        "~/Content/lib/bootstrap.css",
+            bundles.Add(new StyleBundle("~/Content/common/Css").Include(
                         "~/Content/menu.css",
                         "~/Content/customize.css",
                         "~/Content/inputsize.css"

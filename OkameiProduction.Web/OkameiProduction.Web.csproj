@@ -287,8 +287,8 @@
     <Content Include="Scripts\lib\src\utils\setAttributes.js" />
     <Content Include="Scripts\lib\src\utils\setStyles.js" />
     <Content Include="Scripts\lib\src\utils\setupEventListeners.js" />
-    <Content Include="Scripts\lib\SweetAlert2.js" />
-    <Content Include="Scripts\lib\tilt.jquery.js" />
+    <Content Include="Scripts\SweetAlert2.js" />
+    <Content Include="Scripts\tilt.jquery.js" />
     <Content Include="Scripts\lib\tilt.jquery.min.js" />
     <Content Include="Scripts\lib\umd\popper-utils.js" />
     <Content Include="Scripts\lib\umd\popper-utils.js.map" />
