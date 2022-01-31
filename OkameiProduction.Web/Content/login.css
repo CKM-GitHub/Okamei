@@ -1,14 +1,8 @@
 ﻿/* restyle
 -------------------------------------------------- */
-* {
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-}
-
-body, html {
-    height: 100%;
-    font-family: sans-serif;
+body {
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
 }
 
 input {
@@ -110,13 +104,13 @@ iframe {
 
 /*---------------------------------------------*/
 .login-pic {
-    /*width: 316px;*/
+    width: 316px;
     padding-top: 50px;
 }
 
     .login-pic img {
         max-width: 100%;
-        zoom: 150%;
+        zoom: 168%;
     }
 
 /*---------------------------------------------*/
@@ -125,7 +119,7 @@ iframe {
 }
 
 .login-form-title {
-    font-size: 24px;
+    font-size: 26px;
     font-weight: bold;
     color: #333333;
     line-height: 1.2;
@@ -144,7 +138,6 @@ iframe {
 }
 
 .input-login {
-    font-size: 15px;
     line-height: 1.5;
     color: #666666;
     display: block;
@@ -156,7 +149,7 @@ iframe {
 }
 
 .symbol-input-login {
-    font-size: 20px;
+    font-size: 22px;
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -197,7 +190,6 @@ iframe {
 }
 
 .login-form-btn {
-    font-size: 15px;
     font-weight: bold;
     line-height: 1.5;
     color: #fff;

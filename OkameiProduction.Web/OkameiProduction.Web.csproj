@@ -186,23 +186,24 @@
     <Content Include="Content\customize.css" />
     <Content Include="Content\login.css" />
     <Content Include="Content\menu.css" />
+    <Content Include="Content\inputsize.css" />
     <Content Include="Error2.html" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\brandlogo.png" />
-    <Content Include="Images\user.png" />
-    <Content Include="Scripts\lib\esm\popper-utils.js" />
-    <Content Include="Scripts\lib\esm\popper-utils.min.js" />
-    <Content Include="Scripts\lib\esm\popper.js" />
-    <Content Include="Scripts\lib\esm\popper.min.js" />
-    <Content Include="Scripts\lib\esm\popper.min.js.map" />
-    <Content Include="Scripts\lib\esm\popper.js.map" />
-    <Content Include="Scripts\lib\esm\popper-utils.min.js.map" />
-    <Content Include="Scripts\lib\esm\popper-utils.js.map" />
     <Content Include="Scripts\lib\bootstrap.bundle.js" />
     <Content Include="Scripts\lib\bootstrap.bundle.min.js" />
     <Content Include="Scripts\lib\bootstrap.js" />
+    <Content Include="Scripts\lib\bootstrap.js.map" />
     <Content Include="Scripts\lib\bootstrap.min.js" />
+    <Content Include="Scripts\lib\esm\popper-utils.js" />
+    <Content Include="Scripts\lib\esm\popper-utils.js.map" />
+    <Content Include="Scripts\lib\esm\popper-utils.min.js" />
+    <Content Include="Scripts\lib\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\lib\esm\popper.js" />
+    <Content Include="Scripts\lib\esm\popper.js.map" />
+    <Content Include="Scripts\lib\esm\popper.min.js" />
+    <Content Include="Scripts\lib\esm\popper.min.js.map" />
     <Content Include="Scripts\lib\index.js.flow" />
     <Content Include="Scripts\Common.js" />
     <Content Include="Scripts\lib\jquery-3.6.0.min.map" />
@@ -223,9 +224,6 @@
     <Content Include="Scripts\lib\popper-utils.min.js" />
     <Content Include="Scripts\lib\popper.js" />
     <Content Include="Scripts\lib\popper.min.js" />
-    <Content Include="Scripts\lib\SweetAlert2.js" />
-    <Content Include="Scripts\lib\tilt.jquery.js" />
-    <Content Include="Scripts\lib\tilt.jquery.min.js" />
     <Content Include="Scripts\lib\src\index.js" />
     <Content Include="Scripts\lib\src\methods\defaults.js" />
     <Content Include="Scripts\lib\src\methods\destroy.js" />
@@ -289,10 +287,18 @@
     <Content Include="Scripts\lib\src\utils\setAttributes.js" />
     <Content Include="Scripts\lib\src\utils\setStyles.js" />
     <Content Include="Scripts\lib\src\utils\setupEventListeners.js" />
+    <Content Include="Scripts\lib\SweetAlert2.js" />
+    <Content Include="Scripts\lib\tilt.jquery.js" />
+    <Content Include="Scripts\lib\tilt.jquery.min.js" />
     <Content Include="Scripts\lib\umd\popper-utils.js" />
+    <Content Include="Scripts\lib\umd\popper-utils.js.map" />
     <Content Include="Scripts\lib\umd\popper-utils.min.js" />
+    <Content Include="Scripts\lib\umd\popper-utils.min.js.map" />
     <Content Include="Scripts\lib\umd\popper.js" />
+    <Content Include="Scripts\lib\umd\popper.js.flow" />
+    <Content Include="Scripts\lib\umd\popper.js.map" />
     <Content Include="Scripts\lib\umd\popper.min.js" />
+    <Content Include="Scripts\lib\umd\popper.min.js.map" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -310,11 +316,6 @@
     <Content Include="Views\BukkenItiran\DisplayResult.cshtml" />
     <Content Include="Views\BukkenShousai\Entry.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Scripts\lib\umd\popper.min.js.map" />
-    <Content Include="Scripts\lib\umd\popper.js.map" />
-    <Content Include="Scripts\lib\umd\popper.js.flow" />
-    <Content Include="Scripts\lib\umd\popper-utils.min.js.map" />
-    <Content Include="Scripts\lib\umd\popper-utils.js.map" />
     <Content Include="Scripts\lib\popper-utils.js.map" />
     <Content Include="Scripts\lib\popper-utils.min.js.map" />
     <Content Include="Scripts\lib\popper.js.map" />
@@ -338,7 +339,6 @@
     </None>
     <Content Include="Scripts\lib\bootstrap.bundle.js.map" />
     <Content Include="Scripts\lib\bootstrap.bundle.min.js.map" />
-    <Content Include="Scripts\lib\bootstrap.js.map" />
     <Content Include="Scripts\lib\bootstrap.min.js.map" />
   </ItemGroup>
   <ItemGroup>
@@ -376,7 +376,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>61795</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:61795/Okamei/</IISUrl>
+          <IISUrl>http://localhost:61795/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

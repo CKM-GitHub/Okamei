@@ -34,7 +34,8 @@ namespace OkameiProduction.Web
             bundles.Add(new StyleBundle("~/Content/Css").Include(
                         "~/Content/lib/bootstrap.css",
                         "~/Content/menu.css",
-                        "~/Content/customize.css"
+                        "~/Content/customize.css",
+                        "~/Content/inputsize.css"
                         ));
 
         }

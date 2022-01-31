@@ -1,6 +1,10 @@
 ﻿@{
-    string urlAuth = System.Web.HttpContext.Current.Request.Url.Authority;
+    //string urlAuth = System.Web.HttpContext.Current.Request.Url.Authority;
     string appPath = System.Web.Hosting.HostingEnvironment.ApplicationVirtualPath;
+    if (appPath == "/")
+    {
+        appPath = "";
+    }
     string userId = "";
     string userName = "nameless";
     if (Session["UserInfo"] != null)
@@ -19,33 +23,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>OkameiProduction.Web</title>
     @Styles.Render("~/Content/Css")
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" type='text/css' />
-    <link rel="stylesheet" href="https://cdn.datatables.net/v/bs4/jq-3.6.0/dt-1.11.3/datatables.min.css" type="text/css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/v/bs4/jq-3.6.0/dt-1.11.3/datatables.min.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div id="nav-toggle">
+    <div class="nav-toggle">
         <div>
             <span></span>
             <span></span>
             <span></span>
         </div>
     </div>
-    <aside id="nav-sidebar" class="scroll">
-        <nav id="nav-menu">
-            <ul id="accordion-menu">
-                <li class="sub-menu">
+    <aside class="nav-sidebar scroll">
+        <nav class="nav-menu">
+            <ul id="accordionOwner">
+                <li class="nav-menu-category">
                     <a href="~/Home/Index">Home</a>
                 </li>
-                <li class="sub-menu">
-                    <a data-toggle="collapse" href="#menu01" aria-controls="#menu01" aria-expanded="false">物件詳細登録</a>
-                    <ul id="menu01" class="collapse" data-parent="#accordion-menu">
+                <li class="nav-menu-category">
+                    <a data-toggle="collapse" href="#category01" aria-controls="#category01" aria-expanded="false">物件詳細登録</a>
+                    <ul id="category01" class="collapse" data-parent="#accordionOwner">
                         <li><a href="~/BukkenShousai/Entry">物件詳細登録</a></li>
                     </ul>
                 </li>
-                <li class="sub-menu">
-                    <a data-toggle="collapse" href="#menu02" aria-controls="#menu02" aria-expanded="false">物件情報</a>
-                    <ul id="menu02" class="collapse" data-parent="#accordion-menu">
+                <li class="nav-menu-category">
+                    <a data-toggle="collapse" href="#category02" aria-controls="#category02" aria-expanded="false">物件情報</a>
+                    <ul id="category02" class="collapse" data-parent="#accordionOwner">
                         <li><a href="~/BukkenItiran/SetCondition">物件一覧</a></li>
                         <li><a href="~/KadouKeikaku/">稼働計画</a></li>
                         <li><a href="~/HundeggerItiran/">フンデガー</a></li>
@@ -61,9 +65,9 @@
                         <li><a href="~/KubunTaisyou/">区分対象物件</a></li>
                     </ul>
                 </li>
-                <li class="sub-menu">
-                    <a data-toggle="collapse" href="#menu03" aria-controls="#menu03" aria-expanded="false">マスタメンテ</a>
-                    <ul id="menu03" class="collapse" data-parent="#accordion-menu">
+                <li class="nav-menu-category">
+                    <a data-toggle="collapse" href="#category03" aria-controls="#category03" aria-expanded="false">マスタメンテ</a>
+                    <ul id="category03" class="collapse" data-parent="#accordionOwner">
                         <li><a href="#">汎用マスタ検索</a></li>
                         <li><a href="#">汎用マスタメンテ</a></li>
                     </ul>
@@ -71,22 +75,23 @@
             </ul>
         </nav>
     </aside>
-    <div id="global-container">
-        <header id="global-head">
-            <div id="brand-logo">
+    <div id="globalContainer" class="global-container">
+        <header class="global-header">
+            <div class="header-brand-logo">
                 <img src="@Url.Content("~/Images/brandlogo.png")" alt="Logo">
             </div>
-            <div id="user-area" class="dropdown">
-                <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img id="user-avatar" class="-disabled-" src="@Url.Content("~/Images/user.png")" alt="User Avatar">
-                    <label hidden id="user-id">@userId</label><label id="user-name">@userName</label>
+            <div class="header-user-area dropdown">
+                <a href="#" class="dropdown-toggle active form-inline" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="material-icons">account_circle</span>
+                    <span id="user-id" hidden>@userId</span>
+                    <span id="user-name">@userName</span>
                 </a>
-                <div id="user-menu" class="dropdown-menu">
-                    <a id="user-link" href="~/User/Login"><i id="user-power-off" class="fa fa-power-off"></i>サインアウト</a>
+                <div class="dropdown-menu">
+                    <a href="~/User/Login"><i class="fa fa-power-off"></i>サインアウト</a>
                 </div>
             </div>
         </header>
-        <main id="global-sub-container" class="container-fluid">
+        <main id="globalSubContainer" class="global-sub-container container-fluid">
             @RenderBody()
             <section class="inner"></section>
         </main>
@@ -96,10 +101,11 @@
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.6.0/dt-1.11.3/datatables.min.js"></script>
     @Scripts.Render("~/bundles/menu")
     <script type="text/javascript">
-        gAbsolutePath = 'http://' + '@urlAuth' + '@appPath';
+        @*gAbsolutePath = 'http://' + '@urlAuth' + '@appPath';*@
+        gAbsolutePath = '@appPath';
         (function ($) {
             $(function () {
-                $('#nav-toggle').on('click', function () {
+                $('.nav-toggle').on('click', function () {
                     $('body').toggleClass('closeMenu');
                 });
             });

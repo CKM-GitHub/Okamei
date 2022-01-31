@@ -70,7 +70,7 @@ function bindDataTables(table, dispLength) {
     
 }
 
-function callApiController(url, model) {
+function calltoApiController(url, model) {
     var result;
     $.ajax({
         url: url,
@@ -100,7 +100,7 @@ function showConfirmMessage(msgid, callback) {
     var model = {
         MessageID: msgid,
     };
-    var msgdata = callApiController(gAbsolutePath + gCommonApiUrl + "GetMessage", model);
+    var msgdata = calltoApiController(gAbsolutePath + gCommonApiUrl + "GetMessage", model);
     if (!msgdata || !msgdata.status) {
         return false;
     }
@@ -176,7 +176,7 @@ function checkCommon(ctrl) {
 
     var required = ctrl.attr("validate-required");
     if (required && !ctrl.val()) {
-        var msgdata = callApiController(gAbsolutePath + gCommonApiUrl + "GetMessage", { MessageID: "E102" });
+        var msgdata = calltoApiController(gAbsolutePath + gCommonApiUrl + "GetMessage", { MessageID: "E102" });
         if (!msgdata || !msgdata.status) {
             return false;
         }
@@ -205,7 +205,7 @@ function checkCommon(ctrl) {
                 model.MaxLength = ctrl.attr('maxlength');
             }
 
-            var result = callApiController(gAbsolutePath + gCommonApiUrl + 'CheckValid', model);
+            var result = calltoApiController(gAbsolutePath + gCommonApiUrl + 'CheckValid', model);
             if (!result || !result.status) {
                 return false;
             }
@@ -230,7 +230,7 @@ function checkCommon(ctrl) {
 function checkErrorOnSave(selector) {
 
     if (typeof selector === 'undefined') {
-        selector = '#global-sub-container';
+        selector = '#globalSubContainer';
     }
     if (selector.slice(0, 1) != "#") {
         selector = '#' + selector;
@@ -254,9 +254,17 @@ function checkErrorOnSave(selector) {
     return success;
 }
 
-$(document).ready(function () {
+function bindKeyPressEvent(areaid) {
 
-    var selector = '#global-sub-container :input:not(:hidden)';
+    if (typeof areaid === 'undefined') {
+        areaid = '#global-sub-container';
+    }
+    else if (areaid.slice(0, 1) != "#") {
+        areaid = '#' + areaid;
+    }
+
+    var selector = areaid + ' :input:not(:hidden)';
+
     $(selector).keypress(function (e) {
         var c = e.which ? e.which : e.keyCode;
         if (c == 13 || c == 9) {
@@ -299,7 +307,7 @@ $(document).ready(function () {
                     else index++;            // next
                 }
                 //return button -> skip
-                else if (oNext.attr("focus-skip") != undefined) {
+                else if (oNext.attr("nofocus") != undefined) {
                     if (e.shiftKey) index--; // previous
                     else index++;            // next
                 }
@@ -320,5 +328,10 @@ $(document).ready(function () {
             $(selector + cNext).focus();
         }
     }); 
+}
+
+$(document).ready(function () {
+
+    bindKeyPressEvent("#main");
 
 });

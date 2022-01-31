@@ -1,0 +1,94 @@
+﻿/* In the case of "font-size:14px", for every two increases in size, the width increases by 18px. */
+input.size1 {
+    max-width: 34px !important;
+}
+
+input.size2 {
+    max-width: 44px !important;
+}
+
+input.size3 {
+    max-width: 52px !important;
+}
+
+input.size4 {
+    max-width: 60px !important;
+}
+
+input.size5 {
+    max-width: 70px !important;
+}
+
+input.size6 {
+    max-width: 78px !important;
+}
+
+input.size7 {
+    max-width: 86px !important;
+}
+
+input.size8 {
+    max-width: 96px !important;
+}
+
+input.size9 {
+    max-width: 104px !important;
+}
+
+input.size10 {
+    max-width: 112px !important;
+}
+
+input.size11 {
+    max-width: 122px !important;
+}
+
+input.size12 {
+    max-width: 130px !important;
+}
+
+input.size13 {
+    max-width: 138px !important;
+}
+
+input.size14 {
+    max-width: 148px !important;
+}
+
+input.size15 {
+    max-width: 156px !important;
+}
+
+input.size16 {
+    max-width: 166px !important;
+}
+
+input.size20 {
+    max-width: 202px !important;
+}
+
+input.size30 {
+    max-width: 288px !important;
+}
+
+input.size40 {
+    max-width: 376px !important;
+}
+
+input.size50 {
+    max-width: 462px !important;
+}
+
+
+/* The size of select is the input.size + 20 */
+select.size6 {
+    max-width: 88px !important;
+}
+
+select.size40 {
+    max-width: 396px !important;
+}
+
+select.size50 {
+    max-width: 482px !important;
+}

@@ -12,7 +12,7 @@ BEGIN
 
     SELECT
         [Key]  AS [Value]
-        ,Char1 AS DisplayText
+        ,CONVERT(varchar(50), Char1) AS DisplayText
         ,Num1  AS SortBy
     FROM M_MultiPorpose
     WHERE ID = @ID

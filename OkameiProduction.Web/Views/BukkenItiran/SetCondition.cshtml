@@ -5,158 +5,158 @@
     var serverDate = ViewBag.ServerDate;
 }
 
-<h4>物件一覧</h4>
+<h4 class="page-title">物件一覧</h4>
 <div id="main" class="main-content">
     <div class="form-group row">
         <div class="col-sm-2">
-            <label class="col-form-label title-label">支店</label>
+            <label class="col-form-label label-title">支店</label>
         </div>
         <div class="col-sm-10">
             @Html.DropDownListFor(
             model => model.SitenCD,
             new SelectList(Model.SitenSelectList, "Value", "DisplayText"),
             "全社",
-            new { @class = "form-control" })
+            new { @class = "form-control size50" })
         </div>
     </div>
     <div class="form-group row">
         <div class="col-sm-2">
-            <label class="col-form-label title-label">受注残・キャンセル失注</label>
+            <label class="col-form-label label-title">受注残・キャンセル失注</label>
         </div>
         <div class="col-sm-10">
             <div class="custom-control custom-radio">
                 <input id="JuchuuOption1" name="JuchuuOption" type="radio" value="1" checked>
-                <label for="JuchuuOption1" class="custom-radio-label">受注残</label>
+                <label for="JuchuuOption1" class="label-custom-radio">受注残</label>
                 <input id="JuchuuOption2" name="JuchuuOption" type="radio" value="2">
-                <label for="JuchuuOption2" class="custom-radio-label">キャンセル</label>
+                <label for="JuchuuOption2" class="label-custom-radio">キャンセル</label>
             </div>
         </div>
     </div>
     <div class="form-group row">
         <div class="col-sm-2">
-            <label class="col-form-label title-label">物件指定</label>
+            <label class="col-form-label label-title">物件指定</label>
         </div>
         <div class="col-sm-10">
             <div class="custom-control custom-radio">
                 <input id="BukkenSiteiOption1" name="BukkenSiteiOption" type="radio" value="1" checked>
-                <label for="BukkenSiteiOption1" class="custom-radio-label">全物件</label>
+                <label for="BukkenSiteiOption1" class="label-custom-radio">全物件</label>
                 <input id="BukkenSiteiOption2" name="BukkenSiteiOption" type="radio" value="2">
-                <label for="BukkenSiteiOption2" class="custom-radio-label">自分関連の物件</label>
+                <label for="BukkenSiteiOption2" class="label-custom-radio">自分関連の物件</label>
             </div>
         </div>
     </div>
     <div class="form-group row">
         <div class="col-sm-2">
-            <label class="col-form-label title-label">納期</label>
+            <label class="col-form-label label-title">納期</label>
         </div>
         <div class="col-sm-10 form-inline">
-            <input type="text" id="NoukiStart" name="NoukiStart" class="form-control width-len10" maxlength="10" />
+            <input type="text" id="NoukiStart" name="NoukiStart" class="form-control size10" maxlength="10" />
             <span>&nbsp;～&nbsp;</span>
-            <input type="text" id="NoukiEnd" name="NoukiEnd" class="form-control width-len10" maxlength="10" />
+            <input type="text" id="NoukiEnd" name="NoukiEnd" class="form-control size10" maxlength="10" />
         </div>
     </div>
     <div class="form-group row">
         <div class="col-sm-2">
-            <label class="col-form-label title-label">担当営業マン</label>
+            <label class="col-form-label label-title">担当営業マン</label>
         </div>
         <div class="col-sm-10">
             @Html.DropDownListFor(
             model => model.TantouEigyouCD,
             new SelectList(Model.EigyouStaffSelectList, "Value", "DisplayText"),
             "",
-            new { @class = "form-control" })
+            new { @class = "form-control size50" })
         </div>
     </div>
     <div class="form-group row">
         <div class="col-sm-2">
-            <label class="col-form-label title-label">担当CADマン</label>
+            <label class="col-form-label label-title">担当CADマン</label>
         </div>
         <div class="col-sm-10">
             @Html.DropDownListFor(
             model => model.TantouCadCD,
             new SelectList(Model.CADStaffSelectList, "Value", "DisplayText"),
             "",
-            new { @class = "form-control" })
+            new { @class = "form-control size50" })
         </div>
     </div>
     <div class="form-group row">
         <div class="col-sm-2">
-            <label class="col-form-label title-label">担当PCサポート</label>
+            <label class="col-form-label label-title">担当PCサポート</label>
         </div>
         <div class="col-sm-10">
             @Html.DropDownListFor(
             model => model.PCSupportCD,
             new SelectList(Model.PCSupportSelectList, "Value", "DisplayText"),
             "",
-            new { @class = "form-control" })
+            new { @class = "form-control size50" })
         </div>
     </div>
     <div class="form-group row">
         <div class="col-sm-2">
-            <label class="col-form-label title-label">並び順</label>
+            <label class="col-form-label label-title">並び順</label>
         </div>
         <div class="col-sm-10">
             <div class="custom-control custom-radio">
                 <input id="SortOption1" name="SortOption" type="radio" value="1" checked>
-                <label for="SortOption1" class="custom-radio-label">納期順</label>
+                <label for="SortOption1" class="label-custom-radio">納期順</label>
                 <input id="SortOption2" name="SortOption" type="radio" value="2">
-                <label for="SortOption2" class="custom-radio-label">工務店順</label>
+                <label for="SortOption2" class="label-custom-radio">工務店順</label>
             </div>
         </div>
     </div>
     <div class="form-group row">
         <div class="col-sm-2">
-            <label class="col-form-label title-label">区分</label>
+            <label class="col-form-label label-title">区分</label>
         </div>
         <div class="col-sm-10">
             @Html.DropDownListFor(
             model => model.KubunCD,
             new SelectList(Model.KubunSelectList, "Value", "DisplayText"),
             "",
-            new { @class = "form-control" })
+            new { @class = "form-control size50" })
         </div>
     </div>
     <div class="form-group row">
         <div class="col-sm-2">
-            <label class="col-form-label title-label">物件番号</label>
+            <label class="col-form-label label-title">物件番号</label>
         </div>
         <div class="col-sm-10">
-            <input type="text" class="form-control width-len8" maxlength="8" id="BukkenNO" name="BukkenNO" />
+            <input type="text" class="form-control size8" maxlength="8" id="BukkenNO" name="BukkenNO" />
         </div>
     </div>
     <div class="form-group row">
         <div class="col-sm-2">
-            <label class="col-form-label title-label">物件名</label>
+            <label class="col-form-label label-title">物件名</label>
         </div>
         <div class="col-sm-10 form-inline">
-            <input type="text" class="form-control width-len16" maxlength="16" id="BukkenName" name="BukkenName" />
+            <input type="text" class="form-control size16" maxlength="16" id="BukkenName" name="BukkenName" />
             <span>&nbsp;※あいまい検索</span>
         </div>
     </div>
     <div class="form-group row">
         <div class="col-sm-2">
-            <label class="col-form-label title-label">工務店名</label>
+            <label class="col-form-label label-title">工務店名</label>
         </div>
         <div class="col-sm-10 form-inline">
-            <input type="text" class="form-control width-len20" maxlength="20" id="KoumutenName" name="KoumutenName" />
+            <input type="text" class="form-control size20" maxlength="20" id="KoumutenName" name="KoumutenName" />
             <span>&nbsp;※あいまい検索</span>
         </div>
     </div>
     <div class="form-group row">
         <div class="col-sm-2">
-            <label class="col-form-label title-label">特注材有無</label>
+            <label class="col-form-label label-title">特注材有無</label>
         </div>
         <div class="col-sm-10">
             @Html.DropDownListFor(
             model => model.TokuchuuzaiUmu,
             new SelectList(Model.TokuchuuzaiUmuSelectList, "Value", "DisplayText"),
             "",
-            new { @class = "form-control width-len7" })
+            new { @class = "form-control size6" })
         </div>
     </div>
     <div class="form-group row">
-        <div class="footer-btn mx-auto">
-            <button type="button" id="btnReturn" class="btn btn-secondary" focus-skip>戻る</button>
+        <div class="main-content-footer mx-auto">
+            <button type="button" id="btnReturn" class="btn btn-secondary" nofocus>戻る</button>
             <button type="button" id="btnDisplay" class="btn btn-primary active">表示</button>
         </div>
     </div>
@@ -215,7 +215,7 @@
                 UserID: $('#user-id').text()
             };
 
-            var result = callApiController('@Url.Action("ExistsDisplayResult", "api/BukkenItiranApi")', model);
+            var result = calltoApiController('@Url.Action("ExistsDisplayResult", "api/BukkenItiranApi")', model);
             if (!result || !result.status) {
                 return false;
             }
