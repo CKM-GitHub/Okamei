@@ -89,6 +89,10 @@ input[type="checkbox"] {
     transform: scale(1.5);
 }
 
+.delete-link {
+    color: red;
+}
+
 @media (max-width: 575px) {
     .main-content {
         margin: 0px;

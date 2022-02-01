@@ -34,6 +34,7 @@ BEGIN
         ,CONVERT(varchar(6), siten.Char2)                               AS TantouSitenName
         ,CONVERT(varchar(6), eigyo.Char2)                               AS TantouEigyouName
         ,CONVERT(varchar(6), cad.Char2)                                 AS TantouCadName
+		,FORMAT(buk.JuchuuDate, 'MM/dd')								AS JuchuuDate
         ,FORMAT(buk.FusezuTeishutuDate, 'MM/dd')                        AS FusezuTeishutuDate
         ,FORMAT(dbo.fnGetBusinessDay(buk.Nouki, ISNULL(mp999.Num1,0) * -1), 'MM/dd') AS ShouninKijitu
         ,FORMAT(buk.KakoutuShouninDate, 'MM/dd')                        AS KakouShouninDate 

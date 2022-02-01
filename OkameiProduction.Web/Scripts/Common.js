@@ -65,9 +65,6 @@ function bindDataTables(table, dispLength) {
         lengthChange: false,
         autowidth: false
     });
-
-  //  t.removeClass('list-table');
-    
 }
 
 function calltoApiController(url, model) { 
