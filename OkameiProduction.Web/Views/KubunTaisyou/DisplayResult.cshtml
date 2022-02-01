@@ -98,6 +98,10 @@
     #tblKubunTaisyou .delete-td {
         min-width: 30px;
     }
+
+    #tblKubunTaisyou .number-align-right {
+        float: right;
+    }
 </style>
 
 <h4>区分対象物件</h4>
@@ -113,10 +117,11 @@
                 <th>坪数</th>
                 <th>支店</th>
                 <th>営業</th>
-                <th>入力者</th> 
+                <th>入力者</th>
             </tr>
         </thead>
         <tbody>
+
             @{
                 var columns = ViewBag.Data.Columns;
             }
@@ -126,17 +131,30 @@
                 <tr>
                     @{
                         var count = row.ItemArray.Count();
-                        var items = row.ItemArray; 
+                        var items = row.ItemArray;
+                        var bukkenNo = row["BukkenNO"].ToString();
                     }
                     @for (var i = 0; i < count; i++)
                     {
                         <td class="@columns[i].Caption">
-                           
+                            @if (columns[i].Caption == "BukkenName")
+                            {
+                                @Html.ActionLink((string)items[i], "Entry", "BukkenShousai", new { Mode = "Edit", BukkenNO = bukkenNo }, new { @class = "edit-link" })
+                            }
+                            else if (columns[i].Caption == "KakoutuboSuu")
+                            {
+                                <span class="number-align-right">
+                                    @items[i]
+                                </span>
+                            }
+                            else
+                            {
                                 @items[i]
-                           
+                            }
+
                         </td>
                     }
-                    
+
                 </tr>
             }
         </tbody>
@@ -157,7 +175,7 @@
                 location.href = '@Url.Action("Classification", "KubunTaisyou")';
             });
 
-          //  bindDataTables($('#tblKubunTaisyou'));
+            bindDataTables($('#tblKubunTaisyou'));
         });
 
     </script>
