@@ -52,7 +52,9 @@
     <Compile Include="Common\IniFileReader.cs" />
     <Compile Include="Common\ReadIni.cs" />
     <Compile Include="Common\StaticCache.cs" />
+    <Compile Include="KubunTaisyouBL.cs" />
     <Compile Include="MessageBL.cs" />
+    <Compile Include="MoulderItiranBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserBL.cs" />
   </ItemGroup>

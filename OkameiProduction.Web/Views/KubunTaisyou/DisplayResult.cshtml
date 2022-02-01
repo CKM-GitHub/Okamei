@@ -1,0 +1,164 @@
+﻿
+@{
+    ViewBag.Title = "KubunTaisyou";
+}
+
+<style>
+    .list-table {
+        /*visibility: hidden;*/
+    }
+
+    .table th {
+        padding-top: 2px;
+        padding-bottom: 2px;
+        background-color: #ffff66;
+    }
+
+    #tblKubunTaisyou tbody td {
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+
+    #tblKubunTaisyou .Nouki {
+        min-width: 50px;
+    }
+
+    #tblKubunTaisyou .UnsouKuraireDate {
+        min-width: 50px;
+    }
+
+    #tblKubunTaisyou .BukkenNO {
+    }
+
+    #tblKubunTaisyou .BukkenName {
+        min-width: 120px;
+    }
+
+    #tblKubunTaisyou .KoumutenName {
+        min-width: 210px;
+    }
+
+    #tblKubunTaisyou .KakouTubosuu {
+        text-align: right;
+    }
+
+    #tblKubunTaisyou .TantouSitenName {
+        min-width: 50px;
+    }
+
+    #tblKubunTaisyou .TantouEigyouName {
+        min-width: 50px;
+    }
+
+    #tblKubunTaisyou .TantouCadName {
+        min-width: 50px;
+    }
+
+    #tblKubunTaisyou .FusezuTeishutuDate {
+        min-width: 60px;
+    }
+
+    #tblKubunTaisyou .ShouninKijitu {
+        min-width: 60px;
+    }
+
+    #tblKubunTaisyou .KakouShouninDate {
+        min-width: 60px;
+    }
+
+    #tblKubunTaisyou .SijiKikitu {
+        min-width: 60px;
+    }
+
+    #tblKubunTaisyou .KakouNissuu {
+        min-width: 60px;
+        text-align: right;
+    }
+
+    #tblKubunTaisyou .UpdateDateTime {
+        min-width: 60px;
+    }
+
+    #tblKubunTaisyou .KanamonoName {
+        min-width: 70px;
+    }
+
+    #tblKubunTaisyou .NyuuryokusakiName {
+        min-width: 60px;
+    }
+
+    #tblKubunTaisyou .TokuchuuzaiUmu {
+        min-width: 50px;
+    }
+
+    #tblKubunTaisyou .SinchokuJoukyou {
+        min-width: 90px;
+    }
+
+    #tblKubunTaisyou .delete-td {
+        min-width: 30px;
+    }
+</style>
+
+<h4>区分対象物件</h4>
+<div id="main" class="main-content">
+    <table class='table table-bordered list-table' id="tblKubunTaisyou">
+        <thead>
+            <tr>
+                <th>区分</th>
+                <th>納期</th>
+                <th>物件番号</th>
+                <th>物件名</th>
+                <th>工務店</th>
+                <th>坪数</th>
+                <th>支店</th>
+                <th>営業</th>
+                <th>入力者</th> 
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var columns = ViewBag.Data.Columns;
+            }
+
+            @foreach (System.Data.DataRow row in ViewBag.Data.Rows)
+            {
+                <tr>
+                    @{
+                        var count = row.ItemArray.Count();
+                        var items = row.ItemArray; 
+                    }
+                    @for (var i = 0; i < count; i++)
+                    {
+                        <td class="@columns[i].Caption">
+                           
+                                @items[i]
+                           
+                        </td>
+                    }
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="form-group row">
+        <div class="footer-btn mx-auto">
+            <button type="button" id="btnReturn" class="btn btn-secondary">戻る</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#btnReturn').click(function () {
+                location.href = '@Url.Action("Classification", "KubunTaisyou")';
+            });
+
+          //  bindDataTables($('#tblKubunTaisyou'));
+        });
+
+    </script>
+}

@@ -164,6 +164,10 @@
     <Compile Include="Controllers\BukkenItiran\BukkenItiranController.cs" />
     <Compile Include="Controllers\Common\BaseController.cs" />
     <Compile Include="Controllers\BukkenShousai\BukkenShousaiController.cs" />
+    <Compile Include="Controllers\KubunTaisyou\KubunTaisyouApiController.cs" />
+    <Compile Include="Controllers\KubunTaisyou\KubunTaisyouController.cs" />
+    <Compile Include="Controllers\MoulderItiran\MoulderItiranApiController.cs" />
+    <Compile Include="Controllers\MoulderItiran\MoulderItiranController.cs" />
     <Compile Include="Filters\CustomHandleErrorAttribute.cs" />
     <Compile Include="Controllers\Common\HomeController.cs" />
     <Compile Include="Controllers\Common\CommonApiController.cs" />
@@ -323,11 +327,15 @@
     <Content Include="Scripts\lib\popper.min.js.map" />
     <Content Include="Scripts\lib\README.md" />
     <Content Include="Scripts\lib\tilt.jquery.js.map" />
+    <Content Include="Views\KubunTaisyou\Classification.cshtml" />
+    <Content Include="Views\KubunTaisyou\DisplayResult.cshtml" />
+    <Content Include="Views\MoulderItiran\DisplayResult.cshtml" />
+    <Content Include="Views\MoulderItiran\SetCondition.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\KubunTaisyou\" />
+    <Folder Include="Views\Classification\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\lib\bootstrap-grid.css.map" />

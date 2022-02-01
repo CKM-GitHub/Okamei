@@ -66,11 +66,11 @@ function bindDataTables(table, dispLength) {
         autowidth: false
     });
 
-    t.removeClass('list-table');
+  //  t.removeClass('list-table');
     
 }
 
-function calltoApiController(url, model) {
+function calltoApiController(url, model) { 
     var result;
     $.ajax({
         url: url,
