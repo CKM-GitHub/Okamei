@@ -54,14 +54,13 @@ namespace OkameiProduction.BL
             if (model.SortOption == 2)
             {
                 var query = from dr in dt.AsEnumerable()
-                            orderby dr.Field<string>("KoumutenName"), dr.Field<string>("Nouki")
+                            orderby dr.Field<string>("KoumutenName"), dr.Field<DateTime?>("SortNouki")
                             select dr;
-                return query.CopyToDataTable();
+                dt = query.CopyToDataTable();
             }
-            else
-            {
-                return dt;
-            }
+
+            dt.Columns.Remove("SortNouki");
+            return dt;
         }
     }
 }

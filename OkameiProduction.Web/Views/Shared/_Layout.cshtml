@@ -1,5 +1,4 @@
 ﻿@{
-    //string urlAuth = System.Web.HttpContext.Current.Request.Url.Authority;
     string appPath = System.Web.Hosting.HostingEnvironment.ApplicationVirtualPath;
     if (appPath == "/")
     {
@@ -94,7 +93,6 @@
         </header>
         <main id="globalSubContainer" class="global-sub-container container-fluid">
             @RenderBody()
-            <section class="inner"></section>
         </main>
     </div><!-- /#container -->
     @Scripts.Render("~/bundles/jquery")
@@ -102,7 +100,6 @@
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.6.0/dt-1.11.3/datatables.min.js"></script>
     @Scripts.Render("~/bundles/common")
     <script type="text/javascript">
-        @*gAbsolutePath = 'http://' + '@urlAuth' + '@appPath';*@
         gAbsolutePath = '@appPath';
         (function ($) {
             $(function () {
