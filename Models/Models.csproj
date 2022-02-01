@@ -45,6 +45,7 @@
     <Compile Include="BaseModel.cs" />
     <Compile Include="BukkenItiranModel.cs" />
     <Compile Include="BukkenShousaiModel.cs" />
+    <Compile Include="KubunTaisyouModel.cs" />
     <Compile Include="ValidateModel.cs" />
     <Compile Include="DropDownListItem.cs" />
     <Compile Include="Enumrators.cs" />
