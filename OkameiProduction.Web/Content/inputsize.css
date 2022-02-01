@@ -75,14 +75,54 @@ input.size40 {
     max-width: 376px !important;
 }
 
-input.size50 {
+input.size50, textarea.size50 {
     max-width: 462px !important;
 }
 
 
 /* The size of select is the input.size + 20 */
+select.size1 {
+    max-width: 54px !important;
+}
+
+select.size2 {
+    max-width: 64px !important;
+}
+
+select.size3 {
+    max-width: 72px !important;
+}
+
+select.size4 {
+    max-width: 80px !important;
+}
+
+select.size5 {
+    max-width: 90px !important;
+}
+
 select.size6 {
-    max-width: 88px !important;
+    max-width: 98px !important;
+}
+
+select.size7 {
+    max-width: 106px !important;
+}
+
+select.size8 {
+    max-width: 116px !important;
+}
+
+select.size9 {
+    max-width: 124px !important;
+}
+
+select.size10 {
+    max-width: 132px !important;
+}
+
+select.size30 {
+    max-width: 308px !important;
 }
 
 select.size40 {
