@@ -164,7 +164,7 @@
     <hr class="style-six" />
     <br />
     <div class="wrap-container">
-        <div class="wrap-left">
+        <div id="leftWrap">
             <div class="form-group row">
                 <div class="col-sm-6">
                     <label class="col-form-label label-title require">受注日</label>
@@ -238,7 +238,7 @@
                 </div>
             </div>
         </div>
-        <div class="wrap-right">
+        <div id="rightWrap">
             <div class="form-group row">
                 <div class="col-sm-3">
                     <label class="col-form-label label-title">金物</label>
@@ -247,17 +247,17 @@
                     <input type="text" class="form-control size10" maxlength="10" id="ZairyouNouki" name="ZairyouNouki" />
                 </div>
             </div>
-            <div class="form-group row blank-line">
+            <div class="form-group row blankline">
                 <div class="col-sm-12">
                     <label class="col-form-label"></label>
                 </div>
             </div>
-            <div class="form-group row blank-line">
+            <div class="form-group row blankline">
                 <div class="col-sm-12">
                     <label class="col-form-label"></label>
                 </div>
             </div>
-            <div class="form-group row blank-line">
+            <div class="form-group row blankline">
                 <div class="col-sm-12">
                     <label class="col-form-label"></label>
                 </div>
@@ -267,7 +267,7 @@
                     <label class="col-form-label label-title require">横架材</label>
                 </div>
                 <div class="col-sm-3 form-inline">
-                    <select class="form-control size2 withcheck" id="Oukazai" name="Oukazai">
+                    <select class="form-control size2" id="Oukazai" name="Oukazai">
                         <option value="1">有</option>
                         <option value="0">無</option>
                     </select>
@@ -278,7 +278,7 @@
                     <label class="col-form-label label-title require ">壁</label>
                 </div>
                 <div class="col-sm-3 form-inline">
-                    <select class="form-control size2 withcheck" id="Kabe" name="Kabe">
+                    <select class="form-control size2" id="Kabe" name="Kabe">
                         <option value="1">有</option>
                         <option value="0">無</option>
                     </select>
@@ -291,7 +291,7 @@
                     <label class="col-form-label label-title require">柱材</label>
                 </div>
                 <div class="col-sm-3 form-inline">
-                    <select class="form-control size2 withcheck" id="Hasirazai" name="Hasirazai">
+                    <select class="form-control size2" id="Hasirazai" name="Hasirazai">
                         <option value="1">有</option>
                         <option value="0">無</option>
                     </select>
@@ -302,7 +302,7 @@
                     <label class="col-form-label label-title require ">火打</label>
                 </div>
                 <div class="col-sm-3 form-inline">
-                    <select class="form-control size2 withcheck" id="Hiuchi" name="Hiuchi">
+                    <select class="form-control size2" id="Hiuchi" name="Hiuchi">
                         <option value="1">有</option>
                         <option value="0">無</option>
                     </select>
@@ -315,7 +315,7 @@
                     <label class="col-form-label label-title require">羽柄材</label>
                 </div>
                 <div class="col-sm-3 form-inline">
-                    <select class="form-control size2 withcheck" id="Hagarazai" name="Hagarazai">
+                    <select class="form-control size2" id="Hagarazai" name="Hagarazai">
                         <option value="1">有</option>
                         <option value="0">無</option>
                     </select>
@@ -334,7 +334,7 @@
                     <label class="col-form-label label-title require">床</label>
                 </div>
                 <div class="col-sm-3 form-inline">
-                    <select class="form-control size2 withcheck" id="Yuka" name="Yuka">
+                    <select class="form-control size2" id="Yuka" name="Yuka">
                         <option value="1">有</option>
                         <option value="0">無</option>
                     </select>
@@ -358,7 +358,7 @@
                     <label class="col-form-label label-title require">野地</label>
                 </div>
                 <div class="col-sm-3 form-inline">
-                    <select class="form-control size2 withcheck" id="Noji" name="Noji">
+                    <select class="form-control size2" id="Noji" name="Noji">
                         <option value="1">有</option>
                         <option value="0">無</option>
                     </select>
@@ -382,7 +382,7 @@
                     <label class="col-form-label label-title">手加工</label>
                 </div>
                 <div class="col-sm-3 form-inline">
-                    <select class="form-control size2 withcheck" id="Tekakou" name="Tekakou">
+                    <select class="form-control size2" id="Tekakou" name="Tekakou">
                         <option value="1">有</option>
                         <option value="0">無</option>
                     </select>
@@ -393,7 +393,7 @@
                     <label class="col-form-label label-title">フンデガー</label>
                 </div>
                 <div class="col-sm-3 form-inline">
-                    <select class="form-control size2 withcheck" id="Hundegger" name="Hundegger">
+                    <select class="form-control size2" id="Hundegger" name="Hundegger">
                         <option value="1">有</option>
                         <option value="0">無</option>
                     </select>
@@ -421,13 +421,9 @@
     <br />
     <hr class="style-six" />
     <br />
-    <div class="form-group row fileButtongroup">
-        <div class="col-sm-3">
-            <button type="button" id="btnUpload" class="btn btn-secondary">アップロード</button>
-        </div>
-        <div class="col-sm-6">
-        </div>
-        <div class="col-sm-3 clearfix">
+    <div class="form-group row clearfix">
+        <div class="col-sm-12">
+            <button type="button" id="btnUpload" class="btn btn-secondary float-left">アップロード</button>
             <button type="button" id="btnDownload" class="btn btn-secondary float-right">ダウンロード</button>
         </div>
     </div>
