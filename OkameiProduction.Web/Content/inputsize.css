@@ -1,134 +1,186 @@
-﻿/* In the case of "font-size:14px", for every two increases in size, the width increases by 18px. */
+﻿/* In the case of "font-size:16px", for every 1 increase in size, the width increases by 10px. */
 input.size1 {
-    max-width: 34px !important;
+    max-width: 36px !important;
 }
 
 input.size2 {
-    max-width: 44px !important;
+    max-width: 46px !important;
 }
 
 input.size3 {
-    max-width: 52px !important;
+    max-width: 56px !important;
 }
 
 input.size4 {
-    max-width: 60px !important;
+    max-width: 66px !important;
 }
 
 input.size5 {
-    max-width: 70px !important;
+    max-width: 76px !important;
 }
 
 input.size6 {
-    max-width: 78px !important;
-}
-
-input.size7 {
     max-width: 86px !important;
 }
 
-input.size8 {
+input.size7 {
     max-width: 96px !important;
 }
 
+input.size8 {
+    max-width: 106px !important;
+}
+
 input.size9 {
-    max-width: 104px !important;
+    max-width: 116px !important;
 }
 
 input.size10 {
-    max-width: 112px !important;
+    max-width: 126px !important;
 }
 
 input.size11 {
-    max-width: 122px !important;
+    max-width: 136px !important;
 }
 
 input.size12 {
-    max-width: 130px !important;
+    max-width: 146px !important;
 }
 
 input.size13 {
-    max-width: 138px !important;
-}
-
-input.size14 {
-    max-width: 148px !important;
-}
-
-input.size15 {
     max-width: 156px !important;
 }
 
-input.size16 {
+input.size14 {
     max-width: 166px !important;
 }
 
+input.size15 {
+    max-width: 176px !important;
+}
+
+input.size16 {
+    max-width: 186px !important;
+}
+
+input.size17 {
+    max-width: 196px !important;
+}
+
+input.size18 {
+    max-width: 206px !important;
+}
+
+input.size19 {
+    max-width: 216px !important;
+}
+
 input.size20 {
-    max-width: 202px !important;
+    max-width: 226px !important;
 }
 
 input.size30 {
-    max-width: 288px !important;
+    max-width: 326px !important;
 }
 
 input.size40 {
-    max-width: 376px !important;
+    max-width: 426px !important;
 }
 
 input.size50, textarea.size50 {
-    max-width: 462px !important;
+    max-width: 526px !important;
 }
 
 
 /* The size of select is the input.size + 20 */
 select.size1 {
-    max-width: 54px !important;
+    max-width: 56px !important;
 }
 
 select.size2 {
-    max-width: 64px !important;
+    max-width: 66px !important;
 }
 
 select.size3 {
-    max-width: 72px !important;
+    max-width: 76px !important;
 }
 
 select.size4 {
-    max-width: 80px !important;
+    max-width: 86px !important;
 }
 
 select.size5 {
-    max-width: 90px !important;
+    max-width: 96px !important;
 }
 
 select.size6 {
-    max-width: 98px !important;
-}
-
-select.size7 {
     max-width: 106px !important;
 }
 
-select.size8 {
+select.size7 {
     max-width: 116px !important;
 }
 
+select.size8 {
+    max-width: 126px !important;
+}
+
 select.size9 {
-    max-width: 124px !important;
+    max-width: 136px !important;
 }
 
 select.size10 {
-    max-width: 132px !important;
+    max-width: 146px !important;
+}
+
+select.size11 {
+    max-width: 156px !important;
+}
+
+select.size12 {
+    max-width: 166px !important;
+}
+
+select.size13 {
+    max-width: 176px !important;
+}
+
+select.size14 {
+    max-width: 186px !important;
+}
+
+select.size15 {
+    max-width: 196px !important;
+}
+
+select.size16 {
+    max-width: 206px !important;
+}
+
+select.size17 {
+    max-width: 216px !important;
+}
+
+select.size18 {
+    max-width: 226px !important;
+}
+
+select.size19 {
+    max-width: 236px !important;
+}
+
+select.size20 {
+    max-width: 246px !important;
 }
 
 select.size30 {
-    max-width: 308px !important;
+    max-width: 346px !important;
 }
 
 select.size40 {
-    max-width: 396px !important;
+    max-width: 446px !important;
 }
 
 select.size50 {
-    max-width: 482px !important;
+    max-width: 546px !important;
 }
