@@ -4,17 +4,19 @@
 }
 
 <style>
+    .list-table {
+        visibility: hidden;
+    }
+
     .table th {
         padding-top: 2px;
         padding-bottom: 2px;
         background-color: #ffff66;
-        font-size: 14px;
     }
 
     #tblBukkenItiran tbody td {
         padding-top: 2px;
         padding-bottom: 2px;
-        font-size: 14px;
     }
 
     #tblBukkenItiran .Nouki {
@@ -49,10 +51,6 @@
     }
 
     #tblBukkenItiran .TantouCadName {
-        min-width: 50px;
-    }
-
-    #tblBukkenItiran .JuchuuDate {
         min-width: 50px;
     }
 
@@ -104,7 +102,7 @@
 
 <h4>物件一覧</h4>
 <div id="main" class="main-content">
-    <table class='table table-bordered' id="tblBukkenItiran">
+    <table class='table table-bordered list-table' id="tblBukkenItiran">
         <thead>
             <tr>
                 <th>納期</th>
@@ -116,7 +114,6 @@
                 <th>支店</th>
                 <th>営業</th>
                 <th>入力者</th>
-                <th>受注日</th>
                 <th>伏図提出</th>
                 <th>承認期日</th>
                 <th>加工承認</th>
@@ -132,31 +129,30 @@
         </thead>
         <tbody>
             @*@for (var iii = 0; iii < 50; iii++)
-        {
-            <tr>
-                <td class="Nouki">99/99</td>
-                <td class="UnsouKuraireDate">99/99</td>
-                <td class="BukkenNO">12345678</td>
-                <td class="BukkenName">1234567890123456</td>
-                <td class="KoumutenName">123456789012345678901234567890</td>
-                <td class="KakouTubosuu">999.99</td>
-                <td class="TantouSitenName">123456</td>
-                <td class="TantouEigyouName">123456</td>
-                <td class="TantouCadName">123456</td>
-                <td class="JuchuuDate">99/99</td>
-                <td class="FusezuTeishutuDate">99/99</td>
-                <td class="ShouninKijitu">99/99</td>
-                <td class="KakouShouninDate">99/99</td>
-                <td class="SijiKikitu">99/99</td>
-                <td class="KakouNissuu">999</td>
-                <td class="UpdateDateTime">99/99</td>
-                <td class="KanamonoName">1234567890</td>
-                <td class="NyuuryokusakiName">123456</td>
-                <td class="TokuchuuzaiUmu">1234</td>
-                <td class="SinchokuJoukyou">123456789012</td>
-                <td class="delete-td">1234</td>
-            </tr>
-        }*@
+                {
+                    <tr>
+                        <td class="Nouki">99/99</td>
+                        <td class="UnsouKuraireDate">99/99</td>
+                        <td class="BukkenNO">12345678</td>
+                        <td class="BukkenName">1234567890123456</td>
+                        <td class="KoumutenName">123456789012345678901234567890</td>
+                        <td class="KakouTubosuu">999.99</td>
+                        <td class="TantouSitenName">123456</td>
+                        <td class="TantouEigyouName">123456</td>
+                        <td class="TantouCadName">123456</td>
+                        <td class="FusezuTeishutuDate">99/99</td>
+                        <td class="ShouninKijitu">99/99</td>
+                        <td class="KakouShouninDate">99/99</td>
+                        <td class="SijiKikitu">99/99</td>
+                        <td class="KakouNissuu">999</td>
+                        <td class="UpdateDateTime">99/99</td>
+                        <td class="KanamonoName">1234567890</td>
+                        <td class="NyuuryokusakiName">123456</td>
+                        <td class="TokuchuuzaiUmu">1234</td>
+                        <td class="SinchokuJoukyou">123456789012</td>
+                        <td class="delete-td">1234</td>
+                    </tr>
+                }*@
 
             @{
                 var columns = ViewBag.Data.Columns;

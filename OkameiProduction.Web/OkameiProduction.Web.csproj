@@ -159,6 +159,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\FusezuMiteisyutu\FusezuMiteisyutuApiController.cs" />
+    <Compile Include="Controllers\FusezuMiteisyutu\FusezuMiteisyutuController.cs" />
     <Compile Include="Controllers\Common\BaseApiController.cs" />
     <Compile Include="Controllers\BukkenItiran\BukkenItiranApiController.cs" />
     <Compile Include="Controllers\BukkenItiran\BukkenItiranController.cs" />
@@ -331,6 +333,8 @@
     <Content Include="Views\KubunTaisyou\DisplayResult.cshtml" />
     <Content Include="Views\MoulderItiran\DisplayResult.cshtml" />
     <Content Include="Views\MoulderItiran\SetCondition.cshtml" />
+    <Content Include="Views\FusezuMiteisyutu\DisplayResult.cshtml" />
+    <Content Include="Views\FusezuMiteisyutu\SetCondition.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

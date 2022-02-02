@@ -1,159 +1,74 @@
 ﻿
 @{
-    ViewBag.Title = "BukkenItiranList";
+    ViewBag.Title = "MoulderItiranList";
 }
 
 <style>
     .list-table {
-        visibility: hidden;
+        /*visibility: hidden;*/
     }
 
     .table th {
         padding-top: 2px;
         padding-bottom: 2px;
         background-color: #ffff66;
+        text-align: center;
+        white-space: nowrap;
     }
 
-    #tblBukkenItiran tbody td {
+    #tblMoulderItiran tbody td {
         padding-top: 2px;
         padding-bottom: 2px;
     }
 
-    #tblBukkenItiran .Nouki {
+    #tblMoulderItiran .Nouki {
         min-width: 50px;
     }
 
-    #tblBukkenItiran .UnsouKuraireDate {
-        min-width: 50px;
+    #tblMoulderItiran .BukkenNO {
     }
 
-    #tblBukkenItiran .BukkenNO {
+    #tblMoulderItiran .BukkenName {
+        min-width: 150px;
     }
 
-    #tblBukkenItiran .BukkenName {
-        min-width: 120px;
+    #tblMoulderItiran .Name {
+        min-width: 80px;
     }
 
-    #tblBukkenItiran .KoumutenName {
-        min-width: 210px;
+    #tblMoulderItiran .Material {
+        min-width: 150px;
     }
 
-    #tblBukkenItiran .KakouTubosuu {
+    #tblMoulderItiran .Content {
+        min-width: 180px;
+    }
+
+    #tblMoulderItiran .MoulderHonsuu {
         text-align: right;
     }
 
-    #tblBukkenItiran .TantouSitenName {
-        min-width: 50px;
-    }
-
-    #tblBukkenItiran .TantouEigyouName {
-        min-width: 50px;
-    }
-
-    #tblBukkenItiran .TantouCadName {
-        min-width: 50px;
-    }
-
-    #tblBukkenItiran .FusezuTeishutuDate {
-        min-width: 60px;
-    }
-
-    #tblBukkenItiran .ShouninKijitu {
-        min-width: 60px;
-    }
-
-    #tblBukkenItiran .KakouShouninDate {
-        min-width: 60px;
-    }
-
-    #tblBukkenItiran .SijiKikitu {
-        min-width: 60px;
-    }
-
-    #tblBukkenItiran .KakouNissuu {
-        min-width: 60px;
-        text-align: right;
-    }
-
-    #tblBukkenItiran .UpdateDateTime {
-        min-width: 60px;
-    }
-
-    #tblBukkenItiran .KanamonoName {
-        min-width: 70px;
-    }
-
-    #tblBukkenItiran .NyuuryokusakiName {
-        min-width: 60px;
-    }
-
-    #tblBukkenItiran .TokuchuuzaiUmu {
-        min-width: 50px;
-    }
-
-    #tblBukkenItiran .SinchokuJoukyou {
-        min-width: 90px;
-    }
-
-    #tblBukkenItiran .delete-td {
-        min-width: 30px;
+    #tblMoulderItiran .MoulderKakouDateTime {
+        min-width: 180px;
     }
 </style>
 
-<h4>物件一覧</h4>
+<h4>モルダー</h4>
 <div id="main" class="main-content">
-    <table class='table table-bordered list-table' id="tblBukkenItiran">
+    <table class='table table-bordered list-table' id="tblMoulderItiran">
         <thead>
             <tr>
-                <th>納期</th>
-                <th>倉庫入</th>
+                <th>出荷</th>
                 <th>物件番号</th>
                 <th>物件名</th>
-                <th>工務店</th>
-                <th>坪数</th>
-                <th>支店</th>
-                <th>営業</th>
-                <th>入力者</th>
-                <th>伏図提出</th>
-                <th>承認期日</th>
-                <th>加工承認</th>
-                <th>指示期日</th>
-                <th>加工日数</th>
-                <th>最終更新</th>
-                <th>金物</th>
-                <th>入力先</th>
-                <th>特注材</th>
-                <th>進捗状況</th>
-                <th></th>
+                <th>名称</th>
+                <th>材料</th>
+                <th>加工内容</th>
+                <th>本数</th>
+                <th>加工日</th>
             </tr>
         </thead>
         <tbody>
-            @*@for (var iii = 0; iii < 50; iii++)
-                {
-                    <tr>
-                        <td class="Nouki">99/99</td>
-                        <td class="UnsouKuraireDate">99/99</td>
-                        <td class="BukkenNO">12345678</td>
-                        <td class="BukkenName">1234567890123456</td>
-                        <td class="KoumutenName">123456789012345678901234567890</td>
-                        <td class="KakouTubosuu">999.99</td>
-                        <td class="TantouSitenName">123456</td>
-                        <td class="TantouEigyouName">123456</td>
-                        <td class="TantouCadName">123456</td>
-                        <td class="FusezuTeishutuDate">99/99</td>
-                        <td class="ShouninKijitu">99/99</td>
-                        <td class="KakouShouninDate">99/99</td>
-                        <td class="SijiKikitu">99/99</td>
-                        <td class="KakouNissuu">999</td>
-                        <td class="UpdateDateTime">99/99</td>
-                        <td class="KanamonoName">1234567890</td>
-                        <td class="NyuuryokusakiName">123456</td>
-                        <td class="TokuchuuzaiUmu">1234</td>
-                        <td class="SinchokuJoukyou">123456789012</td>
-                        <td class="delete-td">1234</td>
-                    </tr>
-                }*@
-
             @{
                 var columns = ViewBag.Data.Columns;
             }
@@ -179,9 +94,6 @@
                             }
                         </td>
                     }
-                    <td class="delete-td">
-                        @Html.ActionLink("削除", "Entry", "BukkenShousai", new { Mode = "Delete", BukkenNO = bukkenNo }, new { @class = "delete-link" })
-                    </td>
                 </tr>
             }
         </tbody>
@@ -199,10 +111,10 @@
         $(document).ready(function () {
 
             $('#btnReturn').click(function () {
-                location.href = '@Url.Action("SetCondition", "BukkenItiran")';
+                location.href = '@Url.Action("SetCondition", "MoulderItiran")';
             });
 
-            bindDataTables($('#tblBukkenItiran'));
+            bindDataTables($('#tblMoulderItiran'));
         });
 
     </script>

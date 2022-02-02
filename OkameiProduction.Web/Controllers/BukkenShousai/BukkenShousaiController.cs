@@ -33,6 +33,9 @@ namespace OkameiProduction.Web.Controllers
             vm.KoumutenSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.Koumuten);
             vm.NyuuryokusakiSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.Nyuuryokusaki);
             vm.KubunSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.Kubun);
+            vm.KanamonoSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.Kanamono);
+            vm.GoubanSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.Gouban);
+
             vm.TokuchuuzaiUmuSelectList = dl.GetTokuchuuzaiUmuDDLItems();
         }
     }

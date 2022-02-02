@@ -4,15 +4,15 @@ using OkameiProduction.BL;
 
 namespace OkameiProduction.Web.Controllers
 {
-    public class MoulderItiranApiController : BaseApiController
+    public class FusezuMiteisyutuApiController : BaseApiController
     {
         [HttpPost]
-        public string ExistsDisplayResult([FromBody] MoulderItiranModel model)
+        public string ExistsDisplayResult([FromBody] FusezuMiteisyutuModel model)
         {
             if (model == null) return GetBadRequestResult();
 
-            var bl = new MoulderItiranBL();
-            if (bl.GetDisplayResult(model).Rows.Count > 0)
+            var bl = new FusezuMiteisyutuBL();
+            if (bl.ExistsDisplayResult(model))
             {
                 return GetSuccessResult();
             }
