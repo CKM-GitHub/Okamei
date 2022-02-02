@@ -6,7 +6,6 @@
 
 .form-control {
     border-radius: 2px;
-    font-size: 14px;
 }
 
 .col-form-label {
@@ -83,7 +82,20 @@
     background-color: #6c757d;
     border-color: #6c757d;
     font-size: 12px;
-    margin: 2px auto 0px 4px;
+    margin-left: 2px;
+}
+
+input[type="checkbox"] {
+    transform: scale(1.5);
+}
+
+input[integerdigits], input[decimaldigits] {
+    text-align: right;
+}
+
+
+.delete-link {
+    color: red;
 }
 
 @media (max-width: 575px) {

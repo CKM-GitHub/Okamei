@@ -10,11 +10,23 @@ CREATE PROCEDURE [dbo].[M_MultiPorpose_SelectForDropDownLit](
 BEGIN
     SET NOCOUNT ON;
 
-    SELECT
-        [Key]  AS [Value]
-        ,CONVERT(varchar(50), Char1) AS DisplayText
-        ,Num1  AS SortBy
-    FROM M_MultiPorpose
-    WHERE ID = @ID
-    ORDER BY Num1
+	IF @ID = 1
+	BEGIN
+		SELECT
+			[Key]  AS [Value]
+			,CONVERT(varchar(50), Char1) AS DisplayText
+			,ROW_NUMBER() OVER(ORDER BY Char3)  AS SortBy
+		FROM M_MultiPorpose
+		WHERE ID = @ID
+		ORDER BY Char3
+	END
+	BEGIN
+		SELECT
+			[Key]  AS [Value]
+			,CONVERT(varchar(50), Char1) AS DisplayText
+			,Num1  AS SortBy
+		FROM M_MultiPorpose
+		WHERE ID = @ID
+		ORDER BY Num1
+	END
 END
