@@ -9,12 +9,13 @@ namespace OkameiProduction.BL
 {
     public class CommonBL
     {
-        public IEnumerable<DropDownListItem> GetMultiPorposeDDLItems(EMultiPorpose id)
+        public IEnumerable<DropDownListItem> GetMultiPorposeDDLItems(EMultiPorpose id, string char4 = "")
         {
             var options = new List<DropDownListItem>();
 
-            SqlParameter[] sqlParams = new SqlParameter[1];
+            SqlParameter[] sqlParams = new SqlParameter[2];
             sqlParams[0] = new SqlParameter("@ID", SqlDbType.Int) { Value = (int)id };
+            sqlParams[1] = new SqlParameter("@Char4", SqlDbType.VarChar) { Value = char4 };
 
             DBAccess db = new DBAccess();
             var dt = db.SelectDatatable("M_MultiPorpose_SelectForDropDownLit", sqlParams);
@@ -47,6 +48,33 @@ namespace OkameiProduction.BL
 
             return options;
         }
+
+        public string GetNewBukkenNO(string sitenCD)
+        {
+            SqlParameter[] sqlParams = new SqlParameter[1];
+            sqlParams[0] = new SqlParameter("@SitenCD", SqlDbType.VarChar) { Value = sitenCD };
+
+            DBAccess db = new DBAccess();
+            var dt = db.SelectDatatable("M_MultiPorpose_GetNewBukkenNO", sqlParams);
+
+            if (dt.Rows.Count == 0)
+            {
+                return "";
+            }
+
+            var dr = dt.Rows[0];
+            var prefix = dr["Prefix"].ToStringOrEmpty();
+            var number = dr["Number"].ToStringOrEmpty();
+            var newBukkenNO = prefix + number.PadLeft(8 - prefix.Length, '0');
+
+            return newBukkenNO;
+        }
+
+
+
+
+
+
 
         public bool CheckAndFormatDate(string val, out string errorcd, out string outVal)
         {
