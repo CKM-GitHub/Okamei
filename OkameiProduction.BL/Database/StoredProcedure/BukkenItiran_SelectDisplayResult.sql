@@ -22,7 +22,7 @@ CREATE PROCEDURE [dbo].[BukkenItiran_SelectDisplayResult](
 )AS
 BEGIN
     SET NOCOUNT ON;
-	DECLARE @SystemDate date = GETDATE()
+    DECLARE @SystemDate date = GETDATE()
 
     SELECT 
         CASE buk.NoukiMiteiKBN WHEN 1 THEN '–¢’è' 
@@ -35,7 +35,7 @@ BEGIN
         ,CONVERT(varchar(6), siten.Char2)                               AS TantouSitenName
         ,CONVERT(varchar(6), eigyo.Char2)                               AS TantouEigyouName
         ,CONVERT(varchar(6), cad.Char2)                                 AS TantouCadName
-		,FORMAT(buk.JuchuuDate, 'MM/dd')								AS JuchuuDate
+        ,FORMAT(buk.JuchuuDate, 'MM/dd')                                AS JuchuuDate
         ,FORMAT(buk.FusezuTeishutuDate, 'MM/dd')                        AS FusezuTeishutuDate
         ,FORMAT(dbo.fnGetBusinessDay(buk.Nouki, ISNULL(mp999.Num1,0) * -1), 'MM/dd') AS ShouninKijitu
         ,FORMAT(buk.KakoutuShouninDate, 'MM/dd')                        AS KakouShouninDate 
@@ -61,7 +61,8 @@ BEGIN
                 WHEN buk.FusezuTeishutuDate   IS NOT NULL AND buk.FusezuTeishutuDate     < @SystemDate THEN '•š}’ñoÏ‚Ý'
                 ELSE '' END                                             AS SinchokuJoukyou
 
-		,buk.Nouki														AS SortNouki
+        ,buk.KoumutenName                                               AS SortKoumutenName
+        ,buk.Nouki                                                      AS SortNouki
 
     FROM D_Bukken buk
     LEFT OUTER JOIN M_MultiPorpose siten ON siten.ID = 3 AND siten.[Key] = buk.TantouSitenCD

@@ -20,7 +20,7 @@ hr {
         margin-right: 10px;
     }
 
-/* Second area
+/* Wrap
 --------------------------------------------------
 */
 #main .wrap-container {
@@ -33,15 +33,28 @@ hr {
     justify-content: space-between;
 }
 
-#leftWrap {
+#leftWrap1stPage, 
+#rightWrap1stPage {
+    width: 49%;
+}
+
+#leftWrap2ndPage {
     width: 32%;
 }
 
-#rightWrap {
+#rightWrap2ndPage {
     width: 68%;
 }
 
-#YukaZai, #NojiZai {
+/* 
+--------------------------------------------------
+*/
+.radioWrap {
+    display: inline-block;
+}
+
+#YukaGoubanCD,
+#NojiGoubanCD {
     margin-left: 10px;
     width: 80%;
 }
@@ -143,7 +156,7 @@ hr {
 }
 
 @media (max-width: 1197px) {
-    .wrap-container label[for*="Check"] {
+    #rightWrap2ndPage label[for*="Check"] {
         display: none;
     }
 }
@@ -157,15 +170,15 @@ hr {
         display: block;
     }
 
-    #leftWrap {
+    #leftWrap1stPage,
+    #leftWrap2ndPage,
+    #rightWrap1stPage,
+    #rightWrap2ndPage{
         width: 100%;
     }
 
-    #rightWrap {
-        width: 100%;
-    }
-
-    #YukaZai, #NojiZai {
+    #YukaGoubanCD, 
+    #NojiGoubanCD {
         margin-left: 0px;
     }
 }

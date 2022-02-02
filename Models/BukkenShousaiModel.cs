@@ -37,27 +37,35 @@ namespace Models
         public string KakouNissuu { get; set; }
         public string UpdateDatetime { get; set; }
         public string KanamonoCD { get; set; }
-        public int OukazaiExist { get; set; }
+        public int OukazaiExistence { get; set; }
         public int OukazaiCheck { get; set; }
-        public int KabeExist { get; set; }
+        public int KabeExistence { get; set; }
         public int KabeCheck { get; set; }
-        public int HasirazaiExist { get; set; }
+        public int HasirazaiExistence { get; set; }
         public int HasirazaiCheck { get; set; }
-        public int HiuchiExist { get; set; }
+        public int HiuchiExistence { get; set; }
         public int HiuchiCheck { get; set; }
-        public int HagarazaiExist { get; set; }
+        public int HagarazaiExistence { get; set; }
         public int HagarazaiCheck { get; set; }
         public decimal? HagarazaiNumber { get; set; }
-        public int YukaExist { get; set; }
+        public int YukaExistence { get; set; }
         public int YukaCheck { get; set; }
         public string YukaGoubanCD { get; set; }
         public decimal? YukaNumber { get; set; }
-        public int NojiExist { get; set; }
-
-
-        public string YukazaiCD { get; set; }
-        public string NojizaiCD { get; set; }
-
+        public int NojiExistence { get; set; }
+        public int NojiCheck { get; set; }
+        public string NojiGoubanCD { get; set; }
+        public decimal? NojiNumber { get; set; }
+        public int HundeggerExistence { get; set; }
+        public int HundeggerCheck { get; set; }
+        public decimal? TekakouTime { get; set; }
+        public decimal? HundeggerTime { get; set; }
+        //Page 3.
+        //public int UpFileOption { get; set; }
+        //public int DownFileOption { get; set; }
+        //Page 4.
+        public string Comment { get; set; }
+        
         public IEnumerable<DropDownListItem> SitenSelectList { get; set; }
         public IEnumerable<DropDownListItem> EigyouStaffSelectList { get; set; }
         public IEnumerable<DropDownListItem> PCSupportSelectList { get; set; }
