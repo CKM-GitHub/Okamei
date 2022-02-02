@@ -21,7 +21,7 @@
     }
 
     #tblFusezuMiteisyutu .Nouki {
-        min-width: 40px;
+        min-width: 50px;
     }
 
     #tblFusezuMiteisyutu .BukkenNO {
@@ -35,7 +35,7 @@
         min-width: 210px;
     }
 
-    #tblFusezuMiteisyutu .KakoutuboSuu {
+    #tblFusezuMiteisyutu .KakouTubosuu {
         text-align: right;
     }
 
@@ -50,11 +50,11 @@
     #tblFusezuMiteisyutu .TantouCadName {
         min-width: 50px;
     }
-    #tblFusezuMiteisyutu .KanamonoName {
-        min-width: 100px;
+    #tblFusezuMiteisyutu .KanamonName {
+        min-width: 70px;
     }
     td, th {
-        font-size: 14px;
+        font-size: 14px ;
     }
     
 </style>
@@ -77,32 +77,7 @@
             </tr>
         </thead>
         <tbody>
-            @*@for (var iii = 0; iii < 50; iii++)
-        {
-            <tr>
-                <td class="Nouki">99/99</td>
-                <td class="UnsouKuraireDate">99/99</td>
-                <td class="BukkenNO">12345678</td>
-                <td class="BukkenName">1234567890123456</td>
-                <td class="KoumutenName">123456789012345678901234567890</td>
-                <td class="KakouTubosuu">999.99</td>
-                <td class="TantouSitenName">123456</td>
-                <td class="TantouEigyouName">123456</td>
-                <td class="TantouCadName">123456</td>
-                <td class="JuchuuDate">99/99</td>
-                <td class="FusezuTeishutuDate">99/99</td>
-                <td class="ShouninKijitu">99/99</td>
-                <td class="KakouShouninDate">99/99</td>
-                <td class="SijiKikitu">99/99</td>
-                <td class="KakouNissuu">999</td>
-                <td class="UpdateDateTime">99/99</td>
-                <td class="KanamonoName">1234567890</td>
-                <td class="NyuuryokusakiName">123456</td>
-                <td class="TokuchuuzaiUmu">1234</td>
-                <td class="SinchokuJoukyou">123456789012</td>
-                <td class="delete-td">1234</td>
-            </tr>
-        }*@
+          
 
             @{
                 var columns = ViewBag.Data.Columns;

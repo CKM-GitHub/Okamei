@@ -27,17 +27,7 @@ namespace OkameiProduction.BL
             DBAccess db = new DBAccess();
             var dt = db.SelectDatatable("FusezuMiteisyutu_SelectDisplayResult", sqlParams);
             return dt;
-            //if (model.SortOption == 2)
-            //{
-            //    var query = from dr in dt.AsEnumerable()
-            //                orderby dr.Field<string>("KoumutenName"), dr.Field<string>("Nouki")
-            //                select dr;
-            //    return query.CopyToDataTable();
-            //}
-            //else
-            //{
-               
-            //}
+            
         }
 
     }

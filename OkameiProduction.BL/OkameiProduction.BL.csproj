@@ -70,6 +70,7 @@
     <Content Include="Database\Function\fnGetSijiKijitu.sql" />
     <Content Include="Database\StoredProcedure\BukkenItiran_ExistsDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\BukkenItiran_SelectDisplayResult.sql" />
+    <Content Include="Database\StoredProcedure\FusezuMiteisyutu_SelectDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\KubunTaisyou_SelectDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\M_Message_SelectAll.sql" />
     <Content Include="Database\StoredProcedure\M_Message_SelectByID.sql" />
