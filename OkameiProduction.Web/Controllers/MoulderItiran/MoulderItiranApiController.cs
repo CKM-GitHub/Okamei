@@ -7,12 +7,12 @@ namespace OkameiProduction.Web.Controllers
     public class MoulderItiranApiController : BaseApiController
     {
         [HttpPost]
-        public string ExistsDisplayResult([FromBody] BukkenItiranModel model)
+        public string ExistsDisplayResult([FromBody] MoulderItiranModel model)
         {
             if (model == null) return GetBadRequestResult();
 
-            var bl = new BukkenItiranBL();
-            if (bl.ExistsDisplayResult(model))
+            var bl = new MoulderItiranBL();
+            if (bl.GetDisplayResult(model).Rows.Count > 0)
             {
                 return GetSuccessResult();
             }
