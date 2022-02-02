@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseModel.cs" />
+    <Compile Include="FusezuMiteisyutuModel.cs" />
     <Compile Include="BukkenItiranModel.cs" />
     <Compile Include="BukkenShousaiModel.cs" />
     <Compile Include="KubunTaisyouModel.cs" />
