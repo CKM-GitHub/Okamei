@@ -159,6 +159,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\BukkenShousai\BukkenShousaiApiController.cs" />
     <Compile Include="Controllers\Common\BaseApiController.cs" />
     <Compile Include="Controllers\BukkenItiran\BukkenItiranApiController.cs" />
     <Compile Include="Controllers\BukkenItiran\BukkenItiranController.cs" />

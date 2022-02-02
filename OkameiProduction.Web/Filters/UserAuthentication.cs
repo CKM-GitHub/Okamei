@@ -47,7 +47,6 @@ namespace OkameiProduction.Web
         public static bool IsAuthorizedUser(string Username, string Password)
         {
             // In this method we can handle our database logic here...
-            //if (Username.Equals("Capital_MM") && Password.Equals("CKM12345!"))
             if (Username.Equals("ogUzkq=EopiYA,U33yzf") && Password.Equals("e>gW0BXP85@7-#*~k1@a"))
                 return true;
             return false;

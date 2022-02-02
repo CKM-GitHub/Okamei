@@ -74,6 +74,7 @@
     <Content Include="Database\StoredProcedure\M_Message_SelectByID.sql" />
     <Content Include="Database\StoredProcedure\M_MultiPorpose_SelectByID.sql" />
     <Content Include="Database\StoredProcedure\M_MultiPorpose_SelectByIDKey.sql" />
+    <Content Include="Database\StoredProcedure\M_MultiPorpose_GetNewBukkenNO.sql" />
     <Content Include="Database\StoredProcedure\M_MultiPorpose_SelectForDropDownLit.sql" />
     <Content Include="Setting\ReadMe.txt" />
   </ItemGroup>

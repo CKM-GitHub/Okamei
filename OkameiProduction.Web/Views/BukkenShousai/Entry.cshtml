@@ -8,159 +8,180 @@
 
 <h4 class="page-title">物件詳細登録</h4>
 <div id="main" class="main-content">
-    <div class="form-group row">
-        <div class="col-sm-2">
-            <label class="col-form-label label-title pk">物件番号</label>
+    <div class="wrap-container">
+        <div id="leftWrap1stPage">
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="col-form-label label-title pk">物件番号</label>
+                </div>
+                <div class="col-sm-8 form-inline">
+                    <input type="text" class="form-control size8" disabled maxlength="8" id="BukkenNO" name="BukkenNO" value="@Model.BukkenNO" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="col-form-label label-title require">担当支店</label>
+                </div>
+                <div class="col-sm-8 form-inline">
+                    @Html.DropDownListFor(
+                    model => model.SitenCD,
+                    new SelectList(Model.SitenSelectList, "Value", "DisplayText"),
+                    "",
+                    new { @class = "form-control size39" })
+                    <button type="button" id="btnSet" class="btn btn_search" nofocus>セット</button>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="col-form-label label-title require">物件名</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control size16" required maxlength="16" id="BukkenName" name="BukkenName" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="col-form-label label-title">住所</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control size50" maxlength="50" id="Address" name="Address" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="col-form-label label-title require">工務店</label>
+                </div>
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(
+                    model => model.KoumutenCD,
+                    new SelectList(Model.KoumutenSelectList, "Value", "DisplayText"),
+                    "",
+                    new { @class = "form-control size50" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="col-form-label label-title require">加工坪数</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control size6" integerdigits="3" decimaldigits="2" maxlength="6" id="KakouTubosuu" name="KakouTubosuu" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="col-form-label label-title require">納期</label>
+                </div>
+                <div class="col-sm-8 form-inline">
+                    <input type="checkbox" id="NoukiMiteiCheck" value="1">
+                    <label for="NoukiMiteiCheck">&nbsp;未定</label>
+                    <input type="text" class="form-control size10" maxlength="10" id="Nouki" name="Nouki" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="col-form-label label-title">運送会社倉庫入日</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control size10" maxlength="10" id="UnsougaishaSoukoiribi" name="UnsougaishaSoukoiribi" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="col-form-label label-title">区分</label>
+                </div>
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(
+                    model => model.KubunCD,
+                    new SelectList(Model.KubunSelectList, "Value", "DisplayText"),
+                    "",
+                    new { @class = "form-control size50" })
+                </div>
+            </div>
         </div>
-        <div class="col-sm-10">
-            <input type="text" class="form-control size8" disabled maxlength="8" id="BukkenNO" name="BukkenNO" value="@Model.BukkenNO" />
-        </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-2">
-            <label class="col-form-label label-title require">担当支店</label>
-        </div>
-        <div class="col-sm-4 form-inline">
-            @Html.DropDownListFor(
-            model => model.SitenCD,
-            new SelectList(Model.SitenSelectList, "Value", "DisplayText"),
-            "全社",
-            new { @class = "form-control size39" })
-            <button type="button" id="btnSet" class="btn btn_search" nofocus>セット</button>
-        </div>
-        <div class="col-sm-2">
-            <label for="TantouEigyouCD" class="col-form-label label-title require">担当営業マン</label>
-        </div>
-        <div class="col-sm-4">
-            @Html.DropDownListFor(
-            model => model.TantouEigyouCD,
-            new SelectList(Model.EigyouStaffSelectList, "Value", "DisplayText"),
-            "",
-            new { @class = "form-control size50" })
-        </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-2">
-            <label class="col-form-label label-title require">物件名</label>
-        </div>
-        <div class="col-sm-4">
-            <input type="text" class="form-control size16" required maxlength="16" id="BukkenName" name="BukkenName" />
-        </div>
-        <div class="col-sm-2">
-            <label class="col-form-label label-title">担当PCサポート</label>
-        </div>
-        <div class="col-sm-4">
-            @Html.DropDownListFor(
-            model => model.PCSupportCD,
-            new SelectList(Model.PCSupportSelectList, "Value", "DisplayText"),
-            "",
-            new { @class = "form-control size50" })
-        </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-2">
-            <label class="col-form-label label-title">住所</label>
-        </div>
-        <div class="col-sm-4">
-            <input type="text" class="form-control size50" maxlength="50" id="Address" name="Address" />
-        </div>
-        <div class="col-sm-2">
-            <label class="col-form-label label-title">担当CADマン</label>
-        </div>
-        <div class="col-sm-4">
-            @Html.DropDownListFor(
-            model => model.TantouCadCD,
-            new SelectList(Model.CADStaffSelectList, "Value", "DisplayText"),
-            "",
-            new { @class = "form-control size50" })
-        </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-2">
-            <label class="col-form-label label-title require">工務店</label>
-        </div>
-        <div class="col-sm-4">
-            @Html.DropDownListFor(
-            model => model.KoumutenCD,
-            new SelectList(Model.KoumutenSelectList, "Value", "DisplayText"),
-            "",
-            new { @class = "form-control size50" })
-        </div>
-        <div class="col-sm-2">
-            <label for="TantouEigyouCD" class="col-form-label label-title">入力先</label>
-        </div>
-        <div class="col-sm-4">
-            @Html.DropDownListFor(
-            model => model.NyuuryokusakiCD,
-            new SelectList(Model.NyuuryokusakiSelectList, "Value", "DisplayText"),
-            "",
-            new { @class = "form-control size50" })
-        </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-2">
-            <label class="col-form-label label-title require">加工坪数</label>
-        </div>
-        <div class="col-sm-4">
-            <input type="text" class="form-control size6" integerdigits="3" decimaldigits="2" maxlength="6" id="KakouTubosuu" name="KakouTubosuu" />
-        </div>
-        <div class="col-sm-2">
-            <label class="col-form-label label-title">特注材有無</label>
-        </div>
-        <div class="col-sm-4">
-            @Html.DropDownListFor(
-            model => model.TokuchuuzaiUmu,
-            new SelectList(Model.TokuchuuzaiUmuSelectList, "Value", "DisplayText"),
-            "",
-            new { @class = "form-control size6" })
-        </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-2">
-            <label class="col-form-label label-title require">納期</label>
-        </div>
-        <div class="col-sm-4 form-inline">
-            <input type="checkbox" id="NoukiMiteiCheck" value="1">
-            <label for="NoukiMiteiCheck">&nbsp;未定</label>
-            <input type="text" class="form-control size10" maxlength="10" id="Nouki" name="Nouki" />
-        </div>
-        <div class="col-sm-2">
-            <label class="col-form-label label-title">材料納期</label>
-        </div>
-        <div class="col-sm-4">
-            <input type="text" class="form-control size10" maxlength="10" id="ZairyouNouki" name="ZairyouNouki" />
-        </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-2">
-            <label class="col-form-label label-title">運送会社倉庫入日</label>
-        </div>
-        <div class="col-sm-4">
-            <input type="text" class="form-control size10" maxlength="10" id="UnsougaishaSoukoiribi" name="UnsougaishaSoukoiribi" />
-        </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-2">
-            <label class="col-form-label label-title">区分</label>
-        </div>
-        <div class="col-sm-4">
-            @Html.DropDownListFor(
-            model => model.KubunCD,
-            new SelectList(Model.KubunSelectList, "Value", "DisplayText"),
-            "",
-            new { @class = "form-control size50" })
-        </div>
-        <div class="col-sm-2">
-            <label class="col-form-label label-title">特注材コメント</label>
-        </div>
-        <div class="col-sm-4">
-            <textarea class="form-control size50" rows="6" maxlength="300" id="TokuchuuzaiComment" name="TokuchuuzaiComment"></textarea>
+        <div id="rightWrap1stPage">
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label for="TantouEigyouCD" class="col-form-label label-title require">担当営業マン</label>
+                </div>
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(
+                    model => model.TantouEigyouCD,
+                    new SelectList(Model.EigyouStaffSelectList, "Value", "DisplayText"),
+                    "",
+                    new { @class = "form-control size50" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="col-form-label label-title">担当PCサポート</label>
+                </div>
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(
+                    model => model.PCSupportCD,
+                    new SelectList(Model.PCSupportSelectList, "Value", "DisplayText"),
+                    "",
+                    new { @class = "form-control size50" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="col-form-label label-title">担当CADマン</label>
+                </div>
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(
+                    model => model.TantouCadCD,
+                    new SelectList(Model.CADStaffSelectList, "Value", "DisplayText"),
+                    "",
+                    new { @class = "form-control size50" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label for="TantouEigyouCD" class="col-form-label label-title">入力先</label>
+                </div>
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(
+                    model => model.NyuuryokusakiCD,
+                    new SelectList(Model.NyuuryokusakiSelectList, "Value", "DisplayText"),
+                    "",
+                    new { @class = "form-control size50" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="col-form-label label-title">特注材有無</label>
+                </div>
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(
+                    model => model.TokuchuuzaiUmu,
+                    new SelectList(Model.TokuchuuzaiUmuSelectList, "Value", "DisplayText"),
+                    "",
+                    new { @class = "form-control size6" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="col-form-label label-title">材料納期</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control size10" maxlength="10" id="ZairyouNouki" name="ZairyouNouki" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="col-form-label label-title">特注材コメント</label>
+                </div>
+                <div class="col-sm-8">
+                    <textarea class="form-control size50" rows="6" maxlength="300" id="TokuchuuzaiComment" name="TokuchuuzaiComment"></textarea>
+                </div>
+            </div>
         </div>
     </div>
     @*--------------------------------------------------*@
     <hr />
     <div class="wrap-container">
-        <div id="leftWrap">
+        <div id="leftWrap2ndPage">
             <div class="form-group row">
                 <div class="col-sm-6">
                     <label class="col-form-label label-title require">受注日</label>
@@ -234,7 +255,7 @@
                 </div>
             </div>
         </div>
-        <div id="rightWrap">
+        <div id="rightWrap2ndPage">
             <div class="form-group row">
                 <div class="col-sm-3">
                     <label class="col-form-label label-title">金物</label>
@@ -267,7 +288,7 @@
                     <label class="col-form-label label-title require">横架材</label>
                 </div>
                 <div class="col-sm-3 form-inline">
-                    <select class="form-control size2" id="OukazaiExist" name="OukazaiExist">
+                    <select class="form-control size2" id="OukazaiExistence" name="OukazaiExistence">
                         <option value="1">有</option>
                         <option value="0">無</option>
                     </select>
@@ -278,7 +299,7 @@
                     <label class="col-form-label label-title require ">壁</label>
                 </div>
                 <div class="col-sm-3 form-inline">
-                    <select class="form-control size2" id="KabeExist" name="KabeExist">
+                    <select class="form-control size2" id="KabeExistence" name="KabeExistence">
                         <option value="1">有</option>
                         <option value="0">無</option>
                     </select>
@@ -291,7 +312,7 @@
                     <label class="col-form-label label-title require">柱材</label>
                 </div>
                 <div class="col-sm-3 form-inline">
-                    <select class="form-control size2" id="HasirazaiExist" name="HasirazaiExist">
+                    <select class="form-control size2" id="HasirazaiExistence" name="HasirazaiExistence">
                         <option value="1">有</option>
                         <option value="0">無</option>
                     </select>
@@ -302,7 +323,7 @@
                     <label class="col-form-label label-title require ">火打</label>
                 </div>
                 <div class="col-sm-3 form-inline">
-                    <select class="form-control size2" id="HiuchiExist" name="HiuchiExist">
+                    <select class="form-control size2" id="HiuchiExistence" name="HiuchiExistence">
                         <option value="1">有</option>
                         <option value="0">無</option>
                     </select>
@@ -315,7 +336,7 @@
                     <label class="col-form-label label-title require">羽柄材</label>
                 </div>
                 <div class="col-sm-3 form-inline">
-                    <select class="form-control size2" id="HagarazaiExist" name="HagarazaiExist">
+                    <select class="form-control size2" id="HagarazaiExistence" name="HagarazaiExistence">
                         <option value="1">有</option>
                         <option value="0">無</option>
                     </select>
@@ -334,7 +355,7 @@
                     <label class="col-form-label label-title require">床</label>
                 </div>
                 <div class="col-sm-3 form-inline">
-                    <select class="form-control size2" id="YukaExist" name="YukaExist">
+                    <select class="form-control size2" id="YukaExistence" name="YukaExistence">
                         <option value="1">有</option>
                         <option value="0">無</option>
                     </select>
@@ -343,7 +364,7 @@
                 </div>
                 <div class="col-sm-6 clearfix">
                     @Html.DropDownListFor(
-                    model => model.YukazaiCD,
+                    model => model.YukaGoubanCD,
                     new SelectList(Model.GoubanSelectList, "Value", "DisplayText"),
                     "",
                     new { @class = "form-control float-left size34" })
@@ -358,7 +379,7 @@
                     <label class="col-form-label label-title require">野地</label>
                 </div>
                 <div class="col-sm-3 form-inline">
-                    <select class="form-control size2" id="NojiExist" name="NojiExist">
+                    <select class="form-control size2" id="NojiExistence" name="NojiExistence">
                         <option value="1">有</option>
                         <option value="0">無</option>
                     </select>
@@ -367,7 +388,7 @@
                 </div>
                 <div class="col-sm-6 clearfix">
                     @Html.DropDownListFor(
-                    model => model.NojizaiCD,
+                    model => model.NojiGoubanCD,
                     new SelectList(Model.GoubanSelectList, "Value", "DisplayText"),
                     "",
                     new { @class = "form-control float-left size34" })
@@ -382,7 +403,7 @@
                     <label class="col-form-label label-title">手加工</label>
                 </div>
                 <div class="col-sm-3 form-inline">
-                    <select class="form-control size2" id="TekakouExist" name="TekakouExist">
+                    <select class="form-control size2" id="TekakouExistence" name="TekakouExistence">
                         <option value="1">有</option>
                         <option value="0">無</option>
                     </select>
@@ -393,7 +414,7 @@
                     <label class="col-form-label label-title">フンデガー</label>
                 </div>
                 <div class="col-sm-3 form-inline">
-                    <select class="form-control size2" id="HundeggerExist" name="HundeggerExist">
+                    <select class="form-control size2" id="HundeggerExistence" name="HundeggerExistence">
                         <option value="1">有</option>
                         <option value="0">無</option>
                     </select>
@@ -432,22 +453,38 @@
         </div>
         <div class="col-sm-10">
             <div class="custom-control custom-radio">
-                <input id="UpFileOption1" name="UpFileOption" type="radio" value="1" checked>
-                <label for="UpFileOption1" class="label-custom-radio">指示書・加工データ</label>
-                <input id="UpFileOption2" name="UpFileOption" type="radio" value="2">
-                <label for="UpFileOption2" class="label-custom-radio">物件データ</label>
-                <input id="UpFileOption3" name="UpFileOption" type="radio" value="3">
-                <label for="UpFileOption3" class="label-custom-radio">現地案内指示書・地図</label>
-                <input id="UpFileOption4" name="UpFileOption" type="radio" value="4">
-                <label for="UpFileOption4" class="label-custom-radio">木出し</label>
-                <input id="UpFileOption5" name="UpFileOption" type="radio" value="5">
-                <label for="UpFileOption5" class="label-custom-radio">金物</label>
-                <input id="UpFileOption6" name="UpFileOption" type="radio" value="6">
-                <label for="UpFileOption6" class="label-custom-radio">最終CSV</label>
-                <input id="UpFileOption7" name="UpFileOption" type="radio" value="7">
-                <label for="UpFileOption7" class="label-custom-radio">レビュー</label>
-                <input id="UpFileOption8" name="UpFileOption" type="radio" value="8" checked>
-                <label for="UpFileOption8" class="label-custom-radio">今回添付無し</label>
+                <div class="radioWrap">
+                    <input id="UpFileOption1" name="UpFileOption" type="radio" value="1" checked>
+                    <label for="UpFileOption1" class="label-custom-radio">指示書・加工データ</label>
+                </div>
+                <div class="radioWrap">
+                    <input id="UpFileOption2" name="UpFileOption" type="radio" value="2">
+                    <label for="UpFileOption2" class="label-custom-radio">物件データ</label>
+                </div>
+                <div class="radioWrap">
+                    <input id="UpFileOption3" name="UpFileOption" type="radio" value="3">
+                    <label for="UpFileOption3" class="label-custom-radio">現地案内指示書・地図</label>
+                </div>
+                <div class="radioWrap">
+                    <input id="UpFileOption4" name="UpFileOption" type="radio" value="4">
+                    <label for="UpFileOption4" class="label-custom-radio">木出し</label>
+                </div>
+                <div class="radioWrap">
+                    <input id="UpFileOption5" name="UpFileOption" type="radio" value="5">
+                    <label for="UpFileOption5" class="label-custom-radio">金物</label>
+                </div>
+                <div class="radioWrap">
+                    <input id="UpFileOption6" name="UpFileOption" type="radio" value="6">
+                    <label for="UpFileOption6" class="label-custom-radio">最終CSV</label>
+                </div>
+                <div class="radioWrap">
+                    <input id="UpFileOption7" name="UpFileOption" type="radio" value="7">
+                    <label for="UpFileOption7" class="label-custom-radio">レビュー</label>
+                </div>
+                <div class="radioWrap">
+                    <input id="UpFileOption8" name="UpFileOption" type="radio" value="8" checked>
+                    <label for="UpFileOption8" class="label-custom-radio">今回添付無し</label>
+                </div>
             </div>
         </div>
     </div>
@@ -473,22 +510,38 @@
         </div>
         <div class="col-sm-10">
             <div class="custom-control custom-radio">
-                <input id="DownFileOption1" name="DownFileOption" type="radio" value="1" checked>
-                <label for="DownFileOption1" class="label-custom-radio">指示書・加工データ</label>
-                <input id="DownFileOption2" name="DownFileOption" type="radio" value="2">
-                <label for="DownFileOption2" class="label-custom-radio">物件データ</label>
-                <input id="DownFileOption3" name="DownFileOption" type="radio" value="3">
-                <label for="DownFileOption3" class="label-custom-radio">現地案内指示書・地図</label>
-                <input id="DownFileOption4" name="DownFileOption" type="radio" value="4">
-                <label for="DownFileOption4" class="label-custom-radio">木出し</label>
-                <input id="DownFileOption5" name="DownFileOption" type="radio" value="5">
-                <label for="DownFileOption5" class="label-custom-radio">金物</label>
-                <input id="DownFileOption6" name="DownFileOption" type="radio" value="6">
-                <label for="DownFileOption6" class="label-custom-radio">最終CSV</label>
-                <input id="DownFileOption7" name="DownFileOption" type="radio" value="7">
-                <label for="DownFileOption7" class="label-custom-radio">レビュー</label>
-                <input id="DownFileOption8" name="DownFileOption" type="radio" value="8" checked>
-                <label for="DownFileOption8" class="label-custom-radio">全て</label>
+                <div class="radioWrap">
+                    <input id="DownFileOption1" name="DownFileOption" type="radio" value="1" checked>
+                    <label for="DownFileOption1" class="label-custom-radio">指示書・加工データ</label>
+                </div>
+                <div class="radioWrap">
+                    <input id="DownFileOption2" name="DownFileOption" type="radio" value="2">
+                    <label for="DownFileOption2" class="label-custom-radio">物件データ</label>
+                </div>
+                <div class="radioWrap">
+                    <input id="DownFileOption3" name="DownFileOption" type="radio" value="3">
+                    <label for="DownFileOption3" class="label-custom-radio">現地案内指示書・地図</label>
+                </div>
+                <div class="radioWrap">
+                    <input id="DownFileOption4" name="DownFileOption" type="radio" value="4">
+                    <label for="DownFileOption4" class="label-custom-radio">木出し</label>
+                </div>
+                <div class="radioWrap">
+                    <input id="DownFileOption5" name="DownFileOption" type="radio" value="5">
+                    <label for="DownFileOption5" class="label-custom-radio">金物</label>
+                </div>
+                <div class="radioWrap">
+                    <input id="DownFileOption6" name="DownFileOption" type="radio" value="6">
+                    <label for="DownFileOption6" class="label-custom-radio">最終CSV</label>
+                </div>
+                <div class="radioWrap">
+                    <input id="DownFileOption7" name="DownFileOption" type="radio" value="7">
+                    <label for="DownFileOption7" class="label-custom-radio">レビュー</label>
+                </div>
+                <div class="radioWrap">
+                    <input id="DownFileOption8" name="DownFileOption" type="radio" value="8" checked>
+                    <label for="DownFileOption8" class="label-custom-radio">全て</label>
+                </div>
             </div>
         </div>
     </div>
@@ -497,10 +550,10 @@
         </div>
         <div class="col-sm-10">
             <table class='table table-bordered' id="tblFileList">
-                    <thead>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+                <thead>
+                </thead>
+                <tbody></tbody>
+            </table>
         </div>
     </div>
     @*--------------------------------------------------*@
@@ -547,17 +600,23 @@
                 });
 
                 $('#btnSave').click(function () {
-                });
-
-                $('#NoukiMiteiCheck').change(function () {
-                    if ($(this).prop('checked')) {
-                        $('#Nouki').prop('disabled', true);;
-                        
-                    } else {
-                        $('#Nouki').prop('disabled', false);;
+                    if (checkErrorOnSave('#main')) {
+                        return false;
                     }
                 });
 
+                $('#NoukiMiteiCheck').change(function () {
+                    $('#Nouki').prop('disabled', $(this).prop('checked'))
+                });
+
+                //必須チェック
+                setRequired('#SitenCD');
+                setRequired('#BukkenName');
+                setRequired('#KoumutenCD');
+                setRequired('#KakouTubosuu');
+                setRequired('#Nouki');
+                setRequired('#TantouEigyouCD');
+                setRequired('#JuchuuDate');
                 //日付チェック
                 setDateTypeValidate('#Nouki')
                 setDateTypeValidate('#ZairyouNouki')
@@ -570,8 +629,19 @@
                 setDoubleByteValidate('#TokuchuuzaiComment');
 
                 //初期表示
-                $('#SitenCD').focus();
+                if ('@Model.Mode' == 'Delete') {
+                    setDisabled('#main');
+                    $('#btnSave').focus();
+                }
+                else {
+                    $('#SitenCD').focus();
+                }
             });
+
+            function setDisabled(targetid) {
+                $(targetid + ' :input:not(:hidden)').prop('disabled', true);
+                $('.main-content-footer :button').prop('disabled', false);
+            }
 
         </script>
     }

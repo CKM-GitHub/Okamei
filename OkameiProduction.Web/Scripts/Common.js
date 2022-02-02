@@ -173,8 +173,8 @@ function checkCommon(ctrl) {
 
     var required = ctrl.attr("validate-required");
     if (required && !ctrl.val()) {
-        var msgdata = calltoApiController(gAbsolutePath + gCommonApiUrl + "GetMessage", { MessageID: "E102" });
-        if (!msgdata || !msgdata.status) {
+        var result = calltoApiController(gAbsolutePath + gCommonApiUrl + "GetMessage", { MessageID: "E102" });
+        if (!result || !result.status) {
             return false;
         }
         return result;

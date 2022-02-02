@@ -93,10 +93,21 @@ namespace OkameiProduction.BL
                     {
                         cmd.Parameters.AddRange(para);
                     }
-                    cmd.ExecuteNonQuery();
-                    conn.Close();
-                }
 
+                    var transaction = conn.BeginTransaction();
+                    cmd.Transaction = transaction;
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                        transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        throw ex;
+                    }
+                    //conn.Close();
+                }
                 return true;
             }
             catch (Exception ex)

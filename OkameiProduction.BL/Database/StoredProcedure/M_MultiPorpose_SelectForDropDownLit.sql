@@ -5,7 +5,8 @@ END
 GO
 
 CREATE PROCEDURE [dbo].[M_MultiPorpose_SelectForDropDownLit](
-    @ID  int
+    @ID  int,
+	@Char4 varchar(100) = NULL
 )AS
 BEGIN
     SET NOCOUNT ON;
@@ -18,6 +19,7 @@ BEGIN
 			,ROW_NUMBER() OVER(ORDER BY Char3)  AS SortBy
 		FROM M_MultiPorpose
 		WHERE ID = @ID
+		AND (@Char4 IS NULL OR Char4 = @Char4)
 		ORDER BY Char3
 	END
 	BEGIN
@@ -27,6 +29,7 @@ BEGIN
 			,Num1  AS SortBy
 		FROM M_MultiPorpose
 		WHERE ID = @ID
+		AND (@Char4 IS NULL OR Char4 = @Char4)
 		ORDER BY Num1
 	END
 END
