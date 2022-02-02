@@ -4,6 +4,7 @@
 }
 
 <style>
+
     .table th {
         padding-top: 2px;
         padding-bottom: 2px;
@@ -31,15 +32,15 @@
     }
 
     #tblFusezuMiteisyutu .KoumutenName {
-        min-width: 210px;
+        min-width: 100px;
     }
 
-    #tblFusezuMiteisyutu .KakouTubosuu {
+    #tblFusezuMiteisyutu .KakoutuboSuu {
         text-align: right;
     }
 
     #tblFusezuMiteisyutu .TantouSitenName {
-        min-width: 70px;
+        min-width: 50px;
     }
 
     #tblFusezuMiteisyutu .TantouEigyouName {
@@ -50,7 +51,7 @@
         min-width: 50px;
     }
     #tblFusezuMiteisyutu .KanamonoName {
-        min-width: 70px;
+        min-width: 50px;
     }
 
    
@@ -58,7 +59,7 @@
 
 <h4>伏図未提出物件</h4>
 <div id="main" class="main-content">
-    <table class='table table-bordered' id="tblFusezuMiteisyutu">
+    <table class='table table-bordered'  id="tblFusezuMiteisyutu">
         <thead>
             <tr>
                 <th>受注日</th>
@@ -146,7 +147,7 @@
                 location.href = '@Url.Action("SetCondition", "FusezuMiteisyutu")';
             });
 
-            bindDataTables($(' #tblFusezuMiteisyutu'));
+            bindDataTables($('#tblFusezuMiteisyutu'));
         });
 
     </script>
