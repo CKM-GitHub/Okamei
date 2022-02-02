@@ -98,6 +98,10 @@ input[integerdigits], input[decimaldigits] {
     color: red;
 }
 
+.edit-link {
+    color: blue;
+}
+
 @media (max-width: 575px) {
     .main-content {
         margin: 0px;

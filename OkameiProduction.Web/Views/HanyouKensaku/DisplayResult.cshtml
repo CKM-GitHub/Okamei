@@ -1,0 +1,162 @@
+﻿@model Models.HanyouKensakuModel
+
+@{
+    ViewBag.Title = "HanyouKensakuList";
+    var serverDate = ViewBag.ServerDate;
+}
+
+<style>
+    .list-table {
+        /*visibility: hidden;*/
+    }
+
+    .table th {
+        padding-top: 2px;
+        padding-bottom: 2px;
+        background-color: #ffff66;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    #tblMoulderItiran tbody td {
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+
+    #tblMoulderItiran .Nouki {
+        min-width: 50px;
+    }
+
+    #tblMoulderItiran .BukkenNO {
+    }
+
+    #tblMoulderItiran .BukkenName {
+        min-width: 150px;
+    }
+
+    #tblMoulderItiran .Name {
+        min-width: 80px;
+    }
+
+    #tblMoulderItiran .Material {
+        min-width: 150px;
+    }
+
+    #tblMoulderItiran .Content {
+        min-width: 180px;
+    }
+
+    #tblMoulderItiran .MoulderHonsuu {
+        text-align: right;
+    }
+
+    #tblMoulderItiran .MoulderKakouDateTime {
+        min-width: 180px;
+    }
+
+    #tblHanyouKensaku .edit-td, #tblHanyouKensaku .delete-td {
+        min-width: 30px;
+    }
+</style>
+
+<h4 class="page-title">汎用マスタ検索</h4>
+<div id="main" class="main-content">
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label label-title">ID名＊</label>
+        </div>
+        <div class="col-sm-10">
+            @Html.DropDownListFor(
+            model => model.GeneralPurposeCD,
+            new SelectList(Model.GeneralSelectList, "Value", "DisplayText"),
+            "",
+            new { @class = "form-control size50" })
+        </div>
+    </div>
+
+    <table class='table table-bordered list-table' id="tblHanyouKensaku">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>キー</th>
+                <th>文字型項目1</th>
+                <th>文字型項目2</th>
+                <th>文字型項目3</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var columns = ViewBag.Data.Columns;
+            }
+
+            @foreach (System.Data.DataRow row in ViewBag.Data.Rows)
+            {
+            <tr>
+                @{
+                    var count = row.ItemArray.Count();
+                    var items = row.ItemArray;
+                    var bukkenNo = row["BukkenNO"].ToString();
+                }
+                @for (var i = 0; i < count; i++)
+                {
+                    <td class="@columns[i].Caption">
+                        @if (columns[i].Caption == "BukkenName")
+                        {
+                            @Html.ActionLink((string)items[i], "Entry", "BukkenShousai", new { Mode = "Edit", BukkenNO = bukkenNo }, new { @class = "edit-link" })
+                        }
+                        else
+                        {
+                            @items[i]
+                        }
+                    </td>
+                }
+                <td class="edit-td">
+                    @Html.ActionLink("編集", "Entry", "BukkenShousai", new { Mode = "Edit", BukkenNO = bukkenNo }, new { @class = "edit-link" })
+                </td>
+                <td class="delete-td">
+                    @Html.ActionLink("削除", "Entry", "BukkenShousai", new { Mode = "Delete", BukkenNO = bukkenNo }, new { @class = "delete-link" })
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <div class="form-group row">
+        <div class="footer-btn mx-auto">
+            <button type="button" id="btnReturn" class="btn btn-secondary">戻る</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#btnReturn').click(function () {
+                //location.href = '@Url.Action("SetCondition", "HanyouKensaku")';
+            });
+
+        });
+
+        function DisplayResult() {
+            var model =
+            {
+                GeneralPurposeCD: $('#GeneralPurposeCD').val(),
+                UserID: $('#user-id').text()
+            };
+
+            var result = calltoApiController('@Url.Action("ExistsDisplayResult", "api/HanyouKensakuApi")', model);
+            if (!result || !result.status) {
+                return false;
+            }
+            if (result && result.MessageID) {
+                showMessage(result);
+                return false;
+            }
+
+            bindDataTables($('#tblHanyouKensaku'));
+        }
+    </script>
+}
