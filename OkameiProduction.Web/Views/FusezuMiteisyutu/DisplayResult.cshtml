@@ -4,27 +4,25 @@
 }
 
 <style>
-    
-
     .table th {
         padding-top: 2px;
         padding-bottom: 2px;
         background-color: #ffff66;
+        font-size: 14px;
     }
 
     #tblFusezuMiteisyutu tbody td {
         padding-top: 2px;
         padding-bottom: 2px;
+        font-size: 14px;
     }
-
-    #tblFusezuMiteisyutu .JuchuuDateDate {
+    #tblFusezuMiteisyutu .JuchuuDate {
         min-width: 50px;
     }
 
     #tblFusezuMiteisyutu .Nouki {
-        min-width: 60px;
+        min-width: 50px;
     }
-
 
     #tblFusezuMiteisyutu .BukkenNO {
     }
@@ -41,28 +39,27 @@
         text-align: right;
     }
 
-    #tblFusezuMiteisyutu TantouSitenName {
+    #tblFusezuMiteisyutu .TantouSitenName {
+        min-width: 70px;
+    }
+
+    #tblFusezuMiteisyutu .TantouEigyouName {
         min-width: 50px;
     }
 
-    #tblFusezuMiteisyutu TantouEigyouName {
-        min-width: 70px;
+    #tblFusezuMiteisyutu .TantouCadName {
+        min-width: 50px;
     }
-
-    #tblFusezuMiteisyutu TantouCadName {
-        min-width: 70px;
-    }
-
     #tblFusezuMiteisyutu .KanamonoName {
         min-width: 70px;
     }
 
-    
+   
 </style>
 
 <h4>伏図未提出物件</h4>
 <div id="main" class="main-content">
-    <table class='table table-bordered list-table' id="#tblFusezuMiteisyutu">
+    <table class='table table-bordered' id="tblFusezuMiteisyutu">
         <thead>
             <tr>
                 <th>受注日</th>
@@ -79,30 +76,31 @@
         </thead>
         <tbody>
             @*@for (var iii = 0; iii < 50; iii++)
-                {
-                    <tr>
-                        <td class="Nouki">99/99</td>
-                        <td class="UnsouKuraireDate">99/99</td>
-                        <td class="BukkenNO">12345678</td>
-                        <td class="BukkenName">1234567890123456</td>
-                        <td class="KoumutenName">123456789012345678901234567890</td>
-                        <td class="KakouTubosuu">999.99</td>
-                        <td class="TantouSitenName">123456</td>
-                        <td class="TantouEigyouName">123456</td>
-                        <td class="TantouCadName">123456</td>
-                        <td class="FusezuTeishutuDate">99/99</td>
-                        <td class="ShouninKijitu">99/99</td>
-                        <td class="KakouShouninDate">99/99</td>
-                        <td class="SijiKikitu">99/99</td>
-                        <td class="KakouNissuu">999</td>
-                        <td class="UpdateDateTime">99/99</td>
-                        <td class="KanamonoName">1234567890</td>
-                        <td class="NyuuryokusakiName">123456</td>
-                        <td class="TokuchuuzaiUmu">1234</td>
-                        <td class="SinchokuJoukyou">123456789012</td>
-                        <td class="delete-td">1234</td>
-                    </tr>
-                }*@
+        {
+            <tr>
+                <td class="Nouki">99/99</td>
+                <td class="UnsouKuraireDate">99/99</td>
+                <td class="BukkenNO">12345678</td>
+                <td class="BukkenName">1234567890123456</td>
+                <td class="KoumutenName">123456789012345678901234567890</td>
+                <td class="KakouTubosuu">999.99</td>
+                <td class="TantouSitenName">123456</td>
+                <td class="TantouEigyouName">123456</td>
+                <td class="TantouCadName">123456</td>
+                <td class="JuchuuDate">99/99</td>
+                <td class="FusezuTeishutuDate">99/99</td>
+                <td class="ShouninKijitu">99/99</td>
+                <td class="KakouShouninDate">99/99</td>
+                <td class="SijiKikitu">99/99</td>
+                <td class="KakouNissuu">999</td>
+                <td class="UpdateDateTime">99/99</td>
+                <td class="KanamonoName">1234567890</td>
+                <td class="NyuuryokusakiName">123456</td>
+                <td class="TokuchuuzaiUmu">1234</td>
+                <td class="SinchokuJoukyou">123456789012</td>
+                <td class="delete-td">1234</td>
+            </tr>
+        }*@
 
             @{
                 var columns = ViewBag.Data.Columns;
@@ -118,18 +116,17 @@
                     }
                     @for (var i = 0; i < count; i++)
                     {
-                    <td class="@columns[i].Caption">
-                        @if (columns[i].Caption == "BukkenName")
-                        {
-                            @Html.ActionLink((string)items[i], "Entry", "BukkenShousai", new { Mode = "Edit", BukkenNO = bukkenNo }, new { @class = "edit-link" })
-                        }
-                        else
-                        {
-                            @items[i]
-                        }
-                    </td>
+                        <td class="@columns[i].Caption">
+                            @if (columns[i].Caption == "BukkenName")
+                            {
+                                @Html.ActionLink((string)items[i], "Entry", "BukkenShousai", new { Mode = "Edit", BukkenNO = bukkenNo }, new { @class = "edit-link" })
+                            }
+                            else
+                            {
+                                @items[i]
+                            }
+                        </td>
                     }
-                   
                 </tr>
             }
         </tbody>
@@ -150,7 +147,7 @@
                 location.href = '@Url.Action("SetCondition", "FusezuMiteisyutu")';
             });
 
-            bindDataTables($('#tblFusezuMiteisyutu'));
+            bindDataTables($(' #tblFusezuMiteisyutu'));
         });
 
     </script>

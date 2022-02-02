@@ -5,7 +5,7 @@ using Models;
 
 namespace OkameiProduction.BL
 {
-    public class FusezuMitesyutuBL
+    public class FusezuMiteisyutuBL
     {
         public bool ExistsDisplayResult(FusezuMiteisyutuModel model)
         {

@@ -18,22 +18,26 @@ namespace OkameiProduction.Web.Controllers
             return View(vm);
         }
 
-        //GET: 
-        public ActionResult DisplayResult()
+        // GET: 
+        public ActionResult DisplayResult ()
         {
             var vm = GetFromQueryString<FusezuMiteisyutuModel>();
 
-            FusezuMitesyutuBL bl = new FusezuMitesyutuBL();
+            FusezuMiteisyutuBL bl = new FusezuMiteisyutuBL();
             var dt = bl.GetDisplayResult(vm);
             ViewBag.Data = dt;
 
             return View(vm);
         }
-        
+
+
+
+
+        // ----------------------------------------/
+        // private
         private void SetDropDownListItems(FusezuMiteisyutuModel vm)
         {
             CommonBL dl = new CommonBL();
-            
             vm.CADStaffSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.CADStaff);
         }
     }

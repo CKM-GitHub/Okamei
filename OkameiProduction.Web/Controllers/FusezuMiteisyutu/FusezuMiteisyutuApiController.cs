@@ -11,7 +11,7 @@ namespace OkameiProduction.Web.Controllers
         {
             if (model == null) return GetBadRequestResult();
 
-            var bl = new FusezuMitesyutuBL();
+            var bl = new FusezuMiteisyutuBL();
             if (bl.ExistsDisplayResult(model))
             {
                 return GetSuccessResult();
