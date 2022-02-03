@@ -180,5 +180,71 @@ namespace OkameiProduction.BL
             }
             return true;
         }
+
+        public bool CheckIsDoubleByte(string val, out string errorcd)
+        {
+            errorcd = "";
+
+            Encoding e = Encoding.GetEncoding("Shift_JIS");
+            if (e.GetByteCount(val) != (val.Length * 2))
+            {
+                errorcd = "E221"; //入力できない文字が含まれています。
+                return false;
+            }
+            return true;
+        }
+
+        public bool CheckIsNumeric(string val, int integerdigits, int decimaldigits, out string errorcd, out string outVal)
+        {
+            errorcd = "";
+            outVal = "";
+
+            if (!Decimal.TryParse(val, out decimal decimalValue))
+            {
+                errorcd = "E221"; //入力できない文字が含まれています。
+                return false;
+            }
+
+            //小数以下桁数で切り捨て
+            if (decimaldigits > 0)
+            {
+                decimal power = Math.Pow(10, decimaldigits).ToDecimal(0);
+                decimalValue = Math.Truncate(decimalValue * power) / power;
+            }
+
+            //min max
+            string maxValue = "";
+            if (integerdigits == 0)
+            {
+                maxValue = "0";
+            }
+            else
+            {
+                maxValue= new string('9', integerdigits);
+            }
+            if (decimaldigits > 1)
+            {
+                maxValue += "." + new string('9', decimaldigits);
+            }
+
+            if (maxValue.ToDecimal(0) < decimalValue || (maxValue.ToDecimal(0) * -1) > decimalValue)
+            {
+                errorcd = "E142";
+                return false; //入力した値の桁数が正しくありません。
+            }
+
+            //out val
+            if (decimaldigits == 0)
+            {
+                outVal = decimalValue.ToString("#,##0");
+            }
+            else
+            {
+                var format = "#,##0." + new String('0', decimaldigits);
+                outVal = decimalValue.ToString(format);
+            }
+
+            return true;
+        }
     }
 }
