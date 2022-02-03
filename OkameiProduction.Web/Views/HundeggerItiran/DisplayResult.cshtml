@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "HundeggerItiranList";
+}
+
+<style>
+    .table th {
+        padding-top: 2px;
+        padding-bottom: 2px;
+        background-color: #ffff66;
+        font-size:14px;
+        white-space:nowrap;
+    }
+    
+    #tblHundeggerItiran tbody td {
+        padding-top: 2px;
+        padding-bottom: 2px;
+        font-size:14px;
+    }
+
+    #tblHundeggerItiran .Nouki {
+        min-width: 50px;
+    }
+    #tblHundeggerItiran .BukkenNO {
+    }
+
+    #tblHundeggerItiran .BukkenName {
+        min-width: 120px;
+    }
+    #tblHundeggerItiran .KoumutenName {
+        min-width: 210px;
+    }
+    #tblHundeggerItiran .KakouTubosuu {
+        text-align: right;
+    }
+    #tblHundeggerItiran .KakousijishoHakkouDate {
+        min-width: 50px;
+    }
+    #tblHundeggerItiran .HundeggerTime {
+        text-align: right;
+    }
+</style>
+
+<h4>フンデガー物件一覧</h4>
+<div id="main" class="main-content">
+    <table class='table table-bordered' id="HundeggerItiran">
+        <thead>
+            <tr>
+                <th>納期</th>
+                <th>物件番号</th>
+                <th>物件名</th>
+                <th>工務店</th>
+                <th>坪数</th>
+                <th>指示</th>
+                <th>推定時間</th>
+            </tr>
+        </thead>
+        <tbody>
+          
+
+            @{
+                var columns = ViewBag.Data.Columns;
+            }
+
+            @foreach (System.Data.DataRow row in ViewBag.Data.Rows)
+            {
+                <tr>
+                    @{
+                        var count = row.ItemArray.Count();
+                        var items = row.ItemArray;
+                        var bukkenNo = row["BukkenNO"].ToString();
+                    }
+                    @for (var i = 0; i < count; i++)
+                    {
+                        <td class="@columns[i].Caption">
+                            @if (columns[i].Caption == "BukkenName")
+                            {
+                                @Html.ActionLink((string)items[i], "Entry", "BukkenShousai", new { Mode = "Edit", BukkenNO = bukkenNo }, new { @class = "edit-link" })
+                            }
+                            else
+                            {
+                                @items[i]
+                            }
+                        </td>
+                    }
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="form-group row">
+        <div class="footer-btn mx-auto">
+            <button type="button" id="btnReturn" class="btn btn-secondary">戻る</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#btnReturn').click(function () {
+                location.href = '@Url.Action("SetCondition", "HundeggerItiran")';
+            });
+
+            bindDataTables($('#tblHundeggerItiran'));
+        });
+
+    </script>
+}
