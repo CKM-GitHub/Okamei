@@ -23,6 +23,7 @@ namespace OkameiProduction.Web.Controllers
             return ConvertToJsonResult(bl.GetMultiPorposeDDLItems(EMultiPorpose.Koumuten, id));
         }
 
+        [HttpPost]
         public string GetBukkenNO(string id)
         {
             if (id == null) return GetBadRequestResult();

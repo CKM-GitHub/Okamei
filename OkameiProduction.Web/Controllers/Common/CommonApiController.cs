@@ -46,11 +46,27 @@ namespace OkameiProduction.Web.Controllers
                 }
             }
 
+            if (model.IsDoubleByteOnly)
+            {
+                if (!bl.CheckIsDoubleByte(model.InputValue1, out msgid))
+                {
+                    return GetErrorResult(msgid);
+                }
+            }
+
             if (model.IsHalfWidth)
             {
                 if (!bl.CheckIsHalfWidth(model.InputValue1, out msgid))
                 {
                     return GetErrorResult(msgid, outVal);
+                }
+            }
+
+            if (model.IsNumeric)
+            {
+                if (!bl.CheckIsNumeric(model.InputValue1, model.Integerdigits, model.Decimaldigits, out msgid, out outVal))
+                {
+                    return GetErrorResult(msgid);
                 }
             }
 
