@@ -37,7 +37,7 @@ namespace OkameiProduction.Web.Controllers.KubunTaisyou
             var bl = new KubunTaisyouBL();
             var dt = bl.GetDisplayResult(vm);
             
-            ViewBag.Data = LimitBytes(dt);
+            ViewBag.Data =  dt;
 
             return View(vm);
         }

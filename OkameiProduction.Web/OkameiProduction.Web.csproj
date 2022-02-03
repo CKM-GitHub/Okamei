@@ -171,6 +171,8 @@
     <Compile Include="Controllers\BukkenShousai\BukkenShousaiController.cs" />
     <Compile Include="Controllers\HanyouKensaku\HanyouKensakuApiController.cs" />
     <Compile Include="Controllers\HanyouKensaku\HanyouKensakuController.cs" />
+    <Compile Include="Controllers\HiuchiItiran\HiuchiItiranApiController.cs" />
+    <Compile Include="Controllers\HiuchiItiran\HiuchiItiranController.cs" />
     <Compile Include="Controllers\KubunTaisyou\KubunTaisyouApiController.cs" />
     <Compile Include="Controllers\KubunTaisyou\KubunTaisyouController.cs" />
     <Compile Include="Controllers\MoulderItiran\MoulderItiranApiController.cs" />
@@ -341,8 +343,12 @@
     <Content Include="Views\FusezuMiteisyutu\DisplayResult.cshtml" />
     <Content Include="Views\FusezuMiteisyutu\SetCondition.cshtml" />
     <Content Include="Views\HanyouKensaku\DisplayResult.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\HundeggerItiran\DisplayResult.cshtml" />
     <Content Include="Views\HundeggerItiran\SetCondition.cshtml" />
+=======
+    <Content Include="Views\HiuchiItiran\Hiuchi.cshtml" />
+>>>>>>> b45fd11685340608eae4ace5d623f5b3f1491f20
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

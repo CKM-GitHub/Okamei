@@ -12,6 +12,10 @@ namespace Models
         public bool IsCompareDate { get; set; }
         public bool IsHalfWidth { get; set; }
         public bool IsDoubleByte { get; set; }
+        public bool IsDoubleByteOnly { get; set; }
+        public bool IsNumeric { get; set; }
+        public int Integerdigits { get; set; }
+        public int Decimaldigits { get; set; }
         public string InputValue1 { get; set; }
         public string ComparisonValue { get; set; }
         public string MaxLength { get; set; }
