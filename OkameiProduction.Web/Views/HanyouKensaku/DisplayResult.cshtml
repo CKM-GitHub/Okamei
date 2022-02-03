@@ -14,48 +14,30 @@
         padding-top: 2px;
         padding-bottom: 2px;
         background-color: #ffff66;
-        text-align: center;
         white-space: nowrap;
     }
 
-    #tblMoulderItiran tbody td {
+    #tblHanyouKensaku tbody td {
         padding-top: 2px;
         padding-bottom: 2px;
     }
 
-    #tblMoulderItiran .Nouki {
+    #tblHanyouKensaku .ID {
         min-width: 50px;
     }
 
-    #tblMoulderItiran .BukkenNO {
+    #tblHanyouKensaku .Key {
+        width: 130px;
     }
 
-    #tblMoulderItiran .BukkenName {
-        min-width: 150px;
-    }
-
-    #tblMoulderItiran .Name {
-        min-width: 80px;
-    }
-
-    #tblMoulderItiran .Material {
-        min-width: 150px;
-    }
-
-    #tblMoulderItiran .Content {
-        min-width: 180px;
-    }
-
-    #tblMoulderItiran .MoulderHonsuu {
-        text-align: right;
-    }
-
-    #tblMoulderItiran .MoulderKakouDateTime {
-        min-width: 180px;
+    #tblHanyouKensaku .Char1, #tblHanyouKensaku .Char2, #tblHanyouKensaku .Char3 {
+        line-break: anywhere;
+        max-width: 300px;
     }
 
     #tblHanyouKensaku .edit-td, #tblHanyouKensaku .delete-td {
-        min-width: 30px;
+        text-align: center;
+        min-width: 50px;
     }
 </style>
 
@@ -67,8 +49,8 @@
         </div>
         <div class="col-sm-10">
             @Html.DropDownListFor(
-            model => model.GeneralPurposeCD,
-            new SelectList(Model.GeneralSelectList, "Value", "DisplayText"),
+            model => model.ID,
+            new SelectList(Model.IDSelectList, "Value", "DisplayText"),
             "",
             new { @class = "form-control size50" })
         </div>
@@ -97,26 +79,19 @@
                 @{
                     var count = row.ItemArray.Count();
                     var items = row.ItemArray;
-                    var bukkenNo = row["BukkenNO"].ToString();
+                    var id = row["ID"].ToString();
                 }
                 @for (var i = 0; i < count; i++)
                 {
                     <td class="@columns[i].Caption">
-                        @if (columns[i].Caption == "BukkenName")
-                        {
-                            @Html.ActionLink((string)items[i], "Entry", "BukkenShousai", new { Mode = "Edit", BukkenNO = bukkenNo }, new { @class = "edit-link" })
-                        }
-                        else
-                        {
-                            @items[i]
-                        }
+                        @items[i]
                     </td>
                 }
                 <td class="edit-td">
-                    @Html.ActionLink("編集", "Entry", "BukkenShousai", new { Mode = "Edit", BukkenNO = bukkenNo }, new { @class = "edit-link" })
+                    @Html.ActionLink("編集", "Entry", "BukkenShousai", new { Mode = "Edit", id = id }, new { @class = "edit-link" })
                 </td>
                 <td class="delete-td">
-                    @Html.ActionLink("削除", "Entry", "BukkenShousai", new { Mode = "Delete", BukkenNO = bukkenNo }, new { @class = "delete-link" })
+                    @Html.ActionLink("削除", "Entry", "BukkenShousai", new { Mode = "Delete", id = id }, new { @class = "delete-link" })
                 </td>
             </tr>
             }
@@ -135,15 +110,19 @@
         $(document).ready(function () {
 
             $('#btnReturn').click(function () {
-                //location.href = '@Url.Action("SetCondition", "HanyouKensaku")';
             });
+            bindDataTables($('#tblHanyouKensaku'));
 
+            $('#ID').change(function () {
+                DisplayResult();
+            })
         });
 
         function DisplayResult() {
+            debugger;
             var model =
             {
-                GeneralPurposeCD: $('#GeneralPurposeCD').val(),
+                GeneralPurposeCD: $('#ID').val(),
                 UserID: $('#user-id').text()
             };
 
@@ -156,7 +135,16 @@
                 return false;
             }
 
-            bindDataTables($('#tblHanyouKensaku'));
+            result = calltoApiController('@Url.Action("GetDisplayResult", "api/HanyouKensakuApi")', model);
+            var row = '';
+            $.each(result, function (i, value) {
+                row += '<tr><td>' + value.ID + '</td><td>' + value.Key + '</td><td>' + value.Char1 + '</td><td>' + value.Char2 + '</td><td>' + value.Char3 + '</td></tr>';
+            }
+            //$('#tblHanyouKensaku tbody').html(row);
+            )
+
+
+            //$('#tblHanyouKensaku tbody tr').remove();
         }
     </script>
 }
