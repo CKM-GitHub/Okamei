@@ -53,6 +53,7 @@
     <Compile Include="Common\IniFileReader.cs" />
     <Compile Include="Common\ReadIni.cs" />
     <Compile Include="Common\StaticCache.cs" />
+    <Compile Include="HanyouKensakuBL.cs" />
     <Compile Include="KubunTaisyouBL.cs" />
     <Compile Include="MessageBL.cs" />
     <Compile Include="MoulderItiranBL.cs" />
@@ -72,6 +73,7 @@
     <Content Include="Database\StoredProcedure\BukkenItiran_SelectDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\FusezuMiteisyutu_SelectDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\KubunTaisyou_SelectDisplayResult.sql" />
+    <Content Include="Database\StoredProcedure\MoulderItiran_SelectDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\M_Message_SelectAll.sql" />
     <Content Include="Database\StoredProcedure\M_Message_SelectByID.sql" />
     <Content Include="Database\StoredProcedure\M_MultiPorpose_SelectByID.sql" />
