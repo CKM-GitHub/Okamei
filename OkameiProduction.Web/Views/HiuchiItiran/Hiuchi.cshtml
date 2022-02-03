@@ -1,0 +1,119 @@
+﻿@model Models.HiuchiItiranModel
+@{
+    ViewBag.Title = "HiuchiItiran";
+    var serverDate = ViewBag.ServerDate;
+}
+
+
+<h4 class="page-title">区分対象物件</h4>
+<div id="main" class="main-content">
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label label-title">支店</label>
+        </div>
+        <div class="col-sm-10">
+            @Html.DropDownListFor(
+            model => model.SitenCD,
+            new SelectList(Model.SitenSelectList, "Value", "DisplayText"),
+            "全社",
+            new { @class = "form-control size50" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label label-title">納期</label>
+        </div>
+        <div class="col-sm-10 form-inline">
+            <input type="text" id="NoukiStart" name="NoukiStart" class="form-control size10" maxlength="10" />
+            <span>&nbsp;～&nbsp;</span>
+            <input type="text" id="NoukiEnd" name="NoukiEnd" class="form-control size10" maxlength="10" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label label-title">担当営業マン</label>
+        </div>
+        <div class="col-sm-10">
+            @Html.DropDownListFor(
+            model => model.TantouEigyouCD,
+            new SelectList(Model.EigyouStaffSelectList, "Value", "DisplayText"),
+            "",
+            new { @class = "form-control size50" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label label-title">担当CADマン</label>
+        </div>
+        <div class="col-sm-10">
+            @Html.DropDownListFor(
+            model => model.TantouCadCD,
+            new SelectList(Model.CADStaffSelectList, "Value", "DisplayText"),
+            "",
+            new { @class = "form-control size50" })
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="main-content-footer mx-auto">
+            <button type="button" id="btnReturn" class="btn btn-secondary" nofocus>戻る</button>
+            <button type="button" id="btnDisplay" class="btn btn-primary active">表示</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#btnReturn').click(function () {
+                showConfirmMessage("Q004", function () {
+                    window.location.reload();
+                });
+            });//
+
+            $('#btnDisplay').click(function () {
+                if (checkErrorOnSave()) {
+                    showConfirmMessage("Q201", btnDisplayClick);
+                }
+            });
+
+            //日付チェック
+            setDateTypeValidate('#NoukiStart')
+            setDateTypeValidate('#NoukiEnd')
+            //日付大小チェック
+            setCompareDateValidate('#NoukiEnd', '#NoukiStart')
+            //初期表示
+            $('#NoukiStart').val('@serverDate');
+            $('#SitenCD').focus();
+        });
+
+        function btnDisplayClick() {
+
+            @*var model =
+            {
+                SitenCD: $("#SitenCD option:selected").text() == '全社' ? null: $('#SitenCD').val(),
+
+                NoukiStart: $("#NoukiStart").val() == '' ?null: $('#NoukiStart').val(),
+                NoukiEnd: $("#NoukiEnd").val() == '' ? null : $('#NoukiEnd').val(),
+
+                KubunCD: $("#KubunCD option:selected").text() == '' ? null: $('#KubunCD').val(),
+                UserID: $('#user-id').text()
+            };
+
+            var result = calltoApiController('@Url.Action("ExistsDisplayResult", "api/KubunTaisyouApi")', model);
+            if (!result || !result.status) {
+                return false;
+            }
+            if (result && result.MessageID) {
+                showMessage(result);
+                return false;
+            }
+
+            location.href = '@Url.Action("DisplayResult", "KubunTaisyou")' + querySerialize(model);*@
+            return true;
+        }
+
+    </script>
+}

@@ -13,16 +13,16 @@ AS
 BEGIN 
 	SET NOCOUNT ON; 
 	select 
-			mp1.Char1 as KubunName,
+		cast(mp1.Char1 as varchar(32)) as KubunName,
 			(CASE when db.Nouki  is null THEN null
             ELSE FORMAT(db.Nouki, 'MM/dd') END) as Nouki, 
-			db.BukkenNo as BukkenNo,
-			db.BukkenName,
-			db.KoumutenName,
+			cast(db.BukkenNo as varchar(8)) as BukkenNo,
+			cast(db.BukkenName as varchar(16) ) as BukkenName,
+			cast(db.KoumutenName as varchar(30)) as KoumutenName,
 			FORMAT(db.KakoutuboSuu, '##0.00') as KakoutuboSuu ,
-			mp2.Char1 as ShitenName,
-			mp3.Char2 as eigyouName,
-			mp4.Char2 as cadName 
+			cast(mp2.Char1 as varchar(6)) as ShitenName,
+			cast(mp3.Char2 as varchar(6)) as eigyouName,
+			cast(mp4.Char2 as varchar(6)) as cadName 
 			
 			from D_Bukken db 
 			left join M_Multiporpose mp1 on mp1.ID='002' and mp1.[Key]=db.KubunCD

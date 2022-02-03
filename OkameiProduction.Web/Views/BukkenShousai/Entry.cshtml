@@ -65,7 +65,7 @@
                     <label class="col-form-label label-title require">加工坪数</label>
                 </div>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control size6" integerdigits="3" decimaldigits="2" maxlength="6" id="KakouTubosuu" name="KakouTubosuu" />
+                    <input type="text" class="form-control size6" maxlength="6" id="KakouTubosuu" name="KakouTubosuu" />
                 </div>
             </div>
             <div class="form-group row">
@@ -219,7 +219,7 @@
                     <label class="col-form-label label-title">加工指示書発行日</label>
                 </div>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control size10" maxlength="10" id="KakousijishoHakkouDate" name="KakousijishoHakkouDate" />
+                    <input type="text" class="form-control size10" maxlength="10" id="KakouSijishoHakkouDate" name="KakouSijishoHakkouDate" />
                 </div>
             </div>
             <div class="form-group row">
@@ -243,7 +243,7 @@
                     <label class="col-form-label label-title">加工日数</label>
                 </div>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control size10" integerdigits="3" maxlength="10" id="KakouNissuu" name="KakouNissuu" />
+                    <input type="text" class="form-control size3" maxlength="3" id="KakouNissuu" name="KakouNissuu" />
                 </div>
             </div>
             <div class="form-group row">
@@ -345,7 +345,7 @@
                 </div>
                 <div class="col-sm-6 clearfix">
                     <div class="float-right form-inline">
-                        <input type="text" class="form-control size3" integerdigits="3" maxlength="3" id="HagarazaiNumber" name="HagarazaiNumber" />
+                        <input type="text" class="form-control size3" id="HagarazaiNumber" name="HagarazaiNumber" />
                         <span>&nbsp;本</span>
                     </div>
                 </div>
@@ -369,7 +369,7 @@
                     "",
                     new { @class = "form-control float-left size34" })
                     <div class="float-right form-inline">
-                        <input type="text" class="form-control size3" integerdigits="3" maxlength="3" id="YukazaiNumber" name="YukazaiNumber" />
+                        <input type="text" class="form-control size3" maxlength="3" id="YukazaiNumber" name="YukazaiNumber" />
                         <span>&nbsp;枚</span>
                     </div>
                 </div>
@@ -393,7 +393,7 @@
                     "",
                     new { @class = "form-control float-left size34" })
                     <div class="float-right form-inline">
-                        <input type="text" class="form-control size3" integerdigits="3" maxlength="3" id="NojizaiNumber" name="NojizaiNumber" />
+                        <input type="text" class="form-control size3" maxlength="3" id="NojizaiNumber" name="NojizaiNumber" />
                         <span>&nbsp;枚</span>
                     </div>
                 </div>
@@ -427,13 +427,13 @@
                     <label class="col-form-label label-title">手加工推定時間</label>
                 </div>
                 <div class="col-sm-3 form-inline">
-                    <input type="text" class="form-control size5" integerdigits="3" decimaldigits="1" maxlength="5" id="TekakouTime" name="TekakouTime" />
+                    <input type="text" class="form-control size5" maxlength="5" id="TekakouTime" name="TekakouTime" />
                 </div>
                 <div class="col-sm-3">
                     <label class="col-form-label label-title">フンデガー推定時間</label>
                 </div>
                 <div class="col-sm-3 form-inline">
-                    <input type="text" class="form-control size5" integerdigits="3" decimaldigits="1" maxlength="5" id="HundeggerTime" name="HundeggerTime" />
+                    <input type="text" class="form-control size5" maxlength="5" id="HundeggerTime" name="HundeggerTime" />
                 </div>
             </div>
         </div>
@@ -619,14 +619,29 @@
                 setRequired('#JuchuuDate');
                 //日付チェック
                 setDateTypeValidate('#Nouki')
-                setDateTypeValidate('#ZairyouNouki')
                 setDateTypeValidate('#UnsouSoukoiribi')
+                setDateTypeValidate('#ZairyouNouki')
+                setDateTypeValidate('#JuchuuDate')
+                setDateTypeValidate('#HusezuTeishutuDate')
+                setDateTypeValidate('#KakouShouninDate')
+                setDateTypeValidate('#KidasiDate')
+                setDateTypeValidate('#KakouSijishoHakkouDate')
+                setDateTypeValidate('#KannouDate')
+                setDateTypeValidate('#CancelDate')
                 //半角チェック
-                setIsHalfWidthValidate('#KakouTubosuu');
+                //setIsHalfWidthValidate('');
                 //全角桁数チェック
-                setDoubleByteValidate('#BukkenName');
+                setDoubleByteValidate('#BukkenName', true);
                 setDoubleByteValidate('#Address');
                 setDoubleByteValidate('#TokuchuuzaiComment');
+                //数値チェック
+                setNumericValidate('#KakouTubosuu', 3, 2)
+                setNumericValidate('#KakouNissuu', 3, 0);
+                setNumericValidate('#HagarazaiNumber', 3, 0);
+                setNumericValidate('#YukazaiNumber', 3, 0);
+                setNumericValidate('#NojizaiNumber', 3, 0);
+                setNumericValidate('#TekakouTime', 3, 1);
+                setNumericValidate('#HundeggerTime', 3, 1);
 
                 //初期表示
                 if ('@Model.Mode' == 'Delete') {
@@ -637,11 +652,6 @@
                     $('#SitenCD').focus();
                 }
             });
-
-            function setDisabled(targetid) {
-                $(targetid + ' :input:not(:hidden)').prop('disabled', true);
-                $('.main-content-footer :button').prop('disabled', false);
-            }
 
         </script>
     }

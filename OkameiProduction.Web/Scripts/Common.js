@@ -123,9 +123,14 @@ function showMessage(msg, callback) {
     }).then(callback);
 }
 
+function setDisabled(targetid) {
+    $(targetid + ' :input:not(:hidden)').prop('disabled', true);
+    $('.main-content-footer :button').prop('disabled', false);
+}
+
 // require ----->
 function setRequired(selector) {
-    $(selector).attr('validate-required', "true");
+    $(selector).attr('validate-required', 'true');
 }
 function removeRequired(selector) {
     $(selector).removeAttr('validate-required');
@@ -133,7 +138,7 @@ function removeRequired(selector) {
 
 // date type  ----->
 function setDateTypeValidate(selector) {
-    $(selector).attr('validate-datetype', "true");
+    $(selector).attr('validate-datetype', 'true');
 }
 function removeDateTypeValidate(selector) {
     $(selector).removeAttr('validate-datetype');
@@ -142,7 +147,7 @@ function removeDateTypeValidate(selector) {
 // compare date  ----->
 function setCompareDateValidate(selector, comparisonTargetName) {
     $(selector).attr({
-        'validate-comaredate': "true",
+        'validate-comaredate': 'true',
         'comparison-target': comparisonTargetName
     });
 }
@@ -150,20 +155,36 @@ function removeCompareDateValidate(selector) {
     $(selector).removeAttr('validate-comaredate').removeAttr('comparison-target');
 }
 
-// doublebyte length  ----->
-function setDoubleByteValidate(selector) {
-    $(selector).attr('validate-doublebyte', "true");
+// doublebyte  ----->
+function setDoubleByteValidate(selector, isDoublebyteonly) {
+    $(selector).attr('validate-doublebyte', 'true');
+    if (isDoublebyteonly) {
+        $(selector).attr('isDoublebyteonly', isDoublebyteonly);
+    }
 }
 function removeDoubleByteValidate(selector) {
-    $(selector).removeAttr('validate-doublebyte');
+    $(selector).removeAttr('validate-doublebyte').removeAttr('isDoublebyteonly');
 }
 
 // is halfwidth ----->
 function setIsHalfWidthValidate(selector) {
-    $(selector).attr('validate-halfwidth', "true");
+    $(selector).attr('validate-halfwidth', 'true');
 }
 function removeIsHalfWidthValidate(selector) {
     $(selector).removeAttr('validate-halfwidth');
+}
+//<--------------------
+
+// numeric ----->
+function setNumericValidate(selector, integerdigits, decimaldigits) {
+    $(selector).attr('validate-numeric', 'true')
+        .attr('integerdigits', integerdigits)
+        .attr('decimaldigits', decimaldigits);
+}
+function removeNumericValidate(selector) {
+    $(selector).removeAttr('validate-numeric')
+        .removeAttr('integerdigits')
+        .removeAttr('decimaldigits');
 }
 //<--------------------
 
@@ -187,9 +208,10 @@ function checkCommon(ctrl) {
             IsCompareDate: ctrl.attr("validate-comaredate"),
             IsHalfWidth: ctrl.attr("validate-halfwidth"),
             IsDoubleByte: ctrl.attr("validate-doublebyte"),
+            IsNumeric: ctrl.attr("validate-numeric"),
         };
 
-        if (model.IsDateType || model.IsCompareDate || model.IsHalfWidth || model.IsDoubleByte) {
+        if (model.IsDateType || model.IsCompareDate || model.IsHalfWidth || model.IsDoubleByte || model.IsNumeric) {
 
             model.InputValue1 = ctrl.val();
 
@@ -200,13 +222,19 @@ function checkCommon(ctrl) {
 
             if (model.IsDoubleByte) {
                 model.MaxLength = ctrl.attr('maxlength');
+                model.IsDoubleByteOnly = ctrl.attr('isDoublebyteonly');
+            }
+
+            if (model.IsNumeric) {
+                model.Integerdigits = ctrl.attr('integerdigits');
+                model.Decimaldigits = ctrl.attr('decimaldigits');
             }
 
             var result = calltoApiController(gAbsolutePath + gCommonApiUrl + 'CheckValid', model);
             if (!result || !result.status) {
                 return false;
             }
-            if (model.IsDateType) {
+            if (model.IsDateType || model.IsNumeric) {
                 if (result.ReturnValue && result.ReturnValue != "") {
                     ctrl.val(result.ReturnValue);
                 }
