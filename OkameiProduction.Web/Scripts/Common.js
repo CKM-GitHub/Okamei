@@ -25,7 +25,7 @@ function setAutocomplet(selector, url, key) {
         if (!ret) {
             return;
         }
-        if (ret && ret.MessageID) {
+        if (ret.MessageID) {
             showMessage(ret);
             return;
         }
@@ -47,7 +47,7 @@ function setDropDownList(selector, url, key) {
         if (!ret) {
             return;
         }
-        if (ret && ret.MessageID) {
+        if (ret.MessageID) {
             showMessage(ret);
             return;
         }
@@ -147,11 +147,9 @@ function calltoApiController(url, model) {
         },
         success: function (data) {
             result = JSON.parse(data);
-            result.status = true;
         },
         error: function (data) {
             alert(data.status + ":" + data.statusText);
-            return false;
         }
     });
     return result;
@@ -310,7 +308,7 @@ function checkCommon(ctrl) {
                     ctrl.val(result.ReturnValue);
                 }
             }
-            if (result && result.MessageID) {
+            if (result.MessageID) {
                 return result;
             }
         }

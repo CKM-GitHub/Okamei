@@ -88,10 +88,10 @@
             };
 
             var result = calltoApiController('@Url.Action("ExistsDisplayResult", "api/KubunTaisyouApi")', model);
-            if (!result || !result.status) {
+            if (!result) {
                 return false;
             }
-            if (result && result.MessageID) {
+            if (result.MessageID) {
                 showMessage(result);
                 return false;
             }

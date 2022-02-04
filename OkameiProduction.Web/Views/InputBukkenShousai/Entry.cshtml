@@ -781,12 +781,12 @@
                 UserID: $('#user-id').text()
             };
 
-            var result = calltoApiController('@Url.Action("SaveData", "api/InputBukkenShousaiApi")', model);
-            if (!result) {
+            var ret = calltoApiController('@Url.Action("SaveData", "api/InputBukkenShousaiApi")', model);
+            if (!ret) {
                 return false;
             }
-            if (result.MessageID) {
-                showMessage(result);
+            if (ret.MessageID) {
+                showMessage(ret);
                 return false;
             }
             showMessage("I101", function () {
