@@ -342,6 +342,7 @@
     <Content Include="Views\FusezuMiteisyutu\SetCondition.cshtml" />
     <Content Include="Views\HanyouKensaku\DisplayResult.cshtml" />
     <Content Include="Views\HiuchiItiran\Hiuchi.cshtml" />
+    <Content Include="Views\HiuchiItiran\DisplayResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -91,18 +91,17 @@
 
         function btnDisplayClick() {
 
-            @*var model =
+            var model =
             {
                 SitenCD: $("#SitenCD option:selected").text() == '全社' ? null: $('#SitenCD').val(),
-
                 NoukiStart: $("#NoukiStart").val() == '' ?null: $('#NoukiStart').val(),
                 NoukiEnd: $("#NoukiEnd").val() == '' ? null : $('#NoukiEnd').val(),
-
-                KubunCD: $("#KubunCD option:selected").text() == '' ? null: $('#KubunCD').val(),
+                TantouEigyouCD: $("#TantouEigyouCD").val() == '' ? null : $('#TantouEigyouCD').val(),
+                TantouCadCD: $("#TantouCadCD").val() == '' ? null : $('#TantouCadCD').val(),
                 UserID: $('#user-id').text()
             };
 
-            var result = calltoApiController('@Url.Action("ExistsDisplayResult", "api/KubunTaisyouApi")', model);
+            var result = calltoApiController('@Url.Action("ExistsDisplayResult", "api/HiuchiItiranApi")', model);
             if (!result || !result.status) {
                 return false;
             }
@@ -111,7 +110,7 @@
                 return false;
             }
 
-            location.href = '@Url.Action("DisplayResult", "KubunTaisyou")' + querySerialize(model);*@
+            location.href = '@Url.Action("DisplayResult", "HiuchiItiran")' + querySerialize(model);
             return true;
         }
 
