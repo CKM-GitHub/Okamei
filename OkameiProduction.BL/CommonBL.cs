@@ -199,7 +199,7 @@ namespace OkameiProduction.BL
             errorcd = "";
             outVal = "";
 
-            if (!Decimal.TryParse(val, out decimal decimalValue))
+            if (!Decimal.TryParse(val.Trim(), out decimal decimalValue))
             {
                 errorcd = "E221"; //入力できない文字が含まれています。
                 return false;

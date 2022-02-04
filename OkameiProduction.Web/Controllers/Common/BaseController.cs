@@ -7,9 +7,15 @@ using Models;
 namespace OkameiProduction.Web.Controllers
 {
     [CustomHandleErrorAttribute]
+    [BrowsingHistoryAttribute]
     [SessionFilter]
     public class BaseController : Controller
     {
+        protected string GetPreviousUrl()
+        {
+            return Session[BrowsingHistoryAttribute.PREVIOUS_URL].ToStringOrEmpty();
+        }
+
         protected T GetFromQueryString<T>() where T : new()
         {
             var obj = new T();

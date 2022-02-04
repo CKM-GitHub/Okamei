@@ -7,29 +7,38 @@ namespace OkameiProduction.Web.Controllers
     public class BukkenShousaiApiController : BaseApiController
     {
         [HttpPost]
-        public string GetEigyouStaffSelectList(string id)
+        public string GetTantouEigyouSelectList([FromBody]string sitenCD)
         {
-            if (id == null) return GetBadRequestResult();
+            if (sitenCD == null) return GetBadRequestResult();
 
             var bl = new CommonBL();
-            return ConvertToJsonResult(bl.GetMultiPorposeDDLItems(EMultiPorpose.EigyouStaff, id));
+            return ConvertToJsonResult(bl.GetMultiPorposeDDLItems(EMultiPorpose.EigyouStaff, sitenCD));
         }
         [HttpPost]
-        public string GetKoumutenSelectList(string id)
+        public string GetKoumutenSelectList([FromBody]string sitenCD)
         {
-            if (id == null) return GetBadRequestResult();
+            if (sitenCD == null) return GetBadRequestResult();
 
             var bl = new CommonBL();
-            return ConvertToJsonResult(bl.GetMultiPorposeDDLItems(EMultiPorpose.Koumuten, id));
+            return ConvertToJsonResult(bl.GetMultiPorposeDDLItems(EMultiPorpose.Koumuten, sitenCD));
         }
 
         [HttpPost]
-        public string GetBukkenNO(string id)
+        public string GetBukkenNO([FromBody]string sitenCD)
         {
-            if (id == null) return GetBadRequestResult();
+            if (sitenCD == null) return GetBadRequestResult();
 
             var bl = new CommonBL();
-            return ConvertToJsonResult(new { NewBukkeNO = bl.GetNewBukkenNO(id) });
+            return ConvertToJsonResult(new { NewBukkenNO = bl.GetNewBukkenNO(sitenCD) });
+        }
+
+        public string SaveData([FromBody] BukkenShousaiModel model)
+        {
+            if (model == null) return GetBadRequestResult();
+
+            var bl = new BukkenShousaiBL();
+            return "";
+
         }
     }
 }

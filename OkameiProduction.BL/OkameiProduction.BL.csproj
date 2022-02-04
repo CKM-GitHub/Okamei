@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BukkenShousaiBL.cs" />
     <Compile Include="HundeggerItiranBL.cs" />
     <Compile Include="FusezuMiteisyutuBL.cs" />
     <Compile Include="BukkenItiranBL.cs" />
@@ -73,6 +74,9 @@
     <Content Include="Database\Function\fnGetSijiKijitu.sql" />
     <Content Include="Database\StoredProcedure\BukkenItiran_ExistsDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\BukkenItiran_SelectDisplayResult.sql" />
+    <Content Include="Database\StoredProcedure\InputBukkenShousai_Delete.sql" />
+    <Content Include="Database\StoredProcedure\InputBukkenShousai_Update.sql" />
+    <Content Include="Database\StoredProcedure\InputBukkenShousai_Create.sql" />
     <Content Include="Database\StoredProcedure\FusezuMiteisyutu_SelectDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\KubunTaisyou_SelectDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\MoulderItiran_SelectDisplayResult.sql" />
@@ -82,10 +86,13 @@
     <Content Include="Database\StoredProcedure\M_MultiPorpose_SelectByIDKey.sql" />
     <Content Include="Database\StoredProcedure\M_MultiPorpose_GetNewBukkenNO.sql" />
     <Content Include="Database\StoredProcedure\M_MultiPorpose_SelectForDropDownLit.sql" />
+    <Content Include="Database\TableType\T_BukkenMoulder.sql" />
+    <Content Include="Database\TableType\T_BukkenComment.sql" />
     <Content Include="Setting\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Setting\Okamei.ini" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

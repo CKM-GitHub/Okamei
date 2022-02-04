@@ -2,8 +2,38 @@
 var gCommonApiUrl = "/api/CommonApi/";
 var gCustomValidate = function (ctrl) { return true; }
 
+$.fn.extend({
+    setDisabled: function (value) {
+        this.prop('disabled', value);
+    },
+});
 
-var querySerialize = function (data) {
+function setDisabledAll(containerid) {
+    $(containerid + ' :input:not(:hidden)').prop('disabled', true);
+    $('.main-content-footer :button').prop('disabled', false);
+}
+
+function setDropDownList(target, url, key) {
+    var ddl = $(target);
+    ddl.children().remove();
+    ddl.append('<option></option>');
+
+    if (key != "") {
+        var ret = calltoApiController(url, key);
+        if (!ret) {
+            return;
+        }
+        if (ret && ret.MessageID) {
+            showMessage(ret);
+            return;
+        }
+        ret.forEach(function (item) {
+            ddl.append('<option value=' + item.Value + '>' + item.DisplayText + '</option>');
+        });
+    }
+}
+
+function querySerialize(data) {
     var key, value, type, i, max;
     var encode = window.encodeURIComponent;
     var query = '';
@@ -55,7 +85,7 @@ function bindDataTables(table, dispLength) {
         "language": {
             "url": "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
         },
-        //lengthMenu: [20, 25],
+        //lengthMenu: [],
         displayLength: dispLength ? dispLength : 20,
         paging: true,
         scrollX: true,
@@ -63,7 +93,13 @@ function bindDataTables(table, dispLength) {
         searching: false,
         ordering: false,
         lengthChange: false,
-        autowidth: false
+        autowidth: false,
+        //dom: "<'row'<'col-sm-12'l>>" +
+        //    "<'row'<'col-sm-12'f>>" +
+        //    "<'row'<'col-sm-12'i>>" +
+        //    "<'row'<'col-sm-12'tr>>" +
+        //    "<'row'<'col-sm-12'p>>"
+        drawCallback: function () { $('.listTable-wrapper').removeClass('hidden'); } //2022/02/03 temporarily
     });
 }
 
@@ -86,7 +122,7 @@ function calltoApiController(url, model) {
         },
         error: function (data) {
             alert(data.status + ":" + data.statusText);
-            result.status = false;
+            return false;
         }
     });
     return result;
@@ -98,7 +134,7 @@ function showConfirmMessage(msgid, callback) {
         MessageID: msgid,
     };
     var msgdata = calltoApiController(gAbsolutePath + gCommonApiUrl + "GetMessage", model);
-    if (!msgdata || !msgdata.status) {
+    if (!msgdata) {
         return false;
     }
     Swal.fire({
@@ -116,16 +152,23 @@ function showConfirmMessage(msgid, callback) {
 }
 
 function showMessage(msg, callback) {
+    if (!msg.MessageID)
+    {
+        var model = {
+            MessageID: msg,
+        };
+        var ret = calltoApiController(gAbsolutePath + gCommonApiUrl + "GetMessage", model);
+        if (!ret) {
+            return false;
+        }
+        msg = ret;
+    }
+
     Swal.fire({
         icon: msg.MessageIcon,
         title: msg.MessageID,
         text: msg.MessageText1,
     }).then(callback);
-}
-
-function setDisabled(targetid) {
-    $(targetid + ' :input:not(:hidden)').prop('disabled', true);
-    $('.main-content-footer :button').prop('disabled', false);
 }
 
 // require ----->
@@ -195,14 +238,13 @@ function checkCommon(ctrl) {
     var required = ctrl.attr("validate-required");
     if (required && !ctrl.val()) {
         var result = calltoApiController(gAbsolutePath + gCommonApiUrl + "GetMessage", { MessageID: "E102" });
-        if (!result || !result.status) {
+        if (!result) {
             return false;
         }
         return result;
     }
 
     if (ctrl.val()) {
-
         var model = {
             IsDateType: ctrl.attr("validate-datetype"),
             IsCompareDate: ctrl.attr("validate-comaredate"),
@@ -231,7 +273,7 @@ function checkCommon(ctrl) {
             }
 
             var result = calltoApiController(gAbsolutePath + gCommonApiUrl + 'CheckValid', model);
-            if (!result || !result.status) {
+            if (!result) {
                 return false;
             }
             if (model.IsDateType || model.IsNumeric) {
@@ -245,7 +287,7 @@ function checkCommon(ctrl) {
         }
     }
 
-    //カスタムチェック
+    //custom check
     if (!gCustomValidate(ctrl)) {
         return false;
     }

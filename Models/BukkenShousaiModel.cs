@@ -32,7 +32,7 @@ namespace Models
         public string KakouShouninDate { get; set; }
         public string KidasiDate { get; set; }
         public string KakouSijishoHakkouDate { get; set; }
-        public string kannnouDate { get; set; }
+        public string KannouDate { get; set; }
         public string CancelDate { get; set; }
         public string KakouNissuu { get; set; }
         public string UpdateDatetime { get; set; }

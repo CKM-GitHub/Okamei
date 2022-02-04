@@ -216,7 +216,7 @@
             };
 
             var result = calltoApiController('@Url.Action("ExistsDisplayResult", "api/BukkenItiranApi")', model);
-            if (!result || !result.status) {
+            if (!result) {
                 return false;
             }
             if (result && result.MessageID) {
