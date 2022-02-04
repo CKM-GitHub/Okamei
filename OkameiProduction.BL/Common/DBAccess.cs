@@ -64,6 +64,7 @@ namespace OkameiProduction.BL
 
                     if (para != null)
                     {
+                        para = ChangeToDBNull(para);
                         adapt.SelectCommand.Parameters.AddRange(para);
                     }
                     adapt.Fill(ds);
@@ -78,7 +79,7 @@ namespace OkameiProduction.BL
             return ds;
         }
 
-        public bool InsertUpdateDeleteData(string sSQL, params SqlParameter[] para)
+        public bool InsertUpdateDeleteData(string sSQL, bool useOptimisticExclusion, params SqlParameter[] para)
         {
             try
             {
@@ -91,24 +92,39 @@ namespace OkameiProduction.BL
 
                     if (para != null)
                     {
+                        para = ChangeToDBNull(para);
                         cmd.Parameters.AddRange(para);
+                        if (useOptimisticExclusion)
+                        {
+                            cmd.Parameters.Add(new SqlParameter("@OutExclusionError", SqlDbType.TinyInt) {
+                                Direction = ParameterDirection.Output });
+                        }
                     }
 
                     var transaction = conn.BeginTransaction();
                     cmd.Transaction = transaction;
                     try
                     {
-                        cmd.ExecuteNonQuery();
+                        int ret = cmd.ExecuteNonQuery();
+                        if (useOptimisticExclusion)
+                        {
+                            if (cmd.Parameters["@OutExclusionError"].Value.ToInt16(0) > 0)
+                                throw new ExclusionException();
+                        }
                         transaction.Commit();
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         transaction.Rollback();
-                        throw ex;
+                        throw;
                     }
                     //conn.Close();
                 }
                 return true;
+            }
+            catch (ExclusionException)
+            {
+                throw;
             }
             catch (Exception ex)
             {

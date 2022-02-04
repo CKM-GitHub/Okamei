@@ -14,6 +14,8 @@ namespace OkameiProduction.Web.Controllers
         // GET: BukkenShousai
         public ActionResult Entry()
         {
+            ViewBag.PreviousUrl = base.GetPreviousUrl();
+
             var vm = GetFromQueryString<BukkenShousaiModel>();
 
             SetDropDownListItems(vm);
@@ -28,10 +30,10 @@ namespace OkameiProduction.Web.Controllers
         {
             CommonBL dl = new CommonBL();
             vm.SitenSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.Siten);
-            vm.EigyouStaffSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.EigyouStaff);
+            //vm.EigyouStaffSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.EigyouStaff);
             vm.PCSupportSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.PCSupport);
             vm.CADStaffSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.CADStaff);
-            vm.KoumutenSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.Koumuten);
+            //vm.KoumutenSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.Koumuten);
             vm.NyuuryokusakiSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.Nyuuryokusaki);
             vm.KubunSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.Kubun);
             vm.KanamonoSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.Kanamono);

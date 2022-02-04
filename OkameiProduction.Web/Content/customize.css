@@ -36,6 +36,16 @@
     width: 100%
 }
 
+/* override jquery.Datatables
+--------------------------------------------------*/
+div.dataTables_filter {
+    text-align: left!important;
+}
+
+div.dataTables_paginate ul.pagination {
+    justify-content: flex-start !important;
+}
+
 /* Okamei 
 --------------------------------------------------*/
 .main-content {
@@ -89,10 +99,10 @@ input[type="checkbox"] {
     transform: scale(1.5);
 }
 
-input[integerdigits], input[decimaldigits] {
+input[integerdigits], 
+input[decimaldigits] {
     text-align: right;
 }
-
 
 .delete-link {
     color: red;
@@ -100,6 +110,11 @@ input[integerdigits], input[decimaldigits] {
 
 .edit-link {
     color: blue;
+}
+
+/* datatablesバインド時のちらつき防止 */
+.listTable-wrapper.hidden {
+    visibility: hidden;
 }
 
 @media (max-width: 575px) {

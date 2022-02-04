@@ -1,26 +1,13 @@
-﻿@model Models.FusezuMiteisyutuModel
+﻿@model Models.HundeggerItiranModel
 
 @{
-    ViewBag.Title = "FusezuMiteisyutuCondition";
+    ViewBag.Title = "HundeggerItiranCondition";
     var serverDate = ViewBag.ServerDate;
 }
 
-<h4 class="page-title">伏図未提出物件</h4>
+<h4 class="page-title">フンデガー物件一覧</h4>
 <div id="main" class="main-content">
-    
-    <div class="form-group row">
-        <div class="col-sm-2">
-            <label class="col-form-label label-title">担当CADマン</label>
-        </div>
-        <div class="col-sm-10">
-            @Html.DropDownListFor(
-            model => model.TantouCadCD,
-            new SelectList(Model.CADStaffSelectList, "Value", "DisplayText"),
-            "",
-            new { @class = "form-control size50" })
-        </div>
-    </div>
-    
+
     <div class="form-group row">
         <div class="main-content-footer mx-auto">
             <button type="button" id="btnReturn" class="btn btn-secondary" nofocus>戻る</button>
@@ -45,19 +32,18 @@
                     showConfirmMessage("Q201", btnDisplayClick);
                 }
             });
-            $('#TantouCadCD').focus();
-           
+
+
+            $('#btnReturn').focus();
         });
 
         function btnDisplayClick() {
             var model =
             {
-               
-                TantouCadCD: $('#TantouCadCD').val(),
-               
+
             };
 
-            var result = calltoApiController('@Url.Action("ExistsDisplayResult", "api/FusezuMiteisyutuApi")', model);
+            var result = calltoApiController('@Url.Action("ExistsDisplayResult", "api/HundeggerItiranApi")', model);
             if (!result || !result.status) {
                 return false;
             }
@@ -66,7 +52,7 @@
                 return false;
             }
 
-            location.href = '@Url.Action("DisplayResult", "FusezuMiteisyutu")' + querySerialize(model);
+            location.href = '@Url.Action("DisplayResult", "HundeggerItiran")' + querySerialize(model);
             return true;
         }
 

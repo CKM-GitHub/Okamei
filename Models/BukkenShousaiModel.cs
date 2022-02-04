@@ -12,59 +12,62 @@ namespace Models
         public string BukkenNO { get; set; }
         public string SitenCD { get; set; }
         public string BukkenName { get; set; }
-        public string Address { get; set; }
+        public string Juusho { get; set; }
         public string KoumutenCD { get; set; }
+        public string KoumutenName { get; set; }
         public decimal? KakouTubosuu { get; set; }
-        public int NoukiMiteiCheck { get; set; }
+        public bool NoukiMiteiKBN { get; set; }
         public string Nouki { get; set; }
-        public string UnsougaishaSoukoiriDate { get; set; }
+        public string UnsouKuraireDate { get; set; }
         public string KubunCD { get; set; }
         public string TantouEigyouCD { get; set; }
         public string PCSupportCD { get; set; }
         public string TantouCadCD { get; set; }
         public string NyuuryokusakiCD { get; set; }
-        public int TokuchuuzaiUmu { get; set; }
+        public int? TokuchuuzaiUmu { get; set; }
         public string ZairyouNouki { get; set; }
         public string TokuchuuzaiComment { get; set; }
         //Page 2.
         public string JuchuuDate { get; set; }
-        public string HusezuTeishutuDate { get; set; }
+        public string FusezuTeishutuDate { get; set; }
         public string KakouShouninDate { get; set; }
         public string KidasiDate { get; set; }
-        public string KakouSijishoHakkouDate { get; set; }
-        public string kannnouDate { get; set; }
+        public string KakousijishoHakkouDate { get; set; }
+        public string KannouDate { get; set; }
         public string CancelDate { get; set; }
         public string KakouNissuu { get; set; }
         public string UpdateDatetime { get; set; }
         public string KanamonoCD { get; set; }
-        public int OukazaiExistence { get; set; }
-        public int OukazaiCheck { get; set; }
-        public int KabeExistence { get; set; }
-        public int KabeCheck { get; set; }
-        public int HasirazaiExistence { get; set; }
-        public int HasirazaiCheck { get; set; }
-        public int HiuchiExistence { get; set; }
-        public int HiuchiCheck { get; set; }
-        public int HagarazaiExistence { get; set; }
-        public int HagarazaiCheck { get; set; }
-        public decimal? HagarazaiNumber { get; set; }
-        public int YukaExistence { get; set; }
-        public int YukaCheck { get; set; }
-        public string YukaGoubanCD { get; set; }
-        public decimal? YukaNumber { get; set; }
-        public int NojiExistence { get; set; }
-        public int NojiCheck { get; set; }
-        public string NojiGoubanCD { get; set; }
-        public decimal? NojiNumber { get; set; }
-        public int HundeggerExistence { get; set; }
-        public int HundeggerCheck { get; set; }
+        public int? OukazaiKakou { get; set; }
+        public bool OukazaiSumi { get; set; }
+        public int? KabeKakou { get; set; }
+        public bool KabeSumi { get; set; }
+        public int? HasirazaiKakou { get; set; }
+        public bool HasirazaiSumi { get; set; }
+        public int? HiuchiKakou { get; set; }
+        public bool HiuchiSumi { get; set; }
+        public int? HagarazaiKakou { get; set; }
+        public bool HagarazaiSumi { get; set; }
+        public decimal? HagarazaiSuu { get; set; }
+        public int? YukaKakou { get; set; }
+        public bool YukaSumi { get; set; }
+        public string YukaGouhanShurui { get; set; }
+        public decimal? YukaGouhanSuu { get; set; }
+        public int? NoziKakou { get; set; }
+        public bool NoziSumi { get; set; }
+        public string NoziGouhanShurui { get; set; }
+        public decimal? NoziGouhanSuu { get; set; }
+        public int? TekakouKakou { get; set; }
+        public bool TekakouSumi { get; set; }
         public decimal? TekakouTime { get; set; }
+        public int? HundeggerKakou { get; set; }
+        public bool HundeggerSumi { get; set; }
         public decimal? HundeggerTime { get; set; }
         //Page 3.
-        //public int UpFileOption { get; set; }
-        //public int DownFileOption { get; set; }
+        //public int? UpFileOption { get; set; }
+        //public int? DownFileOption { get; set; }
         //Page 4.
-        public string Comment { get; set; }
+        public string BukkenComment { get; set; }
         
         public IEnumerable<DropDownListItem> SitenSelectList { get; set; }
         public IEnumerable<DropDownListItem> EigyouStaffSelectList { get; set; }

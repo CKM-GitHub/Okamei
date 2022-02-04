@@ -21,5 +21,14 @@ namespace OkameiProduction.Web.Controllers
                 return GetErrorResult("S013");
             }
         }
+
+        [HttpPost]
+        public string GetDisplayResult([FromBody] HanyouKensakuModel model)
+        {
+            if (model == null) return GetBadRequestResult();
+
+            var bl = new HanyouKensakuBL();
+            return bl.DataTableToJSON(bl.GetDisplayResult(model));
+        }
     }
 }

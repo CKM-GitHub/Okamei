@@ -5,7 +5,7 @@ namespace Models
 {
     public class HanyouKensakuModel : BaseModel
     {
-        public string GeneralPurposeCD { get; set; }
-        public IEnumerable<DropDownListItem> GeneralSelectList { get; set; }
+        public string ID { get; set; }
+        public IEnumerable<DropDownListItem> IDSelectList { get; set; }
     }
 }

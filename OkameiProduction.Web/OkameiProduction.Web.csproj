@@ -159,6 +159,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\HundeggerItiran\HundeggerItiranApiController.cs" />
+    <Compile Include="Controllers\HundeggerItiran\HundeggerItiranController.cs" />
     <Compile Include="Controllers\FusezuMiteisyutu\FusezuMiteisyutuApiController.cs" />
     <Compile Include="Controllers\FusezuMiteisyutu\FusezuMiteisyutuController.cs" />
     <Compile Include="Controllers\BukkenShousai\BukkenShousaiApiController.cs" />
@@ -175,6 +177,7 @@
     <Compile Include="Controllers\KubunTaisyou\KubunTaisyouController.cs" />
     <Compile Include="Controllers\MoulderItiran\MoulderItiranApiController.cs" />
     <Compile Include="Controllers\MoulderItiran\MoulderItiranController.cs" />
+    <Compile Include="Filters\BrowsingHistoryAttribute.cs" />
     <Compile Include="Filters\CustomHandleErrorAttribute.cs" />
     <Compile Include="Controllers\Common\HomeController.cs" />
     <Compile Include="Controllers\Common\CommonApiController.cs" />
@@ -341,13 +344,14 @@
     <Content Include="Views\FusezuMiteisyutu\DisplayResult.cshtml" />
     <Content Include="Views\FusezuMiteisyutu\SetCondition.cshtml" />
     <Content Include="Views\HanyouKensaku\DisplayResult.cshtml" />
+    <Content Include="Views\HundeggerItiran\DisplayResult.cshtml" />
+    <Content Include="Views\HundeggerItiran\SetCondition.cshtml" />
     <Content Include="Views\HiuchiItiran\Hiuchi.cshtml" />
     <Content Include="Views\HiuchiItiran\DisplayResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Classification\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\lib\bootstrap-grid.css.map" />
