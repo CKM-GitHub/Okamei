@@ -8,7 +8,7 @@ namespace OkameiProduction.Web.Controllers
     {
         public ActionResult Login()
         {
-            Session["UserInfo"] = null;
+            Session.RemoveAll();
             ViewBag.IsPostback = "false";
             return View();
         }

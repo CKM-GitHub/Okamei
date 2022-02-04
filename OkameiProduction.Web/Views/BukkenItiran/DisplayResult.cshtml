@@ -11,21 +11,50 @@
         font-size: 14px;
     }
 
-    #tblBukkenItiran tbody td {
+    .table tbody td {
         padding-top: 2px;
         padding-bottom: 2px;
         font-size: 14px;
     }
 
-    #tblBukkenItiran .Nouki {
-        min-width: 50px;
-    }
-
-    #tblBukkenItiran .UnsouKuraireDate {
-        min-width: 50px;
+    #tblBukkenItiran .KakouTubosuu,
+    #tblBukkenItiran .KakouNissuu {
+        text-align: right;
     }
 
     #tblBukkenItiran .BukkenNO {
+    }
+
+    #tblBukkenItiran .delete-td {
+        min-width: 30px;
+    }
+
+    #tblBukkenItiran .Nouki,
+    #tblBukkenItiran .UnsouKuraireDate,
+    #tblBukkenItiran .TantouSitenName,
+    #tblBukkenItiran .TantouEigyouName,
+    #tblBukkenItiran .TantouCadName,
+    #tblBukkenItiran .JuchuuDate,
+    #tblBukkenItiran .TokuchuuzaiUmu {
+        min-width: 50px;
+    }
+
+    #tblBukkenItiran .FusezuTeishutuDate,
+    #tblBukkenItiran .ShouninKijitu,
+    #tblBukkenItiran .KakouShouninDate,
+    #tblBukkenItiran .SijiKikitu,
+    #tblBukkenItiran .UpdateDateTime,
+    #tblBukkenItiran .NyuuryokusakiName,
+    #tblBukkenItiran .KakouNissuu {
+        min-width: 60px;
+    }
+
+    #tblBukkenItiran .KanamonoName {
+        min-width: 70px;
+    }
+
+    #tblBukkenItiran .SinchokuJoukyou {
+        min-width: 90px;
     }
 
     #tblBukkenItiran .BukkenName {
@@ -35,103 +64,39 @@
     #tblBukkenItiran .KoumutenName {
         min-width: 210px;
     }
-
-    #tblBukkenItiran .KakouTubosuu {
-        text-align: right;
-    }
-
-    #tblBukkenItiran .TantouSitenName {
-        min-width: 50px;
-    }
-
-    #tblBukkenItiran .TantouEigyouName {
-        min-width: 50px;
-    }
-
-    #tblBukkenItiran .TantouCadName {
-        min-width: 50px;
-    }
-
-    #tblBukkenItiran .JuchuuDate {
-        min-width: 50px;
-    }
-
-    #tblBukkenItiran .FusezuTeishutuDate {
-        min-width: 60px;
-    }
-
-    #tblBukkenItiran .ShouninKijitu {
-        min-width: 60px;
-    }
-
-    #tblBukkenItiran .KakouShouninDate {
-        min-width: 60px;
-    }
-
-    #tblBukkenItiran .SijiKikitu {
-        min-width: 60px;
-    }
-
-    #tblBukkenItiran .KakouNissuu {
-        min-width: 60px;
-        text-align: right;
-    }
-
-    #tblBukkenItiran .UpdateDateTime {
-        min-width: 60px;
-    }
-
-    #tblBukkenItiran .KanamonoName {
-        min-width: 70px;
-    }
-
-    #tblBukkenItiran .NyuuryokusakiName {
-        min-width: 60px;
-    }
-
-    #tblBukkenItiran .TokuchuuzaiUmu {
-        min-width: 50px;
-    }
-
-    #tblBukkenItiran .SinchokuJoukyou {
-        min-width: 90px;
-    }
-
-    #tblBukkenItiran .delete-td {
-        min-width: 30px;
-    }
 </style>
 
 <h4>物件一覧</h4>
 <div id="main" class="main-content">
-    <table class='table table-bordered' id="tblBukkenItiran">
-        <thead>
-            <tr>
-                <th>納期</th>
-                <th>倉庫入</th>
-                <th>物件番号</th>
-                <th>物件名</th>
-                <th>工務店</th>
-                <th>坪数</th>
-                <th>支店</th>
-                <th>営業</th>
-                <th>入力者</th>
-                <th>受注日</th>
-                <th>伏図提出</th>
-                <th>承認期日</th>
-                <th>加工承認</th>
-                <th>指示期日</th>
-                <th>加工日数</th>
-                <th>最終更新</th>
-                <th>金物</th>
-                <th>入力先</th>
-                <th>特注材</th>
-                <th>進捗状況</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @*@for (var iii = 0; iii < 50; iii++)
+    <div class="listTable-wrapper hidden">
+        <table class='table table-bordered' id="tblBukkenItiran">
+            <thead>
+                <tr>
+                    <th>納期</th>
+                    <th>倉庫入</th>
+                    <th>物件番号</th>
+                    <th>物件名</th>
+                    <th>工務店</th>
+                    <th>坪数</th>
+                    <th>支店</th>
+                    <th>営業</th>
+                    <th>入力者</th>
+                    <th>受注日</th>
+                    <th>伏図提出</th>
+                    <th>承認期日</th>
+                    <th>加工承認</th>
+                    <th>指示期日</th>
+                    <th>加工日数</th>
+                    <th>最終更新</th>
+                    <th>金物</th>
+                    <th>入力先</th>
+                    <th>特注材</th>
+                    <th>進捗状況</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @*@for (var iii = 0; iii < 1000; iii++)
                 {
                     <tr>
                         <td class="Nouki">99/99</td>
@@ -158,38 +123,39 @@
                     </tr>
                 }*@
 
-            @{
-                var columns = ViewBag.Data.Columns;
-            }
+                @{
+                    var columns = ViewBag.Data.Columns;
+                }
 
-            @foreach (System.Data.DataRow row in ViewBag.Data.Rows)
-            {
-                <tr>
-                    @{
-                        var count = row.ItemArray.Count();
-                        var items = row.ItemArray;
-                        var bukkenNo = row["BukkenNO"].ToString();
-                    }
-                    @for (var i = 0; i < count; i++)
-                    {
-                        <td class="@columns[i].Caption">
-                            @if (columns[i].Caption == "BukkenName")
-                            {
-                                @Html.ActionLink((string)items[i], "Entry", "BukkenShousai", new { Mode = "Edit", BukkenNO = bukkenNo }, new { @class = "edit-link" })
-                            }
-                            else
-                            {
-                                @items[i]
-                            }
+                @foreach (System.Data.DataRow row in ViewBag.Data.Rows)
+                {
+                    <tr>
+                        @{
+                            var count = row.ItemArray.Count();
+                            var items = row.ItemArray;
+                            var bukkenNo = row["BukkenNO"].ToString();
+                        }
+                        @for (var i = 0; i < count; i++)
+                        {
+                            <td class="@columns[i].Caption">
+                                @if (columns[i].Caption == "BukkenName")
+                                {
+                                    @Html.ActionLink((string)items[i], "Entry", "BukkenShousai", new { Mode = "Edit", BukkenNO = bukkenNo }, new { @class = "edit-link" })
+                                }
+                                else
+                                {
+                                    @items[i]
+                                }
+                            </td>
+                        }
+                        <td class="delete-td">
+                            @Html.ActionLink("削除", "Entry", "BukkenShousai", new { Mode = "Delete", BukkenNO = bukkenNo }, new { @class = "delete-link" })
                         </td>
-                    }
-                    <td class="delete-td">
-                        @Html.ActionLink("削除", "Entry", "BukkenShousai", new { Mode = "Delete", BukkenNO = bukkenNo }, new { @class = "delete-link" })
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div> 
     <div class="form-group row">
         <div class="footer-btn mx-auto">
             <button type="button" id="btnReturn" class="btn btn-secondary">戻る</button>
