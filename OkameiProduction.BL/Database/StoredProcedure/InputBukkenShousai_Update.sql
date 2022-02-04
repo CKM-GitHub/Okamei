@@ -56,13 +56,13 @@ CREATE PROCEDURE [dbo].[InputBukkenShousai_Update](
     ,@HundeggerKakou            tinyint
     ,@HundeggerSumi             tinyint
     ,@HundeggerTime             decimal(5,1)    
+    ,@BukkenComment             varchar(100)
     ,@Operator                  varchar(10)
-	,@UpdateDatetime			datetime
-	,@BukkenCommentTable		T_BukkenComment READONLY
-	,@BukkenMoulderTable		T_BukkenMoulder READONLY
+    ,@UpdateDatetime            datetime
+    ,@BukkenMoulderTBL          T_BukkenMoulder READONLY
 )AS
 BEGIN
-	DECLARE @Error tinyint = 1
+    DECLARE @Error tinyint = 1
     DECLARE @SystemDate datetime = GETDATE()
 
     UPDATE D_Bukken SET
@@ -122,6 +122,24 @@ BEGIN
     WHERE BukkenNO = @BukkenNO
     AND   UpdateDateTime = @UpdateDatetime
 
-	IF @@ROWCOUNT = 0 RETURN @Error
+    IF @@ROWCOUNT = 0 RETURN @Error
+
+    INSERT INTO D_BukkenComment (
+        BukkenNO
+        ,BukkenCommentRows
+        ,BukkenComment
+        ,InsertOperator
+        ,InsertDateTime
+        ,UpdateOperator
+        ,UpdateDateTime
+    ) VALUES (
+        @BukkenNO
+        ,(SELECT MAX(BukkenCommentRows) + 1 FROM D_BukkenComment WHERE BukkenNO = @BukkenNO)
+        ,@BukkenComment
+        ,@Operator
+        ,@SystemDate
+        ,@Operator
+        ,@SystemDate
+    )
 
 END

@@ -45,7 +45,7 @@
                     <label class="col-form-label label-title">住所</label>
                 </div>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control size50" maxlength="50" id="Address" name="Address" />
+                    <input type="text" class="form-control size50" maxlength="50" id="Juusho" name="Juusho" />
                 </div>
             </div>
             <div class="form-group row">
@@ -71,8 +71,8 @@
                     <label class="col-form-label label-title require">納期</label>
                 </div>
                 <div class="col-sm-8 form-inline">
-                    <input type="checkbox" id="NoukiMiteiCheck" value="1">
-                    <label for="NoukiMiteiCheck">&nbsp;未定</label>
+                    <input type="checkbox" id="NoukiMiteiKBN" value="1">
+                    <label for="NoukiMiteiKBN">&nbsp;未定</label>
                     <input type="text" class="form-control size10" maxlength="10" id="Nouki" name="Nouki" />
                 </div>
             </div>
@@ -81,7 +81,7 @@
                     <label class="col-form-label label-title">運送会社倉庫入日</label>
                 </div>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control size10" maxlength="10" id="UnsougaishaSoukoiriDate" name="UnsougaishaSoukoiriDate" />
+                    <input type="text" class="form-control size10" maxlength="10" id="UnsouKuraireDate" name="UnsouKuraireDate" />
                 </div>
             </div>
             <div class="form-group row">
@@ -191,7 +191,7 @@
                     <label class="col-form-label label-title">伏図提出(予定)日</label>
                 </div>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control size10" maxlength="10" id="HusezuTeishutuDate" name="HusezuTeishutuDate" />
+                    <input type="text" class="form-control size10" maxlength="10" id="FusezuTeishutuDate" name="FusezuTeishutuDate" />
                 </div>
             </div>
             <div class="form-group row">
@@ -215,7 +215,7 @@
                     <label class="col-form-label label-title">加工指示書発行日</label>
                 </div>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control size10" maxlength="10" id="KakouSijishoHakkouDate" name="KakouSijishoHakkouDate" />
+                    <input type="text" class="form-control size10" maxlength="10" id="KakousijishoHakkouDate" name="KakousijishoHakkouDate" />
                 </div>
             </div>
             <div class="form-group row">
@@ -284,23 +284,23 @@
                     <label class="col-form-label label-title require">横架材</label>
                 </div>
                 <div class="col-sm-3 form-inline">
-                    <select class="form-control size2" id="OukazaiExistence" name="OukazaiExistence">
+                    <select class="form-control size2" id="OukazaiKakou" name="OukazaiKakou">
                         <option value="1">有</option>
                         <option value="0">無</option>
                     </select>
-                    <input type="checkbox" id="OukazaiCheck">
-                    <label for="OukazaiCheck">&nbsp;済</label>
+                    <input type="checkbox" id="OukazaiSumi">
+                    <label for="OukazaiSumi">&nbsp;済</label>
                 </div>
                 <div class="col-sm-3">
                     <label class="col-form-label label-title require ">壁</label>
                 </div>
                 <div class="col-sm-3 form-inline">
-                    <select class="form-control size2" id="KabeExistence" name="KabeExistence">
+                    <select class="form-control size2" id="KabeKakou" name="KabeKakou">
                         <option value="1">有</option>
                         <option value="0">無</option>
                     </select>
-                    <input type="checkbox" id="KabeCheck" value="1">
-                    <label for="OukazaiCheck">&nbsp;済</label>
+                    <input type="checkbox" id="KabeSumi" value="1">
+                    <label for="KabeSumi">&nbsp;済</label>
                 </div>
             </div>
             <div class="form-group row">
@@ -308,23 +308,23 @@
                     <label class="col-form-label label-title require">柱材</label>
                 </div>
                 <div class="col-sm-3 form-inline">
-                    <select class="form-control size2" id="HasirazaiExistence" name="HasirazaiExistence">
+                    <select class="form-control size2" id="HasirazaiKakou" name="HasirazaiKakou">
                         <option value="1">有</option>
                         <option value="0">無</option>
                     </select>
-                    <input type="checkbox" id="HasirazaiCheck" value="1">
-                    <label for="HasirazaiCheck">&nbsp;済</label>
+                    <input type="checkbox" id="HasirazaiSumi" value="1">
+                    <label for="HasirazaiSumi">&nbsp;済</label>
                 </div>
                 <div class="col-sm-3">
                     <label class="col-form-label label-title require ">火打</label>
                 </div>
                 <div class="col-sm-3 form-inline">
-                    <select class="form-control size2" id="HiuchiExistence" name="HiuchiExistence">
+                    <select class="form-control size2" id="HiuchiKakou" name="HiuchiKakou">
                         <option value="1">有</option>
                         <option value="0">無</option>
                     </select>
-                    <input type="checkbox" id="HiuchiCheck" value="1">
-                    <label for="HiuchiCheck">&nbsp;済</label>
+                    <input type="checkbox" id="HiuchiSumi" value="1">
+                    <label for="HiuchiSumi">&nbsp;済</label>
                 </div>
             </div>
             <div class="form-group row">
@@ -332,16 +332,16 @@
                     <label class="col-form-label label-title require">羽柄材</label>
                 </div>
                 <div class="col-sm-3 form-inline">
-                    <select class="form-control size2" id="HagarazaiExistence" name="HagarazaiExistence">
+                    <select class="form-control size2" id="HagarazaiKakou" name="HagarazaiKakou">
                         <option value="1">有</option>
                         <option value="0">無</option>
                     </select>
-                    <input type="checkbox" id="HagarazaiCheck" value="1">
-                    <label for="HagarazaiCheck">&nbsp;済</label>
+                    <input type="checkbox" id="HagarazaiSumi" value="1">
+                    <label for="HagarazaiSumi">&nbsp;済</label>
                 </div>
                 <div class="col-sm-6 clearfix">
                     <div class="float-right form-inline">
-                        <input type="text" class="form-control size3" id="HagarazaiNumber" name="HagarazaiNumber" />
+                        <input type="text" class="form-control size3" id="HagarazaiSuu" name="HagarazaiSuu" />
                         <span>&nbsp;本</span>
                     </div>
                 </div>
@@ -351,21 +351,21 @@
                     <label class="col-form-label label-title require">床</label>
                 </div>
                 <div class="col-sm-3 form-inline">
-                    <select class="form-control size2" id="YukaExistence" name="YukaExistence">
+                    <select class="form-control size2" id="YukaKakou" name="YukaKakou">
                         <option value="1">有</option>
                         <option value="0">無</option>
                     </select>
-                    <input type="checkbox" id="YukaCheck" value="1">
-                    <label for="YukaCheck">&nbsp;済</label>
+                    <input type="checkbox" id="YukaSumi" value="1">
+                    <label for="YukaSumi">&nbsp;済</label>
                 </div>
                 <div class="col-sm-6 clearfix">
                     @Html.DropDownListFor(
-                    model => model.YukaGoubanCD,
+                    model => model.YukaGouhanShurui,
                     new SelectList(Model.GoubanSelectList, "Value", "DisplayText"),
                     "",
                     new { @class = "form-control float-left size34" })
                     <div class="float-right form-inline">
-                        <input type="text" class="form-control size3" maxlength="3" id="YukaNumber" name="YukaNumber" />
+                        <input type="text" class="form-control size3" maxlength="3" id="YukaGouhanSuu" name="YukaGouhanSuu" />
                         <span>&nbsp;枚</span>
                     </div>
                 </div>
@@ -375,21 +375,21 @@
                     <label class="col-form-label label-title require">野地</label>
                 </div>
                 <div class="col-sm-3 form-inline">
-                    <select class="form-control size2" id="NojiExistence" name="NojiExistence">
+                    <select class="form-control size2" id="NoziKakou" name="NoziKakou">
                         <option value="1">有</option>
                         <option value="0">無</option>
                     </select>
-                    <input type="checkbox" id="NojiCheck" value="1">
-                    <label for="NojiCheck">&nbsp;済</label>
+                    <input type="checkbox" id="NoziSumi" value="1">
+                    <label for="NoziSumi">&nbsp;済</label>
                 </div>
                 <div class="col-sm-6 clearfix">
                     @Html.DropDownListFor(
-                    model => model.NojiGoubanCD,
+                    model => model.NoziGouhanShurui,
                     new SelectList(Model.GoubanSelectList, "Value", "DisplayText"),
                     "",
                     new { @class = "form-control float-left size34" })
                     <div class="float-right form-inline">
-                        <input type="text" class="form-control size3" maxlength="3" id="NojiNumber" name="NojiNumber" />
+                        <input type="text" class="form-control size3" maxlength="3" id="NoziGouhanSuu" name="NoziGouhanSuu" />
                         <span>&nbsp;枚</span>
                     </div>
                 </div>
@@ -399,23 +399,23 @@
                     <label class="col-form-label label-title">手加工</label>
                 </div>
                 <div class="col-sm-3 form-inline">
-                    <select class="form-control size2" id="TekakouExistence" name="TekakouExistence">
+                    <select class="form-control size2" id="TekakouKakou" name="TekakouKakou">
                         <option value="1">有</option>
                         <option value="0">無</option>
                     </select>
-                    <input type="checkbox" id="TekakouCheck" value="1">
-                    <label for="TekakouCheck">&nbsp;済</label>
+                    <input type="checkbox" id="TekakouSumi" value="1">
+                    <label for="TekakouSumi">&nbsp;済</label>
                 </div>
                 <div class="col-sm-3">
                     <label class="col-form-label label-title">フンデガー</label>
                 </div>
                 <div class="col-sm-3 form-inline">
-                    <select class="form-control size2" id="HundeggerExistence" name="HundeggerExistence">
+                    <select class="form-control size2" id="HundeggerKakou" name="HundeggerKakou">
                         <option value="1">有</option>
                         <option value="0">無</option>
                     </select>
-                    <input type="checkbox" id="HundeggerCheck" value="1">
-                    <label for="HundeggerCheck">&nbsp;済</label>
+                    <input type="checkbox" id="HundeggerSumi" value="1">
+                    <label for="HundeggerSumi">&nbsp;済</label>
                 </div>
             </div>
             <div class="form-group row">
@@ -559,7 +559,7 @@
             <label class="col-form-label label-title">コメント</label>
         </div>
         <div class="col-sm-10">
-            <input type="text" class="form-control size100" maxlength="100" id="Comment" name="Comment" />
+            <input type="text" class="form-control size100" maxlength="100" id="BukkenComment" name="BukkenComment" />
         </div>
     </div>
     <div class="form-group row">
@@ -567,7 +567,7 @@
             <label class="col-form-label label-title">コメント履歴</label>
         </div>
         <div class="col-sm-10">
-            <table class='table table-bordered' id="tblCommentList">
+            <table class='table table-bordered' id="tblBukkenCommentList">
                 <thead></thead>
                 <tbody></tbody>
             </table>
@@ -593,7 +593,7 @@
         var txtBukkenName = $('#BukkenName');
         var txtSitenCD = $('#SitenCD');
         var tantouEigyouDDL = $('#TantouEigyouCD');
-        var chkNoukiMitei = $('#NoukiMiteiCheck');
+        var chkNoukiMitei = $('#NoukiMiteiKBN');
         var txtNouki = $('#Nouki');
 
         //------------------------------
@@ -610,8 +610,10 @@
             });
 
             btnSave.click(function () {
-                if (checkErrorOnSave('#main')) {
-                    btnSaveClick();
+                if (checkErrorOnSave('#main') && checkBukkenNO()) {
+                    showConfirmMessage('Q101', function () {
+                        btnSaveClick();
+                    });
                 }
             });
 
@@ -626,7 +628,7 @@
             });
 
             chkNoukiMitei.change(function () {
-                txtNouki.setDisabled($(this).prop('checked'));
+                txtNouki.val('').setDisabled($(this).prop('checked'));
             });
         }
 
@@ -641,25 +643,26 @@
             setRequired('#JuchuuDate');
             //日付チェック
             setDateTypeValidate('#Nouki')
-            setDateTypeValidate('#UnsougaishaSoukoiribi')
+            setDateTypeValidate('#UnsouKuraireDate')
             setDateTypeValidate('#ZairyouNouki')
             setDateTypeValidate('#JuchuuDate')
-            setDateTypeValidate('#HusezuTeishutuDate')
+            setDateTypeValidate('#FusezuTeishutuDate')
             setDateTypeValidate('#KakouShouninDate')
             setDateTypeValidate('#KidasiDate')
-            setDateTypeValidate('#KakouSijishoHakkouDate')
+            setDateTypeValidate('#KakousijishoHakkouDate')
             setDateTypeValidate('#KannouDate')
             setDateTypeValidate('#CancelDate')
             //半角チェック
             //setIsHalfWidthValidate('');
             //全角桁数チェック
             setDoubleByteValidate('#BukkenName', true);
-            setDoubleByteValidate('#Address');
+            setDoubleByteValidate('#Juusho');
             setDoubleByteValidate('#TokuchuuzaiComment');
+            setDoubleByteValidate('#BukkenComment');
             //数値チェック
             setNumericValidate('#KakouTubosuu', 3, 2)
             setNumericValidate('#KakouNissuu', 3, 0);
-            setNumericValidate('#HagarazaiNumber', 3, 0);
+            setNumericValidate('#HagarazaiSuu', 3, 0);
             setNumericValidate('#YukazaiNumber', 3, 0);
             setNumericValidate('#NojizaiNumber', 3, 0);
             setNumericValidate('#TekakouTime', 3, 1);
@@ -683,43 +686,46 @@
                 return;
             }
 
-            var sitencd = txtSitenCD.val();
-            if (sitencd == "") {
+            if (txtSitenCD.val() == "") {
                 txtSitenCD.focus();
                 return;
             }
 
-            var ret = calltoApiController('@Url.Action("GetBukkenNO", "api/BukkenShousaiApi")', sitencd);
+            var ret = calltoApiController('@Url.Action("GetBukkenNO", "api/BukkenShousaiApi")', txtSitenCD.val());
             if (!ret) {
                 return;
             }
-            if (ret && ret.MessageID) {
+            if (ret.MessageID) {
                 showMessage(ret);
                 return;
             }
-            if (ret && ret.NewBukkenNO) {
+            if (ret.NewBukkenNO) {
                 txtBukkenNO.val(ret.NewBukkenNO);
                 txtBukkenName.focus();
             }
         }
 
-        function btnSaveClick() {
+        function checkBukkenNO() {
             if (txtBukkenNO.val() == "") {
                 txtSitenCD.focus();
-                showMessage('E288');
+                showMessage('E288', function () { txtSitenCD.focus(); });
                 return false;
             }
+            return true;
+        }
 
+        function btnSaveClick() {
             var model = {
+                Mode: '@Model.Mode',
                 BukkenNO: txtBukkenNO.val(),
                 SitenCD: txtSitenCD.val(),
                 BukkenName: txtBukkenName.val(),
-                Address: $('#Address').val(),
+                Juusho: $('#Juusho').val(),
                 KoumutenCD: $('#KoumutenCD').val(),
                 KakouTubosuu: $('#KakouTubosuu').val(),
-                NoukiMiteiCheck: chkNoukiMitei.prop('checked'),
+                NoukiMiteiKBN: chkNoukiMitei.prop('checked'),
                 Nouki: txtNouki.val(),
-                UnsougaishaSoukoiriDate: $('#UnsougaishaSoukoiriDate').val(),
+                UnsouKuraireDate: $('#UnsouKuraireDate').val(),
                 KubunCD: $('#KubunCD').val(),
                 TantouEigyouCD: tantouEigyouDDL.val(),
                 PCSupportCD: $('#PCSupportCD').val(),
@@ -730,43 +736,60 @@
                 TokuchuuzaiComment: $('#TokuchuuzaiComment').val(),
                 //Page 2.
                 JuchuuDate: $('#JuchuuDate').val(),
-                HusezuTeishutuDate: $('#HusezuTeishutuDate').val(),
+                FusezuTeishutuDate: $('#FusezuTeishutuDate').val(),
                 KakouShouninDate: $('#KakouShouninDate').val(),
                 KidasiDate: $('#KidasiDate').val(),
-                KakouSijishoHakkouDate: $('#KakouSijishoHakkouDate').val(),
+                KakousijishoHakkouDate: $('#KakousijishoHakkouDate').val(),
                 KannouDate: $('#KannouDate').val(),
                 CancelDate: $('#CancelDate').val(),
                 KakouNissuu: $('#KakouNissuu').val(),
                 UpdateDatetime: $('#UpdateDatetime').val(),
                 KanamonoCD: $('#KanamonoCD').val(),
-                OukazaiExistence: $('#OukazaiExistence').val(),
-                OukazaiCheck: $('#OukazaiCheck').prop('checked'),
-                KabeExistence: $('#KabeExistence').val(),
-                KabeCheck: $('#KabeCheck').prop('checked'),
-                HasirazaiExistence: $('#HasirazaiExistence').val(),
-                HasirazaiCheck: $('#HasirazaiCheck').prop('checked'),
-                HiuchiExistence: $('#HiuchiExistence').val(),
-                HiuchiCheck: $('#HiuchiCheck').prop('checked'),
-                HagarazaiExistence: $('#HagarazaiExistence').val(),
-                HagarazaiCheck: $('#HagarazaiCheck').prop('checked'),
-                HagarazaiNumber: $('#HagarazaiNumber').val(),
-                YukaExistence: $('#YukaExistence').val(),
-                YukaCheck: $('#YukaCheck').prop('checked'),
-                YukaGoubanCD: $('#YukaGoubanCD').val(),
-                YukaNumber: $('#YukaNumber').val(),
-                NojiExistence: $('#NojiExistence').val(),
-                NojiCheck: $('#NojiCheck').prop('checked'),
-                NojiGoubanCD: $('#NojiGoubanCD').val(),
-                NojiNumber: $('#NojiNumber').val(),
-                HundeggerExistence: $('#HundeggerExistence').val(),
-                HundeggerCheck: $('#HundeggerCheck').prop('checked'),
+                OukazaiKakou: $('#OukazaiKakou').val(),
+                OukazaiSumi: $('#OukazaiSumi').prop('checked'),
+                KabeKakou: $('#KabeKakou').val(),
+                KabeSumi: $('#KabeSumi').prop('checked'),
+                HasirazaiKakou: $('#HasirazaiKakou').val(),
+                HasirazaiSumi: $('#HasirazaiSumi').prop('checked'),
+                HiuchiKakou: $('#HiuchiKakou').val(),
+                HiuchiSumi: $('#HiuchiSumi').prop('checked'),
+                HagarazaiKakou: $('#HagarazaiKakou').val(),
+                HagarazaiSumi: $('#HagarazaiSumi').prop('checked'),
+                HagarazaiSuu: $('#HagarazaiSuu').val(),
+                YukaKakou: $('#YukaKakou').val(),
+                YukaSumi: $('#YukaSumi').prop('checked'),
+                YukaGouhanShurui: $('#YukaGouhanShurui').val(),
+                YukaGouhanSuu: $('#YukaGouhanSuu').val(),
+                NoziKakou: $('#NoziKakou').val(),
+                NoziSumi: $('#NoziSumi').prop('checked'),
+                NoziGouhanShurui: $('#NoziGouhanShurui').val(),
+                NoziGouhanSuu: $('#NoziGouhanSuu').val(),
+                HundeggerKakou: $('#HundeggerKakou').val(),
+                HundeggerSumi: $('#HundeggerSumi').prop('checked'),
                 TekakouTime: $('#TekakouTime').val(),
                 HundeggerTime: $('#HundeggerTime').val(),
                 //Page 3.
                 //Page 4.
-                Comment: $('#Comment').val(),
+                BukkenComment: $('#BukkenComment').val(),
+                UserID: $('#user-id').text()
             };
 
+            var result = calltoApiController('@Url.Action("SaveData", "api/BukkenShousaiApi")', model);
+            if (!result) {
+                return false;
+            }
+            if (result.MessageID) {
+                showMessage(result);
+                return false;
+            }
+            showMessage("I101", function () {
+                if ('@Model.Mode' == 'New') {
+                    window.location.reload();
+                }
+                else {
+                    location.href = '@Html.Raw(ViewBag.PreviousUrl)';
+                }
+            });
         }
 
         //------------------------------

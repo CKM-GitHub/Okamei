@@ -10,7 +10,7 @@ CREATE PROCEDURE [dbo].[InputBukkenShousai_Create](
     ,@BukkenName                varchar(20)
     ,@Juusho                    varchar(50)
     ,@KoumutenName              varchar(50)
-    ,@KakoutuboSuu              decimal(5,2)    
+    ,@KakoutuboSuu              decimal(5,2)
     ,@NoukiMiteiKBN             tinyint   
     ,@Nouki                     date
     ,@UnsouKuraireDate          date   
@@ -52,13 +52,14 @@ CREATE PROCEDURE [dbo].[InputBukkenShousai_Create](
     ,@NoziGouhanSuu             int
     ,@TekakouKakou              tinyint
     ,@TekakouSumi               tinyint
-    ,@TekakouTime               decimal(5,1)    
+    ,@TekakouTime               decimal(5,1)
     ,@HundeggerKakou            tinyint
     ,@HundeggerSumi             tinyint
-    ,@HundeggerTime             decimal(5,1)    
+    ,@HundeggerTime             decimal(5,1)
+    ,@BukkenComment             varchar(100)
     ,@Operator                  varchar(10)
-	,@BukkenCommentTable		T_BukkenComment READONLY
-	,@BukkenMoulderTable		T_BukkenMoulder READONLY
+    ,@BukkenMoulderTBL          T_BukkenMoulder READONLY
+	,@OutExclusionError         tinyint OUTPUT
 )AS
 BEGIN
     DECLARE @SystemDate datetime = GETDATE()
@@ -172,6 +173,24 @@ BEGIN
         ,@HundeggerKakou
         ,@HundeggerSumi
         ,@HundeggerTime
+        ,@Operator
+        ,@SystemDate
+        ,@Operator
+        ,@SystemDate
+    )
+
+    INSERT INTO D_BukkenComment (
+        BukkenNO
+        ,BukkenCommentRows
+        ,BukkenComment
+        ,InsertOperator
+        ,InsertDateTime
+        ,UpdateOperator
+        ,UpdateDateTime
+    ) VALUES (
+        @BukkenNO
+        ,1
+        ,@BukkenComment
         ,@Operator
         ,@SystemDate
         ,@Operator

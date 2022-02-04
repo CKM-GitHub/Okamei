@@ -33,7 +33,7 @@ namespace OkameiProduction.Web.Controllers
             else
             {
                 return JsonSerializer.Serialize( 
-                    new { MessageID = "error", MessageText1 = "", MessageIcon = "error", ReturnValue = returnValue });
+                    new { MessageID = "Error", MessageText1 = "エラーが発生しました。", MessageIcon = "error", ReturnValue = returnValue });
             }
         }
 

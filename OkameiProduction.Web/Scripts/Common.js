@@ -94,11 +94,11 @@ function bindDataTables(table, dispLength) {
         ordering: false,
         lengthChange: false,
         autowidth: false,
-        //dom: "<'row'<'col-sm-12'l>>" +
-        //    "<'row'<'col-sm-12'f>>" +
-        //    "<'row'<'col-sm-12'i>>" +
-        //    "<'row'<'col-sm-12'tr>>" +
-        //    "<'row'<'col-sm-12'p>>"
+        dom: "<'row'<'col-sm-12'l>>" +
+            "<'row'<'col-sm-12'f>>" +
+            "<'row'<'col-sm-12'i>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-12'p>>",
         drawCallback: function () { $('.listTable-wrapper').removeClass('hidden'); } //2022/02/03 temporarily
     });
 }

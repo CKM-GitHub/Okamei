@@ -7,18 +7,21 @@ GO
 CREATE PROCEDURE [dbo].[InputBukkenShousai_Delete](
      @BukkenNO                  varchar(8)
     ,@Operator                  varchar(10)
-	,@UpdateDatetime			datetime
-	,@BukkenCommentTable		T_BukkenComment READONLY
-	,@BukkenMoulderTable		T_BukkenMoulder READONLY
+    ,@UpdateDatetime            datetime
 )AS
 BEGIN
-	DECLARE @Error tinyint = 1
+    DECLARE @Error tinyint = 1
 
     DELETE D_Bukken
     WHERE BukkenNO = @BukkenNO
     AND   UpdateDateTime = @UpdateDatetime
 
-	IF @@ROWCOUNT = 0 RETURN @Error
+    IF @@ROWCOUNT = 0 RETURN @Error
 
+	DELETE D_BukkenComment
+	WHERE BukkenNO = @BukkenNO
+
+    DELETE D_BukkenMoulder
+    WHERE BukkenNO = @BukkenNO
 
 END

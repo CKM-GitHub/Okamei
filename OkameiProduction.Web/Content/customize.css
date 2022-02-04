@@ -38,13 +38,13 @@
 
 /* override jquery.Datatables
 --------------------------------------------------*/
-/*div.dataTables_filter {
+div.dataTables_filter {
     text-align: left!important;
 }
 
 div.dataTables_paginate ul.pagination {
     justify-content: flex-start !important;
-}*/
+}
 
 /* Okamei 
 --------------------------------------------------*/

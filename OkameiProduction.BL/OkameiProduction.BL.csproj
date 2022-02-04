@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BukkenShousaiBL.cs" />
+    <Compile Include="Common\ExclusionException.cs" />
     <Compile Include="HundeggerItiranBL.cs" />
     <Compile Include="FusezuMiteisyutuBL.cs" />
     <Compile Include="BukkenItiranBL.cs" />

@@ -32,13 +32,27 @@ namespace OkameiProduction.Web.Controllers
             return ConvertToJsonResult(new { NewBukkenNO = bl.GetNewBukkenNO(sitenCD) });
         }
 
+        [HttpPost]
         public string SaveData([FromBody] BukkenShousaiModel model)
         {
             if (model == null) return GetBadRequestResult();
 
+            var result= false;
+            var msgid = "";
             var bl = new BukkenShousaiBL();
-            return "";
 
+            if (model.Mode == EMode.New) result = bl.CreateBukkenAll(model, out msgid);
+            if (model.Mode == EMode.Edit) result = bl.UpdateBukkenAll(model, out msgid);
+            if (model.Mode == EMode.Delete) result = bl.CreateBukkenAll(model, out msgid);
+
+            if (!result)
+            {
+                return GetErrorResult(msgid);
+            }
+            else
+            {
+                return GetSuccessResult();
+            }
         }
     }
 }
