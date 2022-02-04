@@ -104,17 +104,17 @@ input[decimaldigits] {
     text-align: right;
 }
 
-/* 2022/02/03 temporarily datatablesバインド時のちらつき防止 */
-.listTable-wrapper.hidden {
-    visibility: hidden;
-}
-
 .delete-link {
     color: red;
 }
 
 .edit-link {
     color: blue;
+}
+
+/* datatablesバインド時のちらつき防止 */
+.listTable-wrapper.hidden {
+    visibility: hidden;
 }
 
 @media (max-width: 575px) {

@@ -99,7 +99,7 @@ function bindDataTables(table, dispLength) {
             "<'row'<'col-sm-12'i>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-12'p>>",
-        drawCallback: function () { $('.listTable-wrapper').removeClass('hidden'); } //2022/02/03 temporarily
+        drawCallback: function () { $('.listTable-wrapper').removeClass('hidden'); }
     });
 }
 
