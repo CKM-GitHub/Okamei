@@ -8,37 +8,14 @@ namespace OkameiProduction.BL
 {
     public class BukkenShousaiBL
     {
-        public DataTable GetDisplayResult(BukkenItiranModel model)
+        public DataTable GetDisplayResult(BukkenShousaiModel model)
         {
-            SqlParameter[] sqlParams = new SqlParameter[14];
-            sqlParams[0] = new SqlParameter("@TantouSitenCD", SqlDbType.VarChar) { Value = model.SitenCD.ToStringOrNull() };
-            sqlParams[1] = new SqlParameter("@JuchuuOption", SqlDbType.TinyInt) { Value = model.JuchuuOption.ToInt16(0) };
-            sqlParams[2] = new SqlParameter("@BukkenSiteiOption", SqlDbType.TinyInt) { Value = model.BukkenSiteiOption.ToInt16(0) };
-            sqlParams[3] = new SqlParameter("@NoukiStart", SqlDbType.Date) { Value = model.NoukiStart.ToDateTime() };
-            sqlParams[4] = new SqlParameter("@NoukiEnd", SqlDbType.Date) { Value = model.NoukiEnd.ToDateTime() };
-            sqlParams[5] = new SqlParameter("@TantouEigyouCD", SqlDbType.VarChar) { Value = model.TantouEigyouCD.ToStringOrNull() };
-            sqlParams[6] = new SqlParameter("@TantouPcCD", SqlDbType.VarChar) { Value = model.PCSupportCD.ToStringOrNull() };
-            sqlParams[7] = new SqlParameter("@TantouCadCD", SqlDbType.VarChar) { Value = model.TantouCadCD.ToStringOrNull() };
-            sqlParams[8] = new SqlParameter("@KubunCD", SqlDbType.VarChar) { Value = model.KubunCD.ToStringOrNull() };
-            sqlParams[9] = new SqlParameter("@BukkenNO", SqlDbType.VarChar) { Value = model.BukkenNO.ToStringOrNull() };
-            sqlParams[10] = new SqlParameter("@BukkenName", SqlDbType.VarChar) { Value = model.BukkenName.ToStringOrNull() };
-            sqlParams[11] = new SqlParameter("@KoumutenName", SqlDbType.VarChar) { Value = model.KoumutenName.ToStringOrNull() };
-            sqlParams[12] = new SqlParameter("@TokuchuuzaiUmu", SqlDbType.Int) { Value = model.TokuchuuzaiUmu.ToInt32(0) };
-            sqlParams[13] = new SqlParameter("@UserID", SqlDbType.VarChar) { Value = model.UserID.ToStringOrNull() };
+            SqlParameter[] sqlParams = new SqlParameter[] {
+                new SqlParameter("@BukkenNO", SqlDbType.VarChar) { Value = model.BukkenNO.ToStringOrNull() }
+            };
 
             DBAccess db = new DBAccess();
-            var dt = db.SelectDatatable("BukkenItiran_SelectDisplayResult", sqlParams);
-
-            if (model.SortOption == 2)
-            {
-                var query = from dr in dt.AsEnumerable()
-                            orderby dr.Field<string>("SortKoumutenName"), dr.Field<DateTime?>("SortNouki")
-                            select dr;
-                dt = query.CopyToDataTable();
-            }
-
-            dt.Columns.Remove("SortKoumutenName");
-            dt.Columns.Remove("SortNouki");
+            var dt = db.SelectDatatable("InputBukkenShousai_SelectDisplayResult", sqlParams);
             return dt;
         }
 
@@ -106,7 +83,6 @@ namespace OkameiProduction.BL
             {
                 sqlParams.Add(new SqlParameter("@UpdateDatetime", SqlDbType.DateTime) { Value = model.UpdateDatetime.ToDateTime() });
             }
-
             return sqlParams;
         }
 
@@ -120,7 +96,7 @@ namespace OkameiProduction.BL
             }
             catch (ExclusionException)
             {
-                msgid = "S004"; //他の画面で処理中のデータです。しばらくしてから再度処理してください。
+                msgid = "S004"; //他端末エラー
                 return false;
             }
         }
@@ -128,7 +104,16 @@ namespace OkameiProduction.BL
         public bool UpdateBukkenAll(BukkenShousaiModel model, out string msgid)
         {
             msgid = "";
-            return true;
+            try
+            {
+                DBAccess db = new DBAccess();
+                return db.InsertUpdateDeleteData("InputBukkenShousai_Update", true, CreateSqlParams(model).ToArray());
+            }
+            catch (ExclusionException)
+            {
+                msgid = "S004"; //他端末エラー
+                return false;
+            }
         }
 
         public bool DeleteBukkenAll(BukkenShousaiModel model, out string msgid)
@@ -140,7 +125,16 @@ namespace OkameiProduction.BL
             sqlParams[1] = new SqlParameter("@Operator", SqlDbType.VarChar) { Value = model.UserID.ToStringOrNull() };
             sqlParams[2] = new SqlParameter("@UpdateDatetime", SqlDbType.DateTime) { Value = model.UpdateDatetime.ToDateTime() };
 
-            return true;
+            try
+            {
+                DBAccess db = new DBAccess();
+                return db.InsertUpdateDeleteData("InputBukkenShousai_Delete", true, CreateSqlParams(model).ToArray());
+            }
+            catch (ExclusionException)
+            {
+                msgid = "S004"; //他端末エラー
+                return false;
+            }
         }
 
         public bool DeleteBukkenComment(BukkenShousaiModel model, out string msgid)

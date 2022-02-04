@@ -179,22 +179,25 @@ BEGIN
         ,@SystemDate
     )
 
-    INSERT INTO D_BukkenComment (
-        BukkenNO
-        ,BukkenCommentRows
-        ,BukkenComment
-        ,InsertOperator
-        ,InsertDateTime
-        ,UpdateOperator
-        ,UpdateDateTime
-    ) VALUES (
-        @BukkenNO
-        ,1
-        ,@BukkenComment
-        ,@Operator
-        ,@SystemDate
-        ,@Operator
-        ,@SystemDate
-    )
+	IF ISNULL(@BukkenComment,'') <> ''
+	BEGIN
+        INSERT INTO D_BukkenComment (
+            BukkenNO
+            ,BukkenCommentRows
+            ,BukkenComment
+            ,InsertOperator
+            ,InsertDateTime
+            ,UpdateOperator
+            ,UpdateDateTime
+        ) VALUES (
+            @BukkenNO
+            ,1
+            ,@BukkenComment
+            ,@Operator
+            ,@SystemDate
+            ,@Operator
+            ,@SystemDate
+        )
+	END
 
 END

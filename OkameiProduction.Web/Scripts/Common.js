@@ -8,13 +8,37 @@ $.fn.extend({
     },
 });
 
-function setDisabledAll(containerid) {
-    $(containerid + ' :input:not(:hidden)').prop('disabled', true);
-    $('.main-content-footer :button').prop('disabled', false);
-}
+//autocomplete ---------->
+$(document).on('ontouched click', '.autocomplete', function () {
+    var text = $(this).data('autocomplete');
+    var target = $(this).data('target');
+    $('input[name="' + target + '"]').val(text).focus();
+});
 
-function setDropDownList(target, url, key) {
-    var ddl = $(target);
+function setAutocomplet(selector, url, key) {
+    var ddl = $(selector);
+    var target = ddl.attr('aria-labelledby');
+    ddl.children().remove();
+
+    if (key != "") {
+        var ret = calltoApiController(url, key);
+        if (!ret) {
+            return;
+        }
+        if (ret && ret.MessageID) {
+            showMessage(ret);
+            return;
+        }
+        ret.forEach(function (item) {
+            var data = item.DisplayText;
+            ddl.append('<li class="autocomplete" data-autocomplete="' + data + '" data-target="' + target + '"><a href="#">' + data + '</a></li>');
+        });
+    }
+}
+//autocomplete <----------
+
+function setDropDownList(selector, url, key) {
+    var ddl = $(selector);
     ddl.children().remove();
     ddl.append('<option></option>');
 
@@ -31,6 +55,11 @@ function setDropDownList(target, url, key) {
             ddl.append('<option value=' + item.Value + '>' + item.DisplayText + '</option>');
         });
     }
+}
+
+function setDisabledAll(containerid) {
+    $(containerid + ' :input:not(:hidden)').prop('disabled', true);
+    $('.main-content-footer :button').prop('disabled', false);
 }
 
 function querySerialize(data) {

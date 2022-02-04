@@ -124,22 +124,25 @@ BEGIN
 
     IF @@ROWCOUNT = 0 RETURN @Error
 
-    INSERT INTO D_BukkenComment (
-        BukkenNO
-        ,BukkenCommentRows
-        ,BukkenComment
-        ,InsertOperator
-        ,InsertDateTime
-        ,UpdateOperator
-        ,UpdateDateTime
-    ) VALUES (
-        @BukkenNO
-        ,(SELECT MAX(BukkenCommentRows) + 1 FROM D_BukkenComment WHERE BukkenNO = @BukkenNO)
-        ,@BukkenComment
-        ,@Operator
-        ,@SystemDate
-        ,@Operator
-        ,@SystemDate
-    )
+    IF ISNULL(@BukkenComment,'') <> ''
+    BEGIN
+        INSERT INTO D_BukkenComment (
+            BukkenNO
+            ,BukkenCommentRows
+            ,BukkenComment
+            ,InsertOperator
+            ,InsertDateTime
+            ,UpdateOperator
+            ,UpdateDateTime
+        ) VALUES (
+            @BukkenNO
+            ,(SELECT MAX(BukkenCommentRows) + 1 FROM D_BukkenComment WHERE BukkenNO = @BukkenNO)
+            ,@BukkenComment
+            ,@Operator
+            ,@SystemDate
+            ,@Operator
+            ,@SystemDate
+        )
+    END
 
 END

@@ -13,7 +13,6 @@ namespace Models
         public string SitenCD { get; set; }
         public string BukkenName { get; set; }
         public string Juusho { get; set; }
-        public string KoumutenCD { get; set; }
         public string KoumutenName { get; set; }
         public decimal? KakouTubosuu { get; set; }
         public bool NoukiMiteiKBN { get; set; }

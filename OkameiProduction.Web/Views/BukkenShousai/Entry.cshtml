@@ -52,10 +52,17 @@
                 <div class="col-sm-4">
                     <label class="col-form-label label-title require">工務店</label>
                 </div>
-                <div class="col-sm-8">
-                    <select class="form-control size50" id="KoumutenCD" name="KoumutenCD">
-                        <option ></option>
+                @*<div class="col-sm-8">
+                    <select class="form-control size50" id="KoumutenName" name="KoumutenName">
+                        <option></option>
                     </select>
+                </div>*@
+                <div class="col-sm-8">
+                    <div class="dropdown">
+                        <input type="text" class="form-control dropdown-toggle size50" data-toggle="dropdown" maxlength="50"
+                               id="KoumutenName" name="KoumutenName" autocomplete="off">
+                        <ul class="dropdown-menu" aria-labelledby="KoumutenName"></ul>
+                    </div>
                 </div>
             </div>
             <div class="form-group row">
@@ -152,7 +159,6 @@
                     @Html.DropDownListFor(
                     model => model.TokuchuuzaiUmu,
                     new SelectList(Model.TokuchuuzaiUmuSelectList, "Value", "DisplayText"),
-                    "",
                     new { @class = "form-control size6" })
                 </div>
             </div>
@@ -624,7 +630,8 @@
             txtSitenCD.change(function () {
                 var key = $(this).val();
                 setDropDownList('#TantouEigyouCD', '@Url.Action("GetTantouEigyouSelectList", "api/BukkenShousaiApi")', key);
-                setDropDownList('#KoumutenCD', '@Url.Action("GetKoumutenSelectList", "api/BukkenShousaiApi")', key);
+                //setDropDownList('#KoumutenName', '@Url.Action("GetKoumutenSelectList", "api/BukkenShousaiApi")', key);
+                setAutocomplet('ul[aria-labelledby="KoumutenName"]', '@Url.Action("GetKoumutenSelectList", "api/BukkenShousaiApi")', key);
             });
 
             chkNoukiMitei.change(function () {
@@ -636,7 +643,7 @@
             //必須チェック
             setRequired('#SitenCD');
             setRequired('#BukkenName');
-            setRequired('#KoumutenCD');
+            setRequired('#KoumutenName');
             setRequired('#KakouTubosuu');
             setRequired('#Nouki');
             setRequired('#TantouEigyouCD');
@@ -721,7 +728,7 @@
                 SitenCD: txtSitenCD.val(),
                 BukkenName: txtBukkenName.val(),
                 Juusho: $('#Juusho').val(),
-                KoumutenCD: $('#KoumutenCD').val(),
+                KoumutenName: $('#KoumutenName').val(),
                 KakouTubosuu: $('#KakouTubosuu').val(),
                 NoukiMiteiKBN: chkNoukiMitei.prop('checked'),
                 Nouki: txtNouki.val(),
@@ -804,6 +811,7 @@
             else {
                 txtSitenCD.focus();
             }
+
         });
 
     </script>

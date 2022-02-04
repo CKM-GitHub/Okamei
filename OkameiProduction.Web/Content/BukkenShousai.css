@@ -46,12 +46,34 @@ hr {
     width: 68%;
 }
 
+
+/* autocomplete 
+--------------------------------------------------
+*/
+.dropdown-menu {
+    overflow: auto;
+    max-height: 250px;
+    min-width: 100%;
+}
+    .dropdown-menu a {
+        display: block;
+        padding: 2px 12px 2px 12px;
+        text-decoration: none;
+        outline: none;
+        color: black;
+    }
+
+        .dropdown-menu a:focus,
+        .dropdown-menu a:hover {
+            background-color: #4C93FF;
+            color: #fff;
+        }
 /* 
 --------------------------------------------------
 */
-.radioWrap {
-    display: inline-block;
-}
+    .radioWrap {
+        display: inline-block;
+    }
 
 #YukaGoubanCD,
 #NojiGoubanCD {
@@ -62,6 +84,7 @@ hr {
 #btnUpload {
     margin-left: 10px;
 }
+
 
 /* ファイル選択 
 --------------------------------------------------

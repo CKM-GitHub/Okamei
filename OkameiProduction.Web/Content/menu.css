@@ -155,11 +155,12 @@ body {
     display: block;
     color: #fff;
     text-decoration: none;
+    outline: none;
     -moz-transition: color .3s linear;
     -webkit-transition: color .3s linear;
     transition: color .3s linear;
 }
-
+    .nav-menu a:focus,
     .nav-menu a:hover {
         color: #033560;
     }

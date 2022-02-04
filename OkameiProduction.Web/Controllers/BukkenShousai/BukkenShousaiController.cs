@@ -14,10 +14,13 @@ namespace OkameiProduction.Web.Controllers
         // GET: BukkenShousai
         public ActionResult Entry()
         {
-            ViewBag.PreviousUrl = base.GetPreviousUrl();
-
             var vm = GetFromQueryString<BukkenShousaiModel>();
+            if (vm.Mode == EMode.Edit || vm.Mode == EMode.Delete) {
+                var bl = new BukkenShousaiBL();
+                ViewBag.Data = bl.GetDisplayResult(vm);
+            }
 
+            ViewBag.PreviousUrl = base.GetPreviousUrl();
             SetDropDownListItems(vm);
             return View(vm);
         }
