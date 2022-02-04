@@ -1,10 +1,10 @@
-﻿@model Models.BukkenShousaiModel
+﻿@model Models.InputBukkenShousaiModel
 
 @{
     ViewBag.Title = "Entry";
 }
 
-@Styles.Render("~/Content/BukkenShousai.css")
+@Styles.Render("~/Content/InputBukkenShousai.css")
 
 <h4 class="page-title">物件詳細登録</h4>
 <div id="main" class="main-content">
@@ -629,9 +629,9 @@
 
             txtSitenCD.change(function () {
                 var key = $(this).val();
-                setDropDownList('#TantouEigyouCD', '@Url.Action("GetTantouEigyouSelectList", "api/BukkenShousaiApi")', key);
-                //setDropDownList('#KoumutenName', '@Url.Action("GetKoumutenSelectList", "api/BukkenShousaiApi")', key);
-                setAutocomplet('ul[aria-labelledby="KoumutenName"]', '@Url.Action("GetKoumutenSelectList", "api/BukkenShousaiApi")', key);
+                setDropDownList('#TantouEigyouCD', '@Url.Action("GetTantouEigyouSelectList", "api/InputBukkenShousaiApi")', key);
+                //setDropDownList('#KoumutenName', '@Url.Action("GetKoumutenSelectList", "api/InputBukkenShousaiApi")', key);
+                setAutocomplet('ul[aria-labelledby="KoumutenName"]', '@Url.Action("GetKoumutenSelectList", "api/InputBukkenShousaiApi")', key);
             });
 
             chkNoukiMitei.change(function () {
@@ -698,7 +698,7 @@
                 return;
             }
 
-            var ret = calltoApiController('@Url.Action("GetBukkenNO", "api/BukkenShousaiApi")', txtSitenCD.val());
+            var ret = calltoApiController('@Url.Action("GetBukkenNO", "api/InputBukkenShousaiApi")', txtSitenCD.val());
             if (!ret) {
                 return;
             }
@@ -781,7 +781,7 @@
                 UserID: $('#user-id').text()
             };
 
-            var result = calltoApiController('@Url.Action("SaveData", "api/BukkenShousaiApi")', model);
+            var result = calltoApiController('@Url.Action("SaveData", "api/InputBukkenShousaiApi")', model);
             if (!result) {
                 return false;
             }

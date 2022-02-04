@@ -144,7 +144,7 @@
                             <td class="@columns[i].Caption">
                                 @if (columns[i].Caption == "BukkenName")
                                 {
-                                    @Html.ActionLink((string)items[i], "Entry", "BukkenShousai", new { Mode = "Edit", BukkenNO = bukkenNo }, new { @class = "edit-link" })
+                                    @Html.ActionLink((string)items[i], "Entry", "InputBukkenShousai", new { Mode = "Edit", BukkenNO = bukkenNo }, new { @class = "edit-link" })
                                 }
                                 else
                                 {
@@ -153,7 +153,7 @@
                             </td>
                         }
                         <td class="delete-td">
-                            @Html.ActionLink("削除", "Entry", "BukkenShousai", new { Mode = "Delete", BukkenNO = bukkenNo }, new { @class = "delete-link" })
+                            @Html.ActionLink("削除", "Entry", "InputBukkenShousai", new { Mode = "Delete", BukkenNO = bukkenNo }, new { @class = "delete-link" })
                         </td>
                     </tr>
                 }

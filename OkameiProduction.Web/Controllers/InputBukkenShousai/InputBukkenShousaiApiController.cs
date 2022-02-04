@@ -4,7 +4,7 @@ using OkameiProduction.BL;
 
 namespace OkameiProduction.Web.Controllers
 {
-    public class BukkenShousaiApiController : BaseApiController
+    public class InputBukkenShousaiApiController : BaseApiController
     {
         [HttpPost]
         public string GetTantouEigyouSelectList([FromBody]string sitenCD)
@@ -33,13 +33,13 @@ namespace OkameiProduction.Web.Controllers
         }
 
         [HttpPost]
-        public string SaveData([FromBody] BukkenShousaiModel model)
+        public string SaveData([FromBody] InputBukkenShousaiModel model)
         {
             if (model == null) return GetBadRequestResult();
 
             var result= false;
             var msgid = "";
-            var bl = new BukkenShousaiBL();
+            var bl = new InputBukkenShousaiBL();
 
             if (model.Mode == EMode.New) result = bl.CreateBukkenAll(model, out msgid);
             if (model.Mode == EMode.Edit) result = bl.UpdateBukkenAll(model, out msgid);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class BukkenShousaiModel : BaseModel
+    public class InputBukkenShousaiModel : BaseModel
     {
         //Page 1.
         public string BukkenNO { get; set; }

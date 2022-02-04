@@ -9,14 +9,14 @@ using OkameiProduction.BL;
 
 namespace OkameiProduction.Web.Controllers
 {
-    public class BukkenShousaiController : BaseController
+    public class InputBukkenShousaiController : BaseController
     {
-        // GET: BukkenShousai
+        // GET: InputBukkenShousai
         public ActionResult Entry()
         {
-            var vm = GetFromQueryString<BukkenShousaiModel>();
+            var vm = GetFromQueryString<InputBukkenShousaiModel>();
             if (vm.Mode == EMode.Edit || vm.Mode == EMode.Delete) {
-                var bl = new BukkenShousaiBL();
+                var bl = new InputBukkenShousaiBL();
                 ViewBag.Data = bl.GetDisplayResult(vm);
             }
 
@@ -29,7 +29,7 @@ namespace OkameiProduction.Web.Controllers
 
 
 
-        private void SetDropDownListItems(BukkenShousaiModel vm)
+        private void SetDropDownListItems(InputBukkenShousaiModel vm)
         {
             CommonBL dl = new CommonBL();
             vm.SitenSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.Siten);

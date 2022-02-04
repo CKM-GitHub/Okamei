@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BukkenShousaiBL.cs" />
+    <Compile Include="InputBukkenShousaiBL.cs" />
     <Compile Include="Common\ExclusionException.cs" />
     <Compile Include="HundeggerItiranBL.cs" />
     <Compile Include="FusezuMiteisyutuBL.cs" />

@@ -6,9 +6,9 @@ using Models;
 
 namespace OkameiProduction.BL
 {
-    public class BukkenShousaiBL
+    public class InputBukkenShousaiBL
     {
-        public DataTable GetDisplayResult(BukkenShousaiModel model)
+        public DataTable GetDisplayResult(InputBukkenShousaiModel model)
         {
             SqlParameter[] sqlParams = new SqlParameter[] {
                 new SqlParameter("@BukkenNO", SqlDbType.VarChar) { Value = model.BukkenNO.ToStringOrNull() }
@@ -19,7 +19,7 @@ namespace OkameiProduction.BL
             return dt;
         }
 
-        private List<SqlParameter> CreateSqlParams(BukkenShousaiModel model)
+        private List<SqlParameter> CreateSqlParams(InputBukkenShousaiModel model)
         {
             var sqlParams = new List<SqlParameter>()
             {
@@ -86,7 +86,7 @@ namespace OkameiProduction.BL
             return sqlParams;
         }
 
-        public bool CreateBukkenAll(BukkenShousaiModel model, out string msgid)
+        public bool CreateBukkenAll(InputBukkenShousaiModel model, out string msgid)
         {
             msgid = "";
             try
@@ -101,7 +101,7 @@ namespace OkameiProduction.BL
             }
         }
 
-        public bool UpdateBukkenAll(BukkenShousaiModel model, out string msgid)
+        public bool UpdateBukkenAll(InputBukkenShousaiModel model, out string msgid)
         {
             msgid = "";
             try
@@ -116,7 +116,7 @@ namespace OkameiProduction.BL
             }
         }
 
-        public bool DeleteBukkenAll(BukkenShousaiModel model, out string msgid)
+        public bool DeleteBukkenAll(InputBukkenShousaiModel model, out string msgid)
         {
             msgid = "";
 
@@ -137,19 +137,19 @@ namespace OkameiProduction.BL
             }
         }
 
-        public bool DeleteBukkenComment(BukkenShousaiModel model, out string msgid)
+        public bool DeleteBukkenComment(InputBukkenShousaiModel model, out string msgid)
         {
             msgid = "";
             return true;
         }
 
-        public bool CreateBukkenFile(BukkenShousaiModel model, out string msgid)
+        public bool CreateBukkenFile(InputBukkenShousaiModel model, out string msgid)
         {
             msgid = "";
             return true;
         }
 
-        public bool DeleteBukkenFile(BukkenShousaiModel model, out string msgid)
+        public bool DeleteBukkenFile(InputBukkenShousaiModel model, out string msgid)
         {
             msgid = "";
             return true;
