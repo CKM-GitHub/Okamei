@@ -75,6 +75,7 @@
     <Content Include="Database\Function\fnGetSijiKijitu.sql" />
     <Content Include="Database\StoredProcedure\BukkenItiran_ExistsDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\BukkenItiran_SelectDisplayResult.sql" />
+    <Content Include="Database\StoredProcedure\HiuchiItiran_SelectDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\InputBukkenShousai_Delete.sql" />
     <Content Include="Database\StoredProcedure\InputBukkenShousai_Update.sql" />
     <Content Include="Database\StoredProcedure\InputBukkenShousai_Create.sql" />
