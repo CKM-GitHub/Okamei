@@ -347,6 +347,7 @@
     <Content Include="Views\HundeggerItiran\DisplayResult.cshtml" />
     <Content Include="Views\HundeggerItiran\SetCondition.cshtml" />
     <Content Include="Views\HiuchiItiran\Hiuchi.cshtml" />
+    <Content Include="Views\HiuchiItiran\DisplayResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -30,9 +30,9 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
         }
         public ActionResult DisplayResult()
         {
-            var vm = GetFromQueryString<KubunTaisyouModel>();
+            var vm = GetFromQueryString<HiuchiItiranModel>();
 
-            var bl = new KubunTaisyouBL();
+            var bl = new HiuchiItiranBL();
             var dt = bl.GetDisplayResult(vm);
 
             ViewBag.Data = dt;
