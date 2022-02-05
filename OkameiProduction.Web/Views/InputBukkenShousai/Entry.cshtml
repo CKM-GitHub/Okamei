@@ -25,8 +25,8 @@
                 </div>
                 <div class="col-sm-8 form-inline">
                     @Html.DropDownListFor(
-                    model => model.SitenCD,
-                    new SelectList(Model.SitenSelectList, "Value", "DisplayText"),
+                    model => model.TantouSitenCD,
+                    new SelectList(Model.TantouSitenSelectList, "Value", "DisplayText"),
                     "",
                     new { @class = "form-control size39" })
                     <button type="button" id="btnSet" class="btn btn_search" nofocus>セット</button>
@@ -121,8 +121,8 @@
                 </div>
                 <div class="col-sm-8">
                     @Html.DropDownListFor(
-                    model => model.PCSupportCD,
-                    new SelectList(Model.PCSupportSelectList, "Value", "DisplayText"),
+                    model => model.TantouPcCD,
+                    new SelectList(Model.TantouPcSelectList, "Value", "DisplayText"),
                     "",
                     new { @class = "form-control size50" })
                 </div>
@@ -134,7 +134,7 @@
                 <div class="col-sm-8">
                     @Html.DropDownListFor(
                     model => model.TantouCadCD,
-                    new SelectList(Model.CADStaffSelectList, "Value", "DisplayText"),
+                    new SelectList(Model.TantouCadSelectList, "Value", "DisplayText"),
                     "",
                     new { @class = "form-control size50" })
                 </div>
@@ -597,7 +597,7 @@
         var btnSet = $('#btnSet');
         var txtBukkenNO = $('#BukkenNO');
         var txtBukkenName = $('#BukkenName');
-        var txtSitenCD = $('#SitenCD');
+        var txtTantouSitenCD = $('#TantouSitenCD');
         var tantouEigyouDDL = $('#TantouEigyouCD');
         var chkNoukiMitei = $('#NoukiMiteiKBN');
         var txtNouki = $('#Nouki');
@@ -627,7 +627,7 @@
                 getNewBukkenNO();
             });
 
-            txtSitenCD.change(function () {
+            txtTantouSitenCD.change(function () {
                 var key = $(this).val();
                 setDropDownList('#TantouEigyouCD', '@Url.Action("GetTantouEigyouSelectList", "api/InputBukkenShousaiApi")', key);
                 //setDropDownList('#KoumutenName', '@Url.Action("GetKoumutenSelectList", "api/InputBukkenShousaiApi")', key);
@@ -641,7 +641,7 @@
 
         function addValidate() {
             //必須チェック
-            setRequired('#SitenCD');
+            setRequired('#TantouSitenCD');
             setRequired('#BukkenName');
             setRequired('#KoumutenName');
             setRequired('#KakouTubosuu');
@@ -693,12 +693,12 @@
                 return;
             }
 
-            if (txtSitenCD.val() == "") {
-                txtSitenCD.focus();
+            if (txtTantouSitenCD.val() == "") {
+                txtTantouSitenCD.focus();
                 return;
             }
 
-            var ret = calltoApiController('@Url.Action("GetBukkenNO", "api/InputBukkenShousaiApi")', txtSitenCD.val());
+            var ret = calltoApiController('@Url.Action("GetBukkenNO", "api/InputBukkenShousaiApi")', txtTantouSitenCD.val());
             if (!ret) {
                 return;
             }
@@ -714,8 +714,8 @@
 
         function checkBukkenNO() {
             if (txtBukkenNO.val() == "") {
-                txtSitenCD.focus();
-                showMessage('E288', function () { txtSitenCD.focus(); });
+                txtTantouSitenCD.focus();
+                showMessage('E288', function () { txtTantouSitenCD.focus(); });
                 return false;
             }
             return true;
@@ -725,7 +725,7 @@
             var model = {
                 Mode: '@Model.Mode',
                 BukkenNO: txtBukkenNO.val(),
-                SitenCD: txtSitenCD.val(),
+                TantouSitenCD: txtTantouSitenCD.val(),
                 BukkenName: txtBukkenName.val(),
                 Juusho: $('#Juusho').val(),
                 KoumutenName: $('#KoumutenName').val(),
@@ -735,7 +735,7 @@
                 UnsouKuraireDate: $('#UnsouKuraireDate').val(),
                 KubunCD: $('#KubunCD').val(),
                 TantouEigyouCD: tantouEigyouDDL.val(),
-                PCSupportCD: $('#PCSupportCD').val(),
+                TantouPcCD: $('#TantouPcCD').val(),
                 TantouCadCD: $('#TantouCadCD').val(),
                 NyuuryokusakiCD: $('#NyuuryokusakiCD').val(),
                 TokuchuuzaiUmu: $('#TokuchuuzaiUmu').val(),
@@ -809,7 +809,7 @@
                 btnSave.focus();
             }
             else {
-                txtSitenCD.focus();
+                txtTantouSitenCD.focus();
             }
 
         });

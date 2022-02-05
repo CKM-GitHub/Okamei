@@ -7,29 +7,29 @@ namespace OkameiProduction.Web.Controllers
     public class InputBukkenShousaiApiController : BaseApiController
     {
         [HttpPost]
-        public string GetTantouEigyouSelectList([FromBody]string sitenCD)
+        public string GetTantouEigyouSelectList([FromBody]string tantouSitenCD)
         {
-            if (sitenCD == null) return GetBadRequestResult();
+            if (tantouSitenCD == null) return GetBadRequestResult();
 
             var bl = new CommonBL();
-            return ConvertToJsonResult(bl.GetMultiPorposeDDLItems(EMultiPorpose.EigyouStaff, sitenCD));
+            return ConvertToJsonResult(bl.GetMultiPorposeDDLItems(EMultiPorpose.TantouEigyou, tantouSitenCD));
         }
         [HttpPost]
-        public string GetKoumutenSelectList([FromBody]string sitenCD)
+        public string GetKoumutenSelectList([FromBody]string tantouSitenCD)
         {
-            if (sitenCD == null) return GetBadRequestResult();
+            if (tantouSitenCD == null) return GetBadRequestResult();
 
             var bl = new CommonBL();
-            return ConvertToJsonResult(bl.GetMultiPorposeDDLItems(EMultiPorpose.Koumuten, sitenCD));
+            return ConvertToJsonResult(bl.GetMultiPorposeDDLItems(EMultiPorpose.Koumuten, tantouSitenCD));
         }
 
         [HttpPost]
-        public string GetBukkenNO([FromBody]string sitenCD)
+        public string GetBukkenNO([FromBody]string tantouSitenCD)
         {
-            if (sitenCD == null) return GetBadRequestResult();
+            if (tantouSitenCD == null) return GetBadRequestResult();
 
-            var bl = new CommonBL();
-            return ConvertToJsonResult(new { NewBukkenNO = bl.GetNewBukkenNO(sitenCD) });
+            var bl = new InputBukkenShousaiBL();
+            return ConvertToJsonResult(new { NewBukkenNO = bl.GetNewBukkenNO(tantouSitenCD) });
         }
 
         [HttpPost]

@@ -8,6 +8,27 @@ namespace OkameiProduction.BL
 {
     public class InputBukkenShousaiBL
     {
+        public string GetNewBukkenNO(string sitenCD)
+        {
+            SqlParameter[] sqlParams = new SqlParameter[1];
+            sqlParams[0] = new SqlParameter("@TantouSitenCD", SqlDbType.VarChar) { Value = sitenCD };
+
+            DBAccess db = new DBAccess();
+            var dt = db.SelectDatatable("M_MultiPorpose_GetNewBukkenNO", sqlParams);
+
+            if (dt.Rows.Count == 0)
+            {
+                return "";
+            }
+
+            var dr = dt.Rows[0];
+            var prefix = dr["Prefix"].ToStringOrEmpty();
+            var number = dr["Number"].ToStringOrEmpty();
+            var newBukkenNO = prefix + number.PadLeft(8 - prefix.Length, '0');
+
+            return newBukkenNO;
+        }
+
         public DataTable GetDisplayResult(InputBukkenShousaiModel model)
         {
             SqlParameter[] sqlParams = new SqlParameter[] {
@@ -24,7 +45,7 @@ namespace OkameiProduction.BL
             var sqlParams = new List<SqlParameter>()
             {
                 new SqlParameter("@BukkenNO", SqlDbType.VarChar) { Value = model.BukkenNO.ToStringOrNull() },
-                new SqlParameter("@TantouSitenCD", SqlDbType.VarChar) { Value = model.SitenCD.ToStringOrNull() },
+                new SqlParameter("@TantouSitenCD", SqlDbType.VarChar) { Value = model.TantouSitenCD.ToStringOrNull() },
                 new SqlParameter("@BukkenName", SqlDbType.VarChar) { Value = model.BukkenName.ToStringOrNull() },
                 new SqlParameter("@Juusho", SqlDbType.VarChar) { Value = model.Juusho.ToStringOrNull() },
                 new SqlParameter("@KoumutenName", SqlDbType.VarChar) { Value = model.KoumutenName.ToStringOrNull() },
@@ -34,7 +55,7 @@ namespace OkameiProduction.BL
                 new SqlParameter("@UnsouKuraireDate", SqlDbType.Date) { Value = model.UnsouKuraireDate.ToDateTime() },
                 new SqlParameter("@KubunCD", SqlDbType.VarChar) { Value = model.KubunCD.ToStringOrNull() },
                 new SqlParameter("@TantouEigyouCD", SqlDbType.VarChar) { Value = model.TantouEigyouCD.ToStringOrNull() },
-                new SqlParameter("@TantouPcCD", SqlDbType.VarChar) { Value = model.PCSupportCD.ToStringOrNull() },
+                new SqlParameter("@TantouPcCD", SqlDbType.VarChar) { Value = model.TantouPcCD.ToStringOrNull() },
                 new SqlParameter("@TantouCadCD", SqlDbType.VarChar) { Value = model.TantouCadCD.ToStringOrNull() },
                 new SqlParameter("@NyuuryokusakiCD", SqlDbType.VarChar) { Value = model.NyuuryokusakiCD.ToStringOrNull() },
                 new SqlParameter("@TokuchuuzaiUmu", SqlDbType.TinyInt) { Value = model.TokuchuuzaiUmu.ToInt16(0) },

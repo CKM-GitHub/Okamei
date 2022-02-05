@@ -13,8 +13,8 @@
         </div>
         <div class="col-sm-10">
             @Html.DropDownListFor(
-            model => model.SitenCD,
-            new SelectList(Model.SitenSelectList, "Value", "DisplayText"),
+            model => model.TantouSitenCD,
+            new SelectList(Model.TantouSitenSelectList, "Value", "DisplayText"),
             "全社",
             new { @class = "form-control size50" })
         </div>
@@ -62,7 +62,7 @@
         <div class="col-sm-10">
             @Html.DropDownListFor(
             model => model.TantouEigyouCD,
-            new SelectList(Model.EigyouStaffSelectList, "Value", "DisplayText"),
+            new SelectList(Model.TantouEigyouSelectList, "Value", "DisplayText"),
             "",
             new { @class = "form-control size50" })
         </div>
@@ -74,7 +74,7 @@
         <div class="col-sm-10">
             @Html.DropDownListFor(
             model => model.TantouCadCD,
-            new SelectList(Model.CADStaffSelectList, "Value", "DisplayText"),
+            new SelectList(Model.TantouCadSelectList, "Value", "DisplayText"),
             "",
             new { @class = "form-control size50" })
         </div>
@@ -85,8 +85,8 @@
         </div>
         <div class="col-sm-10">
             @Html.DropDownListFor(
-            model => model.PCSupportCD,
-            new SelectList(Model.PCSupportSelectList, "Value", "DisplayText"),
+            model => model.TantouPcCD,
+            new SelectList(Model.TantouPcSelectList, "Value", "DisplayText"),
             "",
             new { @class = "form-control size50" })
         </div>
@@ -192,20 +192,20 @@
 
             //初期表示
             $('#NoukiStart').val('@serverDate');
-            $('#SitenCD').focus();
+            $('#TantouSitenCD').focus();
         });
 
         function btnDisplayClick() {
             var model =
             {
-                SitenCD: $('#SitenCD').val(),
+                TantouSitenCD: $('#TantouSitenCD').val(),
                 JuchuuOption: $('input[name=JuchuuOption]:checked').val(),
                 BukkenSiteiOption: $('input[name=BukkenSiteiOption]:checked').val(),
                 NoukiStart: $('#NoukiStart').val(),
                 NoukiEnd: $('#NoukiEnd').val(),
                 TantouEigyouCD: $('#TantouEigyouCD').val(),
                 TantouCadCD: $('#TantouCadCD').val(),
-                PCSupportCD: $('#PCSupportCD').val(),
+                TantouPcCD: $('#TantouPcCD').val(),
                 SortOption: $('input[name=SortOption]:checked').val(),
                 KubunCD: $('#KubunCD').val(),
                 BukkenNO: $('#BukkenNO').val(),

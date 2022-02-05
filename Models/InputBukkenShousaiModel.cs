@@ -10,7 +10,7 @@ namespace Models
     {
         //Page 1.
         public string BukkenNO { get; set; }
-        public string SitenCD { get; set; }
+        public string TantouSitenCD { get; set; }
         public string BukkenName { get; set; }
         public string Juusho { get; set; }
         public string KoumutenName { get; set; }
@@ -20,7 +20,7 @@ namespace Models
         public string UnsouKuraireDate { get; set; }
         public string KubunCD { get; set; }
         public string TantouEigyouCD { get; set; }
-        public string PCSupportCD { get; set; }
+        public string TantouPcCD { get; set; }
         public string TantouCadCD { get; set; }
         public string NyuuryokusakiCD { get; set; }
         public int? TokuchuuzaiUmu { get; set; }
@@ -68,10 +68,10 @@ namespace Models
         //Page 4.
         public string BukkenComment { get; set; }
         
-        public IEnumerable<DropDownListItem> SitenSelectList { get; set; }
-        public IEnumerable<DropDownListItem> EigyouStaffSelectList { get; set; }
-        public IEnumerable<DropDownListItem> PCSupportSelectList { get; set; }
-        public IEnumerable<DropDownListItem> CADStaffSelectList { get; set; }
+        public IEnumerable<DropDownListItem> TantouSitenSelectList { get; set; }
+        public IEnumerable<DropDownListItem> TantouEigyouSelectList { get; set; }
+        public IEnumerable<DropDownListItem> TantouPcSelectList { get; set; }
+        public IEnumerable<DropDownListItem> TantouCadSelectList { get; set; }
         public IEnumerable<DropDownListItem> KoumutenSelectList { get; set; }
         public IEnumerable<DropDownListItem> NyuuryokusakiSelectList { get; set; }
         public IEnumerable<DropDownListItem> TokuchuuzaiUmuSelectList { get; set; }

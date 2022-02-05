@@ -22,19 +22,19 @@
         /// <summary>
         /// 支店
         /// </summary>
-        Siten = 3,
+        TantouSiten = 3,
         /// <summary>
         /// 担当営業マン
         /// </summary>
-        EigyouStaff = 4,
+        TantouEigyou = 4,
         /// <summary>
         /// 担当PCサポート
         /// </summary>
-        PCSupport = 5,
+        TantouPc = 5,
         /// <summary>
         /// 担当CADマン
         /// </summary>
-        CADStaff = 6,
+        TantouCad = 6,
         /// <summary>
         /// 入力先
         /// </summary>
@@ -54,7 +54,7 @@
         /// <summary>
         /// 火打材料
         /// </summary>
-        HiuchiMaterial = 11,
+        HiuchiZairyou = 11,
         /// <summary>
         /// 火打等級
         /// </summary>
@@ -62,15 +62,15 @@
         /// <summary>
         /// 品目
         /// </summary>
-        Hinmoku = 13,
+        MoulderHinmoku = 13,
         /// <summary>
         /// モルダー材料
         /// </summary>
-        MoulderMaterial = 14,
+        MoulderZairyou = 14,
         /// <summary>
         /// S見積管理表入力権限
         /// </summary>
-        SMitumoriInputStaff = 15,
+        SMitumoriKanriUser = 15,
         /// <summary>
         /// 休日カレンダー
         /// </summary>
@@ -78,15 +78,15 @@
         /// <summary>
         /// 指示書・加工データ送付先
         /// </summary>
-        KakouDataSending = 17,
+        KakouDataAddress = 17,
         /// <summary>
         /// 現地案内指示書・地図送信先
         /// </summary>
-        MapDataSending = 18,
+        MapDataAddress = 18,
         /// <summary>
         /// 木出しデータ送付先
         /// </summary>
-        KidasiDataSending = 19,
+        KidasiDataAddress = 19,
         /// <summary>
         /// ユーザーID・パスワード
         /// </summary>
@@ -94,6 +94,6 @@
         /// <summary>
         /// 承認期日算出日数
         /// </summary>
-        ApprovalDeadline = 999
+        SnouninNissuu = 999
     }
 }

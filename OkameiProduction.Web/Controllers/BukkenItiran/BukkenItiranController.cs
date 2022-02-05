@@ -38,10 +38,10 @@ namespace OkameiProduction.Web.Controllers
         private void SetDropDownListItems(BukkenItiranModel vm)
         {
             CommonBL dl = new CommonBL();
-            vm.SitenSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.Siten);
-            vm.EigyouStaffSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.EigyouStaff);
-            vm.PCSupportSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.PCSupport);
-            vm.CADStaffSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.CADStaff);
+            vm.TantouSitenSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.TantouSiten);
+            vm.TantouEigyouSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.TantouEigyou);
+            vm.TantouPcSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.TantouPc);
+            vm.TantouCadSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.TantouCad);
             vm.KubunSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.Kubun);
             vm.TokuchuuzaiUmuSelectList = dl.GetTokuchuuzaiUmuDDLItems();
         }
