@@ -7,20 +7,20 @@ namespace OkameiProduction.Web.Controllers
     public class InputBukkenShousaiApiController : BaseApiController
     {
         [HttpPost]
-        public string GetTantouEigyouSelectList([FromBody]string tantouSitenCD)
+        public string GetTantouEigyouDropDownListItems([FromBody]string tantouSitenCD)
         {
             if (tantouSitenCD == null) return GetBadRequestResult();
 
             var bl = new CommonBL();
-            return ConvertToJsonResult(bl.GetMultiPorposeDDLItems(EMultiPorpose.TantouEigyou, tantouSitenCD));
+            return ConvertToJsonResult(bl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouEigyou, tantouSitenCD));
         }
         [HttpPost]
-        public string GetKoumutenSelectList([FromBody]string tantouSitenCD)
+        public string GetKoumutenDropDownListItems([FromBody]string tantouSitenCD)
         {
             if (tantouSitenCD == null) return GetBadRequestResult();
 
             var bl = new CommonBL();
-            return ConvertToJsonResult(bl.GetMultiPorposeDDLItems(EMultiPorpose.Koumuten, tantouSitenCD));
+            return ConvertToJsonResult(bl.GetMultiPorposeDropDownListItems(EMultiPorpose.Koumuten, tantouSitenCD));
         }
 
         [HttpPost]

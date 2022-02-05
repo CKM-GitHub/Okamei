@@ -9,7 +9,7 @@ namespace OkameiProduction.BL
 {
     public class CommonBL
     {
-        public IEnumerable<DropDownListItem> GetMultiPorposeDDLItems(EMultiPorpose id, string char4 = "")
+        public IEnumerable<DropDownListItem> GetMultiPorposeDropDownListItems(EMultiPorpose id, string char4 = "")
         {
             var options = new List<DropDownListItem>();
 
@@ -39,7 +39,7 @@ namespace OkameiProduction.BL
             return options;
         }
 
-        public IEnumerable<DropDownListItem> GetTokuchuuzaiUmuDDLItems()
+        public IEnumerable<DropDownListItem> GetTokuchuuzaiUmuDropDownListItems()
         {
             var options = new List<DropDownListItem>();
             options.Add(new DropDownListItem() { Value = "1", DisplayText = "有", SortNumber = 0 });

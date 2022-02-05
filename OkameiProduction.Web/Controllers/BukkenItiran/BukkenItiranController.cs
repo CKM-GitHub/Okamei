@@ -38,12 +38,12 @@ namespace OkameiProduction.Web.Controllers
         private void SetDropDownListItems(BukkenItiranModel vm)
         {
             CommonBL dl = new CommonBL();
-            vm.TantouSitenSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.TantouSiten);
-            vm.TantouEigyouSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.TantouEigyou);
-            vm.TantouPcSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.TantouPc);
-            vm.TantouCadSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.TantouCad);
-            vm.KubunSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.Kubun);
-            vm.TokuchuuzaiUmuSelectList = dl.GetTokuchuuzaiUmuDDLItems();
+            vm.TantouSitenDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouSiten);
+            vm.TantouEigyouDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouEigyou);
+            vm.TantouPcDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouPc);
+            vm.TantouCadDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouCad);
+            vm.KubunDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.Kubun);
+            vm.TokuchuuzaiUmuDropDownListItems = dl.GetTokuchuuzaiUmuDropDownListItems();
         }
     }
 }

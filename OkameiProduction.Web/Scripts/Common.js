@@ -1,4 +1,4 @@
-﻿var gAbsolutePath = ""; //value is set in "_Layout.cshtml"
+﻿var gApplicationPath = ""; //value is set in "_Layout.cshtml"
 var gCommonApiUrl = "/api/CommonApi/";
 var gCustomValidate = function (ctrl) { return true; }
 
@@ -160,7 +160,7 @@ function showConfirmMessage(msgid, callback) {
     var model = {
         MessageID: msgid,
     };
-    var msgdata = calltoApiController(gAbsolutePath + gCommonApiUrl + "GetMessage", model);
+    var msgdata = calltoApiController(gApplicationPath + gCommonApiUrl + "GetMessage", model);
     if (!msgdata) {
         return false;
     }
@@ -184,7 +184,7 @@ function showMessage(msg, callback) {
         var model = {
             MessageID: msg,
         };
-        var ret = calltoApiController(gAbsolutePath + gCommonApiUrl + "GetMessage", model);
+        var ret = calltoApiController(gApplicationPath + gCommonApiUrl + "GetMessage", model);
         if (!ret) {
             return false;
         }
@@ -264,7 +264,7 @@ function checkCommon(ctrl) {
 
     var required = ctrl.attr("validate-required");
     if (required && !ctrl.val()) {
-        var result = calltoApiController(gAbsolutePath + gCommonApiUrl + "GetMessage", { MessageID: "E102" });
+        var result = calltoApiController(gApplicationPath + gCommonApiUrl + "GetMessage", { MessageID: "E102" });
         if (!result) {
             return false;
         }
@@ -299,7 +299,7 @@ function checkCommon(ctrl) {
                 model.Decimaldigits = ctrl.attr('decimaldigits');
             }
 
-            var result = calltoApiController(gAbsolutePath + gCommonApiUrl + 'CheckValid', model);
+            var result = calltoApiController(gApplicationPath + gCommonApiUrl + 'CheckValid', model);
             if (!result) {
                 return false;
             }

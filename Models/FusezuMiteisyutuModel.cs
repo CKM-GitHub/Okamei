@@ -9,6 +9,6 @@ namespace Models
         public string TantouCadCD { get; set; }
        
        
-        public IEnumerable<DropDownListItem> TantouCadSelectList { get; set; }
+        public IEnumerable<DropDownListItem> TantouCadDropDownListItems { get; set; }
     }
 }

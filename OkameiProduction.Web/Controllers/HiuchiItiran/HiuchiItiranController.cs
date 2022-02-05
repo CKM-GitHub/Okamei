@@ -24,9 +24,9 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
         private void SetDropDownListItems(HiuchiItiranModel vm)
         {
             CommonBL dl = new CommonBL();
-            vm.TantouSitenSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.TantouSiten);
-            vm.TantouEigyouSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.TantouEigyou); 
-            vm.TantouCadSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.TantouCad);  
+            vm.TantouSitenDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouSiten);
+            vm.TantouEigyouDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouEigyou); 
+            vm.TantouCadDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouCad);  
         }
         public ActionResult DisplayResult()
         {

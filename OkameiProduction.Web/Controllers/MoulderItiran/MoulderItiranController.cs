@@ -38,7 +38,7 @@ namespace OkameiProduction.Web.Controllers
         private void SetDropDownListItems(MoulderItiranModel vm)
         {
             CommonBL dl = new CommonBL();
-            vm.TantouSitenSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.TantouSiten);
+            vm.TantouSitenDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouSiten);
         }
     }
 }

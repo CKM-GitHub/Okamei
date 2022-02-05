@@ -19,11 +19,11 @@ namespace Models
         public string BukkenName { get; set; }
         public string KoumutenName { get; set; }
         public int TokuchuuzaiUmu { get; set; }
-        public IEnumerable<DropDownListItem> TantouSitenSelectList { get; set; }
-        public IEnumerable<DropDownListItem> TantouEigyouSelectList { get; set; }
-        public IEnumerable<DropDownListItem> TantouPcSelectList { get; set; }
-        public IEnumerable<DropDownListItem> TantouCadSelectList { get; set; }
-        public IEnumerable<DropDownListItem> KubunSelectList { get; set; }
-        public IEnumerable<DropDownListItem> TokuchuuzaiUmuSelectList { get; set; }
+        public IEnumerable<DropDownListItem> TantouSitenDropDownListItems { get; set; }
+        public IEnumerable<DropDownListItem> TantouEigyouDropDownListItems { get; set; }
+        public IEnumerable<DropDownListItem> TantouPcDropDownListItems { get; set; }
+        public IEnumerable<DropDownListItem> TantouCadDropDownListItems { get; set; }
+        public IEnumerable<DropDownListItem> KubunDropDownListItems { get; set; }
+        public IEnumerable<DropDownListItem> TokuchuuzaiUmuDropDownListItems { get; set; }
     }
 }

@@ -68,15 +68,15 @@ namespace Models
         //Page 4.
         public string BukkenComment { get; set; }
         
-        public IEnumerable<DropDownListItem> TantouSitenSelectList { get; set; }
-        public IEnumerable<DropDownListItem> TantouEigyouSelectList { get; set; }
-        public IEnumerable<DropDownListItem> TantouPcSelectList { get; set; }
-        public IEnumerable<DropDownListItem> TantouCadSelectList { get; set; }
-        public IEnumerable<DropDownListItem> KoumutenSelectList { get; set; }
-        public IEnumerable<DropDownListItem> NyuuryokusakiSelectList { get; set; }
-        public IEnumerable<DropDownListItem> TokuchuuzaiUmuSelectList { get; set; }
-        public IEnumerable<DropDownListItem> KubunSelectList { get; set; }
-        public IEnumerable<DropDownListItem> KanamonoSelectList { get; set; }
-        public IEnumerable<DropDownListItem> GoubanSelectList { get; set; }
+        public IEnumerable<DropDownListItem> TantouSitenDropDownListItems { get; set; }
+        public IEnumerable<DropDownListItem> TantouEigyouDropDownListItems { get; set; }
+        public IEnumerable<DropDownListItem> TantouPcDropDownListItems { get; set; }
+        public IEnumerable<DropDownListItem> TantouCadDropDownListItems { get; set; }
+        public IEnumerable<DropDownListItem> KoumutenDropDownListItems { get; set; }
+        public IEnumerable<DropDownListItem> NyuuryokusakiDropDownListItems { get; set; }
+        public IEnumerable<DropDownListItem> TokuchuuzaiUmuDropDownListItems { get; set; }
+        public IEnumerable<DropDownListItem> KubunDropDownListItems { get; set; }
+        public IEnumerable<DropDownListItem> KanamonoDropDownListItems { get; set; }
+        public IEnumerable<DropDownListItem> GoubanDropDownListItems { get; set; }
     }
 }

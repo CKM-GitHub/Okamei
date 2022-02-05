@@ -32,17 +32,17 @@ namespace OkameiProduction.Web.Controllers
         private void SetDropDownListItems(InputBukkenShousaiModel vm)
         {
             CommonBL dl = new CommonBL();
-            vm.TantouSitenSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.TantouSiten);
-            //vm.TantouEigyouSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.TantouEigyou);
-            vm.TantouPcSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.TantouPc);
-            vm.TantouCadSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.TantouCad);
-            //vm.KoumutenSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.Koumuten);
-            vm.NyuuryokusakiSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.Nyuuryokusaki);
-            vm.KubunSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.Kubun);
-            vm.KanamonoSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.Kanamono);
-            vm.GoubanSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.Gouban);
+            vm.TantouSitenDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouSiten);
+            //vm.TantouEigyouDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouEigyou);
+            vm.TantouPcDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouPc);
+            vm.TantouCadDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouCad);
+            //vm.KoumutenDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.Koumuten);
+            vm.NyuuryokusakiDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.Nyuuryokusaki);
+            vm.KubunDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.Kubun);
+            vm.KanamonoDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.Kanamono);
+            vm.GoubanDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.Gouban);
 
-            vm.TokuchuuzaiUmuSelectList = dl.GetTokuchuuzaiUmuDDLItems();
+            vm.TokuchuuzaiUmuDropDownListItems = dl.GetTokuchuuzaiUmuDropDownListItems();
         }
     }
 }

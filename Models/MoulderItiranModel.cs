@@ -8,6 +8,6 @@ namespace Models
         public string TantouSitenCD { get; set; }
         public string NoukiStart { get; set; }
         public string NoukiEnd { get; set; }
-        public IEnumerable<DropDownListItem> TantouSitenSelectList { get; set; }
+        public IEnumerable<DropDownListItem> TantouSitenDropDownListItems { get; set; }
     }
 }
