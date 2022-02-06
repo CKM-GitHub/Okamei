@@ -49,7 +49,7 @@
         /// <summary>
         /// 合板
         /// </summary>
-        Gouban = 9,
+        Gouhan = 9,
         /// <summary>
         /// 火打層
         /// </summary>
