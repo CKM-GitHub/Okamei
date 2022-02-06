@@ -10,7 +10,10 @@
 
     public enum EMultiPorpose : int
     {
-        None,
+        /// <summary>
+        /// ID
+        /// </summary>
+        ID = 0,
         /// <summary>
         /// 工務店
         /// </summary>

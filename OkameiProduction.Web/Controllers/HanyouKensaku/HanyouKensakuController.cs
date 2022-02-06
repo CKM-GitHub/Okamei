@@ -25,7 +25,7 @@ namespace OkameiProduction.Web.Controllers
         private void SetDropDownListItems(HanyouKensakuModel vm)
         {
             CommonBL dl = new CommonBL();
-            vm.IDSelectList = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.None);
+            vm.IDSelectList = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.ID);
         }
     }
 }
