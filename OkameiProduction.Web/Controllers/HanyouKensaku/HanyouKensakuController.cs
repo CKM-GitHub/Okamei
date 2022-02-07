@@ -8,9 +8,9 @@ namespace OkameiProduction.Web.Controllers
     public class HanyouKensakuController : BaseController
     {
         // GET: 
-        public ActionResult DisplayResult ()
+        public ActionResult DisplayResult (HanyouKensakuModel vm)
         {
-            var vm = new HanyouKensakuModel();
+            //var vm = new HanyouKensakuModel();
             SetDropDownListItems(vm);
 
             HanyouKensakuBL bl = new HanyouKensakuBL();
