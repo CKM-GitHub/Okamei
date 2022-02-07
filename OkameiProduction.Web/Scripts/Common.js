@@ -2,41 +2,6 @@
 var gCommonApiUrl = "/api/CommonApi/";
 var gCustomValidate = function (ctrl) { return true; }
 
-$.fn.extend({
-    setDisabled: function (value) {
-        this.prop('disabled', value);
-    },
-});
-
-//autocomplete ---------->
-$(document).on('ontouched click', '.autocomplete', function () {
-    var text = $(this).data('autocomplete');
-    var target = $(this).data('target');
-    $('input[name="' + target + '"]').val(text).focus();
-});
-
-function setAutocomplet(selector, url, key) {
-    var ddl = $(selector);
-    var target = ddl.attr('aria-labelledby');
-    ddl.children().remove();
-
-    if (key != "") {
-        var ret = calltoApiController(url, key);
-        if (!ret) {
-            return;
-        }
-        if (ret.MessageID) {
-            showMessage(ret);
-            return;
-        }
-        ret.forEach(function (item) {
-            var data = item.DisplayText;
-            ddl.append('<li class="autocomplete" data-autocomplete="' + data + '" data-target="' + target + '"><a href="#">' + data + '</a></li>');
-        });
-    }
-}
-//autocomplete <----------
-
 function setDropDownList(selector, url, key) {
     var ddl = $(selector);
     ddl.children().remove();
@@ -57,8 +22,8 @@ function setDropDownList(selector, url, key) {
     }
 }
 
-function setDisabledAll(containerid) {
-    $(containerid + ' :input:not(:hidden)').prop('disabled', true);
+function setDisabledAll(selector) {
+    $(selector + ' :input:not(:hidden)').prop('disabled', true);
     $('.main-content-footer :button').prop('disabled', false);
 }
 
@@ -130,6 +95,8 @@ function bindDataTables(table, dispLength) {
             "<'row'<'col-sm-12'p>>",
         drawCallback: function () { $('.listTable-wrapper').removeClass('hidden'); }
     });
+
+    return t;
 }
 
 function calltoApiController(url, model) { 
@@ -143,7 +110,7 @@ function calltoApiController(url, model) {
         async: false,
         headers:
         {
-            Authorization: 'Basic ' + btoa('ogUzkq=EopiYA,U33yzf' + ':' + 'e>gW0BXP85@7-#*~k1@a')
+            Authorization: getApiAuthorization()
         },
         success: function (data) {
             result = JSON.parse(data);
@@ -154,9 +121,11 @@ function calltoApiController(url, model) {
     });
     return result;
 }
+function getApiAuthorization() {
+    return 'Basic ' + btoa('ogUzkq=EopiYA,U33yzf' + ':' + 'e>gW0BXP85@7-#*~k1@a');
+}
 
 function showConfirmMessage(msgid, callback) {
-
     var model = {
         MessageID: msgid,
     };
@@ -428,4 +397,9 @@ $(document).ready(function () {
 
     bindKeyPressEvent("#main");
 
+});
+
+$(document).on("drop dragover", function (e) {
+    e.stopPropagation();
+    e.preventDefault();
 });

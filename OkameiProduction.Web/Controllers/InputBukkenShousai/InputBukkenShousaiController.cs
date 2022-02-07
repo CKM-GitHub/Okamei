@@ -15,34 +15,47 @@ namespace OkameiProduction.Web.Controllers
         public ActionResult Entry()
         {
             var vm = GetFromQueryString<InputBukkenShousaiModel>();
-            if (vm.Mode == EMode.Edit || vm.Mode == EMode.Delete) {
+            ViewBag.PreviousUrl = base.GetPreviousUrl();
+
+            if (vm.Mode == EMode.Edit || vm.Mode == EMode.Delete)
+            {
                 var bl = new InputBukkenShousaiBL();
-                ViewBag.Data = bl.GetDisplayResult(vm);
+                var dt = bl.GetDisplayResult(vm);
+                if (dt.Rows.Count > 0)
+                {
+                    var mode = vm.Mode;
+                    vm = dt.AsEnumerableEntity<InputBukkenShousaiModel>().FirstOrDefault();
+                    vm.Mode = mode;
+                }
             }
 
-            ViewBag.PreviousUrl = base.GetPreviousUrl();
             SetDropDownListItems(vm);
             return View(vm);
         }
 
-
-
-
-
         private void SetDropDownListItems(InputBukkenShousaiModel vm)
         {
-            CommonBL dl = new CommonBL();
-            vm.TantouSitenDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouSiten);
-            //vm.TantouEigyouDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouEigyou);
-            vm.TantouPcDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouPc);
-            vm.TantouCadDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouCad);
-            //vm.KoumutenDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.Koumuten);
-            vm.NyuuryokusakiDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.Nyuuryokusaki);
-            vm.KubunDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.Kubun);
-            vm.KanamonoDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.Kanamono);
-            vm.GoubanDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.Gouban);
+            CommonBL bl = new CommonBL();
+            vm.TantouSitenDropDownListItems = bl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouSiten);
+            vm.TantouPcDropDownListItems = bl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouPc);
+            vm.TantouCadDropDownListItems = bl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouCad);
+            vm.NyuuryokusakiDropDownListItems = bl.GetMultiPorposeDropDownListItems(EMultiPorpose.Nyuuryokusaki);
+            vm.KubunDropDownListItems = bl.GetMultiPorposeDropDownListItems(EMultiPorpose.Kubun);
+            vm.KanamonoDropDownListItems = bl.GetMultiPorposeDropDownListItems(EMultiPorpose.Kanamono);
+            vm.GouhanDropDownListItems = bl.GetMultiPorposeDropDownListItems(EMultiPorpose.Gouhan);
+            vm.TokuchuuzaiUmuDropDownListItems = bl.GetTokuchuuzaiUmuDropDownListItems();
+            vm.WithOrWithoutDropDownListItems = bl.GetWithOrWithoutDropDownListItems();
 
-            vm.TokuchuuzaiUmuDropDownListItems = dl.GetTokuchuuzaiUmuDropDownListItems();
+            if (string.IsNullOrEmpty(vm.TantouSitenCD))
+            {
+                vm.TantouEigyouDropDownListItems = new List<DropDownListItem>();
+                //vm.KoumutenDropDownListItems = new List<DropDownListItem>();
+            }
+            else
+            {
+                vm.TantouEigyouDropDownListItems = bl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouEigyou, vm.TantouSitenCD);
+                //vm.KoumutenDropDownListItems = bl.GetMultiPorposeDropDownListItems(EMultiPorpose.Koumuten, vm.TantouSitenCD);
+            }
         }
     }
 }

@@ -15,23 +15,23 @@ BEGIN
         ,KoumutenName
         ,KakoutuboSuu
         ,NoukiMiteiKBN
-        ,Nouki
-        ,UnsouKuraireDate
+        ,FORMAT(Nouki, 'yyyy/MM/dd') AS Nouki
+        ,FORMAT(UnsouKuraireDate, 'yyyy/MM/dd') AS UnsouKuraireDate
         ,KubunCD
         ,TantouEigyouCD
         ,TantouPcCD
         ,TantouCadCD
         ,NyuuryokusakiCD
         ,TokuchuuzaiUmu
-        ,ZairyouNouki
+        ,FORMAT(ZairyouNouki, 'yyyy/MM/dd') AS ZairyouNouki
         ,TokuchuuzaiComment
-        ,JuchuuDate
-        ,FusezuTeishutuDate
-        ,KakoutuShouninDate
-        ,KidasiDate
-        ,KakousijishoHakkouDate
-        ,KannouDate
-        ,CancelDate
+        ,FORMAT(JuchuuDate, 'yyyy/MM/dd') AS JuchuuDate
+        ,FORMAT(FusezuTeishutuDate, 'yyyy/MM/dd') AS FusezuTeishutuDate
+        ,FORMAT(KakoutuShouninDate, 'yyyy/MM/dd') AS KakouShouninDate
+        ,FORMAT(KidasiDate, 'yyyy/MM/dd') AS KidasiDate
+        ,FORMAT(KakousijishoHakkouDate, 'yyyy/MM/dd') AS KakousijishoHakkouDate
+        ,FORMAT(KannouDate, 'yyyy/MM/dd') AS KannouDate
+        ,FORMAT(CancelDate, 'yyyy/MM/dd') AS CancelDate
         ,KakouNissuu
         ,KanamonoCD
         ,OukazaiKakou
@@ -59,7 +59,8 @@ BEGIN
         ,HundeggerKakou
         ,HundeggerSumi
         ,HundeggerTime
-        ,UpdateDateTime
+        ,FORMAT(UpdateDateTime, 'yyyy/MM/dd HH:mm:ss') AS UpdateDateTime
+        ,FORMAT(UpdateDateTime, 'yyyy/MM/dd HH:mm:ss.fff') AS HiddenUpdateDatetime
 
 	FROM D_Bukken
 	WHERE BukkenNO = @BukkenNO

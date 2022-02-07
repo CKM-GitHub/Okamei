@@ -14,8 +14,8 @@ namespace Models
         public string BukkenName { get; set; }
         public string Juusho { get; set; }
         public string KoumutenName { get; set; }
-        public decimal? KakouTubosuu { get; set; }
-        public bool NoukiMiteiKBN { get; set; }
+        public decimal KakouTubosuu { get; set; }
+        public byte NoukiMiteiKBN { get; set; }
         public string Nouki { get; set; }
         public string UnsouKuraireDate { get; set; }
         public string KubunCD { get; set; }
@@ -23,7 +23,7 @@ namespace Models
         public string TantouPcCD { get; set; }
         public string TantouCadCD { get; set; }
         public string NyuuryokusakiCD { get; set; }
-        public int? TokuchuuzaiUmu { get; set; }
+        public byte TokuchuuzaiUmu { get; set; }
         public string ZairyouNouki { get; set; }
         public string TokuchuuzaiComment { get; set; }
         //Page 2.
@@ -34,40 +34,40 @@ namespace Models
         public string KakousijishoHakkouDate { get; set; }
         public string KannouDate { get; set; }
         public string CancelDate { get; set; }
-        public string KakouNissuu { get; set; }
+        public int KakouNissuu { get; set; }
         public string UpdateDatetime { get; set; }
         public string KanamonoCD { get; set; }
-        public int? OukazaiKakou { get; set; }
-        public bool OukazaiSumi { get; set; }
-        public int? KabeKakou { get; set; }
-        public bool KabeSumi { get; set; }
-        public int? HasirazaiKakou { get; set; }
-        public bool HasirazaiSumi { get; set; }
-        public int? HiuchiKakou { get; set; }
-        public bool HiuchiSumi { get; set; }
-        public int? HagarazaiKakou { get; set; }
-        public bool HagarazaiSumi { get; set; }
-        public decimal? HagarazaiSuu { get; set; }
-        public int? YukaKakou { get; set; }
-        public bool YukaSumi { get; set; }
+        public byte OukazaiKakou { get; set; }
+        public byte OukazaiSumi { get; set; }
+        public byte KabeKakou { get; set; }
+        public byte KabeSumi { get; set; }
+        public byte HasirazaiKakou { get; set; }
+        public byte HasirazaiSumi { get; set; }
+        public byte HiuchiKakou { get; set; }
+        public byte HiuchiSumi { get; set; }
+        public byte HagarazaiKakou { get; set; }
+        public byte HagarazaiSumi { get; set; }
+        public int HagarazaiSuu { get; set; }
+        public byte YukaKakou { get; set; }
+        public byte YukaSumi { get; set; }
         public string YukaGouhanShurui { get; set; }
-        public decimal? YukaGouhanSuu { get; set; }
-        public int? NoziKakou { get; set; }
-        public bool NoziSumi { get; set; }
+        public int YukaGouhanSuu { get; set; }
+        public byte NoziKakou { get; set; }
+        public byte NoziSumi { get; set; }
         public string NoziGouhanShurui { get; set; }
-        public decimal? NoziGouhanSuu { get; set; }
-        public int? TekakouKakou { get; set; }
-        public bool TekakouSumi { get; set; }
-        public decimal? TekakouTime { get; set; }
-        public int? HundeggerKakou { get; set; }
-        public bool HundeggerSumi { get; set; }
-        public decimal? HundeggerTime { get; set; }
+        public int NoziGouhanSuu { get; set; }
+        public byte TekakouKakou { get; set; }
+        public byte TekakouSumi { get; set; }
+        public decimal TekakouTime { get; set; }
+        public byte HundeggerKakou { get; set; }
+        public byte HundeggerSumi { get; set; }
+        public decimal HundeggerTime { get; set; }
         //Page 3.
-        //public int? UpFileOption { get; set; }
-        //public int? DownFileOption { get; set; }
         //Page 4.
         public string BukkenComment { get; set; }
-        
+        public string HiddenUpdateDatetime { get; set; }
+
+
         public IEnumerable<DropDownListItem> TantouSitenDropDownListItems { get; set; }
         public IEnumerable<DropDownListItem> TantouEigyouDropDownListItems { get; set; }
         public IEnumerable<DropDownListItem> TantouPcDropDownListItems { get; set; }
@@ -77,6 +77,7 @@ namespace Models
         public IEnumerable<DropDownListItem> TokuchuuzaiUmuDropDownListItems { get; set; }
         public IEnumerable<DropDownListItem> KubunDropDownListItems { get; set; }
         public IEnumerable<DropDownListItem> KanamonoDropDownListItems { get; set; }
-        public IEnumerable<DropDownListItem> GoubanDropDownListItems { get; set; }
+        public IEnumerable<DropDownListItem> GouhanDropDownListItems { get; set; }
+        public IEnumerable<DropDownListItem> WithOrWithoutDropDownListItems { get; set; }
     }
 }

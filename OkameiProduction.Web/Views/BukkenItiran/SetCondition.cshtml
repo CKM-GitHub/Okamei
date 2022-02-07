@@ -179,18 +179,17 @@
                 }
             });
 
-            //日付チェック
+            //date
             setDateTypeValidate('#NoukiStart')
             setDateTypeValidate('#NoukiEnd')
-            //日付大小チェック
+            //compare date
             setCompareDateValidate('#NoukiEnd', '#NoukiStart')
-            //半角チェック
+            //is half-width
             setIsHalfWidthValidate('#BukkenNO');
-            //全角桁数チェック
+            //is double-byte
             setDoubleByteValidate('#BukkenName');
             setDoubleByteValidate('#KoumutenName');
 
-            //初期表示
             $('#NoukiStart').val('@serverDate');
             $('#TantouSitenCD').focus();
         });

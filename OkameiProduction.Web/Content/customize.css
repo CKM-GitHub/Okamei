@@ -75,7 +75,7 @@ div.dataTables_paginate ul.pagination {
         background-color: #FFDBE1;
     }
 
-    .label-title.require:after {
+    .label-title.require::after {
         content: "*";
         color: red;
         margin-left: 2px;

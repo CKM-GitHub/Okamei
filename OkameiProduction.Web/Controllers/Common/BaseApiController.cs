@@ -12,6 +12,11 @@ namespace OkameiProduction.Web.Controllers
     [UserAuthentication]
     public class BaseApiController : ApiController
     {
+        protected string GetUnsupportedMediaTypeResult()
+        {
+            return JsonSerializer.Serialize(new { MessageID = "415", MessageText1 = "Unsupported Media Type", MessageIcon = "error" });
+        }
+
         protected string GetBadRequestResult()
         {
             return JsonSerializer.Serialize(new { MessageID = "400", MessageText1 = "Bad Request", MessageIcon = "error" });

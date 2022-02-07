@@ -49,7 +49,26 @@ namespace OkameiProduction.BL
             return options;
         }
 
+        public IEnumerable<DropDownListItem> GetWithOrWithoutDropDownListItems()
+        {
+            var options = new List<DropDownListItem>();
+            options.Add(new DropDownListItem() { Value = "1", DisplayText = "有", SortNumber = 0 });
+            options.Add(new DropDownListItem() { Value = "2", DisplayText = "無", SortNumber = 1 });
 
+            return options;
+        }
+
+        public DataTable GetMultiPorpose(EMultiPorpose id, string key)
+        {
+            var options = new List<DropDownListItem>();
+
+            SqlParameter[] sqlParams = new SqlParameter[2];
+            sqlParams[0] = new SqlParameter("@ID", SqlDbType.Int) { Value = (int)id };
+            sqlParams[1] = new SqlParameter("@Key", SqlDbType.VarChar) { Value = key };
+
+            DBAccess db = new DBAccess();
+            return db.SelectDatatable("M_MultiPorpose_SelectByIDKey", sqlParams);
+        }
 
 
 
@@ -58,7 +77,7 @@ namespace OkameiProduction.BL
             errorcd = "";
             outVal = "";
 
-            if (val == "") return true;
+            if (string.IsNullOrEmpty(val)) return true;
 
             if (!CheckIsHalfWidth(val, out errorcd))
             {
