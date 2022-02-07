@@ -27,12 +27,13 @@
     }
 
     #tblHanyouKensaku .Key {
-        width: 130px;
+        min-width: 120px;
     }
 
-    #tblHanyouKensaku .Char1, #tblHanyouKensaku .Char2, #tblHanyouKensaku .Char3 {
+    .Char1, .Char2, .Char3 {
         line-break: anywhere;
-        max-width: 300px;
+        min-width: 350px;
+        max-width: 350px;
     }
 
     #tblHanyouKensaku .edit-td, #tblHanyouKensaku .delete-td {
@@ -43,60 +44,71 @@
 
 <h4 class="page-title">汎用マスタ検索</h4>
 <div id="main" class="main-content">
-    <div class="form-group row">
-        <div class="col-sm-2">
-            <label class="col-form-label label-title">ID名＊</label>
+    @using (Html.BeginForm("DisplayResult", "HanyouKensaku", FormMethod.Post))
+    {
+        <div class="form-group row">
+            <div class="col-sm-2">
+                <label class="col-form-label label-title">ID名＊</label>
+            </div>
+            <div class="col-sm-10">
+                @Html.DropDownListFor(
+                model => model.ID,
+                new SelectList(Model.IDSelectList, "Value", "DisplayText"),
+                "",
+                new { @class = "form-control size50", @value = "submit" })
+            </div>
         </div>
-        <div class="col-sm-10">
-            @Html.DropDownListFor(
-            model => model.ID,
-            new SelectList(Model.IDSelectList, "Value", "DisplayText"),
-            "",
-            new { @class = "form-control size50" })
-        </div>
-    </div>
 
-    <table class='table table-bordered list-table' id="tblHanyouKensaku">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>キー</th>
-                <th>文字型項目1</th>
-                <th>文字型項目2</th>
-                <th>文字型項目3</th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @{
-                var columns = ViewBag.Data.Columns;
-            }
-
-            @foreach (System.Data.DataRow row in ViewBag.Data.Rows)
-            {
-            <tr>
+        <table class='table table-bordered list-table' id="tblHanyouKensaku">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>キー</th>
+                    <th><span class="Char1">文字型項目1</span></th>
+                    <th><span class="Char1">文字型項目2</span></th>
+                    <th><span class="Char1">文字型項目3</span></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
                 @{
-                    var count = row.ItemArray.Count();
-                    var items = row.ItemArray;
-                    var id = row["ID"].ToString();
+                    var columns = ViewBag.Data.Columns;
                 }
-                @for (var i = 0; i < count; i++)
+
+                @foreach (System.Data.DataRow row in ViewBag.Data.Rows)
                 {
-                    <td class="@columns[i].Caption">
-                        @items[i]
-                    </td>
+                    <tr>
+                        @{
+                            var count = row.ItemArray.Count();
+                            var items = row.ItemArray;
+                            var id = row["ID"].ToString();
+                        }
+                        @for (var i = 0; i < count; i++)
+                        {
+                            <td class="@columns[i].Caption">
+                                @if (columns[i].Caption == "Char1" || columns[i].Caption == "Char2" || columns[i].Caption == "Char3")
+                                {
+                                    <span class="@columns[i].Caption">@items[i]</span>
+                                }
+                                else
+                                {
+                                    @items[i]
+                                }
+                            </td>
+                        }
+                        <td class="edit-td">
+                            @Html.ActionLink("編集", "Entry", "BukkenShousai", new { Mode = "Edit", id = id }, new { @class = "edit-link" })
+                        </td>
+                        <td class="delete-td">
+                            @Html.ActionLink("削除", "Entry", "BukkenShousai", new { Mode = "Delete", id = id }, new { @class = "delete-link" })
+                        </td>
+                    </tr>
                 }
-                <td class="edit-td">
-                    @Html.ActionLink("編集", "Entry", "InputBukkenShousai", new { Mode = "Edit", id = id }, new { @class = "edit-link" })
-                </td>
-                <td class="delete-td">
-                    @Html.ActionLink("削除", "Entry", "InputBukkenShousai", new { Mode = "Delete", id = id }, new { @class = "delete-link" })
-                </td>
-            </tr>
-            }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+        <button type="submit" id="btn" style="display: none;"></button>
+    }
     <div class="form-group row">
         <div class="footer-btn mx-auto">
             <button type="button" id="btnReturn" class="btn btn-secondary">戻る</button>
@@ -119,32 +131,22 @@
         });
 
         function DisplayResult() {
-            debugger;
             var model =
             {
-                GeneralPurposeCD: $('#ID').val(),
+                ID: $('#ID').val(),
                 UserID: $('#user-id').text()
             };
 
             var result = calltoApiController('@Url.Action("ExistsDisplayResult", "api/HanyouKensakuApi")', model);
-            if (!result) {
+            if (!result || !result.status) {
                 return false;
             }
-            if (result.MessageID) {
+            if (result && result.MessageID) {
                 showMessage(result);
                 return false;
             }
 
-            result = calltoApiController('@Url.Action("GetDisplayResult", "api/HanyouKensakuApi")', model);
-            var row = '';
-            $.each(result, function (i, value) {
-                row += '<tr><td>' + value.ID + '</td><td>' + value.Key + '</td><td>' + value.Char1 + '</td><td>' + value.Char2 + '</td><td>' + value.Char3 + '</td></tr>';
-            }
-            //$('#tblHanyouKensaku tbody').html(row);
-            )
-
-
-            //$('#tblHanyouKensaku tbody tr').remove();
+            $('#btn').click();
         }
     </script>
 }
