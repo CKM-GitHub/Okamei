@@ -44,7 +44,7 @@
 
 <h4 class="page-title">汎用マスタ検索</h4>
 <div id="main" class="main-content">
-    @using (Html.BeginForm("DisplayResult", "HanyouKensaku", FormMethod.Post))
+    @using (Html.BeginForm("DisplayResult", "HanyouKensaku", FormMethod.Post, new { @name = "HanyouKensakuForm" }))
     {
         <div class="form-group row">
             <div class="col-sm-2">
@@ -55,7 +55,7 @@
                 model => model.ID,
                 new SelectList(Model.IDSelectList, "Value", "DisplayText"),
                 "",
-                new { @class = "form-control size50", @value = "submit" })
+                new { @class = "form-control size50" })
             </div>
         </div>
 
@@ -107,7 +107,6 @@
                 }
             </tbody>
         </table>
-        <button type="submit" id="btn" style="display: none;"></button>
     }
     <div class="form-group row">
         <div class="footer-btn mx-auto">
@@ -120,8 +119,13 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-
+            $('#ID').focus();
             $('#btnReturn').click(function () {
+                showConfirmMessage("Q004", function () {
+                    //window.location.reload();
+                    $('#ID').val($('ID option:first').val());
+                    document.HanyouKensakuForm.submit();
+                });
             });
             bindDataTables($('#tblHanyouKensaku'));
 
@@ -146,7 +150,7 @@
                 return false;
             }
 
-            $('#btn').click();
+            document.HanyouKensakuForm.submit();
         }
     </script>
 }
