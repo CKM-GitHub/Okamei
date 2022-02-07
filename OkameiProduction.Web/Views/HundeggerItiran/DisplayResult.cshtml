@@ -4,106 +4,110 @@
 }
 
 <style>
+
     .table th {
         padding-top: 2px;
         padding-bottom: 2px;
         background-color: #ffff66;
         white-space: nowrap;
-        font-size: 14px;
-    }
-    tr td:not(.KakouTubosuu) {
-        text-align: left;
-    }
-    table th:nth-child(3), th:nth-child(4), th:nth-child(5), th:nth-child(5) {
-        text-align: center;
     }
 
     #tblHundeggerItiran tbody td {
         padding-top: 2px;
         padding-bottom: 2px;
-        font-size: 14px;
     }
 
     #tblHundeggerItiran .Nouki {
         min-width: 50px;
     }
+
     #tblHundeggerItiran .BukkenNO {
     }
 
     #tblHundeggerItiran .BukkenName {
         min-width: 120px;
     }
+
     #tblHundeggerItiran .KoumutenName {
         min-width: 210px;
     }
+
     #tblHundeggerItiran .KakouTubosuu {
         text-align: right;
-        min-width: 50px;
     }
+
     #tblHundeggerItiran .KakousijishoHakkouDate {
         min-width: 50px;
     }
+
     #tblHundeggerItiran .HundeggerTime {
+        min-width:82px;
         text-align: right;
-        min-width: 50px;
+    }
+    table th:nth-child(3), th:nth-child(4), th:nth-child(5), th:nth-child(7) {
+        text-align: center;
+    }
+
+    td, th {
+        font-size: 14px;
     }
 </style>
 
 <h4>フンデガー物件一覧</h4>
 <div id="main" class="main-content">
-        <table class='table table-bordered' id="tblHundeggerItiran">
-            <thead>
-                <tr>
-                    <th>納期</th>
-                    <th>物件番号</th>
-                    <th>物件名</th>
-                    <th>工務店</th>
-                    <th>坪数</th>
-                    <th>指示</th>
-                    <th>推定時間</th>
-                </tr>
-            </thead>
-            <tbody>
+    <table class='table table-bordered' id="tblHundeggerItiran">
+        <thead>
+            <tr>
+                <th>納期</th>
+                <th>物件番号</th>
+                <th>物件名</th>
+                <th>工務店</th>
+                <th>坪数</th>
+                <th>指示</th>
+                <th>推定時間</th>
+            </tr>
+        </thead>
+        <tbody>
 
 
-                @{
+            @{
                 var columns = ViewBag.Data.Columns;
-                }
+            }
 
-                @foreach (System.Data.DataRow row in ViewBag.Data.Rows)
+            @foreach (System.Data.DataRow row in ViewBag.Data.Rows)
             {
-                <tr>
-                    @{
+            <tr>
+                @{
                         var count = row.ItemArray.Count();
                         var items = row.ItemArray;
                         var bukkenNo = row["BukkenNO"].ToString();
-                    }
-                    @for (var i = 0; i < count; i++)
+                }
+                @for (var i = 0; i < count; i++)
                     {
-                    <td class="@columns[i].Caption">
-                        @if (columns[i].Caption == "BukkenName")
+                <td class="@columns[i].Caption">
+                    @if (columns[i].Caption == "BukkenName")
                             {
-                        @Html.ActionLink((string)items[i], "Entry", "InputBukkenShousai", new { Mode = "Edit", BukkenNO = bukkenNo }, new { @class = "edit-link" })
+                    @Html.ActionLink((string)items[i], "Entry", "BukkenShousai", new { Mode = "Edit", BukkenNO = bukkenNo }, new { @class = "edit-link" })
                             }
                             else
                             {
-                        @items[i]
+                    @items[i]
                             }
-                    </td>
+                </td>
                     }
-
-                </tr>
+            </tr>
             }
-            </tbody>
-        </table>
-        <div class="form-group row">
-            <div class="footer-btn mx-auto">
-                <button type="button" id="btnReturn" class="btn btn-secondary">戻る</button>
-            </div>
+        </tbody>
+    </table>
+    <div class="form-group row">
+        <div class="footer-btn mx-auto">
+            <button type="button" id="btnReturn" class="btn btn-secondary">戻る</button>
         </div>
     </div>
-    @section Scripts{
-        <script type="text/javascript">
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
 
         $(document).ready(function () {
 
@@ -114,5 +118,5 @@
             bindDataTables($('#tblHundeggerItiran'));
         });
 
-        </script>
-    }
+    </script>
+}
