@@ -159,6 +159,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CadStaffMitei\CadStaffMiteiApiController.cs" />
+    <Compile Include="Controllers\CadStaffMitei\CadStaffMiteiController.cs" />
     <Compile Include="Controllers\HundeggerItiran\HundeggerItiranApiController.cs" />
     <Compile Include="Controllers\HundeggerItiran\HundeggerItiranController.cs" />
     <Compile Include="Controllers\FusezuMiteisyutu\FusezuMiteisyutuApiController.cs" />
@@ -348,6 +350,8 @@
     <Content Include="Views\HundeggerItiran\SetCondition.cshtml" />
     <Content Include="Views\HiuchiItiran\Hiuchi.cshtml" />
     <Content Include="Views\HiuchiItiran\DisplayResult.cshtml" />
+    <Content Include="Views\CadStaffMitei\DisplayResult.cshtml" />
+    <Content Include="Views\CadStaffMitei\SetCondition.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

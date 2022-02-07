@@ -4,14 +4,14 @@ using OkameiProduction.BL;
 
 namespace OkameiProduction.Web.Controllers
 {
-    public class HanyouKensakuApiController : BaseApiController
+    public class CadStaffMiteiApiController : BaseApiController
     {
         [HttpPost]
-        public string ExistsDisplayResult([FromBody] HanyouKensakuModel model)
+        public string ExistsDisplayResult([FromBody] CadStaffMiteiModel model)
         {
             if (model == null) return GetBadRequestResult();
 
-            var bl = new HanyouKensakuBL();
+            var bl = new CadStaffMiteiBL();
             if (bl.GetDisplayResult(model).Rows.Count > 0)
             {
                 return GetSuccessResult();
