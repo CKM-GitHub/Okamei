@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "HiuchiItiran";
+
 }
 <style>
     .table th {
@@ -170,15 +171,19 @@
 
             @{
                 var columns = ViewBag.Data.Columns;
+                var idpdf = 0;
             }
 
             @foreach (System.Data.DataRow row in ViewBag.Data.Rows)
             {
+                idpdf++;
                 <tr>
                     @{
                         var count = row.ItemArray.Count();
                         var items = row.ItemArray;
                         var bukkenNo = row["BukkenNO"].ToString();
+                        var bukkenName = row["BukkenName"].ToString();
+                        var souName = row["SouName"].ToString();
                     }
                     @for (var i = 0; i < count; i++)
                     {
@@ -195,12 +200,14 @@
                             }
                             else if (columns[i].Caption == "Export")
                             {
-                                 <button type="button" class="btn btn-primary">PDF </button>
-                            }
-                            else
-                            {
-                                @items[i]
-                            }
+                                var valId = "pdf_" + bukkenNo + "_" + bukkenName + "_" + souName + "_" + idpdf.ToString();
+                                         <button type="button" class="btn btn-primary" id=@valId.ToString() onclick="pdfClick(this)"   >PDF </button>
+
+                                }
+                                else
+                                {
+                                    @items[i]
+                                }
 
                         </td>
                     }
@@ -227,6 +234,20 @@
 
             bindDataTables($('#tblHiuchiItiran'));
         });
+        function pdfClick(e) {
+
+               var model =
+            {
+                SitenCD: e.id, 
+                UserID: $('#user-id').text()
+            };
+
+            var result = calltoApiController('@Url.Action("ExportHiuchiPdf", "HiuchiItiran")', model);
+            if (!result || !result.status) {
+                return false;
+            }
+            //alert(e.id);
+        }
 
     </script>
 }

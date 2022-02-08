@@ -30,7 +30,7 @@ BEGIN
 			left join M_Multiporpose mp3 on mp3.ID='004' and mp3.[Key]=db.TantouEigyouCD
 			left join M_Multiporpose mp4 on mp4.ID='006' and mp4.[Key]=db.TantouCadCD
 			where  
-			(@KubunCD is null or db.KubunCD = @KubunCD) 
+			(db.KubunCD   is not null  )
 			AND (@NoukiStart IS NULL OR db.Nouki >= @NoukiStart)
 			AND (@NoukiEnd IS NULL OR db.Nouki <= @NoukiEnd)
 			AND (@TantouSitenCD IS NULL OR db.TantouSitenCD = @TantouSitenCD)
