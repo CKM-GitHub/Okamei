@@ -190,7 +190,7 @@
                         <td class="@columns[i].Caption">
                             @if (columns[i].Caption == "BukkenName")
                             {
-                                @Html.ActionLink((string)items[i], "Entry", "BukkenShousai", new { Mode = "Edit", BukkenNO = bukkenNo }, new { @class = "edit-link" })
+                                @Html.ActionLink((string)items[i], "Entry", "InputBukkenShousai", new { Mode = "Edit", BukkenNO = bukkenNo }, new { @class = "edit-link" })
                             }
                             else if (columns[i].Caption == "Honsuu")
                             {

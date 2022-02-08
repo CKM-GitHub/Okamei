@@ -9,7 +9,7 @@ namespace OkameiProduction.BL
 {
     public class CommonBL
     {
-        public IEnumerable<DropDownListItem> GetMultiPorposeDDLItems(EMultiPorpose id, string char4 = "")
+        public IEnumerable<DropDownListItem> GetMultiPorposeDropDownListItems(EMultiPorpose id, string char4 = "")
         {
             var options = new List<DropDownListItem>();
 
@@ -39,7 +39,7 @@ namespace OkameiProduction.BL
             return options;
         }
 
-        public IEnumerable<DropDownListItem> GetTokuchuuzaiUmuDDLItems()
+        public IEnumerable<DropDownListItem> GetTokuchuuzaiUmuDropDownListItems()
         {
             var options = new List<DropDownListItem>();
             options.Add(new DropDownListItem() { Value = "1", DisplayText = "有", SortNumber = 0 });
@@ -49,30 +49,26 @@ namespace OkameiProduction.BL
             return options;
         }
 
-        public string GetNewBukkenNO(string sitenCD)
+        public IEnumerable<DropDownListItem> GetWithOrWithoutDropDownListItems()
         {
-            SqlParameter[] sqlParams = new SqlParameter[1];
-            sqlParams[0] = new SqlParameter("@SitenCD", SqlDbType.VarChar) { Value = sitenCD };
+            var options = new List<DropDownListItem>();
+            options.Add(new DropDownListItem() { Value = "1", DisplayText = "有", SortNumber = 0 });
+            options.Add(new DropDownListItem() { Value = "2", DisplayText = "無", SortNumber = 1 });
 
-            DBAccess db = new DBAccess();
-            var dt = db.SelectDatatable("M_MultiPorpose_GetNewBukkenNO", sqlParams);
-
-            if (dt.Rows.Count == 0)
-            {
-                return "";
-            }
-
-            var dr = dt.Rows[0];
-            var prefix = dr["Prefix"].ToStringOrEmpty();
-            var number = dr["Number"].ToStringOrEmpty();
-            var newBukkenNO = prefix + number.PadLeft(8 - prefix.Length, '0');
-
-            return newBukkenNO;
+            return options;
         }
 
+        public DataTable GetMultiPorpose(EMultiPorpose id, string key)
+        {
+            var options = new List<DropDownListItem>();
 
+            SqlParameter[] sqlParams = new SqlParameter[2];
+            sqlParams[0] = new SqlParameter("@ID", SqlDbType.Int) { Value = (int)id };
+            sqlParams[1] = new SqlParameter("@Key", SqlDbType.VarChar) { Value = key };
 
-
+            DBAccess db = new DBAccess();
+            return db.SelectDatatable("M_MultiPorpose_SelectByIDKey", sqlParams);
+        }
 
 
 
@@ -81,7 +77,7 @@ namespace OkameiProduction.BL
             errorcd = "";
             outVal = "";
 
-            if (val == "") return true;
+            if (string.IsNullOrEmpty(val)) return true;
 
             if (!CheckIsHalfWidth(val, out errorcd))
             {

@@ -13,7 +13,7 @@
             <div class="col-sm-10">
                 @Html.DropDownListFor(
                 model => model.KubunCD,
-                new SelectList(Model.KubunSelectList, "Value", "DisplayText"),
+                new SelectList(Model.KubunDropDownListItems, "Value", "DisplayText"),
                 "",
                 new { @class = "form-control size50" })
             </div>
@@ -24,8 +24,8 @@
             </div>
             <div class="col-sm-10">
                 @Html.DropDownListFor(
-                model => model.SitenCD,
-                new SelectList(Model.SitenSelectList, "Value", "DisplayText"),
+                model => model.TantouSitenCD,
+                new SelectList(Model.TantouSitenDropDownListItems, "Value", "DisplayText"),
                 "全社",
                 new { @class = "form-control size50" })
             </div>
@@ -78,7 +78,7 @@
              
             var model =
             {
-                SitenCD: $("#SitenCD option:selected").text() == '全社' ? null: $('#SitenCD').val(),   
+                TantouSitenCD: $("#TantouSitenCD option:selected").text() == '全社' ? null: $('#TantouSitenCD').val(),   
 
                 NoukiStart: $("#NoukiStart").val() == '' ?null: $('#NoukiStart').val(),
                 NoukiEnd: $("#NoukiEnd").val() == '' ? null : $('#NoukiEnd').val(),
@@ -88,10 +88,10 @@
             };
 
             var result = calltoApiController('@Url.Action("ExistsDisplayResult", "api/KubunTaisyouApi")', model);
-            if (!result || !result.status) {
+            if (!result) {
                 return false;
             }
-            if (result && result.MessageID) {
+            if (result.MessageID) {
                 showMessage(result);
                 return false;
             }

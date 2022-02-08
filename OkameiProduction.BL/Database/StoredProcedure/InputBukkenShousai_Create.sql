@@ -62,7 +62,7 @@ CREATE PROCEDURE [dbo].[InputBukkenShousai_Create](
 	,@OutExclusionError         tinyint OUTPUT
 )AS
 BEGIN
-    DECLARE @SystemDate datetime = GETDATE()
+    DECLARE @SysDatetime datetime = GETDATE()
 
     INSERT INTO D_Bukken
     (
@@ -174,27 +174,30 @@ BEGIN
         ,@HundeggerSumi
         ,@HundeggerTime
         ,@Operator
-        ,@SystemDate
+        ,@SysDatetime
         ,@Operator
-        ,@SystemDate
+        ,@SysDatetime
     )
 
-    INSERT INTO D_BukkenComment (
-        BukkenNO
-        ,BukkenCommentRows
-        ,BukkenComment
-        ,InsertOperator
-        ,InsertDateTime
-        ,UpdateOperator
-        ,UpdateDateTime
-    ) VALUES (
-        @BukkenNO
-        ,1
-        ,@BukkenComment
-        ,@Operator
-        ,@SystemDate
-        ,@Operator
-        ,@SystemDate
-    )
+	IF ISNULL(@BukkenComment,'') <> ''
+	BEGIN
+        INSERT INTO D_BukkenComment (
+            BukkenNO
+            ,BukkenCommentRows
+            ,BukkenComment
+            ,InsertOperator
+            ,InsertDateTime
+            ,UpdateOperator
+            ,UpdateDateTime
+        ) VALUES (
+            @BukkenNO
+            ,1
+            ,@BukkenComment
+            ,@Operator
+            ,@SysDatetime
+            ,@Operator
+            ,@SysDatetime
+        )
+	END
 
 END

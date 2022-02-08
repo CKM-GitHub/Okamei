@@ -6,12 +6,16 @@ namespace OkameiProduction.BL
 {
     public static class StaticCache
     {
-        public static DBInfoEntity DBInfo { get; set; }
+        public static DBInfoEntity DBInfo { get; private set; }
 
-        public static Dictionary<string, MessageInfo> SystemMessages { get; set; } 
+        public static Dictionary<string, MessageInfo> SystemMessages { get; private set; } 
             = new Dictionary<string, MessageInfo>();
 
+        public static string UploadedFilePath { get; private set; }
+
         private static readonly object _lockObject = new object();
+
+
 
         public static void SetIniInfo()
         {
@@ -20,8 +24,8 @@ namespace OkameiProduction.BL
         }
         public static void SetMessageCache()
         {
-            MessageBL dl = new MessageBL();
-            SystemMessages = dl.SelecetAll();
+            MessageBL bl = new MessageBL();
+            SystemMessages = bl.SelecetAll();
         }
         public static MessageInfo GetMessageInfo(string id)
         {
@@ -33,8 +37,8 @@ namespace OkameiProduction.BL
                 }
                 else
                 {
-                    MessageBL dl = new MessageBL();
-                    message = dl.SelectMessage(id);
+                    MessageBL bl = new MessageBL();
+                    message = bl.SelectMessage(id);
                     if (message.MessageID.Length > 0)
                     {
                         SystemMessages.Add(message.MessageID, message);
@@ -42,6 +46,12 @@ namespace OkameiProduction.BL
                     return message;
                 }
             }
+        }
+
+        public static void SetMultiPorposeInfo()
+        {
+            CommonBL bl = new CommonBL();
+            UploadedFilePath = @"c:\Okamei\TempFile\"; //bl.GetMultiPorpose(EMultiPorpose., "");
         }
     }
 }

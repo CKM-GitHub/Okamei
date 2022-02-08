@@ -7,16 +7,21 @@ GO
 CREATE PROCEDURE [dbo].[InputBukkenShousai_Delete](
      @BukkenNO                  varchar(8)
     ,@Operator                  varchar(10)
-    ,@UpdateDatetime            datetime
+    ,@UpdateDatetime            varchar(23)
+    ,@OutExclusionError         tinyint OUTPUT
 )AS
 BEGIN
-    DECLARE @Error tinyint = 1
+    SET @OutExclusionError = 0
 
     DELETE D_Bukken
     WHERE BukkenNO = @BukkenNO
     AND   UpdateDateTime = @UpdateDatetime
 
-    IF @@ROWCOUNT = 0 RETURN @Error
+    IF @@ROWCOUNT = 0
+    BEGIN
+        SET @OutExclusionError = 1
+        RETURN
+    END
 
 	DELETE D_BukkenComment
 	WHERE BukkenNO = @BukkenNO

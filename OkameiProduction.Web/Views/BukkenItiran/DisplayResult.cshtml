@@ -9,6 +9,7 @@
         padding-bottom: 2px;
         background-color: #ffff66;
         font-size: 14px;
+        white-space: nowrap;
     }
 
     .table tbody td {
@@ -101,31 +102,31 @@
             </thead>
             <tbody>
                 @*@for (var iii = 0; iii < 1000; iii++)
-                {
-                    <tr>
-                        <td class="Nouki">99/99</td>
-                        <td class="UnsouKuraireDate">99/99</td>
-                        <td class="BukkenNO">12345678</td>
-                        <td class="BukkenName">1234567890123456</td>
-                        <td class="KoumutenName">123456789012345678901234567890</td>
-                        <td class="KakouTubosuu">999.99</td>
-                        <td class="TantouSitenName">123456</td>
-                        <td class="TantouEigyouName">123456</td>
-                        <td class="TantouCadName">123456</td>
-                        <td class="JuchuuDate">99/99</td>
-                        <td class="FusezuTeishutuDate">99/99</td>
-                        <td class="ShouninKijitu">99/99</td>
-                        <td class="KakouShouninDate">99/99</td>
-                        <td class="SijiKikitu">99/99</td>
-                        <td class="KakouNissuu">999</td>
-                        <td class="UpdateDateTime">99/99</td>
-                        <td class="KanamonoName">1234567890</td>
-                        <td class="NyuuryokusakiName">123456</td>
-                        <td class="TokuchuuzaiUmu">1234</td>
-                        <td class="SinchokuJoukyou">123456789012</td>
-                        <td class="delete-td">1234</td>
-                    </tr>
-                }*@
+            {
+                <tr>
+                    <td class="Nouki">99/99</td>
+                    <td class="UnsouKuraireDate">99/99</td>
+                    <td class="BukkenNO">12345678</td>
+                    <td class="BukkenName">1234567890123456</td>
+                    <td class="KoumutenName">123456789012345678901234567890</td>
+                    <td class="KakouTubosuu">999.99</td>
+                    <td class="TantouSitenName">123456</td>
+                    <td class="TantouEigyouName">123456</td>
+                    <td class="TantouCadName">123456</td>
+                    <td class="JuchuuDate">99/99</td>
+                    <td class="FusezuTeishutuDate">99/99</td>
+                    <td class="ShouninKijitu">99/99</td>
+                    <td class="KakouShouninDate">99/99</td>
+                    <td class="SijiKikitu">99/99</td>
+                    <td class="KakouNissuu">999</td>
+                    <td class="UpdateDateTime">99/99</td>
+                    <td class="KanamonoName">1234567890</td>
+                    <td class="NyuuryokusakiName">123456</td>
+                    <td class="TokuchuuzaiUmu">1234</td>
+                    <td class="SinchokuJoukyou">123456789012</td>
+                    <td class="delete-td">1234</td>
+                </tr>
+            }*@
 
                 @{
                     var columns = ViewBag.Data.Columns;
@@ -144,7 +145,7 @@
                             <td class="@columns[i].Caption">
                                 @if (columns[i].Caption == "BukkenName")
                                 {
-                                    @Html.ActionLink((string)items[i], "Entry", "BukkenShousai", new { Mode = "Edit", BukkenNO = bukkenNo }, new { @class = "edit-link" })
+                                    @Html.ActionLink((string)items[i], "Entry", "InputBukkenShousai", new { Mode = "Edit", BukkenNO = bukkenNo }, new { @class = "edit-link" })
                                 }
                                 else
                                 {
@@ -153,7 +154,7 @@
                             </td>
                         }
                         <td class="delete-td">
-                            @Html.ActionLink("削除", "Entry", "BukkenShousai", new { Mode = "Delete", BukkenNO = bukkenNo }, new { @class = "delete-link" })
+                            @Html.ActionLink("削除", "Entry", "InputBukkenShousai", new { Mode = "Delete", BukkenNO = bukkenNo }, new { @class = "delete-link" })
                         </td>
                     </tr>
                 }
@@ -176,7 +177,10 @@
                 location.href = '@Url.Action("SetCondition", "BukkenItiran")';
             });
 
-            bindDataTables($('#tblBukkenItiran'));
+            var t = bindDataTables($('#tblBukkenItiran'));
+            //new $.fn.dataTable.FixedColumns(t, {
+            //    leftColumns: 1
+            //});
         });
 
     </script>

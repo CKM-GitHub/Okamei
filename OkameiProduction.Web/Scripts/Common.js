@@ -1,20 +1,9 @@
-﻿var gAbsolutePath = ""; //value is set in "_Layout.cshtml"
+﻿var gApplicationPath = ""; //value is set in "_Layout.cshtml"
 var gCommonApiUrl = "/api/CommonApi/";
 var gCustomValidate = function (ctrl) { return true; }
 
-$.fn.extend({
-    setDisabled: function (value) {
-        this.prop('disabled', value);
-    },
-});
-
-function setDisabledAll(containerid) {
-    $(containerid + ' :input:not(:hidden)').prop('disabled', true);
-    $('.main-content-footer :button').prop('disabled', false);
-}
-
-function setDropDownList(target, url, key) {
-    var ddl = $(target);
+function setDropDownList(selector, url, key) {
+    var ddl = $(selector);
     ddl.children().remove();
     ddl.append('<option></option>');
 
@@ -23,7 +12,7 @@ function setDropDownList(target, url, key) {
         if (!ret) {
             return;
         }
-        if (ret && ret.MessageID) {
+        if (ret.MessageID) {
             showMessage(ret);
             return;
         }
@@ -31,6 +20,11 @@ function setDropDownList(target, url, key) {
             ddl.append('<option value=' + item.Value + '>' + item.DisplayText + '</option>');
         });
     }
+}
+
+function setDisabledAll(selector) {
+    $(selector + ' :input:not(:hidden)').prop('disabled', true);
+    $('.main-content-footer :button').prop('disabled', false);
 }
 
 function querySerialize(data) {
@@ -101,6 +95,8 @@ function bindDataTables(table, dispLength) {
             "<'row'<'col-sm-12'p>>",
         drawCallback: function () { $('.listTable-wrapper').removeClass('hidden'); }
     });
+
+    return t;
 }
 
 function calltoApiController(url, model) { 
@@ -114,26 +110,26 @@ function calltoApiController(url, model) {
         async: false,
         headers:
         {
-            Authorization: 'Basic ' + btoa('ogUzkq=EopiYA,U33yzf' + ':' + 'e>gW0BXP85@7-#*~k1@a')
+            Authorization: getApiAuthorization()
         },
         success: function (data) {
             result = JSON.parse(data);
-            result.status = true;
         },
         error: function (data) {
             alert(data.status + ":" + data.statusText);
-            return false;
         }
     });
     return result;
 }
+function getApiAuthorization() {
+    return 'Basic ' + btoa('ogUzkq=EopiYA,U33yzf' + ':' + 'e>gW0BXP85@7-#*~k1@a');
+}
 
 function showConfirmMessage(msgid, callback) {
-
     var model = {
         MessageID: msgid,
     };
-    var msgdata = calltoApiController(gAbsolutePath + gCommonApiUrl + "GetMessage", model);
+    var msgdata = calltoApiController(gApplicationPath + gCommonApiUrl + "GetMessage", model);
     if (!msgdata) {
         return false;
     }
@@ -157,7 +153,7 @@ function showMessage(msg, callback) {
         var model = {
             MessageID: msg,
         };
-        var ret = calltoApiController(gAbsolutePath + gCommonApiUrl + "GetMessage", model);
+        var ret = calltoApiController(gApplicationPath + gCommonApiUrl + "GetMessage", model);
         if (!ret) {
             return false;
         }
@@ -237,7 +233,7 @@ function checkCommon(ctrl) {
 
     var required = ctrl.attr("validate-required");
     if (required && !ctrl.val()) {
-        var result = calltoApiController(gAbsolutePath + gCommonApiUrl + "GetMessage", { MessageID: "E102" });
+        var result = calltoApiController(gApplicationPath + gCommonApiUrl + "GetMessage", { MessageID: "E102" });
         if (!result) {
             return false;
         }
@@ -272,7 +268,7 @@ function checkCommon(ctrl) {
                 model.Decimaldigits = ctrl.attr('decimaldigits');
             }
 
-            var result = calltoApiController(gAbsolutePath + gCommonApiUrl + 'CheckValid', model);
+            var result = calltoApiController(gApplicationPath + gCommonApiUrl + 'CheckValid', model);
             if (!result) {
                 return false;
             }
@@ -281,7 +277,7 @@ function checkCommon(ctrl) {
                     ctrl.val(result.ReturnValue);
                 }
             }
-            if (result && result.MessageID) {
+            if (result.MessageID) {
                 return result;
             }
         }
@@ -401,4 +397,9 @@ $(document).ready(function () {
 
     bindKeyPressEvent("#main");
 
+});
+
+$(document).on("drop dragover", function (e) {
+    e.stopPropagation();
+    e.preventDefault();
 });

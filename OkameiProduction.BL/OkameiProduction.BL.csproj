@@ -42,7 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BukkenShousaiBL.cs" />
+    <Compile Include="CadStaffMiteiBL.cs" />
+    <Compile Include="Common\DataTableExtentions.cs" />
+    <Compile Include="InputBukkenShousaiBL.cs" />
     <Compile Include="Common\ExclusionException.cs" />
     <Compile Include="HundeggerItiranBL.cs" />
     <Compile Include="FusezuMiteisyutuBL.cs" />
@@ -76,6 +78,7 @@
     <Content Include="Database\StoredProcedure\BukkenItiran_ExistsDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\BukkenItiran_SelectDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\HiuchiItiran_SelectDisplayResult.sql" />
+    <Content Include="Database\StoredProcedure\InputBukkenShousai_SelectDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\InputBukkenShousai_Delete.sql" />
     <Content Include="Database\StoredProcedure\InputBukkenShousai_Update.sql" />
     <Content Include="Database\StoredProcedure\InputBukkenShousai_Create.sql" />

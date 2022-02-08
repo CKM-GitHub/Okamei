@@ -46,10 +46,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseModel.cs" />
+    <Compile Include="CadStaffMiteiModel.cs" />
     <Compile Include="HundeggerItiranModel.cs" />
     <Compile Include="FusezuMiteisyutuModel.cs" />
     <Compile Include="BukkenItiranModel.cs" />
-    <Compile Include="BukkenShousaiModel.cs" />
+    <Compile Include="InputBukkenShousaiBukkenFileModel.cs" />
+    <Compile Include="InputBukkenShousaiModel.cs" />
     <Compile Include="HanyouKensakuModel.cs" />
     <Compile Include="HiuchiItiranModel.cs" />
     <Compile Include="KubunTaisyouModel.cs" />

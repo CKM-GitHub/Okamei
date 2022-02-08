@@ -13,8 +13,8 @@
         </div>
         <div class="col-sm-10">
             @Html.DropDownListFor(
-            model => model.SitenCD,
-            new SelectList(Model.SitenSelectList, "Value", "DisplayText"),
+            model => model.TantouSitenCD,
+            new SelectList(Model.TantouSitenDropDownListItems, "Value", "DisplayText"),
             "全社",
             new { @class = "form-control size50" })
         </div>
@@ -62,7 +62,7 @@
         <div class="col-sm-10">
             @Html.DropDownListFor(
             model => model.TantouEigyouCD,
-            new SelectList(Model.EigyouStaffSelectList, "Value", "DisplayText"),
+            new SelectList(Model.TantouEigyouDropDownListItems, "Value", "DisplayText"),
             "",
             new { @class = "form-control size50" })
         </div>
@@ -74,7 +74,7 @@
         <div class="col-sm-10">
             @Html.DropDownListFor(
             model => model.TantouCadCD,
-            new SelectList(Model.CADStaffSelectList, "Value", "DisplayText"),
+            new SelectList(Model.TantouCadDropDownListItems, "Value", "DisplayText"),
             "",
             new { @class = "form-control size50" })
         </div>
@@ -85,8 +85,8 @@
         </div>
         <div class="col-sm-10">
             @Html.DropDownListFor(
-            model => model.PCSupportCD,
-            new SelectList(Model.PCSupportSelectList, "Value", "DisplayText"),
+            model => model.TantouPcCD,
+            new SelectList(Model.TantouPcDropDownListItems, "Value", "DisplayText"),
             "",
             new { @class = "form-control size50" })
         </div>
@@ -111,7 +111,7 @@
         <div class="col-sm-10">
             @Html.DropDownListFor(
             model => model.KubunCD,
-            new SelectList(Model.KubunSelectList, "Value", "DisplayText"),
+            new SelectList(Model.KubunDropDownListItems, "Value", "DisplayText"),
             "",
             new { @class = "form-control size50" })
         </div>
@@ -149,7 +149,7 @@
         <div class="col-sm-10">
             @Html.DropDownListFor(
             model => model.TokuchuuzaiUmu,
-            new SelectList(Model.TokuchuuzaiUmuSelectList, "Value", "DisplayText"),
+            new SelectList(Model.TokuchuuzaiUmuDropDownListItems, "Value", "DisplayText"),
             "",
             new { @class = "form-control size6" })
         </div>
@@ -179,33 +179,32 @@
                 }
             });
 
-            //日付チェック
+            //date
             setDateTypeValidate('#NoukiStart')
             setDateTypeValidate('#NoukiEnd')
-            //日付大小チェック
+            //compare date
             setCompareDateValidate('#NoukiEnd', '#NoukiStart')
-            //半角チェック
+            //is half-width
             setIsHalfWidthValidate('#BukkenNO');
-            //全角桁数チェック
+            //is double-byte
             setDoubleByteValidate('#BukkenName');
             setDoubleByteValidate('#KoumutenName');
 
-            //初期表示
             $('#NoukiStart').val('@serverDate');
-            $('#SitenCD').focus();
+            $('#TantouSitenCD').focus();
         });
 
         function btnDisplayClick() {
             var model =
             {
-                SitenCD: $('#SitenCD').val(),
+                TantouSitenCD: $('#TantouSitenCD').val(),
                 JuchuuOption: $('input[name=JuchuuOption]:checked').val(),
                 BukkenSiteiOption: $('input[name=BukkenSiteiOption]:checked').val(),
                 NoukiStart: $('#NoukiStart').val(),
                 NoukiEnd: $('#NoukiEnd').val(),
                 TantouEigyouCD: $('#TantouEigyouCD').val(),
                 TantouCadCD: $('#TantouCadCD').val(),
-                PCSupportCD: $('#PCSupportCD').val(),
+                TantouPcCD: $('#TantouPcCD').val(),
                 SortOption: $('input[name=SortOption]:checked').val(),
                 KubunCD: $('#KubunCD').val(),
                 BukkenNO: $('#BukkenNO').val(),
@@ -219,7 +218,7 @@
             if (!result) {
                 return false;
             }
-            if (result && result.MessageID) {
+            if (result.MessageID) {
                 showMessage(result);
                 return false;
             }

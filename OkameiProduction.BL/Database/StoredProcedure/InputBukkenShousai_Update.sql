@@ -58,12 +58,13 @@ CREATE PROCEDURE [dbo].[InputBukkenShousai_Update](
     ,@HundeggerTime             decimal(5,1)    
     ,@BukkenComment             varchar(100)
     ,@Operator                  varchar(10)
-    ,@UpdateDatetime            datetime
+    ,@UpdateDatetime            varchar(23)
     ,@BukkenMoulderTBL          T_BukkenMoulder READONLY
+    ,@OutExclusionError         tinyint OUTPUT
 )AS
 BEGIN
-    DECLARE @Error tinyint = 1
-    DECLARE @SystemDate datetime = GETDATE()
+    DECLARE @SysDatetime datetime = GETDATE()
+    SET @OutExclusionError = 0
 
     UPDATE D_Bukken SET
     TantouSitenCD           = @TantouSitenCD
@@ -117,29 +118,36 @@ BEGIN
     ,HundeggerSumi          = @HundeggerSumi
     ,HundeggerTime          = @HundeggerTime
     ,UpdateOperator         = @Operator
-    ,UpdateDateTime         = @SystemDate
+    ,UpdateDateTime         = @SysDatetime
 
     WHERE BukkenNO = @BukkenNO
     AND   UpdateDateTime = @UpdateDatetime
 
-    IF @@ROWCOUNT = 0 RETURN @Error
+    IF @@ROWCOUNT = 0
+    BEGIN
+        SET @OutExclusionError = 1
+        RETURN
+    END
 
-    INSERT INTO D_BukkenComment (
-        BukkenNO
-        ,BukkenCommentRows
-        ,BukkenComment
-        ,InsertOperator
-        ,InsertDateTime
-        ,UpdateOperator
-        ,UpdateDateTime
-    ) VALUES (
-        @BukkenNO
-        ,(SELECT MAX(BukkenCommentRows) + 1 FROM D_BukkenComment WHERE BukkenNO = @BukkenNO)
-        ,@BukkenComment
-        ,@Operator
-        ,@SystemDate
-        ,@Operator
-        ,@SystemDate
-    )
+    IF ISNULL(@BukkenComment,'') <> ''
+    BEGIN
+        INSERT INTO D_BukkenComment (
+            BukkenNO
+            ,BukkenCommentRows
+            ,BukkenComment
+            ,InsertOperator
+            ,InsertDateTime
+            ,UpdateOperator
+            ,UpdateDateTime
+        ) VALUES (
+            @BukkenNO
+            ,(SELECT MAX(BukkenCommentRows) + 1 FROM D_BukkenComment WHERE BukkenNO = @BukkenNO)
+            ,@BukkenComment
+            ,@Operator
+            ,@SysDatetime
+            ,@Operator
+            ,@SysDatetime
+        )
+    END
 
 END

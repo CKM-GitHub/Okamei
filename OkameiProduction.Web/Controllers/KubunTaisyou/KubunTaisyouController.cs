@@ -26,8 +26,8 @@ namespace OkameiProduction.Web.Controllers.KubunTaisyou
         private void SetDropDownListItems(KubunTaisyouModel vm)
         {
             CommonBL dl = new CommonBL();
-            vm.SitenSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.Siten);
-            vm.KubunSelectList = dl.GetMultiPorposeDDLItems(EMultiPorpose.Kubun);
+            vm.TantouSitenDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouSiten);
+            vm.KubunDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.Kubun);
         }
         // GET: 
         public ActionResult DisplayResult()

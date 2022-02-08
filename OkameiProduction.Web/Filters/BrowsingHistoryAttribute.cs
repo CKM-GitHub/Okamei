@@ -28,8 +28,7 @@ namespace OkameiProduction.Web
                 return;
             }
 
-            //var url = this.GetRequestUrl(httpContext);
-            var url = request.RawUrl;
+            var url = this.GetRequestUrl(httpContext);
 
             session[PREVIOUS_URL] = session[CURRENT_URL];
             session[CURRENT_URL] = url;

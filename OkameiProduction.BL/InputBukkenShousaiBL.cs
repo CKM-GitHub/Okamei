@@ -6,58 +6,60 @@ using Models;
 
 namespace OkameiProduction.BL
 {
-    public class BukkenShousaiBL
+    public class InputBukkenShousaiBL
     {
-        public DataTable GetDisplayResult(BukkenItiranModel model)
+        public string GetNewBukkenNO(string sitenCD)
         {
-            SqlParameter[] sqlParams = new SqlParameter[14];
-            sqlParams[0] = new SqlParameter("@TantouSitenCD", SqlDbType.VarChar) { Value = model.SitenCD.ToStringOrNull() };
-            sqlParams[1] = new SqlParameter("@JuchuuOption", SqlDbType.TinyInt) { Value = model.JuchuuOption.ToInt16(0) };
-            sqlParams[2] = new SqlParameter("@BukkenSiteiOption", SqlDbType.TinyInt) { Value = model.BukkenSiteiOption.ToInt16(0) };
-            sqlParams[3] = new SqlParameter("@NoukiStart", SqlDbType.Date) { Value = model.NoukiStart.ToDateTime() };
-            sqlParams[4] = new SqlParameter("@NoukiEnd", SqlDbType.Date) { Value = model.NoukiEnd.ToDateTime() };
-            sqlParams[5] = new SqlParameter("@TantouEigyouCD", SqlDbType.VarChar) { Value = model.TantouEigyouCD.ToStringOrNull() };
-            sqlParams[6] = new SqlParameter("@TantouPcCD", SqlDbType.VarChar) { Value = model.PCSupportCD.ToStringOrNull() };
-            sqlParams[7] = new SqlParameter("@TantouCadCD", SqlDbType.VarChar) { Value = model.TantouCadCD.ToStringOrNull() };
-            sqlParams[8] = new SqlParameter("@KubunCD", SqlDbType.VarChar) { Value = model.KubunCD.ToStringOrNull() };
-            sqlParams[9] = new SqlParameter("@BukkenNO", SqlDbType.VarChar) { Value = model.BukkenNO.ToStringOrNull() };
-            sqlParams[10] = new SqlParameter("@BukkenName", SqlDbType.VarChar) { Value = model.BukkenName.ToStringOrNull() };
-            sqlParams[11] = new SqlParameter("@KoumutenName", SqlDbType.VarChar) { Value = model.KoumutenName.ToStringOrNull() };
-            sqlParams[12] = new SqlParameter("@TokuchuuzaiUmu", SqlDbType.Int) { Value = model.TokuchuuzaiUmu.ToInt32(0) };
-            sqlParams[13] = new SqlParameter("@UserID", SqlDbType.VarChar) { Value = model.UserID.ToStringOrNull() };
+            SqlParameter[] sqlParams = new SqlParameter[1];
+            sqlParams[0] = new SqlParameter("@TantouSitenCD", SqlDbType.VarChar) { Value = sitenCD };
 
             DBAccess db = new DBAccess();
-            var dt = db.SelectDatatable("BukkenItiran_SelectDisplayResult", sqlParams);
+            var dt = db.SelectDatatable("M_MultiPorpose_GetNewBukkenNO", sqlParams);
 
-            if (model.SortOption == 2)
+            if (dt.Rows.Count == 0)
             {
-                var query = from dr in dt.AsEnumerable()
-                            orderby dr.Field<string>("SortKoumutenName"), dr.Field<DateTime?>("SortNouki")
-                            select dr;
-                dt = query.CopyToDataTable();
+                return "";
             }
 
-            dt.Columns.Remove("SortKoumutenName");
-            dt.Columns.Remove("SortNouki");
+            var dr = dt.Rows[0];
+            var prefix = dr["Prefix"].ToStringOrEmpty();
+            var number = dr["Number"].ToStringOrEmpty();
+            var newBukkenNO = prefix + number.PadLeft(8 - prefix.Length, '0');
+
+            return newBukkenNO;
+        }
+
+        public DataTable GetDisplayResult(InputBukkenShousaiModel model)
+        {
+            SqlParameter[] sqlParams = new SqlParameter[] {
+                new SqlParameter("@BukkenNO", SqlDbType.VarChar) { Value = model.BukkenNO.ToStringOrNull() }
+            };
+
+            DBAccess db = new DBAccess();
+            var dt = db.SelectDatatable("InputBukkenShousai_SelectDisplayResult", sqlParams);
             return dt;
         }
 
-        private List<SqlParameter> CreateSqlParams(BukkenShousaiModel model)
+
+
+
+
+        private List<SqlParameter> CreateSqlParams(InputBukkenShousaiModel model)
         {
             var sqlParams = new List<SqlParameter>()
             {
                 new SqlParameter("@BukkenNO", SqlDbType.VarChar) { Value = model.BukkenNO.ToStringOrNull() },
-                new SqlParameter("@TantouSitenCD", SqlDbType.VarChar) { Value = model.SitenCD.ToStringOrNull() },
+                new SqlParameter("@TantouSitenCD", SqlDbType.VarChar) { Value = model.TantouSitenCD.ToStringOrNull() },
                 new SqlParameter("@BukkenName", SqlDbType.VarChar) { Value = model.BukkenName.ToStringOrNull() },
                 new SqlParameter("@Juusho", SqlDbType.VarChar) { Value = model.Juusho.ToStringOrNull() },
                 new SqlParameter("@KoumutenName", SqlDbType.VarChar) { Value = model.KoumutenName.ToStringOrNull() },
                 new SqlParameter("@KakoutuboSuu", SqlDbType.Decimal) { Value = model.KakouTubosuu.ToDecimal(0) },
-                new SqlParameter("@NoukiMiteiKBN", SqlDbType.TinyInt) { Value = model.NoukiMiteiKBN ? 1 : 0 },
+                new SqlParameter("@NoukiMiteiKBN", SqlDbType.TinyInt) { Value = model.NoukiMiteiKBN.ToByte(0) },
                 new SqlParameter("@Nouki", SqlDbType.Date) { Value = model.Nouki.ToDateTime() },
                 new SqlParameter("@UnsouKuraireDate", SqlDbType.Date) { Value = model.UnsouKuraireDate.ToDateTime() },
                 new SqlParameter("@KubunCD", SqlDbType.VarChar) { Value = model.KubunCD.ToStringOrNull() },
                 new SqlParameter("@TantouEigyouCD", SqlDbType.VarChar) { Value = model.TantouEigyouCD.ToStringOrNull() },
-                new SqlParameter("@TantouPcCD", SqlDbType.VarChar) { Value = model.PCSupportCD.ToStringOrNull() },
+                new SqlParameter("@TantouPcCD", SqlDbType.VarChar) { Value = model.TantouPcCD.ToStringOrNull() },
                 new SqlParameter("@TantouCadCD", SqlDbType.VarChar) { Value = model.TantouCadCD.ToStringOrNull() },
                 new SqlParameter("@NyuuryokusakiCD", SqlDbType.VarChar) { Value = model.NyuuryokusakiCD.ToStringOrNull() },
                 new SqlParameter("@TokuchuuzaiUmu", SqlDbType.TinyInt) { Value = model.TokuchuuzaiUmu.ToInt16(0) },
@@ -73,29 +75,29 @@ namespace OkameiProduction.BL
                 new SqlParameter("@KakouNissuu", SqlDbType.Int) { Value = model.KakouNissuu.ToInt32(0) },
                 new SqlParameter("@KanamonoCD", SqlDbType.VarChar) { Value = model.KanamonoCD.ToStringOrNull() },
                 new SqlParameter("@OukazaiKakou", SqlDbType.TinyInt) { Value = model.OukazaiKakou.ToInt16(0) },
-                new SqlParameter("@OukazaiSumi", SqlDbType.TinyInt) { Value = model.OukazaiSumi ? 1 : 0 },
+                new SqlParameter("@OukazaiSumi", SqlDbType.TinyInt) { Value = model.OukazaiSumi.ToByte(0) },
                 new SqlParameter("@KabeKakou", SqlDbType.TinyInt) { Value = model.KabeKakou.ToInt16(0) },
-                new SqlParameter("@KabeSumi", SqlDbType.TinyInt) { Value = model.KabeSumi ? 1 : 0 },
+                new SqlParameter("@KabeSumi", SqlDbType.TinyInt) { Value = model.KabeSumi.ToByte(0) },
                 new SqlParameter("@HasirazaiKakou", SqlDbType.TinyInt) { Value = model.HasirazaiKakou.ToInt16(0) },
-                new SqlParameter("@HasirazaiSumi", SqlDbType.TinyInt) { Value = model.HasirazaiSumi ? 1 : 0 },
+                new SqlParameter("@HasirazaiSumi", SqlDbType.TinyInt) { Value = model.HasirazaiSumi.ToByte(0) },
                 new SqlParameter("@HiuchiKakou", SqlDbType.TinyInt) { Value = model.HiuchiKakou.ToInt16(0) },
-                new SqlParameter("@HiuchiSumi", SqlDbType.TinyInt) { Value = model.HiuchiSumi ? 1 : 0 },
+                new SqlParameter("@HiuchiSumi", SqlDbType.TinyInt) { Value = model.HiuchiSumi.ToByte(0) },
                 new SqlParameter("@HagarazaiKakou", SqlDbType.TinyInt) { Value = model.HagarazaiKakou.ToInt16(0) },
-                new SqlParameter("@HagarazaiSumi", SqlDbType.TinyInt) { Value = model.HagarazaiSumi ? 1 : 0 },
+                new SqlParameter("@HagarazaiSumi", SqlDbType.TinyInt) { Value = model.HagarazaiSumi.ToByte(0) },
                 new SqlParameter("@HagarazaiSuu", SqlDbType.Int) { Value = model.HagarazaiSuu.ToInt32(0) },
                 new SqlParameter("@YukaKakou", SqlDbType.TinyInt) { Value = model.YukaKakou.ToInt16(0) },
-                new SqlParameter("@YukaSumi", SqlDbType.TinyInt) { Value = model.YukaSumi ? 1 : 0 },
+                new SqlParameter("@YukaSumi", SqlDbType.TinyInt) { Value = model.YukaSumi.ToByte(0) },
                 new SqlParameter("@YukaGouhanShurui", SqlDbType.VarChar) { Value = model.YukaGouhanShurui.ToStringOrNull() },
                 new SqlParameter("@YukaGouhanSuu", SqlDbType.Int) { Value = model.YukaGouhanSuu.ToInt32(0) },
                 new SqlParameter("@NoziKakou", SqlDbType.TinyInt) { Value = model.NoziKakou.ToInt16(0) },
-                new SqlParameter("@NoziSumi", SqlDbType.TinyInt) { Value = model.NoziSumi ? 1 : 0 },
+                new SqlParameter("@NoziSumi", SqlDbType.TinyInt) { Value = model.NoziSumi.ToByte(0) },
                 new SqlParameter("@NoziGouhanShurui", SqlDbType.VarChar) { Value = model.NoziGouhanShurui.ToStringOrNull() },
                 new SqlParameter("@NoziGouhanSuu", SqlDbType.Int) { Value = model.NoziGouhanSuu.ToInt32(0) },
                 new SqlParameter("@TekakouKakou", SqlDbType.TinyInt) { Value = model.TekakouKakou.ToInt16(0) },
-                new SqlParameter("@TekakouSumi", SqlDbType.TinyInt) { Value = model.TekakouSumi ? 1 : 0 },
+                new SqlParameter("@TekakouSumi", SqlDbType.TinyInt) { Value = model.TekakouSumi.ToByte(0) },
                 new SqlParameter("@TekakouTime", SqlDbType.Decimal) { Value = model.TekakouTime.ToDecimal(0) },
                 new SqlParameter("@HundeggerKakou", SqlDbType.TinyInt) { Value = model.HundeggerKakou.ToInt16(0) },
-                new SqlParameter("@HundeggerSumi", SqlDbType.TinyInt) { Value = model.HundeggerSumi ? 1 : 0 },
+                new SqlParameter("@HundeggerSumi", SqlDbType.TinyInt) { Value = model.HundeggerSumi.ToByte(0) },
                 new SqlParameter("@HundeggerTime", SqlDbType.Decimal) { Value = model.HundeggerTime.ToDecimal(0) },
                 new SqlParameter("@BukkenComment", SqlDbType.VarChar) { Value = model.BukkenComment.ToStringOrNull() },
                 new SqlParameter("@Operator", SqlDbType.VarChar) { Value = model.UserID.ToStringOrNull() },
@@ -104,58 +106,93 @@ namespace OkameiProduction.BL
 
             if (model.Mode == EMode.Edit)
             {
-                sqlParams.Add(new SqlParameter("@UpdateDatetime", SqlDbType.DateTime) { Value = model.UpdateDatetime.ToDateTime() });
+                sqlParams.Add(new SqlParameter("@UpdateDatetime", SqlDbType.VarChar) { Value = model.HiddenUpdateDatetime.ToStringOrNull() });
             }
-
             return sqlParams;
         }
 
-        public bool CreateBukkenAll(BukkenShousaiModel model, out string msgid)
+        public bool CreateBukkenAll(InputBukkenShousaiModel model, out string msgid)
         {
             msgid = "";
+            SqlParameter[] sqlParams = CreateSqlParams(model).ToArray();
             try
             {
                 DBAccess db = new DBAccess();
-                return db.InsertUpdateDeleteData("InputBukkenShousai_Create", true, CreateSqlParams(model).ToArray());
+                return db.InsertUpdateDeleteData("InputBukkenShousai_Create", true, sqlParams);
             }
             catch (ExclusionException)
             {
-                msgid = "S004"; //他の画面で処理中のデータです。しばらくしてから再度処理してください。
+                msgid = "S004"; //他端末エラー
                 return false;
             }
         }
 
-        public bool UpdateBukkenAll(BukkenShousaiModel model, out string msgid)
+        public bool UpdateBukkenAll(InputBukkenShousaiModel model, out string msgid)
         {
             msgid = "";
-            return true;
+            SqlParameter[] sqlParams = CreateSqlParams(model).ToArray();
+            try
+            {
+                DBAccess db = new DBAccess();
+                return db.InsertUpdateDeleteData("InputBukkenShousai_Update", true, sqlParams);
+            }
+            catch (ExclusionException)
+            {
+                msgid = "S004"; //他端末エラー
+                return false;
+            }
         }
 
-        public bool DeleteBukkenAll(BukkenShousaiModel model, out string msgid)
+        public bool DeleteBukkenAll(InputBukkenShousaiModel model, out string msgid)
         {
             msgid = "";
 
             SqlParameter[] sqlParams = new SqlParameter[3];
             sqlParams[0] = new SqlParameter("@BukkenNO", SqlDbType.VarChar) { Value = model.BukkenNO.ToStringOrNull() };
             sqlParams[1] = new SqlParameter("@Operator", SqlDbType.VarChar) { Value = model.UserID.ToStringOrNull() };
-            sqlParams[2] = new SqlParameter("@UpdateDatetime", SqlDbType.DateTime) { Value = model.UpdateDatetime.ToDateTime() };
+            sqlParams[2] = new SqlParameter("@UpdateDatetime", SqlDbType.VarChar) { Value = model.HiddenUpdateDatetime.ToStringOrNull() };
 
-            return true;
+            try
+            {
+                DBAccess db = new DBAccess();
+                return db.InsertUpdateDeleteData("InputBukkenShousai_Delete", true, sqlParams);
+            }
+            catch (ExclusionException)
+            {
+                msgid = "S004"; //他端末エラー
+                return false;
+            }
         }
 
-        public bool DeleteBukkenComment(BukkenShousaiModel model, out string msgid)
+        public bool CreateBukkenFile(InputBukkenShousaiBukkenFileModel model, out string msgid)
+        {
+            msgid = "";
+
+            SqlParameter[] sqlParams = new SqlParameter[5];
+            sqlParams[0] = new SqlParameter("@BukkenNO", SqlDbType.VarChar) { Value = model.BukkenNO.ToStringOrNull() };
+            sqlParams[1] = new SqlParameter("@BukkenFileShurui", SqlDbType.VarChar) { Value = model.BukkenFileShurui.ToByte(0) };
+            sqlParams[2] = new SqlParameter("@BukkenFileName", SqlDbType.VarChar) { Value = model.BukkenFileName.ToStringOrNull() };
+            sqlParams[3] = new SqlParameter("@Operator", SqlDbType.VarChar) { Value = model.UserID.ToStringOrNull() };
+            sqlParams[4] = new SqlParameter("@UpdateDatetime", SqlDbType.VarChar) { Value = model.HiddenUpdateDatetime.ToStringOrNull() };
+            try
+            {
+                DBAccess db = new DBAccess();
+                return db.InsertUpdateDeleteData("InputBukkenShousai_CreateBukkenFile", true, sqlParams);
+            }
+            catch (ExclusionException)
+            {
+                msgid = "S004"; //他端末エラー
+                return false;
+            }
+        }
+
+        public bool DeleteBukkenFile(InputBukkenShousaiModel model, out string msgid)
         {
             msgid = "";
             return true;
         }
 
-        public bool CreateBukkenFile(BukkenShousaiModel model, out string msgid)
-        {
-            msgid = "";
-            return true;
-        }
-
-        public bool DeleteBukkenFile(BukkenShousaiModel model, out string msgid)
+        public bool DeleteBukkenComment(InputBukkenShousaiModel model, out string msgid)
         {
             msgid = "";
             return true;

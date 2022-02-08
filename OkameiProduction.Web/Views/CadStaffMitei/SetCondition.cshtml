@@ -1,0 +1,61 @@
+﻿@model Models.CadStaffMiteiModel
+
+@{
+    ViewBag.Title = "CadStaffMiteiCondition";
+    var serverDate = ViewBag.ServerDate;
+}
+
+<h4 class="page-title">CAD担当者未定物件</h4>
+<div id="main" class="main-content">
+    
+    <div class="form-group row">
+    </div>
+    
+    <div class="form-group row">
+        <div class="main-content-footer mx-auto">
+            <button type="button" id="btnReturn" class="btn btn-secondary" nofocus>戻る</button>
+            <button type="button" id="btnDisplay" class="btn btn-primary active">表示</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#btnReturn').click(function () {
+                showConfirmMessage("Q004", function () {
+                    window.location.reload();
+                });
+            });
+
+            $('#btnDisplay').click(function () {
+                if (checkErrorOnSave()) {
+                    showConfirmMessage("Q201", btnDisplayClick);
+                }
+            });
+            $('#btnReturn').focus();
+           
+        });
+
+        function btnDisplayClick() {
+            var model =
+            {
+            };
+
+            var result = calltoApiController('@Url.Action("ExistsDisplayResult", "api/CadStaffMiteiApi")', model);
+            if (!result) {
+                return false;
+            }
+            if (result.MessageID) {
+                showMessage(result);
+                return false;
+            }
+
+            location.href = '@Url.Action("DisplayResult", "CadStaffMitei")' + querySerialize(model);
+            return true;
+        }
+
+    </script>
+}
