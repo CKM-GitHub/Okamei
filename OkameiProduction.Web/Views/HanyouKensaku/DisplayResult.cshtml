@@ -142,7 +142,7 @@
             };
 
             var result = calltoApiController('@Url.Action("ExistsDisplayResult", "api/HanyouKensakuApi")', model);
-            if (!result || !result.status) {
+            if (!result) {
                 return false;
             }
             if (result && result.MessageID) {
