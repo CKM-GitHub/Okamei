@@ -17,6 +17,7 @@ using System.Text.RegularExpressions;
 //using PDFExtraction;
 using SautinSoft.Document;
 using SautinSoft.Document.Drawing;
+using Path = System.IO.Path;
 
 namespace OkameiProduction.Web.Controllers.HiuchiItiran
 {
@@ -53,24 +54,20 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
             return View(vm);
         } 
         [HttpPost]
-        public ActionResult ExportHiuchiPdf(HiuchiItiranModel model)
+        public void ExportHiuchiPdf(HiuchiItiranModel model)
         {
-            
             var vm = GetFromQueryString<HiuchiItiranModel>();
             var bl = new HiuchiItiranBL();
             var dt = bl.GetDisplayResult(vm);
 
-            dt = dt.Select(" BukkenNo = '" + model.SitenCD.Split('_')[1].ToString() + "' and BukkenName ='" + model.SitenCD.Split('_')[2].ToString() + "' and SouName = '" + model.SitenCD.Split('_')[3].ToString() + "'").CopyToDataTable();
-            PDFPrint(dt);
-            // dt.Columns.Remove("KoumutenName");
-            dt.AcceptChanges();
-            ViewBag.Data = dt;
-
-            return View(vm);
+            dt = dt.Select(" BukkenNo = '" + model.TantouSitenCD.Split('_')[1].ToString() + "' and BukkenName ='" + model.TantouSitenCD.Split('_')[2].ToString() + "' and SouName = '" + model.TantouSitenCD.Split('_')[3].ToString() + "'").CopyToDataTable();
+            PDFPrint(dt, model.TantouSitenCD.Split('_')[2].ToString());
+            // dt.Columns.Remove("KoumutenName"); 
+             
         } 
-        public void PDFPrint(DataTable dt)
+        public void PDFPrint(DataTable dt,string fbname)
         {
-
+            //火打ラベル_
             //ReplaceText(@"D:\Projects\Okame\Okamei\OkameiProduction.Web\output\project\Doc1.pdf");
             PDF_Font font_Class = new PDF_Font();
             string font_folder = Server.MapPath("~/fonts/");
@@ -83,8 +80,9 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                 Directory.CreateDirectory(Server.MapPath("~/output/project"));
             var doc1 = new iTextSharp.text.Document();
             doc1.SetPageSize(PageSize.A4.Rotate()); 
-            string path = Server.MapPath("~/output/project"); 
-            var writer=  PdfWriter.GetInstance(doc1, new FileStream(path + "/Doc1.pdf", FileMode.Create));
+            string path = Server.MapPath("~/output/project");
+            string FileName = "火打ラベル_" + fbname + ".pdf";
+            var writer=  PdfWriter.GetInstance(doc1, new FileStream(path + @"/"+FileName, FileMode.Create));
             doc1.Open();
            
 
@@ -102,9 +100,12 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                 Colspan = 3
             });
             
-            var tempVal = dt.Rows[0]["KoumutenName"].ToString() + " " + "様";
-           var fnt= ShrinkValue(tempVal, doc1);
-            tablea.AddCell(new PdfPCell(new Phrase(tempVal,   font_Class.CreateJapaneseFont(font_folder, 45)))
+            var tempVal = dt.Rows[0]["KoumutenName"].ToString()  + "様";
+            //tempVal =  //System.IO.File.ReadAllLines(@"D:\ptk.txt").Last();
+            var GetFont =ShrinkValue(tempVal);
+            //  (Convert.ToInt32(System.IO.File.ReadAllLines(@"D:\ptk.txt").First()));
+
+            tablea.AddCell(new PdfPCell(new Phrase(tempVal,font_Class.CreateJapaneseFont(font_folder,  GetFont)))
             {
                 HorizontalAlignment = Element.ALIGN_CENTER,
                 VerticalAlignment = Element.ALIGN_MIDDLE,
@@ -126,7 +127,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                 BorderWidthTop = 0f,
                 BorderWidthLeft = 0f,
                 BorderWidthRight = 0f,
-                PaddingBottom = 5f,
+                PaddingBottom = 10f,
                 Colspan = 3
             });
 
@@ -155,8 +156,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                 BorderWidthRight = 0f,
                 PaddingBottom = 5f,
                 Colspan = 3
-            });
-
+            }); 
             tempVal = dt.Rows[0]["SouName"].ToString()  ; 
             tablea.AddCell(new PdfPCell(new Phrase(tempVal, font_Class.CreateJapaneseFont(font_folder, 50,1)))
             {
@@ -254,8 +254,31 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
             doc1.Add(tablea);  
             doc1.Close();
 
-            return;
-           
+
+            FileStream fs = new FileStream(path + "\\" + FileName, FileMode.Open, FileAccess.Read);
+            MemoryStream ms = new MemoryStream();
+            fs.CopyTo(ms);
+            //string FolderName = Server.MapPath("~/output/project/");
+            //using (MemoryStream ms = new MemoryStream())
+            //using (FileStream fs = new FileStream(( path+"\\"+ FileName), FileMode.OpenOrCreate, FileAccess.Write))
+            //{  
+            //        fs.CopyTo(ms);
+                 byte[] ByteData = ms.ToArray();
+ 
+                // Write output PDF on user download path 
+                Response.Buffer = true;
+                Response.ContentType = "application/pdf";
+                Response.AddHeader("content-disposition", "attachment;filename=" + FileName);
+                Response.Cache.SetCacheability(System.Web.HttpCacheability.NoCache);
+                Response.BinaryWrite(ByteData);
+                Response.End();
+            //}
+            fs.Close();
+            ms.Close();
+
+
+
+
         }
         private Chunk GetChunk(string text)
         {
@@ -270,16 +293,30 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
             return null;
         }  
 
-        public Font ShrinkValue(string val, Document doc1)
-        {
-            BaseFont bf = BaseFont.CreateFont(BaseFont.COURIER, BaseFont.WINANSI, BaseFont.NOT_EMBEDDED);
-            float charWidth = bf.GetWidth(val);
-            int charactersPerLine = 50;
-            float pageWidth = doc1.Right - doc1.Left;
-            float fontSize = (1000 * (pageWidth / (charWidth * charactersPerLine)));
-            fontSize = ((int)(fontSize * 100)) / 100f;
-            Font font = new Font(bf, fontSize);
-            return font;
+        public int ShrinkValue(string val )
+        { 
+            int LengthShrink = Convert.ToInt32(Encoding.GetEncoding(932).GetByteCount(val).ToString()) ;
+             
+            if (LengthShrink > 40)
+            {
+                return 22;
+            }
+            else if (LengthShrink > 30  )
+            {
+                return 28;
+            }
+            else if (LengthShrink > 20)
+            {
+                return 36;
+            }
+            else if (LengthShrink > 10)
+            {
+                return 46;
+            }
+            else   
+            {
+                return 50;
+            } 
         }
     }
      

@@ -38,13 +38,13 @@ BEGIN
 					(select 
 					 '+@sub+' as Flg, 
 					(CASE db.NoukiMiteiKBN WHEN 1 THEN ''未定''  ELSE FORMAT(db.Nouki, ''MM/dd'') END ) as Nouki,
-					 db.BukkenNo as BukkenNo,
-					 db.BukkenName as BukkenName,
-					 mp.Char1 as SouName, 
-					 dbh.Sou'+@root+'KakouDateTime as SouDateTime,
-					 dbh.zairyou'+@sub+' as zairyou,
-					 dbh.toukyuu'+@sub+' as toukyuu,
-					 dbh.honsuu'+@sub+' as honsuu
+					cast( db.BukkenNo as varchar(8)) as BukkenNo,
+					cast( db.BukkenName as varchar(16)) as BukkenName,
+					cast ( mp.Char1 as varchar(6)) as SouName, 
+					cast ( FORMAT(dbh.Sou'+@root+'KakouDateTime , ''yyyy/MM/dd hh:mm:ss'')  as varchar(25) ) as SouDateTime,
+					cast ( dbh.zairyou'+@sub+' as varchar(30)) as zairyou,
+					cast ( dbh.toukyuu'+@sub+' as varchar(10)) as toukyuu,
+					cast ( dbh.honsuu'+@sub+' as varchar(3)) as honsuu
 					from D_Bukken db 
 					left join D_BukkenHiuchi dbh on db.BukkenNo = dbh.BukkenNO
 					left join M_Multiporpose mp on mp.ID=''10'' and mp.[Key]= dbh.Sou'+@root+'
@@ -63,9 +63,11 @@ BEGIN
 			End
 			 set @i = @i+1;
 
-					End
-					
-			  select * from #ptk where Zairyou is not null order by Nouki asc, BukkenNo asc, flg asc 
+		 End 				
+
+			  select  pk.*  ,  cast (db.KoumutenName as varchar(50)) as KoumutenName  from #ptk pk left join D_Bukken db on pk.BukkenNo = db.BukkenNo   where Zairyou is not null  order by Nouki asc, BukkenNo asc, flg asc 
+
+			  --select * from D_Bukken
 					Drop table #ptk
 				
 END
