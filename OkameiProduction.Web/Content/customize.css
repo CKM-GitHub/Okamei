@@ -99,6 +99,10 @@ input[type="checkbox"] {
     transform: scale(1.5);
 }
 
+.table input[type=checkbox] {
+    transform: scale(1.2);
+}
+
 input[integerdigits], 
 input[decimaldigits] {
     text-align: right;

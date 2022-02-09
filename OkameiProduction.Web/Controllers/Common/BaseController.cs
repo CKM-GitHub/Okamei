@@ -82,6 +82,10 @@ namespace OkameiProduction.Web.Controllers
             {
                 return HttpUtility.UrlDecode(val).ToDateTime();
             }
+            else if (type == typeof(Byte) || type == typeof(Byte?))
+            {
+                return HttpUtility.UrlDecode(val).ToByte(0);
+            }
             else
             {
                 return HttpUtility.UrlDecode(val);

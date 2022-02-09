@@ -6,7 +6,6 @@ GO
 
 CREATE PROCEDURE [dbo].[InputBukkenShousai_Delete](
      @BukkenNO                  varchar(8)
-    ,@Operator                  varchar(10)
     ,@UpdateDatetime            varchar(23)
     ,@OutExclusionError         tinyint OUTPUT
 )AS

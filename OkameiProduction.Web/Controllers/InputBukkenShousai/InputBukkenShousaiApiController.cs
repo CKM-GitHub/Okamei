@@ -1,5 +1,8 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Data;
+using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -30,12 +33,62 @@ namespace OkameiProduction.Web.Controllers
         }
 
         [HttpPost]
+        public string GetBukkenFile([FromBody]InputBukkenShousaiBukkenFileModel model)
+        {
+            if (model == null) return GetBadRequestResult();
+
+            var bl = new InputBukkenShousaiBL();
+            return DataTableToJSON(bl.GetBukkenFile(model));
+        }
+
+        [HttpPost]
+        public string GetBukkenComment([FromBody]InputBukkenShousaiBukkenCommentModel model)
+        {
+            if (model == null) return GetBadRequestResult();
+
+            var bl = new InputBukkenShousaiBL();
+            return DataTableToJSON(bl.GetBukkenComment(model));
+        }
+
+        [HttpPost]
         public string GetBukkenNO([FromBody]string tantouSitenCD)
         {
             if (tantouSitenCD == null) return GetBadRequestResult();
 
             var bl = new InputBukkenShousaiBL();
             return ConvertToJsonResult(new { NewBukkenNO = bl.GetNewBukkenNO(tantouSitenCD) });
+        }
+
+        [HttpPost]
+        public string DeleteBukkenFile([FromBody] InputBukkenShousaiBukkenFileModel model)
+        {
+            if (model == null) return GetBadRequestResult();
+
+            var bl = new InputBukkenShousaiBL();
+            if (bl.DeleteBukkenFile(model, out string msgid))
+            {
+                return GetSuccessResult();
+            }
+            else
+            {
+                return GetErrorResult(msgid);
+            }
+        }
+
+        [HttpPost]
+        public string DeleteBukkenComment([FromBody] InputBukkenShousaiBukkenCommentModel model)
+        {
+            if (model == null) return GetBadRequestResult();
+
+            var bl = new InputBukkenShousaiBL();
+            if (bl.DeleteBukkenComment(model, out string msgid))
+            {
+                return GetSuccessResult();
+            }
+            else
+            {
+                return GetErrorResult(msgid);
+            }
         }
 
         [HttpPost]
@@ -62,33 +115,41 @@ namespace OkameiProduction.Web.Controllers
         }
 
         [HttpPost]
-        public string UploadMultipleFiles()
+        public string SaveBukkenComment([FromBody] InputBukkenShousaiBukkenCommentModel model)
         {
+            if (model == null) return GetBadRequestResult();
+
+            var bl = new InputBukkenShousaiBL();
+            if (!bl.CreateBukkenComment(model, out string msgid))
+            {
+                return GetErrorResult(msgid);
+            }
+            else
+            {
+                return GetSuccessResult();
+            }
+        }
+
+        [HttpPost]
+        public string UploadFiles()
+        {
+            var model = base.GetFromRequestForm<InputBukkenShousaiBukkenFileModel>();
+            if (model == null || string.IsNullOrEmpty(model.BukkenNO))
+            {
+                return GetBadRequestResult();
+            }
+
             if (string.IsNullOrEmpty(StaticCache.UploadedFilePath))
             {
                 throw new CustomException("ファイルを保存するフォルダが設定されていません。");
             }
 
             var postedFiles = HttpContext.Current.Request.Files;
-            var form = HttpContext.Current.Request.Form;
-
-            var model = new InputBukkenShousaiBukkenFileModel()
-            {
-                BukkenNO = form["BukkenNO"].ToStringOrEmpty(),
-                BukkenFileShurui = form["BukkenFileShurui"].ToByte(0)
-            };
-            if (string.IsNullOrEmpty(model.BukkenNO))
-            {
-                return GetBadRequestResult();
-            }
-
-
             string path = Path.Combine(StaticCache.UploadedFilePath, model.BukkenNO);
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
-
 
             var bl = new InputBukkenShousaiBL();
             foreach (string key in postedFiles)
@@ -104,6 +165,5 @@ namespace OkameiProduction.Web.Controllers
             }
             return GetSuccessResult();
         }
-
     }
 }

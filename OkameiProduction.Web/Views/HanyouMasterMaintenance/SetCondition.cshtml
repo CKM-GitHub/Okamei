@@ -1,4 +1,4 @@
-﻿@model Models.BukkenItiranModel
+﻿@model Models.HanyouMasterMaintenanceModel
 
 @{
     ViewBag.Title = "HanyouMasterMaintenanceCondition";
@@ -9,11 +9,11 @@
 <div id="main" class="main-content">
     <div class="form-group row">
         <div class="col-sm-2">
-            <label class="col-form-label label-title">ID＊</label>
+            <label class="col-form-label label-title pk require">ID</label>
         </div>
         <div class="col-sm-10 form-inline">
-            <input type="text" class="form-control size5" maxlength="3" id="BukkenName" name="BukkenName" />
-            <span id="id_name">
+            <input type="text" class="form-control size3" maxlength="3" id="ID" name="ID" />
+            <span id="IDName">
                 &nbsp;&nbsp;ああああああああああいいいいいいいいいい
             </span>
         </div>
@@ -25,10 +25,10 @@
 
     <div class="form-group row">
         <div class="col-sm-2">
-            <label class="col-form-label label-title">キー＊</label>
+            <label class="col-form-label label-title pk require">キー</label>
         </div>
         <div class="col-sm-10">
-            <input type="text" class="form-control size10" maxlength="10" id="BukkenName" name="BukkenName" />
+            <input type="text" class="form-control size10" maxlength="10" id="Key" name="Key" />
         </div>
     </div>
 
@@ -41,7 +41,7 @@
             <label class="col-form-label label-title">文字型項目1</label>
         </div>
         <div class="col-sm-10">
-            <input type="text" class="form-control size100" maxlength="100" id="BukkenName" name="BukkenName" />
+            <input type="text" class="form-control size100" maxlength="100" id="Char1" name="Char1" />
         </div>
     </div>
     <div class="form-group row">
@@ -49,7 +49,7 @@
             <label class="col-form-label label-title">文字型項目2</label>
         </div>
         <div class="col-sm-10 form-inline">
-            <input type="text" class="form-control size100" maxlength="100" id="BukkenName" name="BukkenName" />
+            <input type="text" class="form-control size100" maxlength="100" id="Char2" name="Char2" />
         </div>
     </div>
     <div class="form-group row">
@@ -57,7 +57,7 @@
             <label class="col-form-label label-title">文字型項目3</label>
         </div>
         <div class="col-sm-10">
-            <input type="text" class="form-control size100" maxlength="100" id="BukkenName" name="BukkenName" />
+            <input type="text" class="form-control size100" maxlength="100" id="Char3" name="Char3" />
         </div>
     </div>
     <div class="form-group row">
@@ -65,7 +65,7 @@
             <label class="col-form-label label-title">文字型項目4</label>
         </div>
         <div class="col-sm-10">
-            <input type="text" class="form-control size100" maxlength="100" id="BukkenName" name="BukkenName" />
+            <input type="text" class="form-control size100" maxlength="100" id="Char4" name="Char4" />
         </div>
     </div>
     <div class="form-group row">
@@ -73,7 +73,7 @@
             <label class="col-form-label label-title">文字型項目5</label>
         </div>
         <div class="col-sm-10">
-            <input type="text" class="form-control size100" maxlength="100" id="BukkenName" name="BukkenName" />
+            <input type="text" class="form-control size100" maxlength="100" id="Char5" name="Char5" />
         </div>
     </div>
 
@@ -86,13 +86,13 @@
             <label class="col-form-label label-title">数字型項目1</label>
         </div>
         <div class="col-sm-4">
-            <input type="text" class="form-control size10" maxlength="10" id="BukkenName" name="BukkenName" />
+            <input type="text" class="form-control size10" maxlength="10" id="Num1" name="Num1" />
         </div>
         <div class="col-sm-2">
             <label class="col-form-label label-title">日付型項目1</label>
         </div>
         <div class="col-sm-4">
-            <input type="text" class="form-control size10" maxlength="10" id="BukkenName" name="BukkenName" />
+            <input type="text" class="form-control size10" maxlength="10" id="Date1" name="Date1" />
         </div>
     </div>
     <div class="form-group row">
@@ -100,13 +100,13 @@
             <label class="col-form-label label-title">数字型項目2</label>
         </div>
         <div class="col-sm-4">
-            <input type="text" class="form-control size10" maxlength="10" id="BukkenName" name="BukkenName" />
+            <input type="text" class="form-control size10" maxlength="10" id="Num2" name="Num2" />
         </div>
         <div class="col-sm-2">
             <label class="col-form-label label-title">日付型項目2</label>
         </div>
         <div class="col-sm-4">
-            <input type="text" class="form-control size10" maxlength="10" id="BukkenName" name="BukkenName" />
+            <input type="text" class="form-control size10" maxlength="10" id="Date2" name="Date2" />
         </div>
     </div>
     <div class="form-group row">
@@ -114,13 +114,13 @@
             <label class="col-form-label label-title">数字型項目3</label>
         </div>
         <div class="col-sm-4">
-            <input type="text" class="form-control size10" maxlength="10" id="BukkenName" name="BukkenName" />
+            <input type="text" class="form-control size10" maxlength="10" id="Num3" name="Num3" />
         </div>
         <div class="col-sm-2">
             <label class="col-form-label label-title">日付型項目3</label>
         </div>
         <div class="col-sm-4">
-            <input type="text" class="form-control size10" maxlength="10" id="BukkenName" name="BukkenName" />
+            <input type="text" class="form-control size10" maxlength="10" id="Date3" name="Date3" />
         </div>
     </div>
     <div class="form-group row">
@@ -128,13 +128,13 @@
             <label class="col-form-label label-title">数字型項目4</label>
         </div>
         <div class="col-sm-4">
-            <input type="text" class="form-control size10" maxlength="10" id="BukkenName" name="BukkenName" />
+            <input type="text" class="form-control size10" maxlength="10" id="Num4" name="Num4" />
         </div>
         <div class="col-sm-2">
             <label class="col-form-label label-title">日付型項目4</label>
         </div>
         <div class="col-sm-4">
-            <input type="text" class="form-control size10" maxlength="10" id="BukkenName" name="BukkenName" />
+            <input type="text" class="form-control size10" maxlength="10" id="Date4" name="Date4" />
         </div>
     </div>
     <div class="form-group row">
@@ -142,19 +142,19 @@
             <label class="col-form-label label-title">数字型項目5</label>
         </div>
         <div class="col-sm-4">
-            <input type="text" class="form-control size10" maxlength="10" id="BukkenName" name="BukkenName" />
+            <input type="text" class="form-control size10" maxlength="10" id="Num5" name="Num5" />
         </div>
         <div class="col-sm-2">
             <label class="col-form-label label-title">日付型項目5</label>
         </div>
         <div class="col-sm-4">
-            <input type="text" class="form-control size10" maxlength="10" id="BukkenName" name="BukkenName" />
+            <input type="text" class="form-control size10" maxlength="10" id="Date5" name="Date5" />
         </div>
     </div>
     <div class="form-group row">
         <div class="main-content-footer mx-auto">
             <button type="button" id="btnReturn" class="btn btn-secondary" nofocus>戻る</button>
-            <button type="button" id="btnDisplay" class="btn btn-primary active">登録</button>
+            <button type="button" id="btnProcess" class="btn btn-primary active">登録</button>
         </div>
     </div>
 </div>
@@ -163,51 +163,130 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-
+            debugger;
+            var Mode = '@Model.Mode';
             $('#btnReturn').click(function () {
                 showConfirmMessage("Q004", function () {
-                    window.location.reload();
+                    location.href = '@Url.Action("DisplayResult","HanyouKensaku")?ID=' + $("#ID").val();
                 });
             });
 
-            $('#btnDisplay').click(function () {
+            $('#btnProcess').click(function () {
                 if (checkErrorOnSave()) {
-                    showConfirmMessage("Q201", btnDisplayClick);
+                    showConfirmMessage("Q201", btnProcess);
                 }
             });
 
             //date
-            setDateTypeValidate('#NoukiStart')
-            setDateTypeValidate('#NoukiEnd')
-            //compare date
-            setCompareDateValidate('#NoukiEnd', '#NoukiStart')
-            //is half-width
-            setIsHalfWidthValidate('#BukkenNO');
-            //is double-byte
-            setDoubleByteValidate('#BukkenName');
-            setDoubleByteValidate('#KoumutenName');
+            setDateTypeValidate('#Date1');
+            setDateTypeValidate('#Date2');
+            setDateTypeValidate('#Date3');
+            setDateTypeValidate('#Date4');
+            setDateTypeValidate('#Date5');
 
-            $('#NoukiStart').val('@serverDate');
-            $('#TantouSitenCD').focus();
+            //number
+            setNumericValidate('#ID', 3, 0);
+            setNumericValidate('#Num1', 3, 0);
+            setNumericValidate('#Num2', 3, 0);
+            setNumericValidate('#Num3', 3, 0);
+            setNumericValidate('#Num4', 3, 0);
+            setNumericValidate('#Num5', 3, 0);
+
+            //is double-byte
+            setDoubleByteValidate('#Key');
+            setDoubleByteValidate('#Char1');
+            setDoubleByteValidate('#Char2');
+            setDoubleByteValidate('#Char3');
+            setDoubleByteValidate('#Char4');
+            setDoubleByteValidate('#Char5');
+
+            if (Mode == "New") {
+                $("#ID").focus();
+            }
+            else if (Mode == "Edit") {
+                var model = {
+                    ID_val: '@Model.ID_val',
+                    Key: '@Model.Key'
+                }
+                var result = calltoApiController('@Url.Action("GetDataResult", "api/HanyouMasterMaintenanceApi")', model);
+                BindData(result);
+
+                $("#ID").attr('disabled', 'disabled');
+                $("#Key").attr('disabled', 'disabled');
+                $("#Char1").focus();
+            }
+            else if (Mode == "Delete") {
+                var model = {
+                    ID_val: '@Model.ID_val',
+                    Key: '@Model.Key'
+                }
+                var result = calltoApiController('@Url.Action("GetDataResult", "api/HanyouMasterMaintenanceApi")', model);
+                BindData(result);
+
+                $("#ID").attr('disabled', 'disabled');
+                $("#Key").attr('disabled', 'disabled');
+                $("#Char1").attr('disabled', 'disabled');
+                $("#Char2").attr('disabled', 'disabled');
+                $("#Char3").attr('disabled', 'disabled');
+                $("#Char4").attr('disabled', 'disabled');
+                $("#Char5").attr('disabled', 'disabled');
+                $("#Num1").attr('disabled', 'disabled');
+                $("#Num2").attr('disabled', 'disabled');
+                $("#Num3").attr('disabled', 'disabled');
+                $("#Num4").attr('disabled', 'disabled');
+                $("#Num5").attr('disabled', 'disabled');
+                $("#Date1").attr('disabled', 'disabled');
+                $("#Date2").attr('disabled', 'disabled');
+                $("#Date3").attr('disabled', 'disabled');
+                $("#Date4").attr('disabled', 'disabled');
+                $("#Date5").attr('disabled', 'disabled');
+                $("#btnProcess").focus();
+            }
         });
 
-        function btnDisplayClick() {
+        function BindData(result) {
+            $('#ID').val(result[0].ID);
+            $('#Key').val(result[0].Key);
+            $('#IDName').html(result[0].IDName);
+            $('#Char1').val(result[0].Char1);
+            $('#Char2').val(result[0].Char2);
+            $('#Char3').val(result[0].Char3);
+            $('#Char4').val(result[0].Char4);
+            $('#Char5').val(result[0].Char5);
+            $('#Num1').val(result[0].Num1);
+            $('#Num2').val(result[0].Num2);
+            $('#Num3').val(result[0].Num3);
+            $('#Num4').val(result[0].Num4);
+            $('#Num5').val(result[0].Num5);
+            $('#Date1').val(result[0].Date1);
+            $('#Date2').val(result[0].Date2);
+            $('#Date3').val(result[0].Date3);
+            $('#Date4').val(result[0].Date4);
+            $('#Date5').val(result[0].Date5);
+        }
+
+        function btnProcess() {
             var model =
             {
-                TantouSitenCD: $('#TantouSitenCD').val(),
-                JuchuuOption: $('input[name=JuchuuOption]:checked').val(),
-                BukkenSiteiOption: $('input[name=BukkenSiteiOption]:checked').val(),
-                NoukiStart: $('#NoukiStart').val(),
-                NoukiEnd: $('#NoukiEnd').val(),
-                TantouEigyouCD: $('#TantouEigyouCD').val(),
-                TantouCadCD: $('#TantouCadCD').val(),
-                TantouPcCD: $('#TantouPcCD').val(),
-                SortOption: $('input[name=SortOption]:checked').val(),
-                KubunCD: $('#KubunCD').val(),
-                BukkenNO: $('#BukkenNO').val(),
-                BukkenName: $('#BukkenName').val(),
-                KoumutenName: $('#KoumutenName').val(),
-                TokuchuuzaiUmu: $('#TokuchuuzaiUmu').val(),
+                ID_val: $('#ID').val(),
+                Key: $('#Key').val(),
+                IDName: $('#IDName').val(),
+                Char1: $('#Char1').val(),
+                Char2: $('#Char2').val(),
+                Char3: $('#Char3').val(),
+                Char4: $('#Char4').val(),
+                Char5: $('#Char5').val(),
+                Num1: $('#Num1').val(),
+                Num2: $('#Num2').val(),
+                Num3: $('#Num3').val(),
+                Num4: $('#Num4').val(),
+                Num5: $('#Num5').val(),
+                Date1: $('#Date1').val(),
+                Date2: $('#Date2').val(),
+                Date3: $('#Date3').val(),
+                Date4: $('#Date4').val(),
+                Date5: $('#Date5').val(),
+                Mode: "New",
                 UserID: $('#user-id').text()
             };
 
@@ -220,7 +299,6 @@
                 return false;
             }
 
-            location.href = '@Url.Action("DisplayResult", "BukkenItiran")' + querySerialize(model);
             return true;
         }
 

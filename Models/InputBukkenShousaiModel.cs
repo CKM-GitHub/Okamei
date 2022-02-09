@@ -14,7 +14,7 @@ namespace Models
         public string BukkenName { get; set; }
         public string Juusho { get; set; }
         public string KoumutenName { get; set; }
-        public decimal KakouTubosuu { get; set; }
+        public string KakouTubosuu { get; set; }
         public byte NoukiMiteiKBN { get; set; }
         public string Nouki { get; set; }
         public string UnsouKuraireDate { get; set; }
@@ -34,7 +34,7 @@ namespace Models
         public string KakousijishoHakkouDate { get; set; }
         public string KannouDate { get; set; }
         public string CancelDate { get; set; }
-        public int KakouNissuu { get; set; }
+        public string KakouNissuu { get; set; }
         public string UpdateDatetime { get; set; }
         public string KanamonoCD { get; set; }
         public byte OukazaiKakou { get; set; }
@@ -47,21 +47,21 @@ namespace Models
         public byte HiuchiSumi { get; set; }
         public byte HagarazaiKakou { get; set; }
         public byte HagarazaiSumi { get; set; }
-        public int HagarazaiSuu { get; set; }
+        public string HagarazaiSuu { get; set; }
         public byte YukaKakou { get; set; }
         public byte YukaSumi { get; set; }
         public string YukaGouhanShurui { get; set; }
-        public int YukaGouhanSuu { get; set; }
+        public string YukaGouhanSuu { get; set; }
         public byte NoziKakou { get; set; }
         public byte NoziSumi { get; set; }
         public string NoziGouhanShurui { get; set; }
-        public int NoziGouhanSuu { get; set; }
+        public string NoziGouhanSuu { get; set; }
         public byte TekakouKakou { get; set; }
         public byte TekakouSumi { get; set; }
-        public decimal TekakouTime { get; set; }
+        public string TekakouTime { get; set; }
         public byte HundeggerKakou { get; set; }
         public byte HundeggerSumi { get; set; }
-        public decimal HundeggerTime { get; set; }
+        public string HundeggerTime { get; set; }
         //Page 3.
         //Page 4.
         public string BukkenComment { get; set; }

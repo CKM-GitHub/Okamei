@@ -73,7 +73,7 @@
 
 <h4>物件一覧</h4>
 <div id="main" class="main-content">
-    <div class="listTable-wrapper hidden">
+    <div class="listTable-wrapper">
         <table class='table table-bordered' id="tblBukkenItiran">
             <thead>
                 <tr>
@@ -177,6 +177,8 @@
                 location.href = '@Url.Action("SetCondition", "BukkenItiran")';
             });
 
+            //var option = {};
+            //option.drawCallback: function () { $('.listTable-wrapper').removeClass('hidden'); }
             var t = bindDataTables($('#tblBukkenItiran'));
             //new $.fn.dataTable.FixedColumns(t, {
             //    leftColumns: 1

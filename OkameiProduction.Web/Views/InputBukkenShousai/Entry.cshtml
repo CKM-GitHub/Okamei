@@ -15,7 +15,7 @@
                     <label class="col-form-label label-title pk">物件番号</label>
                 </div>
                 <div class="col-sm-8 form-inline">
-                    <input type="text" class="form-control size8" disabled maxlength="8" id="BukkenNO" name="BukkenNO" value="@Model.BukkenNO" />
+                    <input type="text" class="form-control size8" readonly maxlength="8" id="BukkenNO" name="BukkenNO" value="@Model.BukkenNO" />
                 </div>
             </div>
 
@@ -58,7 +58,7 @@
                         </select>
                     </div>*@
                 <div class="col-sm-8">
-                    <div class="dropdown">
+                    <div class="dropdown autocomplete">
                         <input type="text" class="form-control dropdown-toggle size50" data-toggle="dropdown" maxlength="50"
                                id="KoumutenName" name="KoumutenName" autocomplete="off" value="@Model.KoumutenName" />
                         <ul class="dropdown-menu" aria-labelledby="KoumutenName"></ul>
@@ -293,8 +293,8 @@
                 </div>
                 <div class="col-sm-3 form-inline">
                     @Html.DropDownListFor(
-                    model => model.OukazaiKakou, 
-                    new SelectList(Model.WithOrWithoutDropDownListItems, "Value", "DisplayText"), 
+                    model => model.OukazaiKakou,
+                    new SelectList(Model.WithOrWithoutDropDownListItems, "Value", "DisplayText"),
                     new { @class = "form-control size2" })
                     <input type="checkbox" id="OukazaiSumi" name="OukazaiSumi" data-dbvalue="@Model.OukazaiSumi" />
                     <label for="OukazaiSumi">&nbsp;済</label>
@@ -304,7 +304,7 @@
                 </div>
                 <div class="col-sm-3 form-inline">
                     @Html.DropDownListFor(
-                    model => model.KabeKakou, 
+                    model => model.KabeKakou,
                     new SelectList(Model.WithOrWithoutDropDownListItems, "Value", "DisplayText"),
                     new { @class = "form-control size2" })
                     <input type="checkbox" id="KabeSumi" name="KabeSumi" data-dbvalue="@Model.KabeSumi" />
@@ -324,7 +324,7 @@
                     <label for="HasirazaiSumi">&nbsp;済</label>
                 </div>
                 <div class="col-sm-3">
-                    <a href="#">
+                    <a href="#" class="edit-link">
                         <label class="col-form-label label-title require ">火打</label>
                     </a>
                 </div>
@@ -410,8 +410,8 @@
                 </div>
                 <div class="col-sm-3 form-inline">
                     @Html.DropDownListFor(
-                    model =>model.TekakouKakou, 
-                    new SelectList(Model.WithOrWithoutDropDownListItems, "Value", "DisplayText"), 
+                    model =>model.TekakouKakou,
+                    new SelectList(Model.WithOrWithoutDropDownListItems, "Value", "DisplayText"),
                     new { @class = "form-control size2" })
                     <input type="checkbox" id="TekakouSumi" name="TekakouSumi" data-dbvalue="@Model.TekakouSumi" />
                     <label for="TekakouSumi">&nbsp;済</label>
@@ -421,8 +421,8 @@
                 </div>
                 <div class="col-sm-3 form-inline">
                     @Html.DropDownListFor(
-                    model => model.HundeggerKakou, 
-                    new SelectList(Model.WithOrWithoutDropDownListItems, "Value", "DisplayText"), 
+                    model => model.HundeggerKakou,
+                    new SelectList(Model.WithOrWithoutDropDownListItems, "Value", "DisplayText"),
                     new { @class = "form-control size2" })
                     <input type="checkbox" id="HundeggerSumi" name="HundeggerSumi" data-dbvalue="@Model.HundeggerSumi" />
                     <label for="HundeggerSumi">&nbsp;済</label>
@@ -430,7 +430,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-sm-3">
-                    <a href="#">
+                    <a href="#" class="edit-link">
                         <label class="col-form-label label-title">手加工推定時間</label>
                     </a>
                 </div>
@@ -517,13 +517,13 @@
         </div>
         <div class="col-sm-10">
             <div class="dragDrop-wrap">
-                <div id="dragDropArea">
+                <div id="dragDropArea" class="close">
                     <p>ここにファイルをドロップしてアップロードしてください<br>または</p>
                     <div class="dragDrop-buttons">
-                        <input type="file" name="inputFile" id="inputFile" nofocus>
+                        <input type="file" name="inputFile" id="inputFile" multiple nofocus>
                         <div id="btnInputFile"><span>ファイルを選択する</span></div>
                     </div>
-                    <div id="fileMsg">アップロードが完了しました</div>
+                    <div id="fileStatus"></div>
                 </div>
             </div>
         </div>
@@ -589,15 +589,15 @@
         <div class="col-sm-2">
         </div>
         <div class="col-sm-10">
-            <table class='table table-bordered' id="tblUploadesFileList">
-                <thead>
-                </thead>
+            <table class='table' id="tblBukkenFile">
+                <thead></thead>
                 <tbody></tbody>
             </table>
         </div>
     </div>
     @*--------------------------------------------------*@
-    <hr />
+    @*<hr />*@
+    <br />
     <div class="form-group row">
         <div class="col-sm-2">
             <label class="col-form-label label-title">コメント</label>
@@ -611,7 +611,7 @@
             <label class="col-form-label label-title">コメント履歴</label>
         </div>
         <div class="col-sm-10">
-            <table class='table table-bordered' id="tblBukkenCommentList">
+            <table class='table' id="tblBukkenComment">
                 <thead></thead>
                 <tbody></tbody>
             </table>
@@ -630,6 +630,7 @@
         </div>
     </div>
 </div>
+@Scripts.Render("~/Scripts/InputBukkenShousai.js")
 
 @section Scripts{
     <script type="text/javascript">
@@ -638,15 +639,20 @@
         var url_getBukkenNO = '@Url.Action("GetBukkenNO", "api/InputBukkenShousaiApi")';
         var url_getKoumutenListItems = '@Url.Action("GetKoumutenDropDownListItems", "api/InputBukkenShousaiApi")';
         var url_getTantouEigyouListItems = '@Url.Action("GetTantouEigyouDropDownListItems", "api/InputBukkenShousaiApi")';
-        var url_getFileList = '';
-        var url_getCommentList = '';
+        var url_getBukkenFile = '@Url.Action("GetBukkenFile", "api/InputBukkenShousaiApi")';
+        var url_getBukkenComment = '@Url.Action("GetBukkenComment", "api/InputBukkenShousaiApi")';
         var url_SaveData = '@Url.Action("SaveData", "api/InputBukkenShousaiApi")';
-        var url_uploadFiles = '@Url.Action("UploadMultipleFiles", "api/InputBukkenShousaiApi")';
+        var url_SaveBukkenComment = '@Url.Action("SaveBukkenComment", "api/InputBukkenShousaiApi")';
+        var url_deleteBukkenFile = '@Url.Action("DeleteBukkenFile", "api/InputBukkenShousaiApi")';
+        var url_deleteBukkenComment = '@Url.Action("DeleteBukkenComment", "api/InputBukkenShousaiApi")';
+        var url_uploadFiles = '@Url.Action("UploadFiles", "api/InputBukkenShousaiApi")';
+        var url_downloadFiles = '@Url.Action("DownloadFiles", "api/InputBukkenShousaiApi")';
+
         var eMode = '@Model.Mode';
         var formData = new FormData();
         var fileCount = 0;
 
-        var btnSave = $('#btnSave')
+        var btnSave = $('#btnSave');
         var btnSet = $('#btnSet');
         var txtBukkenNO = $('#BukkenNO');
         var txtBukkenName = $('#BukkenName');
@@ -654,436 +660,9 @@
         var ddlTantouEigyou = $('#TantouEigyouCD');
         var chkNoukiMitei = $('#NoukiMiteiKBN');
         var txtNouki = $('#Nouki');
-
-        //------------------------------
-        function addEvents() {
-            $('#btnReturn').click(function () {
-                showConfirmMessage("Q003", function () {
-                    if (eMode == 'New') {
-                        location.href = url_homePage;
-                    }
-                    else {
-                        location.href = url_previousPage;
-                    }
-                });
-            });
-
-            btnSave.click(function () {
-                if (checkErrorOnSave('#main') && checkBukkenNO()) {
-                    showConfirmMessage(eMode == 'Delete' ? 'Q102' : 'Q101', function () {
-                        btnSaveClick();
-                    });
-                }
-            });
-
-            btnSet.click(function () {
-                getNewBukkenNO();
-            });
-
-            txtSitenCD.change(function () {
-                var key = $(this).val();
-                setDropDownList('#TantouEigyouCD', url_getTantouEigyouListItems, key);
-                //setDropDownList('#KoumutenName', url_getKoumutenListItems, key);
-                setAutocomplete('ul[aria-labelledby="KoumutenName"]', url_getKoumutenListItems, key);
-            });
-
-            chkNoukiMitei.change(function () {
-                var checked = $(this).is(':checked');
-                txtNouki.prop('disabled', checked);
-                if (checked) {
-                    txtNouki.val("");
-                }
-            });
-
-            $('input[name="UpFileOption"]:radio').change(function () {
-                var val = $(this).val();
-                if (!val || val == "8") {
-                    $('#dragDropArea').hide();
-                    $('#btnUpload').prop('disabled', true);
-                }
-                else {
-                    $('#dragDropArea').show();
-                    $('#btnUpload').prop('disabled', false);
-                }
-                clearFileInfo();
-            });
-
-            $('#btnUpload').click(function () {
-                if (!checkBukkenNO()) return;
-
-                formData.append('BukkenNO', txtBukkenNO.val());
-                formData.append('BukkenFileShurui', $('input[name="UpFileOption"]:radio:checked').val());
-
-                sendMultipleFileToServer(url_uploadFiles, formData, function (result) {
-                    if (!result) return;
-                    if (result.MessageID) {
-                        showMessage(result);
-                        return;
-                    }
-                    clearFileInfo();
-                    $('#fileMsg').show();
-                });
-            });
-        }
-
-        function addValidate() {
-            setRequired('#TantouSitenCD');
-            setRequired('#BukkenName');
-            setRequired('#KoumutenName');
-            setRequired('#KakouTubosuu');
-            setRequired('#Nouki');
-            setRequired('#TantouEigyouCD');
-            setRequired('#JuchuuDate');
-
-            setDateTypeValidate('#Nouki')
-            setDateTypeValidate('#UnsouKuraireDate')
-            setDateTypeValidate('#ZairyouNouki')
-            setDateTypeValidate('#JuchuuDate')
-            setDateTypeValidate('#FusezuTeishutuDate')
-            setDateTypeValidate('#KakouShouninDate')
-            setDateTypeValidate('#KidasiDate')
-            setDateTypeValidate('#KakousijishoHakkouDate')
-            setDateTypeValidate('#KannouDate')
-            setDateTypeValidate('#CancelDate')
-
-            setDoubleByteValidate('#BukkenName', true);
-            setDoubleByteValidate('#Juusho');
-            setDoubleByteValidate('#TokuchuuzaiComment');
-            setDoubleByteValidate('#BukkenComment');
-
-            setNumericValidate('#KakouTubosuu', 3, 2)
-            setNumericValidate('#KakouNissuu', 3, 0);
-            setNumericValidate('#HagarazaiSuu', 3, 0);
-            setNumericValidate('#YukaGouhanSuu', 3, 0);
-            setNumericValidate('#NoziGouhanSuu', 3, 0);
-            setNumericValidate('#TekakouTime', 3, 1);
-            setNumericValidate('#HundeggerTime', 3, 1);
-            //
-            $('#tblUploadesFileList').data('request-url', url_getFileList);
-            $('#tblBukkenCommentList').data('request-url', url_getCommentList);
-        }
-
-        function setScreen() {
-            //Set the value of the checkbox
-            $('input[type=checkbox]').each(function () {
-                $(this).prop('checked', $(this).data('dbvalue') == "1").change();
-            });
-
-            //Turn off the file upload function.
-            $('#dragDropArea').hide();
-            $('#btnUpload').prop('disabled', true);
-
-            if (eMode != 'New') {
-                btnSet.hide();
-            }
-            if (eMode == 'Edit') {
-                setAutocomplete('ul[aria-labelledby="KoumutenName"]', url_getKoumutenListItems, txtSitenCD.val());
-            }
-            if (eMode == 'Delete') {
-                setDisabledAll('#main');
-                btnSave.text('削除');
-            }
-        }
-
-        function getNewBukkenNO() {
-
-            if (txtBukkenNO.val() != "") {
-                txtBukkenName.focus();
-                return;
-            }
-
-            if (txtSitenCD.val() == "") {
-                txtSitenCD.focus();
-                return;
-            }
-
-            var ret = calltoApiController(url_getBukkenNO, txtSitenCD.val());
-            if (!ret) {
-                return;
-            }
-            if (ret.MessageID) {
-                showMessage(ret);
-                return;
-            }
-            if (ret.NewBukkenNO) {
-                txtBukkenNO.val(ret.NewBukkenNO);
-                txtBukkenName.focus();
-            }
-        }
-
-        function checkBukkenNO() {
-            if (txtBukkenNO.val() == "") {
-                txtSitenCD.focus();
-                showMessage('E288', function () { txtSitenCD.focus(); });
-                return false;
-            }
-            return true;
-        }
-
-        function btnSaveClick() {
-            var model = {
-                Mode: eMode,
-                BukkenNO: txtBukkenNO.val(),
-                TantouSitenCD: txtSitenCD.val(),
-                BukkenName: txtBukkenName.val(),
-                Juusho: $('#Juusho').val(),
-                KoumutenName: $('#KoumutenName').val(),
-                KakouTubosuu: $('#KakouTubosuu').val(),
-                NoukiMiteiKBN: chkNoukiMitei.is(':checked') ? 1 : 0,
-                Nouki: txtNouki.val(),
-                UnsouKuraireDate: $('#UnsouKuraireDate').val(),
-                KubunCD: $('#KubunCD').val(),
-                TantouEigyouCD: ddlTantouEigyou.val(),
-                TantouPcCD: $('#TantouPcCD').val(),
-                TantouCadCD: $('#TantouCadCD').val(),
-                NyuuryokusakiCD: $('#NyuuryokusakiCD').val(),
-                TokuchuuzaiUmu: $('#TokuchuuzaiUmu').val(),
-                ZairyouNouki: $('#ZairyouNouki').val(),
-                TokuchuuzaiComment: $('#TokuchuuzaiComment').val(),
-                //Page 2.
-                JuchuuDate: $('#JuchuuDate').val(),
-                FusezuTeishutuDate: $('#FusezuTeishutuDate').val(),
-                KakouShouninDate: $('#KakouShouninDate').val(),
-                KidasiDate: $('#KidasiDate').val(),
-                KakousijishoHakkouDate: $('#KakousijishoHakkouDate').val(),
-                KannouDate: $('#KannouDate').val(),
-                CancelDate: $('#CancelDate').val(),
-                KakouNissuu: $('#KakouNissuu').val(),
-                UpdateDatetime: $('#UpdateDatetime').val(),
-                KanamonoCD: $('#KanamonoCD').val(),
-                OukazaiKakou: $('#OukazaiKakou').val(),
-                OukazaiSumi: $('#OukazaiSumi').is(':checked') ? 1 : 0,
-                KabeKakou: $('#KabeKakou').val(),
-                KabeSumi: $('#KabeSumi').is(':checked') ? 1 : 0,
-                HasirazaiKakou: $('#HasirazaiKakou').val(),
-                HasirazaiSumi: $('#HasirazaiSumi').is(':checked') ? 1 : 0,
-                HiuchiKakou: $('#HiuchiKakou').val(),
-                HiuchiSumi: $('#HiuchiSumi').is(':checked') ? 1 : 0,
-                HagarazaiKakou: $('#HagarazaiKakou').val(),
-                HagarazaiSumi: $('#HagarazaiSumi').is(':checked') ? 1 : 0,
-                HagarazaiSuu: $('#HagarazaiSuu').val(),
-                YukaKakou: $('#YukaKakou').val(),
-                YukaSumi: $('#YukaSumi').is(':checked') ? 1 : 0,
-                YukaGouhanShurui: $('#YukaGouhanShurui').val(),
-                YukaGouhanSuu: $('#YukaGouhanSuu').val(),
-                NoziKakou: $('#NoziKakou').val(),
-                NoziSumi: $('#NoziSumi').is(':checked') ? 1 : 0,
-                NoziGouhanShurui: $('#NoziGouhanShurui').val(),
-                NoziGouhanSuu: $('#NoziGouhanSuu').val(),
-                TekakouKakou: $('#TekakouKakou').val(),
-                TekakouSumi: $('#TekakouSumi').is(':checked') ? 1 : 0,
-                TekakouTime: $('#TekakouTime').val(),
-                HundeggerKakou: $('#HundeggerKakou').val(),
-                HundeggerSumi: $('#HundeggerSumi').is(':checked') ? 1 : 0,
-                HundeggerTime: $('#HundeggerTime').val(),
-                //Page 4.
-                BukkenComment: $('#BukkenComment').val(),
-                HiddenUpdateDatetime: $('#HiddenUpdateDatetime').val(),
-                UserID: $('#user-id').text(),
-            };
-
-            var ret = calltoApiController(url_SaveData, model);
-            if (!ret) {
-                return false;
-            }
-            if (ret.MessageID) {
-                showMessage(ret);
-                return false;
-            }
-
-            showMessage(eMode == 'Delete' ? 'I102' : 'I101', function () {
-                if (eMode == 'New') {
-                    window.location.reload();
-                }
-                else {
-                    location.href = url_previousPage;
-                }
-            });
-        }
-
-        //autocomplete ---------->
-        function setAutocomplete(selector, url, key) {
-            var ddl = $(selector);
-            var target = ddl.attr('aria-labelledby');
-            ddl.children().remove();
-
-            if (key != "") {
-                var ret = calltoApiController(url, key);
-                if (!ret) {
-                    return;
-                }
-                if (ret.MessageID) {
-                    showMessage(ret);
-                    return;
-                }
-                ret.forEach(function (item) {
-                    var data = item.DisplayText;
-                    ddl.append('<li class="autocomplete" data-autocomplete="' + data + '" data-target="' + target + '"><a href="#">' + data + '</a></li>');
-                });
-            }
-        }
-        $(document).on('ontouched click', '.autocomplete', function () {
-            var text = $(this).data('autocomplete');
-            var target = $(this).data('target');
-            $('input[name="' + target + '"]').val(text).focus();
-        });
-
-        //upload files ---------->
-        function clearFileInfo() {
-            $('#fileMsg').hide().nextAll().remove();
-            formData = new FormData();
-            fileCount = 0;
-        }
-
-        function sendFileToServer(url, fileData, status, callback) {
-            var jqXHR = $.ajax({
-                xhr: function () {
-                    var xhrobj = $.ajaxSettings.xhr();
-                    if (xhrobj.upload) {
-                        xhrobj.upload.addEventListener('progress', function (event) {
-                            var percent = 0;
-                            var position = event.loaded || event.position;
-                            var total = event.total;
-                            if (event.lengthComputable) {
-                                percent = Math.ceil(position / total * 100);
-                            }
-                            status.setProgress(percent);
-                        }, false);
-                    }
-                    return xhrobj;
-                },
-                url: url,
-                type: "POST",
-                contentType: false,
-                processData: false,
-                cache: false,
-                data: fileData,
-                success: function (result) {
-                    status.setProgress(100);
-                    callback(result);
-                },
-                error: function (err) {
-                    alert(err.statusText);
-                }
-            });
-
-            status.setAbort(jqXHR);
-        }
-
-        function sendMultipleFileToServer(url, fileData, callback) {
-            $.ajax({
-                url: url,
-                type: "POST",
-                contentType: false,
-                processData: false,
-                cache: false,
-                data: fileData,
-                timeout: 600000,
-                headers: {
-                    Authorization: getApiAuthorization(),
-                },
-                success: function (data) {
-                    callback(JSON.parse(data));
-                },
-                error: function (err) {
-                    alert(err.status + ":" + err.statusText);
-                }
-            });
-        }
-
-        function createFileStatusbar() {
-            this.statusbar = $('<div class="statusbar"></div>');
-            this.filename = $('<div class="filename"></div>').appendTo(this.statusbar);
-            this.size = $('<div class="filesize"></div>').appendTo(this.statusbar);
-            //this.progressBar = $('<div class="progressBar"><div></div></div>');.appendTo(this.statusbar);
-            this.remove = $('<div class="remove">削除</div>').appendTo(this.statusbar);
-            //this.abort = $("<div class='abort'>Abort</div>");.appendTo(this.statusbar);
-
-            this.setFileNameSize = function (name, size) {
-                var sizeStr = "";
-                var sizeKB = size / 1024;
-                if (parseInt(sizeKB) > 1024) {
-                    var sizeMB = sizeKB / 1024;
-                    sizeStr = sizeMB.toFixed(2) + " MB";
-                }
-                else {
-                    sizeStr = sizeKB.toFixed(2) + " KB";
-                }
-
-                this.filename.html(name);
-                this.size.html(sizeStr);
-            }
-            this.setRemove = function (key) {
-                var sb = this.statusbar;
-                this.remove.click(function () {
-                    formData.delete(key);
-                    sb.hide();
-                });
-            }
-            //this.setProgress = function (progress) {
-            //    var progressBarWidth = progress * this.progressBar.width() / 100;
-            //    this.progressBar.find('div').animate({ width: progressBarWidth }, 10).html(progress + "% ");
-            //    if (parseInt(progress) >= 100) {
-            //        this.abort.hide();
-            //    }
-            //}
-            //this.setAbort = function (jqxhr) {
-            //    var sb = this.statusbar;
-            //    this.abort.click(function () {
-            //        jqxhr.abort();
-            //        sb.hide();
-            //    });
-            //}
-        }
-        function dropFiles(files, obj) {
-            for (var i = 0; i < files.length; i++) {
-                fileCount++;
-                var key = 'file' + fileCount.toString();
-                formData.append(key, files[i]); 
-
-                var status = new createFileStatusbar();
-                obj.after(status.statusbar);
-                status.setFileNameSize(files[i].name, files[i].size);
-                status.setRemove(key);
-                //var fd = new FormData();
-                //fd.append('file', files[i]);
-                //sendFileToServer(fd, status);
-            }
-        }
-
-        $('#dragDropArea').on('dragenter', function (e) {
-            e.stopPropagation();
-            e.preventDefault();
-            $(this).addClass('selected');
-        }).on('dragover', function (e) {
-            e.stopPropagation();
-            e.preventDefault();
-            $(this).addClass('selected');
-        }).on('dragover', function (e) {
-            e.stopPropagation();
-            e.preventDefault();
-            $(this).addClass('selected');
-        }).on('dragleave', function (e) {
-            e.stopPropagation();
-            e.preventDefault();
-            $(this).removeClass('selected');
-        }).on('drop', function (e) {
-            e.preventDefault();
-            var obj = $('#fileMsg').hide();
-            var files = e.originalEvent.dataTransfer.files;
-            dropFiles(files, obj);
-            $(this).removeClass('selected');
-        });
-
-        $('#inputFile').on('change', function (e) {
-            var obj = $('#fileMsg').hide();
-            var files = $(this).prop('files')
-            dropFiles(files, obj);
-            $(this).val(null);
-        });
+        var dragDropArea = $('#dragDropArea');
 
 
-        //----------------------->
         $(document).ready(function () {
             addEvents();
             addValidate();
@@ -1096,7 +675,6 @@
             }
 
         });
-
 
     </script>
 }

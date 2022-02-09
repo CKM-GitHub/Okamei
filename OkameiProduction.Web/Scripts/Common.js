@@ -72,15 +72,14 @@ function querySerialize(data) {
     return '?' + encodeURI(query);
 };
 
-function bindDataTables(table, dispLength) {
+function bindDataTables(table, option) {
     var t = $(table);
 
-    t.DataTable({
+    var obj = {
         "language": {
             "url": "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
         },
-        //lengthMenu: [],
-        displayLength: dispLength ? dispLength : 20,
+        displayLength: 20,
         paging: true,
         scrollX: true,
         scrollY: false,
@@ -88,15 +87,21 @@ function bindDataTables(table, dispLength) {
         ordering: false,
         lengthChange: false,
         autowidth: false,
+        destroy: true,
         dom: "<'row'<'col-sm-12'l>>" +
             "<'row'<'col-sm-12'f>>" +
             "<'row'<'col-sm-12'i>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-12'p>>",
-        drawCallback: function () { $('.listTable-wrapper').removeClass('hidden'); }
-    });
+    };
 
-    return t;
+    if (option) {
+        for (key in option) {
+            obj[key] = option[key];
+        }
+    }
+
+    return t.DataTable(obj);
 }
 
 function calltoApiController(url, model) { 
@@ -115,12 +120,53 @@ function calltoApiController(url, model) {
         success: function (data) {
             result = JSON.parse(data);
         },
-        error: function (data) {
-            alert(data.status + ":" + data.statusText);
+        error: function (data, ajaxOption, terror) {
+            alert(data.status + ":" + data.statusText + ":" + terror);
         }
     });
     return result;
 }
+
+function callSendFileToServer(url, fileData, progresscall, callback, callbackerror) {
+    var obj = {
+        url: url,
+        type: "POST",
+        contentType: false,
+        processData: false,
+        cache: false,
+        data: fileData,
+        timeout: 600000,
+        headers: {
+            Authorization: getApiAuthorization(),
+        },
+        success: function (data) {
+            if (callback) callback(JSON.parse(data));            
+        },
+        error: function (err) {
+            alert(err.status + ":" + err.statusText);
+            if (callbackerror) callbackerror();
+        }
+    };
+    if (progresscall) {
+        obj.xhr = function () {
+            var xhrobj = $.ajaxSettings.xhr();
+            if (xhrobj.upload) {
+                xhrobj.upload.addEventListener('progress', function (event) {
+                    var percent = 0;
+                    var position = event.loaded || event.position;
+                    var total = event.total;
+                    if (event.lengthComputable) {
+                        percent = parseInt(position / total * 10000) / 100;
+                    }
+                    progresscall(percent);
+                }, false);
+            }
+            return xhrobj;
+        }
+    }
+    var jqXHR = $.ajax(obj);
+}
+
 function getApiAuthorization() {
     return 'Basic ' + btoa('ogUzkq=EopiYA,U33yzf' + ':' + 'e>gW0BXP85@7-#*~k1@a');
 }
