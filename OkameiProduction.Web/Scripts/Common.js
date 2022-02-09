@@ -127,7 +127,7 @@ function calltoApiController(url, model) {
     return result;
 }
 
-function sendFileToServer(url, fileData, progresscall, callback, callbackerror) {
+function callSendFileToServer(url, fileData, progresscall, callback, callbackerror) {
     var obj = {
         url: url,
         type: "POST",

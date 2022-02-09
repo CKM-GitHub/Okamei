@@ -29,6 +29,9 @@ function addEvents() {
         setDropDownList('#TantouEigyouCD', url_getTantouEigyouListItems, key);
         //setDropDownList('#KoumutenName', url_getKoumutenListItems, key);
         setAutocomplete('ul[aria-labelledby="KoumutenName"]', url_getKoumutenListItems, key);
+        if (eMode == 'New') {
+            txtBukkenNO.val("");
+        }
     });
 
     chkNoukiMitei.change(function () {
@@ -42,17 +45,17 @@ function addEvents() {
     $('input[name="UpFileOption"]:radio').change(function () {
         var val = $(this).val();
         if (!val || val == "8") {
-            $('#dragDropArea').addClass('close');
+            dragDropArea.addClass('close');
         }
     });
 
     $('#btnUpload').click(function () {
         var shurui = $('input[name="UpFileOption"]:radio:checked').val();
         if (!checkBukkenNO() || shurui == "8") {
-            $('#dragDropArea').addClass('close');
+            dragDropArea.addClass('close');
             return;
         }
-        $('#dragDropArea').toggleClass('close');
+        dragDropArea.toggleClass('close');
     });
 
     $('input[name="DownFileOption"]:radio').change(function () {
@@ -61,6 +64,25 @@ function addEvents() {
 
     $('#btnDownload').click(function () {
         downloadFiles();
+    });
+
+    $('#BukkenComment').keydown(function (e) {
+        var c = e.which ? e.which : e.keyCode;
+        if (c == 13) {
+            var model = {
+                BukkenNO: txtBukkenNO.val(),
+                BukkenComment: $(this).val(),
+                UserID: $('#user-id').text()
+            }
+            var result = calltoApiController(url_SaveBukkenComment, model);
+            if (!result) return;
+            if (result.MessageID) {
+                showMessage(result);
+                return;
+            }
+            $(this).val("");
+            showBukkenCommentTable();
+        }
     });
 
     //jquery on ---------->
@@ -149,6 +171,7 @@ function setScreen() {
 
     if (eMode != 'New') {
         btnSet.hide();
+        txtSitenCD.removeClass('size39').addClass('size50');
     }
     if (eMode == 'Edit') {
         setAutocomplete('ul[aria-labelledby="KoumutenName"]', url_getKoumutenListItems, txtSitenCD.val());
@@ -170,9 +193,6 @@ function showBukkenFileTable() {
         showMessage(data);
         return;
     }
-    //if (data.length == 0) {
-    //    return;
-    //}
 
     var option = {};
 
@@ -217,9 +237,6 @@ function showBukkenCommentTable() {
         showMessage(data);
         return;
     }
-    //if (data.length == 0) {
-    //    return;
-    //}
 
     var option = {};
 
@@ -433,18 +450,22 @@ function sendFileToServer(fileData, status) {
     fileData.append('BukkenFileShurui', $('input[name="UpFileOption"]:radio:checked').val());
     fileData.append('UserID', $('#user-id').text());
 
-    sendFileToServer(url_uploadFiles, fileData,
+    callSendFileToServer(url_uploadFiles, fileData,
         function (percent) {
             status.setProgress(percent);
         },
         function (result) {
+            clearFileInfo();
+
             if (!result) return;
             if (result.MessageID) {
                 showMessage(result);
                 return;
             }
-            clearFileInfo();
             showBukkenFileTable();
+        },
+        function () {
+            clearFileInfo();
         });
 }
 
