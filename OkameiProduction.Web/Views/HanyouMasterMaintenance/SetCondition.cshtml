@@ -12,9 +12,8 @@
             <label class="col-form-label label-title pk require">ID</label>
         </div>
         <div class="col-sm-10 form-inline">
-            <input type="text" class="form-control size3" maxlength="3" id="ID" name="ID" />
+            <input type="text" class="form-control size3" maxlength="3" id="ID" name="ID" />&nbsp;&nbsp;
             <span id="IDName">
-                &nbsp;&nbsp;ああああああああああいいいいいいいいいい
             </span>
         </div>
     </div>
@@ -163,11 +162,14 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-            debugger;
             var Mode = '@Model.Mode';
             $('#btnReturn').click(function () {
                 showConfirmMessage("Q004", function () {
-                    location.href = '@Url.Action("DisplayResult","HanyouKensaku")?ID=' + $("#ID").val();
+                    if (Mode == "New") {
+                        window.location.reload();
+                    }
+                    else
+                        location.href = '@Url.Action("DisplayResult","HanyouKensaku")?ID=' + $("#ID").val();
                 });
             });
 
@@ -202,6 +204,43 @@
 
             if (Mode == "New") {
                 $("#ID").focus();
+
+                $('#ID').keydown(function (e) {
+                    if (e.keyCode == 13 || e.keyCode == 9) {
+                        var model = {
+                            ID_val: $('#ID').val().trim(),
+                            Key: 'ID_Check'
+                        }
+                        var result = calltoApiController('@Url.Action("CheckModifiedData", "api/HanyouMasterMaintenanceApi")', model);
+                        if (!result) {
+                            return false;
+                        }
+                        if (result.MessageID) {
+                            showMessage(result);
+                            return false;
+                        }
+                        else
+                            $('#IDName').html(result[0].IDName);
+                    }
+                });
+
+                $('#Key').keydown(function (e) {
+                    debugger;
+                    if (e.keyCode == 13 || e.keyCode == 9) {
+                        var model = {
+                            ID_val: $('#ID').val().trim(),
+                            Key: $('#Key').val().trim()
+                        }
+                        var result = calltoApiController('@Url.Action("CheckModifiedData", "api/HanyouMasterMaintenanceApi")', model);
+                        if (!result) {
+                            return false;
+                        }
+                        if (result.MessageID) {
+                            showMessage(result);
+                            return false;
+                        }
+                    }
+                });
             }
             else if (Mode == "Edit") {
                 var model = {
@@ -240,7 +279,7 @@
                 $("#Date3").attr('disabled', 'disabled');
                 $("#Date4").attr('disabled', 'disabled');
                 $("#Date5").attr('disabled', 'disabled');
-                $("#btnProcess").focus();
+                $("#btnReturn").focus();
             }
         });
 

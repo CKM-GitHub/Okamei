@@ -8,6 +8,16 @@ namespace OkameiProduction.BL
 {
     public class HanyouMasterMaintenanceBL
     {
+        public DataTable GetIDDataResult(HanyouMasterMaintenanceModel model)
+        {
+            SqlParameter[] sqlParams = new SqlParameter[1];
+            sqlParams[0] = new SqlParameter("@ID", SqlDbType.VarChar) { Value = model.ID_val.ToStringOrNull() };
+
+            DBAccess db = new DBAccess();
+            var dt = db.SelectDatatable("M_MultiPorpose_SelectByID", sqlParams);
+            return dt;
+        }
+
         public DataTable GetDataResult(HanyouMasterMaintenanceModel model)
         {
             SqlParameter[] sqlParams = new SqlParameter[2];
@@ -18,6 +28,7 @@ namespace OkameiProduction.BL
             var dt = db.SelectDatatable("M_MultiPorpose_SelectByIDKey", sqlParams);
             return dt;
         }
+
         public bool ModifyData(HanyouMasterMaintenanceModel model)
         {
             SqlParameter[] sqlParams = new SqlParameter[20];

@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Data;
+using System.Web.Http;
 using Models;
 using OkameiProduction.BL;
 
@@ -7,18 +8,35 @@ namespace OkameiProduction.Web.Controllers
     public class HanyouMasterMaintenanceApiController : BaseApiController
     {
         [HttpPost]
-        public string CheckDataResult([FromBody] HanyouMasterMaintenanceModel model)
+        public string CheckModifiedData([FromBody] HanyouMasterMaintenanceModel model)
         {
             if (model == null) return GetBadRequestResult();
 
             var bl = new HanyouMasterMaintenanceBL();
-            if (bl.GetDataResult(model).Rows.Count > 0)
+            DataTable dt;
+            if (model.Key == "ID_Check")
             {
-                return GetSuccessResult();
+                dt = bl.GetIDDataResult(model);
+                if (dt.Rows.Count > 0)
+                {
+                    return DataTableToJSON(dt);
+                }
+                else
+                {
+                    return GetErrorResult("E101");
+                }
             }
             else
             {
-                return GetErrorResult("S013");
+                dt = bl.GetDataResult(model);
+                if (dt.Rows.Count > 0)
+                {
+                    return GetErrorResult("E107");
+                }
+                else
+                {
+                    return GetSuccessResult();
+                }
             }
         }
 
