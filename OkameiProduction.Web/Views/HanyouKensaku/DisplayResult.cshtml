@@ -48,12 +48,13 @@
     {
         <div class="form-group row">
             <div class="col-sm-2">
-                <label class="col-form-label label-title">ID名＊</label>
+                <label class="col-form-label label-title require">ID名</label>
             </div>
             <div class="col-sm-10">
                 @Html.DropDownListFor(
                 model => model.ID,
                 new SelectList(Model.IDSelectList, "Value", "DisplayText"),
+                "",
                 new { @class = "form-control size50" })
             </div>
         </div>
