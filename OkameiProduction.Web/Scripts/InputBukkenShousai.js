@@ -384,6 +384,8 @@ function btnSaveClick() {
         HundeggerKakou: $('#HundeggerKakou').val(),
         HundeggerSumi: $('#HundeggerSumi').is(':checked') ? 1 : 0,
         HundeggerTime: $('#HundeggerTime').val(),
+        //Page 3.
+        BukkenFileShurui: $('input[name="UpFileOption"]:radio:checked').val(),
         //Page 4.
         BukkenComment: $('#BukkenComment').val(),
         HiddenUpdateDatetime: $('#HiddenUpdateDatetime').val(),
@@ -500,7 +502,10 @@ function downloadFiles() {
         rowcsv += $(this).data('bukkenfilerows') + ",";
     });
 
-    if (rowcsv == "") return;
+    if (rowcsv == "") {
+        showMessage('E289');
+        return;
+    }
 
     var model = {
         BukkenNO: txtBukkenNO.val(),

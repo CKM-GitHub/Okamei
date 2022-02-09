@@ -63,6 +63,7 @@ namespace Models
         public byte HundeggerSumi { get; set; }
         public string HundeggerTime { get; set; }
         //Page 3.
+        public byte BukkenFileShurui { get; set; }
         //Page 4.
         public string BukkenComment { get; set; }
         public string HiddenUpdateDatetime { get; set; }

@@ -83,6 +83,7 @@
     <Content Include="Database\StoredProcedure\HanyouKensaku_SelectDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\HiuchiItiran_SelectDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\HundeggerItiran_SelectDisplayResult.sql" />
+    <Content Include="Database\StoredProcedure\InputBukkenShousai_SendMail.sql" />
     <Content Include="Database\StoredProcedure\InputBukkenShousai_CreateBukkenComment.sql" />
     <Content Include="Database\StoredProcedure\InputBukkenShousai_CreateBukkenFile.sql" />
     <Content Include="Database\StoredProcedure\InputBukkenShousai_DeleteBukkenFile.sql" />

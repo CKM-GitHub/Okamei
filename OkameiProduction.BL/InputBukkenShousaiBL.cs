@@ -279,5 +279,18 @@ namespace OkameiProduction.BL
                 return false;
             }
         }
+
+        public bool SendMail(InputBukkenShousaiModel model)
+        {
+            SqlParameter[] sqlParams = new SqlParameter[3];
+            sqlParams[0] = new SqlParameter("@BukkenNO", SqlDbType.VarChar) { Value = model.BukkenNO.ToStringOrNull() };
+            sqlParams[1] = new SqlParameter("@BukkenName", SqlDbType.VarChar) { Value = model.BukkenName.ToStringOrNull() };
+            sqlParams[2] = new SqlParameter("@BukkenFileShurui", SqlDbType.TinyInt) { Value = model.BukkenFileShurui.ToByte(8) };
+
+            DBAccess db = new DBAccess();
+            var dt = db.SelectDatatable("InputBukkenShousai_SendMail", sqlParams);
+
+            return true;
+        }
     }
 }

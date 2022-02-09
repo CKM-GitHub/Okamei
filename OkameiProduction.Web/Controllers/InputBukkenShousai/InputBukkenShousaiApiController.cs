@@ -107,10 +107,12 @@ namespace OkameiProduction.Web.Controllers
             {
                 return GetErrorResult(msgid);
             }
-            else
+
+            if (model.BukkenFileShurui == 1 || model.BukkenFileShurui == 3 || model.BukkenFileShurui == 4)
             {
-                return GetSuccessResult();
+                bl.SendMail(model);
             }
+            return GetSuccessResult();
         }
 
         [HttpPost]
