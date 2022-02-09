@@ -174,7 +174,7 @@ function calltoApiController_FileDownLoadHandle(url, model) {
             }
         },
         error: function (data, ajaxOption, terror) {
-            alert(data.status + ":" + data.statusText + ":" + terror); 
+           // alert(data.status + ":" + data.statusText + ":" + terror); 
         }
     });
     return result;
