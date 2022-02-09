@@ -31,7 +31,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
         {
             return View();
         }
-        public ActionResult Hiuchi()
+        public ActionResult SetCondition()
         {
             var vm = new HiuchiItiranModel(); 
             ViewBag.ServerDate = DateTime.Now.ToString(DateTimeFormat.yyyyMMdd);
@@ -55,45 +55,57 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
             ViewBag.Data = dt;
 
             return View(vm);
-        }
-
+        } 
+        //Work in IDM of some PCs
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Export()
-        {
+        public void Export()
+        { 
+            try
+            {
 
-            Response.Buffer = true;
-            Response.ContentType = "application/pdf";
-            Response.AppendHeader("Content-Disposition", "attachment; filename=MyFile.pdf");
-            Response.TransmitFile(Server.MapPath("~/output/project/") + "123.txt");
-            Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            Response.Flush();
-            Response.End();
-            return DisplayResult();
+                Response.Buffer = true;
+                Response.ContentType = "application/OCTET-STREAM";
+                Response.AddHeader("Access-Control-Allow-Methods", "GET, POST,PUT");
+
+                Response.AppendHeader("Content-Disposition", "attachment; filename=123.txt");
+                Response.TransmitFile(Server.MapPath("~/output/project/") + "123.txt");
+                Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                Response.Flush();
+                Response.End(); 
+            }
+            catch (System.Exception e) 
+            { 
+            }
         }
-
+        //PTK 2022/02/09
+        //Concerning with Download it shoud simply work in controller or ApiController by giving response with anytype of trsmittedfile/Outputstream/releasing 
+        //But It dont work well in all PC, some PC work and but some dont. 
+        //I think may be some of leakage dependecy might affect in releasing response. May be I insuffciently researched. 
+        //::::::: (I consumed 2 days in here downloading part although I have done many download sections in some projects So. . . 
+        //:::::::I decided to work with Ajax response(Controller + APIcontroller+ Ajax). Then Okhayed ) 
         [HttpPost]
-        public ActionResult ExportHiuchiPdf(HiuchiItiranModel model)
+        public void ExportHiuchiPdf(HiuchiItiranModel model)
         {
             var vm = GetFromQueryString<HiuchiItiranModel>();
             var bl = new HiuchiItiranBL();
-            var dt = bl.GetDisplayResult(vm);
-
+            var dt = bl.GetDisplayResult(vm); 
             dt = dt.Select(" BukkenNo = '" + model.TantouSitenCD.Split('_')[1].ToString() + "' and BukkenName ='" + model.TantouSitenCD.Split('_')[2].ToString() + "' and SouName = '" + model.TantouSitenCD.Split('_')[3].ToString() + "'").CopyToDataTable();
             var fbname = model.TantouSitenCD.Split('_')[2].ToString(); 
             PDF_Font font_Class = new PDF_Font();
-            string font_folder = Server.MapPath("~/fonts/");
+            //System.Web.Hosting.HostingEnvironment.MapPath("~/output/project/123.txt");
+            string font_folder = System.Web.Hosting.HostingEnvironment.MapPath("~/fonts/");
             Font font_Header = font_Class.CreateJapaneseFontHeader(font_folder);
             Font font = font_Class.CreateJapaneseFont(font_folder,35);
             Font font_Color = font_Class.CreateJapaneseFont_Color(font_folder);
             if (!Directory.Exists("~/output"))
-                Directory.CreateDirectory(Server.MapPath("~/output"));
+                Directory.CreateDirectory(System.Web.Hosting.HostingEnvironment.MapPath("~/output"));
             if (!Directory.Exists("~/output/project"))
-                Directory.CreateDirectory(Server.MapPath("~/output/project"));
+                Directory.CreateDirectory(System.Web.Hosting.HostingEnvironment.MapPath("~/output/project"));
             var doc1 = new iTextSharp.text.Document();
             #region DocSet
             doc1.SetPageSize(PageSize.A4.Rotate());
-                        string path = Server.MapPath("~/output/project");
+                        string path = System.Web.Hosting.HostingEnvironment.MapPath("~/output/project");
                         string FileName = "火打ラベル_" + fbname + ".pdf";
                         var mstr = new FileStream(path + @"/" + FileName, FileMode.Create); 
                         var writer = PdfWriter.GetInstance(doc1, mstr);
@@ -268,16 +280,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
 
             #endregion
 
-            Response.Buffer = true;
-            Response.ContentType = "application/pdf";
-            Response.AppendHeader("Content-Disposition", "attachment; filename=MyFile.pdf");
-            Response.TransmitFile( Server.MapPath("~/output/project/") + FileName);
-            Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            //Response.Flush();
-            Response.End();
-
-            ViewBag.Data = dt;
-            return DisplayResult();
+          
         }
         public   byte[] ReadFully(Stream input)
         {
@@ -304,6 +307,8 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
             Font font = new iTextSharp.text.Font(baseFT, 13, Font.BOLD);
             return null;
         }  
+
+        //May work in IDM 
         private void DownloadFile(string pth)
         {
             HttpContext.Response.AddHeader("Access-Control-Allow-Origin", "*");

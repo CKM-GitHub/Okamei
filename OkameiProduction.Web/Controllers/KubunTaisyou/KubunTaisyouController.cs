@@ -14,7 +14,7 @@ namespace OkameiProduction.Web.Controllers.KubunTaisyou
             return View();
         }
 
-        public ActionResult Classification()
+        public ActionResult SetCondition()
         {
             var vm = new KubunTaisyouModel();
             SetDropDownListItems(vm);

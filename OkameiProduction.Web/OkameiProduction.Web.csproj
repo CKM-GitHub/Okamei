@@ -404,7 +404,7 @@
     <Content Include="Scripts\lib\popper.min.js.map" />
     <Content Include="Scripts\lib\README.md" />
     <Content Include="Scripts\lib\tilt.jquery.js.map" />
-    <Content Include="Views\KubunTaisyou\Classification.cshtml" />
+    <Content Include="Views\KubunTaisyou\SetCondition.cshtml" />
     <Content Include="Views\KubunTaisyou\DisplayResult.cshtml" />
     <Content Include="Views\MoulderItiran\DisplayResult.cshtml" />
     <Content Include="Views\MoulderItiran\SetCondition.cshtml" />
@@ -413,7 +413,7 @@
     <Content Include="Views\HanyouKensaku\DisplayResult.cshtml" />
     <Content Include="Views\HundeggerItiran\DisplayResult.cshtml" />
     <Content Include="Views\HundeggerItiran\SetCondition.cshtml" />
-    <Content Include="Views\HiuchiItiran\Hiuchi.cshtml" />
+    <Content Include="Views\HiuchiItiran\SetCondition.cshtml" />
     <Content Include="Views\HiuchiItiran\DisplayResult.cshtml" />
     <Content Include="Views\CadStaffMitei\DisplayResult.cshtml" />
     <Content Include="Views\CadStaffMitei\SetCondition.cshtml" />

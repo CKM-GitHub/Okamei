@@ -23,6 +23,7 @@ namespace Models
         public string BukkenName { get; set; }
         public string KoumutenName { get; set; }
         public int TokuchuuzaiUmu { get; set; }
+        public string FileName { get; set; }
         public IEnumerable<DropDownListItem> TantouSitenDropDownListItems { get; set; }
         public IEnumerable<DropDownListItem> TantouEigyouDropDownListItems { get; set; }
         public IEnumerable<DropDownListItem> TantouPcDropDownListItems { get; set; }
