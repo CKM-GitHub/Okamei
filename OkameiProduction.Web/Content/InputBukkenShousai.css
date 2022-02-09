@@ -84,6 +84,7 @@ input[type="checkbox"] {
     padding-bottom: 4px;
     white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .table thead {
@@ -117,10 +118,14 @@ div.dataTables_scrollBody > table > tbody tr td {
     max-width: 120px;
 }
 
-.table .BukkenFileName,
+.table .BukkenFileName {
+    min-width: 700px;
+    max-width: 700px;
+}
+
 .table .BukkenComment {
-    min-width: 600px;
-    max-width: 600px;
+    min-width: 882px;
+    max-width: 882px;
 }
 
 .table .InsertOperator {
@@ -221,7 +226,7 @@ div.dataTables_scrollBody > table > tbody tr td {
         height: 100%;
         color: #fff;
         text-align: right;
-        line-height: 22px; /* same as #progressBar height */
+        line-height: 22px; /* same as progressBar height */
         width: 0;
         background-color: #0ba1b5;
         border-radius: 5px;

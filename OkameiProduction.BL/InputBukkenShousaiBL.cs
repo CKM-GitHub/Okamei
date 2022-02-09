@@ -52,11 +52,11 @@ namespace OkameiProduction.BL
             return dt;
         }
 
-        public DataTable GetBukkenFileName(InputBukkenShousaiBukkenFileModel model)
+        public DataTable GetBukkenFileName(string bukkenNO, string bukkenFileRowsCsv)
         {
             SqlParameter[] sqlParams = new SqlParameter[] {
-                new SqlParameter("@BukkenNO", SqlDbType.VarChar) { Value = model.BukkenNO.ToStringOrNull() },
-                new SqlParameter("@BukkenFileRows", SqlDbType.TinyInt) { Value = model.BukkenFileRows.ToInt32(0) }
+                new SqlParameter("@BukkenNO", SqlDbType.VarChar) { Value = bukkenNO.ToStringOrNull() },
+                new SqlParameter("@BukkenFileRowsCsv", SqlDbType.VarChar) { Value = bukkenFileRowsCsv.ToStringOrNull() }
             };
 
             DBAccess db = new DBAccess();
@@ -278,6 +278,19 @@ namespace OkameiProduction.BL
                 msgid = "S004"; //他端末エラー
                 return false;
             }
+        }
+
+        public bool SendMail(InputBukkenShousaiModel model)
+        {
+            SqlParameter[] sqlParams = new SqlParameter[3];
+            sqlParams[0] = new SqlParameter("@BukkenNO", SqlDbType.VarChar) { Value = model.BukkenNO.ToStringOrNull() };
+            sqlParams[1] = new SqlParameter("@BukkenName", SqlDbType.VarChar) { Value = model.BukkenName.ToStringOrNull() };
+            sqlParams[2] = new SqlParameter("@BukkenFileShurui", SqlDbType.TinyInt) { Value = model.BukkenFileShurui.ToByte(8) };
+
+            DBAccess db = new DBAccess();
+            var dt = db.SelectDatatable("InputBukkenShousai_SendMail", sqlParams);
+
+            return true;
         }
     }
 }

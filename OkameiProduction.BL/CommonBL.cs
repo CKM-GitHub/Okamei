@@ -58,16 +58,10 @@ namespace OkameiProduction.BL
             return options;
         }
 
-        public DataTable GetMultiPorpose(EMultiPorpose id, string key)
+        public DataTable GetMControl()
         {
-            var options = new List<DropDownListItem>();
-
-            SqlParameter[] sqlParams = new SqlParameter[2];
-            sqlParams[0] = new SqlParameter("@ID", SqlDbType.Int) { Value = (int)id };
-            sqlParams[1] = new SqlParameter("@Key", SqlDbType.VarChar) { Value = key };
-
             DBAccess db = new DBAccess();
-            return db.SelectDatatable("M_MultiPorpose_SelectByIDKey", sqlParams);
+            return db.SelectDatatable("M_Control_Select", null);
         }
 
 

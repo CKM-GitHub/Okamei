@@ -48,10 +48,15 @@ namespace OkameiProduction.BL
             }
         }
 
-        public static void SetMultiPorposeInfo()
+        public static void SetMControl()
         {
             CommonBL bl = new CommonBL();
-            UploadedFilePath = @"c:\Okamei\TempFile\"; //bl.GetMultiPorpose(EMultiPorpose., "");
+            var dt = bl.GetMControl();
+            if (dt.Rows.Count > 0)
+            {
+                var control = dt.Rows[0].ToEntity<MControl>();
+                UploadedFilePath = control.TenpuFilePass;
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
@@ -103,6 +104,24 @@ namespace OkameiProduction.Web.Controllers
             if (model.Mode == EMode.Delete) result = bl.DeleteBukkenAll(model, out msgid);
 
             if (!result)
+            {
+                return GetErrorResult(msgid);
+            }
+
+            if (model.BukkenFileShurui == 1 || model.BukkenFileShurui == 3 || model.BukkenFileShurui == 4)
+            {
+                bl.SendMail(model);
+            }
+            return GetSuccessResult();
+        }
+
+        [HttpPost]
+        public string SaveBukkenComment([FromBody] InputBukkenShousaiBukkenCommentModel model)
+        {
+            if (model == null) return GetBadRequestResult();
+
+            var bl = new InputBukkenShousaiBL();
+            if (!bl.CreateBukkenComment(model, out string msgid))
             {
                 return GetErrorResult(msgid);
             }

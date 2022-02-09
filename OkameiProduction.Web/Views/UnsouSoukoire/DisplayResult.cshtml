@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "CadStaffMiteiList";
+    ViewBag.Title = "UnsouSoukoireList";
 }
 
 <style>
@@ -12,65 +12,65 @@
         white-space: nowrap;
     }
 
-    #tblCadStaffMitei tbody td {
+    #tblUnsouSoukoire tbody td {
         padding-top: 2px;
         padding-bottom: 2px;
     }
-    #tblCadStaffMitei .JuchuuDate {
-        min-width: 50px;
+    #tblUnsouSoukoire .UnsouKuraireDate{
+        min-width:50px;
+    }
+    #tblUnsouSoukoire .BukkenNO {
     }
 
-    #tblCadStaffMitei .Nouki {
-        min-width: 50px;
-    }
-
-    #tblCadStaffMitei .BukkenNO {
-    }
-
-    #tblCadStaffMitei .BukkenName {
+    #tblUnsouSoukoire .BukkenName {
         min-width: 140px;
     }
 
-    #tblCadStaffMitei .KoumutenName {
+    #tblUnsouSoukoire .KoumutenName {
         min-width: 262px;
     }
-
-    #tblCadStaffMitei .KakouTubosuu {
-        text-align: right;
+    #tblUnsouSoukoire .KakouTubosuu {
     }
 
-    #tblCadStaffMitei .TantouSitenName {
-        min-width: 54px;
-    }
-
-    #tblCadStaffMitei .TantouEigyouName {
-        min-width: 54px;
-    }
-    #tblCadStaffMitei .KanamonName {
+    #tblUnsouSoukoire .TantouSitenName {
         min-width: 70px;
     }
-    table th:nth-child(3), th:nth-child(5), th:nth-child(6) {
-        text-align: center;
+    #tblUnsouSoukoire .TantouEigyouName {
+        min-width: 54px;
+    }
+    #tblUnsouSoukoire .TantouPcName {
+        min-width: 54px;
+    }
+    #tblUnsouSoukoire .TantouCadName {
+        min-width: 54px;
+    }
+    #tblUnsouSoukoire .Nouki {
+        min-width: 50px;
+    }
+    #tblUnsouSoukoire .KanamonName {
+        min-width: 70px;
     }
     td, th {
-        font-size: 14px ;
+        font-size: 14px;
     }
     
 </style>
 
-<h4>CAD担当者未定物件</h4>
+<h4>運送会社倉庫入物件</h4>
 <div id="main" class="main-content">
-    <table class='table table-bordered'  id="tblCadStaffMitei">
+    <table class='table table-bordered'  id="tblUnsouSoukoire">
         <thead>
             <tr>
-                <th>受注日</th>
-                <th>納期</th>
+                <th>倉庫入</th>
                 <th>物件番号</th>
                 <th>物件名</th>
                 <th>工務店</th>
                 <th>坪数</th>
                 <th>支店</th>
                 <th>営業</th>
+                <th>サポ</th>
+                <th>CAD</th>
+                <th>現場納期</th>
                 <th>金物</th>
             </tr>
         </thead>
@@ -119,10 +119,10 @@
         $(document).ready(function () {
 
             $('#btnReturn').click(function () {
-                location.href = '@Url.Action("SetCondition", "CadStaffMitei")';
+                location.href = '@Url.Action("SetCondition", "UnsouSoukoire")';
             });
 
-            bindDataTables($('#tblCadStaffMitei'));
+            bindDataTables($('#tblUnsouSoukoire'));
         });
 
     </script>

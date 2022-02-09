@@ -13,7 +13,7 @@
         </div>
         <div class="col-sm-10 form-inline">
             <input type="text" class="form-control size3" maxlength="3" id="ID" name="ID" />
-            <span id="id_name">
+            <span id="IDName">
                 &nbsp;&nbsp;ああああああああああいいいいいいいいいい
             </span>
         </div>
@@ -163,10 +163,11 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-
+            debugger;
+            var Mode = '@Model.Mode';
             $('#btnReturn').click(function () {
                 showConfirmMessage("Q004", function () {
-                    window.location.reload();
+                    location.href = '@Url.Action("DisplayResult","HanyouKensaku")?ID=' + $("#ID").val();
                 });
             });
 
@@ -198,14 +199,78 @@
             setDoubleByteValidate('#Char3');
             setDoubleByteValidate('#Char4');
             setDoubleByteValidate('#Char5');
+
+            if (Mode == "New") {
+                $("#ID").focus();
+            }
+            else if (Mode == "Edit") {
+                var model = {
+                    ID_val: '@Model.ID_val',
+                    Key: '@Model.Key'
+                }
+                var result = calltoApiController('@Url.Action("GetDataResult", "api/HanyouMasterMaintenanceApi")', model);
+                BindData(result);
+
+                $("#ID").attr('disabled', 'disabled');
+                $("#Key").attr('disabled', 'disabled');
+                $("#Char1").focus();
+            }
+            else if (Mode == "Delete") {
+                var model = {
+                    ID_val: '@Model.ID_val',
+                    Key: '@Model.Key'
+                }
+                var result = calltoApiController('@Url.Action("GetDataResult", "api/HanyouMasterMaintenanceApi")', model);
+                BindData(result);
+
+                $("#ID").attr('disabled', 'disabled');
+                $("#Key").attr('disabled', 'disabled');
+                $("#Char1").attr('disabled', 'disabled');
+                $("#Char2").attr('disabled', 'disabled');
+                $("#Char3").attr('disabled', 'disabled');
+                $("#Char4").attr('disabled', 'disabled');
+                $("#Char5").attr('disabled', 'disabled');
+                $("#Num1").attr('disabled', 'disabled');
+                $("#Num2").attr('disabled', 'disabled');
+                $("#Num3").attr('disabled', 'disabled');
+                $("#Num4").attr('disabled', 'disabled');
+                $("#Num5").attr('disabled', 'disabled');
+                $("#Date1").attr('disabled', 'disabled');
+                $("#Date2").attr('disabled', 'disabled');
+                $("#Date3").attr('disabled', 'disabled');
+                $("#Date4").attr('disabled', 'disabled');
+                $("#Date5").attr('disabled', 'disabled');
+                $("#btnProcess").focus();
+            }
         });
+
+        function BindData(result) {
+            $('#ID').val(result[0].ID);
+            $('#Key').val(result[0].Key);
+            $('#IDName').html(result[0].IDName);
+            $('#Char1').val(result[0].Char1);
+            $('#Char2').val(result[0].Char2);
+            $('#Char3').val(result[0].Char3);
+            $('#Char4').val(result[0].Char4);
+            $('#Char5').val(result[0].Char5);
+            $('#Num1').val(result[0].Num1);
+            $('#Num2').val(result[0].Num2);
+            $('#Num3').val(result[0].Num3);
+            $('#Num4').val(result[0].Num4);
+            $('#Num5').val(result[0].Num5);
+            $('#Date1').val(result[0].Date1);
+            $('#Date2').val(result[0].Date2);
+            $('#Date3').val(result[0].Date3);
+            $('#Date4').val(result[0].Date4);
+            $('#Date5').val(result[0].Date5);
+        }
 
         function btnProcess() {
             var model =
             {
-                ID: $('#ID').val(),
+                ID_val: $('#ID').val(),
                 Key: $('#Key').val(),
-                ID_name: $('#id_name').val(),
+                IDName: $('#IDName').val(),
                 Char1: $('#Char1').val(),
                 Char2: $('#Char2').val(),
                 Char3: $('#Char3').val(),

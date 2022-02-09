@@ -180,7 +180,7 @@ function calltoApiController_FileDownLoadHandle(url, model) {
     return result;
 }
 
-function sendFileToServer(url, fileData, progresscall, callback, callbackerror) {
+function callSendFileToServer(url, fileData, progresscall, callback, callbackerror) {
     var obj = {
         url: url,
         type: "POST",
@@ -393,9 +393,6 @@ function checkErrorOnSave(selector) {
 
     if (typeof selector === 'undefined') {
         selector = '#globalSubContainer';
-    }
-    if (selector.slice(0, 1) != "#") {
-        selector = '#' + selector;
     }
 
     var success = true;

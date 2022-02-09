@@ -8,6 +8,8 @@ CREATE PROCEDURE [dbo].[InputBukkenShousai_SelectBukkenComment](
      @BukkenNO  varchar(8)
 )AS
 BEGIN
+    SET NOCOUNT ON
+
     SELECT
          FORMAT(dbc.InsertDatetime, 'yyyy/MM/dd HH:mm:ss')  AS InsertDatetime
         ,dbc.BukkenComment                                  AS BukkenComment

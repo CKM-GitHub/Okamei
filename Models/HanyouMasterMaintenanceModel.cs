@@ -5,7 +5,7 @@ namespace Models
 {
     public class HanyouMasterMaintenanceModel : BaseModel
     {
-        public string ID { get; set; }
+        public string ID_val { get; set; }
         public string Key { get; set; }
         public string ID_name { get; set; }
         public string Char1 { get; set; }

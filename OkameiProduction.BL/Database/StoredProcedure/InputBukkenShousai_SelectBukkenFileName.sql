@@ -6,14 +6,23 @@ GO
 
 CREATE PROCEDURE [dbo].[InputBukkenShousai_SelectBukkenFileName](
      @BukkenNO  varchar(8),
-     @BukkenFileRows int
+     @BukkenFileRowsCsv varchar(max)
 )AS
 BEGIN
-    SELECT dbf.BukkenFileName                                 AS BukkenFileName
+    SET NOCOUNT ON
+
+    DECLARE @BukkenFileRowsTable TABLE
+    (
+        BukkenFileRows int
+    )
+    INSERT INTO @BukkenFileRowsTable SELECT value FROM STRING_SPLIT(@BukkenFileRowsCsv, ',')
+
+
+    SELECT DISTINCT(dbf.BukkenFileName) AS BukkenFileName
 
     FROM D_BukkenFile dbf
 
     WHERE BukkenNO = @BukkenNO
-    AND BukkenFileRows = @BukkenFileRows
+    AND BukkenFileRows IN (SELECT BukkenFileRows FROM @BukkenFileRowsTable)
 
 END

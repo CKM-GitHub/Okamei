@@ -57,8 +57,10 @@
     <Compile Include="HanyouKensakuModel.cs" />
     <Compile Include="HiuchiItiranModel.cs" />
     <Compile Include="KubunTaisyouModel.cs" />
+    <Compile Include="MControl.cs" />
     <Compile Include="MoulderItiranModel.cs" />
     <Compile Include="PDF_fonts.cs" />
+    <Compile Include="UnsouSoukoireModel.cs" />
     <Compile Include="ValidateModel.cs" />
     <Compile Include="DropDownListItem.cs" />
     <Compile Include="Enumrators.cs" />
