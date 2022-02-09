@@ -79,11 +79,12 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
             }
         }
         //PTK 2022/02/09
-        //Concerning with Download it shoud simply work in controller or ApiController by giving response with anytype of trsmittedfile/Outputstream/releasing 
-        //But It dont work well in all PC, some PC work and but some dont. 
-        //I think may be some of leakage dependecy might affect in releasing response. May be I insuffciently researched. 
-        //::::::: (I consumed 2 days in here downloading part although I have done many download sections in some projects So. . . 
-        //:::::::I decided to work with Ajax response(Controller + APIcontroller+ Ajax). Then Okhayed ) 
+        //:::::::Concerning with Download it shoud simply work in controller or ApiController by giving response with anytype of trsmittedfile/Outputstream/releasing 
+        //:::::::But It dont work well in all PC, some PC work and but some dont. 
+        //:::::::I think may be some of leakage dependecy might affect in releasing response. May be I insuffciently researched. 
+        //:::::::I consumed 2 days in here downloading part although I have done many download sections in some projects So. . . 
+        //:::::::I decided to work with Ajax response trio(Controller + APIcontroller+ Ajax). Then Okhayed for other extensions.
+        //:::::::Even trio, it would be okay all extension except only PDF extension(for our current usage), So it will go with IDM software which might need to install in User's PC. 
         [HttpPost]
         public void ExportHiuchiPdf(HiuchiItiranModel model)
         {
