@@ -120,8 +120,8 @@ function calltoApiController(url, model) {
         success: function (data) {
             result = JSON.parse(data);
         },
-        error: function (data) {
-            alert(data.status + ":" + data.statusText);
+        error: function (data, ajaxOption, terror) {
+            alert(data.status + ":" + data.statusText + ":" + terror);
         }
     });
     return result;

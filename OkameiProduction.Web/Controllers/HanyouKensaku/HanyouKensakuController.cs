@@ -8,11 +8,11 @@ namespace OkameiProduction.Web.Controllers
     public class HanyouKensakuController : BaseController
     {
         // GET: 
-        public ActionResult DisplayResult (HanyouKensakuModel vm)
+        public ActionResult DisplayResult(HanyouKensakuModel vm)
         {
             //var vm = new HanyouKensakuModel();
-            if (string.IsNullOrEmpty(vm.ID))
-                vm.ID = "0";
+            if (string.IsNullOrEmpty(vm.ID) || vm.ID == "0")
+                vm.ID = "000";
             SetDropDownListItems(vm);
 
             HanyouKensakuBL bl = new HanyouKensakuBL();

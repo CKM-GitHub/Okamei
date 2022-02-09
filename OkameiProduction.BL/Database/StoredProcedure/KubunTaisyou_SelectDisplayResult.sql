@@ -13,14 +13,14 @@ AS
 BEGIN 
 	SET NOCOUNT ON; 
 	select 
-		cast(mp1.Char1 as varchar(32)) as KubunName,
-			(CASE when db.Nouki  is null THEN null
+			cast(mp1.Char1 as varchar(32)) as KubunName,
+			(CASE when db.NoukiMiteiKBN  = 1 THEN '未定'
             ELSE FORMAT(db.Nouki, 'MM/dd') END) as Nouki, 
 			cast(db.BukkenNo as varchar(8)) as BukkenNo,
 			cast(db.BukkenName as varchar(16) ) as BukkenName,
 			cast(db.KoumutenName as varchar(30)) as KoumutenName,
 			FORMAT(db.KakoutuboSuu, '##0.00') as KakoutuboSuu ,
-			cast(mp2.Char1 as varchar(6)) as ShitenName,
+			cast(mp2.Char2 as varchar(6)) as ShitenName,
 			cast(mp3.Char2 as varchar(6)) as eigyouName,
 			cast(mp4.Char2 as varchar(6)) as cadName 
 			
