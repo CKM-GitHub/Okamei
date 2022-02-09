@@ -341,9 +341,6 @@ function checkErrorOnSave(selector) {
     if (typeof selector === 'undefined') {
         selector = '#globalSubContainer';
     }
-    if (selector.slice(0, 1) != "#") {
-        selector = '#' + selector;
-    }
 
     var success = true;
     $(selector + ' :input:not(button):not(:hidden):not(:disabled):not([readonly])').each(function () {

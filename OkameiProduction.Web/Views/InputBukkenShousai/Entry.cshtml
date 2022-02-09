@@ -620,6 +620,7 @@
     <div class="hidden-area">
         <input type="text" hidden id="HiddenUpdateDatetime" name="HiddenUpdateDatetime" value="@Model.HiddenUpdateDatetime" />
     </div>
+    <a id="downloadBukkenFile" hidden download>物件ファイルダウンロード</a>
     <div class="form-group row">
         <div class="main-content-footer mx-auto">
             <button type="button" id="btnKakousiji" class="btn btn-info">加工指示</button>
@@ -646,7 +647,7 @@
         var url_deleteBukkenFile = '@Url.Action("DeleteBukkenFile", "api/InputBukkenShousaiApi")';
         var url_deleteBukkenComment = '@Url.Action("DeleteBukkenComment", "api/InputBukkenShousaiApi")';
         var url_uploadFiles = '@Url.Action("UploadFiles", "api/InputBukkenShousaiApi")';
-        var url_downloadFiles = '@Url.Action("DownloadFiles", "api/InputBukkenShousaiApi")';
+        var url_downloadFiles = '@Url.Action("DownloadFiles", "InputBukkenShousai")';
 
         var eMode = '@Model.Mode';
         var formData = new FormData();

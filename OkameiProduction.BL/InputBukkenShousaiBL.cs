@@ -52,11 +52,11 @@ namespace OkameiProduction.BL
             return dt;
         }
 
-        public DataTable GetBukkenFileName(InputBukkenShousaiBukkenFileModel model)
+        public DataTable GetBukkenFileName(string bukkenNO, string bukkenFileRowsCsv)
         {
             SqlParameter[] sqlParams = new SqlParameter[] {
-                new SqlParameter("@BukkenNO", SqlDbType.VarChar) { Value = model.BukkenNO.ToStringOrNull() },
-                new SqlParameter("@BukkenFileRows", SqlDbType.TinyInt) { Value = model.BukkenFileRows.ToInt32(0) }
+                new SqlParameter("@BukkenNO", SqlDbType.VarChar) { Value = bukkenNO.ToStringOrNull() },
+                new SqlParameter("@BukkenFileRowsCsv", SqlDbType.VarChar) { Value = bukkenFileRowsCsv.ToStringOrNull() }
             };
 
             DBAccess db = new DBAccess();

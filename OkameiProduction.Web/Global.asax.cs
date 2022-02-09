@@ -23,7 +23,7 @@ namespace OkameiProduction.Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             StaticCache.SetIniInfo();
-            StaticCache.SetMultiPorposeInfo();
+            StaticCache.SetMControl();
             //StaticCache.SetMessageCache();
 
             

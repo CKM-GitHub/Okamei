@@ -212,7 +212,7 @@ function showBukkenFileTable() {
         {
             "data": null,
             render: function (data, type, row) {
-                return '<input type="checkbox" data-bukkenfile-row="' + data.BukkenFileRows.toString() + '"/>';
+                return '<input type="checkbox" data-bukkenfilerows="' + data.BukkenFileRows.toString() + '"/>';
             }
         },
     ];
@@ -494,11 +494,20 @@ function dropFiles(files, obj) {
 
 //download files
 function downloadFiles() {
+
+    var rowcsv = "";
     $('.table input[type=checkbox]:checked').each(function () {
-        var model = {
-            BukkenNO: txtBukkenNO.val(),
-            BukkenFileRows: $(this).data('bukkenfile-row')
-        }
+        rowcsv += $(this).data('bukkenfilerows') + ",";
     });
 
+    if (rowcsv == "") return;
+
+    var model = {
+        BukkenNO: txtBukkenNO.val(),
+        BukkenFileRowsCsv: rowcsv.slice(0, -1)
+    }
+
+    const link = document.getElementById("downloadBukkenFile");
+    link.href = url_downloadFiles + querySerialize(model);
+    link.click();
 }

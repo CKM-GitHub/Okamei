@@ -9,6 +9,8 @@ CREATE PROCEDURE [dbo].[InputBukkenShousai_SelectBukkenFile](
      @BukkenFileShurui tinyint
 )AS
 BEGIN
+    SET NOCOUNT ON
+
     SELECT
         CASE dbf.BukkenFileShurui
             WHEN 1 THEN 'éwé¶èë•â¡çH'
