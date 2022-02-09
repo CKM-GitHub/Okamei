@@ -205,7 +205,7 @@
             }
             else if (Mode == "Edit") {
                 var model = {
-                    ID: '@Model.ID',
+                    ID_val: '@Model.ID_val',
                     Key: '@Model.Key'
                 }
                 var result = calltoApiController('@Url.Action("GetDataResult", "api/HanyouMasterMaintenanceApi")', model);
@@ -217,7 +217,7 @@
             }
             else if (Mode == "Delete") {
                 var model = {
-                    ID: '@Model.ID',
+                    ID_val: '@Model.ID_val',
                     Key: '@Model.Key'
                 }
                 var result = calltoApiController('@Url.Action("GetDataResult", "api/HanyouMasterMaintenanceApi")', model);
@@ -268,7 +268,7 @@
         function btnProcess() {
             var model =
             {
-                ID: $('#ID').val(),
+                ID_val: $('#ID').val(),
                 Key: $('#Key').val(),
                 IDName: $('#IDName').val(),
                 Char1: $('#Char1').val(),

@@ -82,6 +82,7 @@
                             var count = row.ItemArray.Count();
                             var items = row.ItemArray;
                             var id = row["ID"].ToString();
+                            var key = row["Key"].ToString();
                         }
                         @for (var i = 0; i < count; i++)
                         {
@@ -97,10 +98,10 @@
                             </td>
                         }
                         <td class="edit-td">
-                            @Html.ActionLink("編集", "Entry", "BukkenShousai", new { Mode = "Edit", id = id }, new { @class = "edit-link" })
+                            @Html.ActionLink("編集", "SetCondition", "HanyouMasterMaintenance", new { Mode = "Edit", ID_val = id, Key = key }, new { @class = "edit-link" })
                         </td>
                         <td class="delete-td">
-                            @Html.ActionLink("削除", "Entry", "BukkenShousai", new { Mode = "Delete", id = id }, new { @class = "delete-link" })
+                            @Html.ActionLink("削除", "SetCondition", "HanyouMasterMaintenance", new { Mode = "Delete", ID_val = id, Key = key }, new { @class = "delete-link" })
                         </td>
                     </tr>
                 }

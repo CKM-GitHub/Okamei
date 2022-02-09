@@ -11,7 +11,7 @@ namespace OkameiProduction.BL
         public DataTable GetDataResult(HanyouMasterMaintenanceModel model)
         {
             SqlParameter[] sqlParams = new SqlParameter[2];
-            sqlParams[0] = new SqlParameter("@ID", SqlDbType.VarChar) { Value = model.ID.ToStringOrNull() };
+            sqlParams[0] = new SqlParameter("@ID", SqlDbType.VarChar) { Value = model.ID_val.ToStringOrNull() };
             sqlParams[1] = new SqlParameter("@Key", SqlDbType.VarChar) { Value = model.Key.ToStringOrNull() };
 
             DBAccess db = new DBAccess();
@@ -21,7 +21,7 @@ namespace OkameiProduction.BL
         public bool ModifyData(HanyouMasterMaintenanceModel model)
         {
             SqlParameter[] sqlParams = new SqlParameter[20];
-            sqlParams[0] = new SqlParameter("@ID", SqlDbType.VarChar) { Value = model.ID.ToStringOrNull() };
+            sqlParams[0] = new SqlParameter("@ID", SqlDbType.VarChar) { Value = model.ID_val.ToStringOrNull() };
             sqlParams[1] = new SqlParameter("@Key", SqlDbType.VarChar) { Value = model.Key.ToStringOrNull() };
             sqlParams[2] = new SqlParameter("@ID_name", SqlDbType.VarChar) { Value = model.ID_name.ToStringOrNull() };
             sqlParams[3] = new SqlParameter("@Char1", SqlDbType.VarChar) { Value = model.Char1.ToStringOrNull() };
