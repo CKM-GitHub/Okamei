@@ -1,7 +1,7 @@
 ﻿//InputBukkenShousai.js
 
 function addEvents() {
-    $('#btnReturn').click(function () {
+    btnReturn.click(function () {
         showConfirmMessage("Q003", function () {
             if (eMode == 'New') {
                 location.href = url_homePage;

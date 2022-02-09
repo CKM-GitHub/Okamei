@@ -653,6 +653,7 @@
         var formData = new FormData();
         var fileCount = 0;
 
+        var btnReturn = $('#btnReturn');
         var btnSave = $('#btnSave');
         var btnSet = $('#btnSet');
         var txtBukkenNO = $('#BukkenNO');
@@ -669,7 +670,7 @@
             addValidate();
             setScreen();
             if (eMode == 'Delete') {
-                btnSave.focus();
+                btnReturn.focus();
             }
             else {
                 txtSitenCD.focus();
