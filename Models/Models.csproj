@@ -47,6 +47,7 @@
     <Compile Include="HundeggerItiranModel.cs" />
     <Compile Include="FusezuMiteisyutuModel.cs" />
     <Compile Include="BukkenItiranModel.cs" />
+    <Compile Include="InputBukkenShousaiBukkenCommentModel.cs" />
     <Compile Include="InputBukkenShousaiBukkenFileModel.cs" />
     <Compile Include="InputBukkenShousaiModel.cs" />
     <Compile Include="HanyouKensakuModel.cs" />

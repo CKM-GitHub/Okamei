@@ -40,6 +40,41 @@ namespace OkameiProduction.BL
             return dt;
         }
 
+        public DataTable GetBukkenFile(InputBukkenShousaiBukkenFileModel model)
+        {
+            SqlParameter[] sqlParams = new SqlParameter[] {
+                new SqlParameter("@BukkenNO", SqlDbType.VarChar) { Value = model.BukkenNO.ToStringOrNull() },
+                new SqlParameter("@BukkenFileShurui", SqlDbType.TinyInt) { Value = model.BukkenFileShurui.ToByte(8) }
+            };
+
+            DBAccess db = new DBAccess();
+            var dt = db.SelectDatatable("InputBukkenShousai_SelectBukkenFile", sqlParams);
+            return dt;
+        }
+
+        public DataTable GetBukkenFileName(InputBukkenShousaiBukkenFileModel model)
+        {
+            SqlParameter[] sqlParams = new SqlParameter[] {
+                new SqlParameter("@BukkenNO", SqlDbType.VarChar) { Value = model.BukkenNO.ToStringOrNull() },
+                new SqlParameter("@BukkenFileRows", SqlDbType.TinyInt) { Value = model.BukkenFileRows.ToInt32(0) }
+            };
+
+            DBAccess db = new DBAccess();
+            var dt = db.SelectDatatable("InputBukkenShousai_SelectBukkenFileName", sqlParams);
+            return dt;
+        }
+
+        public DataTable GetBukkenComment(InputBukkenShousaiBukkenCommentModel model)
+        {
+            SqlParameter[] sqlParams = new SqlParameter[] {
+                new SqlParameter("@BukkenNO", SqlDbType.VarChar) { Value = model.BukkenNO.ToStringOrNull() }
+            };
+
+            DBAccess db = new DBAccess();
+            var dt = db.SelectDatatable("InputBukkenShousai_SelectBukkenComment", sqlParams);
+            return dt;
+        }
+
 
 
 
@@ -55,7 +90,7 @@ namespace OkameiProduction.BL
                 new SqlParameter("@KoumutenName", SqlDbType.VarChar) { Value = model.KoumutenName.ToStringOrNull() },
                 new SqlParameter("@KakoutuboSuu", SqlDbType.Decimal) { Value = model.KakouTubosuu.ToDecimal(0) },
                 new SqlParameter("@NoukiMiteiKBN", SqlDbType.TinyInt) { Value = model.NoukiMiteiKBN.ToByte(0) },
-                new SqlParameter("@Nouki", SqlDbType.Date) { Value = model.Nouki.ToDateTime() },
+                new SqlParameter("@Nouki", SqlDbType.Date) { Value = model.Nouki.ToDateTime(new DateTime(2099,12,31)) },
                 new SqlParameter("@UnsouKuraireDate", SqlDbType.Date) { Value = model.UnsouKuraireDate.ToDateTime() },
                 new SqlParameter("@KubunCD", SqlDbType.VarChar) { Value = model.KubunCD.ToStringOrNull() },
                 new SqlParameter("@TantouEigyouCD", SqlDbType.VarChar) { Value = model.TantouEigyouCD.ToStringOrNull() },
@@ -147,10 +182,9 @@ namespace OkameiProduction.BL
         {
             msgid = "";
 
-            SqlParameter[] sqlParams = new SqlParameter[3];
+            SqlParameter[] sqlParams = new SqlParameter[2];
             sqlParams[0] = new SqlParameter("@BukkenNO", SqlDbType.VarChar) { Value = model.BukkenNO.ToStringOrNull() };
-            sqlParams[1] = new SqlParameter("@Operator", SqlDbType.VarChar) { Value = model.UserID.ToStringOrNull() };
-            sqlParams[2] = new SqlParameter("@UpdateDatetime", SqlDbType.VarChar) { Value = model.HiddenUpdateDatetime.ToStringOrNull() };
+            sqlParams[1] = new SqlParameter("@UpdateDatetime", SqlDbType.VarChar) { Value = model.HiddenUpdateDatetime.ToStringOrNull() };
 
             try
             {
@@ -186,16 +220,64 @@ namespace OkameiProduction.BL
             }
         }
 
-        public bool DeleteBukkenFile(InputBukkenShousaiModel model, out string msgid)
+        public bool DeleteBukkenFile(InputBukkenShousaiBukkenFileModel model, out string msgid)
         {
             msgid = "";
-            return true;
+
+            SqlParameter[] sqlParams = new SqlParameter[3];
+            sqlParams[0] = new SqlParameter("@BukkenNO", SqlDbType.VarChar) { Value = model.BukkenNO.ToStringOrNull() };
+            sqlParams[1] = new SqlParameter("@BukkenFileRows", SqlDbType.Int) { Value = model.BukkenFileRows.ToInt32(0) };
+            sqlParams[2] = new SqlParameter("@UpdateDatetime", SqlDbType.VarChar) { Value = model.HiddenUpdateDatetime.ToStringOrNull() };
+            try
+            {
+                DBAccess db = new DBAccess();
+                return db.InsertUpdateDeleteData("InputBukkenShousai_DeleteBukkenFile", true, sqlParams);
+            }
+            catch (ExclusionException)
+            {
+                msgid = "S004"; //他端末エラー
+                return false;
+            }
         }
 
-        public bool DeleteBukkenComment(InputBukkenShousaiModel model, out string msgid)
+        public bool CreateBukkenComment(InputBukkenShousaiBukkenCommentModel model, out string msgid)
         {
             msgid = "";
-            return true;
+
+            SqlParameter[] sqlParams = new SqlParameter[4];
+            sqlParams[0] = new SqlParameter("@BukkenNO", SqlDbType.VarChar) { Value = model.BukkenNO.ToStringOrNull() };
+            sqlParams[1] = new SqlParameter("@BukkenComment", SqlDbType.VarChar) { Value = model.BukkenComment.ToStringOrNull() };
+            sqlParams[2] = new SqlParameter("@Operator", SqlDbType.VarChar) { Value = model.UserID.ToStringOrNull() };
+            sqlParams[3] = new SqlParameter("@UpdateDatetime", SqlDbType.VarChar) { Value = model.HiddenUpdateDatetime.ToStringOrNull() };
+            try
+            {
+                DBAccess db = new DBAccess();
+                return db.InsertUpdateDeleteData("InputBukkenShousai_CreateBukkenComment", true, sqlParams);
+            }
+            catch (ExclusionException)
+            {
+                msgid = "S004"; //他端末エラー
+                return false;
+            }
+        }
+        public bool DeleteBukkenComment(InputBukkenShousaiBukkenCommentModel model, out string msgid)
+        {
+            msgid = "";
+
+            SqlParameter[] sqlParams = new SqlParameter[3];
+            sqlParams[0] = new SqlParameter("@BukkenNO", SqlDbType.VarChar) { Value = model.BukkenNO.ToStringOrNull() };
+            sqlParams[1] = new SqlParameter("@BukkenCommentRows", SqlDbType.Int) { Value = model.BukkenCommentRows.ToInt32(0) };
+            sqlParams[2] = new SqlParameter("@UpdateDatetime", SqlDbType.VarChar) { Value = model.HiddenUpdateDatetime.ToStringOrNull() };
+            try
+            {
+                DBAccess db = new DBAccess();
+                return db.InsertUpdateDeleteData("InputBukkenShousai_DeleteBukkenComment", true, sqlParams);
+            }
+            catch (ExclusionException)
+            {
+                msgid = "S004"; //他端末エラー
+                return false;
+            }
         }
     }
 }

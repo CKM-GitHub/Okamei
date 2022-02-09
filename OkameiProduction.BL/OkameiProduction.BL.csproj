@@ -78,6 +78,13 @@
     <Content Include="Database\StoredProcedure\BukkenItiran_ExistsDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\BukkenItiran_SelectDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\HiuchiItiran_SelectDisplayResult.sql" />
+    <Content Include="Database\StoredProcedure\InputBukkenShousai_CreateBukkenComment.sql" />
+    <Content Include="Database\StoredProcedure\InputBukkenShousai_CreateBukkenFile.sql" />
+    <Content Include="Database\StoredProcedure\InputBukkenShousai_DeleteBukkenFile.sql" />
+    <Content Include="Database\StoredProcedure\InputBukkenShousai_DeleteBukkenComment.sql" />
+    <Content Include="Database\StoredProcedure\InputBukkenShousai_SelectBukkenComment.sql" />
+    <Content Include="Database\StoredProcedure\InputBukkenShousai_SelectBukkenFileName.sql" />
+    <Content Include="Database\StoredProcedure\InputBukkenShousai_SelectBukkenFile.sql" />
     <Content Include="Database\StoredProcedure\InputBukkenShousai_SelectDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\InputBukkenShousai_Delete.sql" />
     <Content Include="Database\StoredProcedure\InputBukkenShousai_Update.sql" />
