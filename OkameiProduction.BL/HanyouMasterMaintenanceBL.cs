@@ -8,17 +8,17 @@ namespace OkameiProduction.BL
 {
     public class HanyouMasterMaintenanceBL
     {
-        public DataTable CheckDataResult(HanyouMasterMaintenanceModel model)
+        public DataTable GetDataResult(HanyouMasterMaintenanceModel model)
         {
             SqlParameter[] sqlParams = new SqlParameter[2];
             sqlParams[0] = new SqlParameter("@ID", SqlDbType.VarChar) { Value = model.ID.ToStringOrNull() };
             sqlParams[1] = new SqlParameter("@Key", SqlDbType.VarChar) { Value = model.Key.ToStringOrNull() };
 
             DBAccess db = new DBAccess();
-            var dt = db.SelectDatatable("HanyouMasterMaintenance_CheckDataResult", sqlParams);
+            var dt = db.SelectDatatable("M_MultiPorpose_SelectByIDKey", sqlParams);
             return dt;
         }
-        public DataTable ModifyData(HanyouMasterMaintenanceModel model)
+        public bool ModifyData(HanyouMasterMaintenanceModel model)
         {
             SqlParameter[] sqlParams = new SqlParameter[20];
             sqlParams[0] = new SqlParameter("@ID", SqlDbType.VarChar) { Value = model.ID.ToStringOrNull() };
@@ -43,8 +43,8 @@ namespace OkameiProduction.BL
             sqlParams[19] = new SqlParameter("@UserID", SqlDbType.VarChar) { Value = model.UserID.ToStringOrNull() };
 
             DBAccess db = new DBAccess();
-            var dt = db.SelectDatatable("HanyouMasterMaintenance_ModifyData", sqlParams);
-            return dt;
+            var result = db.InsertUpdateDeleteData("HanyouMasterMaintenance_InsertUpdateDeleteData", false, sqlParams);
+            return result;
         }
     }
 }
