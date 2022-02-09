@@ -1,15 +1,16 @@
-﻿using System.Web.Http;
+﻿using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Web;
+using System.Web.Http;
 using Models;
 using OkameiProduction.BL;
 namespace OkameiProduction.Web.Controllers
 {
     public class HiuchiItiranApiController : BaseApiController
-    {
-        public string BadRequest = "";
-        public HiuchiItiranApiController()
-        {
-            BadRequest = GetBadRequestResult();
-        }
+    { 
+       
         [HttpPost]
         public string ExistsDisplayResult([FromBody] HiuchiItiranModel model)
         {
@@ -23,6 +24,54 @@ namespace OkameiProduction.Web.Controllers
             {
                 return GetErrorResult("S013");
             }
-        } 
+        }
+        [HttpPost]
+        public string pdf( )
+        {
+            HttpResponseMessage result = null;
+            result = Request.CreateResponse(HttpStatusCode.OK);
+            FileStream stream = File.OpenRead( (@"D:\Projects\Okame\Okamei\OkameiProduction.Web\output\project\") + "123.txt");
+            byte[] fileBytes = new byte[stream.Length];
+            stream.Read(fileBytes, 0, fileBytes.Length);
+            stream.Close();
+            result.Content = new ByteArrayContent(fileBytes);
+            result.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+            result.Content.Headers.ContentDisposition.FileName = "FileName.txt";
+            
+            result.Content.Dispose();
+           
+            return GetSuccessResult();
+        }
+        [HttpPost]
+        public HttpResponseMessage GetFile( )
+        {
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+            byte[] bytes = File.ReadAllBytes((@"D:\Projects\Okame\Okamei\OkameiProduction.Web\output\project\") + "123.txt");
+
+            //Set the Response Content.
+            response.Content = new ByteArrayContent(bytes);
+
+            //Set the Response Content Length.
+            response.Content.Headers.ContentLength = bytes.LongLength;
+
+            //Set the Content Disposition Header Value and FileName.
+            response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+            response.Content.Headers.ContentDisposition.FileName = "123.txt";
+
+            //Set the File Content Type.
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping("123.txt"));
+         
+            //HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+            //response.Content = new StreamContent(new FileStream((@"D:\Projects\Okame\Okamei\OkameiProduction.Web\output\project\") + "123.txt", FileMode.Open, FileAccess.Read));
+            //response.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+            //response.Content.Headers.ContentDisposition.FileName = "ptk.txt";
+            //response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
+
+            return response;
+        }
+
+
+
+
     }
 }

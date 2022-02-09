@@ -25,6 +25,8 @@ namespace OkameiProduction.Web
             StaticCache.SetIniInfo();
             StaticCache.SetMultiPorposeInfo();
             //StaticCache.SetMessageCache();
+
+            
         }
 
         protected void Application_Error(object sender, EventArgs e)

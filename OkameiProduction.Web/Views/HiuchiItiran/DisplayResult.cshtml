@@ -241,11 +241,18 @@
                 TantouSitenCD: e.id,
                 UserID: $('#user-id').text()
             };
+            //pdf
+            //var result = calltoApiController('@Url.Action("pdf", "api/HiuchiItiranApi")', model);
 
-            var result = calltoApiController('@Url.Action("ExportHiuchiPdf", "HiuchiItiran")', model);
+            var result = calltoApiController('@Url.Action("Export", "HiuchiItiran")', model);
             if (!result || !result.status) {
+                alert('error')
                 return false;
             }
+            else
+                alert('hi')
+
+
             //alert(e.id);
         }
 
