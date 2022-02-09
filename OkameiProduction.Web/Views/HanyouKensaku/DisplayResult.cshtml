@@ -54,7 +54,6 @@
                 @Html.DropDownListFor(
                 model => model.ID,
                 new SelectList(Model.IDSelectList, "Value", "DisplayText"),
-                "",
                 new { @class = "form-control size50" })
             </div>
         </div>
@@ -142,7 +141,7 @@
             };
 
             var result = calltoApiController('@Url.Action("ExistsDisplayResult", "api/HanyouKensakuApi")', model);
-            if (!result || !result.status) {
+            if (!result) {
                 return false;
             }
             if (result && result.MessageID) {

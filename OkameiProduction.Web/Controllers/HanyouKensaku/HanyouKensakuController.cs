@@ -11,6 +11,8 @@ namespace OkameiProduction.Web.Controllers
         public ActionResult DisplayResult (HanyouKensakuModel vm)
         {
             //var vm = new HanyouKensakuModel();
+            if (string.IsNullOrEmpty(vm.ID))
+                vm.ID = "0";
             SetDropDownListItems(vm);
 
             HanyouKensakuBL bl = new HanyouKensakuBL();

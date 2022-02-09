@@ -9,7 +9,7 @@ namespace Models
   public  class HiuchiItiranModel :BaseModel
     {
 
-        public string TantouSitenCD { get; set; }
+        public string TantouSitenCD  { get; set; }
         public int? JuchuuOption { get; set; }
         public int? BukkenSiteiOption { get; set; }
         public string NoukiStart { get; set; }

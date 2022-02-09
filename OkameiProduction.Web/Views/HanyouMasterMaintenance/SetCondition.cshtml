@@ -1,0 +1,241 @@
+﻿@model Models.HanyouMasterMaintenanceModel
+
+@{
+    ViewBag.Title = "HanyouMasterMaintenanceCondition";
+    var serverDate = ViewBag.ServerDate;
+}
+
+<h4 class="page-title">物件一覧</h4>
+<div id="main" class="main-content">
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label label-title pk require">ID</label>
+        </div>
+        <div class="col-sm-10 form-inline">
+            <input type="text" class="form-control size3" maxlength="3" id="ID" name="ID" />
+            <span id="id_name">
+                &nbsp;&nbsp;ああああああああああいいいいいいいいいい
+            </span>
+        </div>
+    </div>
+
+    <div class="row" style="margin: 20px;">
+        @*add for null space*@
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label label-title pk require">キー</label>
+        </div>
+        <div class="col-sm-10">
+            <input type="text" class="form-control size10" maxlength="10" id="Key" name="Key" />
+        </div>
+    </div>
+
+    <div class="row" style="margin: 20px;">
+        @*add for null space*@
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label label-title">文字型項目1</label>
+        </div>
+        <div class="col-sm-10">
+            <input type="text" class="form-control size100" maxlength="100" id="Char1" name="Char1" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label label-title">文字型項目2</label>
+        </div>
+        <div class="col-sm-10 form-inline">
+            <input type="text" class="form-control size100" maxlength="100" id="Char2" name="Char2" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label label-title">文字型項目3</label>
+        </div>
+        <div class="col-sm-10">
+            <input type="text" class="form-control size100" maxlength="100" id="Char3" name="Char3" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label label-title">文字型項目4</label>
+        </div>
+        <div class="col-sm-10">
+            <input type="text" class="form-control size100" maxlength="100" id="Char4" name="Char4" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label label-title">文字型項目5</label>
+        </div>
+        <div class="col-sm-10">
+            <input type="text" class="form-control size100" maxlength="100" id="Char5" name="Char5" />
+        </div>
+    </div>
+
+    <div class="row" style="margin: 20px;">
+        @*add for null space*@
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label label-title">数字型項目1</label>
+        </div>
+        <div class="col-sm-4">
+            <input type="text" class="form-control size10" maxlength="10" id="Num1" name="Num1" />
+        </div>
+        <div class="col-sm-2">
+            <label class="col-form-label label-title">日付型項目1</label>
+        </div>
+        <div class="col-sm-4">
+            <input type="text" class="form-control size10" maxlength="10" id="Date1" name="Date1" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label label-title">数字型項目2</label>
+        </div>
+        <div class="col-sm-4">
+            <input type="text" class="form-control size10" maxlength="10" id="Num2" name="Num2" />
+        </div>
+        <div class="col-sm-2">
+            <label class="col-form-label label-title">日付型項目2</label>
+        </div>
+        <div class="col-sm-4">
+            <input type="text" class="form-control size10" maxlength="10" id="Date2" name="Date2" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label label-title">数字型項目3</label>
+        </div>
+        <div class="col-sm-4">
+            <input type="text" class="form-control size10" maxlength="10" id="Num3" name="Num3" />
+        </div>
+        <div class="col-sm-2">
+            <label class="col-form-label label-title">日付型項目3</label>
+        </div>
+        <div class="col-sm-4">
+            <input type="text" class="form-control size10" maxlength="10" id="Date3" name="Date3" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label label-title">数字型項目4</label>
+        </div>
+        <div class="col-sm-4">
+            <input type="text" class="form-control size10" maxlength="10" id="Num4" name="Num4" />
+        </div>
+        <div class="col-sm-2">
+            <label class="col-form-label label-title">日付型項目4</label>
+        </div>
+        <div class="col-sm-4">
+            <input type="text" class="form-control size10" maxlength="10" id="Date4" name="Date4" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label label-title">数字型項目5</label>
+        </div>
+        <div class="col-sm-4">
+            <input type="text" class="form-control size10" maxlength="10" id="Num5" name="Num5" />
+        </div>
+        <div class="col-sm-2">
+            <label class="col-form-label label-title">日付型項目5</label>
+        </div>
+        <div class="col-sm-4">
+            <input type="text" class="form-control size10" maxlength="10" id="Date5" name="Date5" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="main-content-footer mx-auto">
+            <button type="button" id="btnReturn" class="btn btn-secondary" nofocus>戻る</button>
+            <button type="button" id="btnProcess" class="btn btn-primary active">登録</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#btnReturn').click(function () {
+                showConfirmMessage("Q004", function () {
+                    window.location.reload();
+                });
+            });
+
+            $('#btnProcess').click(function () {
+                if (checkErrorOnSave()) {
+                    showConfirmMessage("Q201", btnProcess);
+                }
+            });
+
+            //date
+            setDateTypeValidate('#Date1');
+            setDateTypeValidate('#Date2');
+            setDateTypeValidate('#Date3');
+            setDateTypeValidate('#Date4');
+            setDateTypeValidate('#Date5');
+
+            //number
+            setNumericValidate('#ID', 3, 0);
+            setNumericValidate('#Num1', 3, 0);
+            setNumericValidate('#Num2', 3, 0);
+            setNumericValidate('#Num3', 3, 0);
+            setNumericValidate('#Num4', 3, 0);
+            setNumericValidate('#Num5', 3, 0);
+
+            //is double-byte
+            setDoubleByteValidate('#Key');
+            setDoubleByteValidate('#Char1');
+            setDoubleByteValidate('#Char2');
+            setDoubleByteValidate('#Char3');
+            setDoubleByteValidate('#Char4');
+            setDoubleByteValidate('#Char5');
+        });
+
+        function btnProcess() {
+            var model =
+            {
+                ID: $('#ID').val(),
+                Key: $('#Key').val(),
+                ID_name: $('#id_name').val(),
+                Char1: $('#Char1').val(),
+                Char2: $('#Char2').val(),
+                Char3: $('#Char3').val(),
+                Char4: $('#Char4').val(),
+                Char5: $('#Char5').val(),
+                Num1: $('#Num1').val(),
+                Num2: $('#Num2').val(),
+                Num3: $('#Num3').val(),
+                Num4: $('#Num4').val(),
+                Num5: $('#Num5').val(),
+                Date1: $('#Date1').val(),
+                Date2: $('#Date2').val(),
+                Date3: $('#Date3').val(),
+                Date4: $('#Date4').val(),
+                Date5: $('#Date5').val(),
+                Mode: "New",
+                UserID: $('#user-id').text()
+            };
+
+            var result = calltoApiController('@Url.Action("ExistsDisplayResult", "api/BukkenItiranApi")', model);
+            if (!result) {
+                return false;
+            }
+            if (result.MessageID) {
+                showMessage(result);
+                return false;
+            }
+
+            return true;
+        }
+
+    </script>
+}
