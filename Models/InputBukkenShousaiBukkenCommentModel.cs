@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class InputBukkenShousaiBukkenFileModel : BaseModel
+    public class InputBukkenShousaiBukkenCommentModel : BaseModel
     {
         public string BukkenNO { get; set; }
-        public int BukkenFileRows { get; set; }
-        public byte BukkenFileShurui { get; set; }
-        public string BukkenFileName { get; set; }
+        public int BukkenCommentRows { get; set; }
+        public string BukkenComment { get; set; }
         public string HiddenUpdateDatetime { get; set; }
     }
 }

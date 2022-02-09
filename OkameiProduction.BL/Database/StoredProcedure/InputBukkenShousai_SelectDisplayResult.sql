@@ -8,6 +8,8 @@ CREATE PROCEDURE [dbo].[InputBukkenShousai_SelectDisplayResult](
      @BukkenNO  varchar(8)
 )AS
 BEGIN
+    DECLARE @MaxDate date = '2099/12/31'
+
 	SELECT BukkenNO
 		,TantouSitenCD
         ,BukkenName
@@ -15,7 +17,7 @@ BEGIN
         ,KoumutenName
         ,KakoutuboSuu
         ,NoukiMiteiKBN
-        ,FORMAT(Nouki, 'yyyy/MM/dd') AS Nouki
+        ,FORMAT(CASE Nouki WHEN @MaxDate THEN NULL ELSE Nouki END, 'yyyy/MM/dd') AS Nouki
         ,FORMAT(UnsouKuraireDate, 'yyyy/MM/dd') AS UnsouKuraireDate
         ,KubunCD
         ,TantouEigyouCD

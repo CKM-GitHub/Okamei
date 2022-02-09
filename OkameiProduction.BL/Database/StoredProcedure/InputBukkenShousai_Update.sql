@@ -141,7 +141,7 @@ BEGIN
             ,UpdateDateTime
         ) VALUES (
             @BukkenNO
-            ,(SELECT MAX(BukkenCommentRows) + 1 FROM D_BukkenComment WHERE BukkenNO = @BukkenNO)
+            ,ISNULL((SELECT MAX(BukkenCommentRows) + 1 FROM D_BukkenComment WHERE BukkenNO = @BukkenNO), 1)
             ,@BukkenComment
             ,@Operator
             ,@SysDatetime

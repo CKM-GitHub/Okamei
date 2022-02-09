@@ -1,4 +1,4 @@
-﻿/* 区切り線
+﻿/* line
 --------------------------------------------------
 */
 hr {
@@ -8,23 +8,11 @@ hr {
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-/* Checkbox
+/* layout
 --------------------------------------------------
 */
-#main input[type="checkbox"] {
-    margin-left: 14px;
-    margin-right: 4px;
-}
-
-    #main input[type="checkbox"] + label {
-        margin-right: 10px;
-    }
-
-/* Wrap
---------------------------------------------------
-*/
-#main .wrap-container {
-    display: -webkit-box;
+.wrap-container {
+    display: -webkit-box;   
     display: -webkit-flex;
     display: -moz-box;
     display: -ms-flexbox;
@@ -33,7 +21,7 @@ hr {
     justify-content: space-between;
 }
 
-#leftWrap1stPage, 
+#leftWrap1stPage,
 #rightWrap1stPage {
     width: 49%;
 }
@@ -46,17 +34,35 @@ hr {
     width: 68%;
 }
 
+/* Checkbox
+--------------------------------------------------
+*/
+input[type="checkbox"] {
+    margin-left: 14px;
+    margin-right: 4px;
+}
+
+    input[type="checkbox"] + label {
+        margin-right: 10px;
+    }
+
+/* radio button
+--------------------------------------------------
+*/
+.radioWrap {
+    display: inline-block;
+}
 
 /* autocomplete 
 --------------------------------------------------
 */
-.dropdown-menu {
+.autocomplete .dropdown-menu {
     overflow: auto;
     max-height: 250px;
     min-width: 100%;
 }
 
-    .dropdown-menu a {
+    .autocomplete .dropdown-menu a {
         display: block;
         padding: 2px 12px 2px 12px;
         text-decoration: none;
@@ -64,18 +70,67 @@ hr {
         color: black;
     }
 
-        .dropdown-menu a:focus,
-        .dropdown-menu a:hover {
+        .autocomplete .dropdown-menu a:focus,
+        .autocomplete .dropdown-menu a:hover {
             background-color: #4C93FF;
             color: #fff;
         }
-/* 
+
+/* table
 --------------------------------------------------
 */
-.radioWrap {
-    display: inline-block;
+.table td {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
+.table thead {
+    display: none;
+}
+
+.table input[type=checkbox] {
+    margin: 0;
+}
+
+div.dataTables_scrollBody > table > tbody tr:first-child th,
+div.dataTables_scrollBody > table > tbody tr:first-child td {
+    border-top: 1px solid #979797 !important;
+}
+
+div.dataTables_scrollBody > table > tbody tr th,
+div.dataTables_scrollBody > table > tbody tr td {
+    border-bottom: 1px solid #979797 !important;
+}
+
+.table tbody td:first-child {
+    border-left: 1px solid #979797;
+}
+
+.table tbody td {
+    border-right: 1px solid #979797;
+}
+
+.table .BukkenFileShurui {
+    min-width: 120px;
+    max-width: 120px;
+}
+
+.table .BukkenFileName,
+.table .BukkenComment {
+    min-width: 600px;
+    max-width: 600px;
+}
+
+.table .InsertOperator {
+    min-width: 120px;
+    max-width: 120px;
+}
+
+/* control
+--------------------------------------------------
+*/
 #YukaGouhanShurui,
 #NoziGouhanShurui {
     margin-left: 10px;
@@ -85,8 +140,7 @@ hr {
     margin-left: 10px;
 }
 
-
-/* ファイル選択 
+/* file drag & drop 
 --------------------------------------------------
 */
 #dragDropArea {
@@ -95,7 +149,7 @@ hr {
     left: 0;
     width: 100%;
     height: 100%;
-    padding: 50px 0 30px;
+    padding: 30px 0 20px;
     border: 2px dashed #494949;
     background: #f4f4f4;
     text-align: center;
@@ -110,13 +164,17 @@ hr {
         background: #f4f4f4;
     }
 
+    #dragDropArea.close {
+        display: none;
+    }
+
 #inputFile {
     position: absolute;
     top: 0;
     left: 0;
     z-index: 10;
     display: block;
-    width: 300px;
+    width: 200px;
     height: 40px;
     opacity: 0;
 }
@@ -128,7 +186,7 @@ hr {
 
 #btnInputFile {
     display: table;
-    width: 300px;
+    width: 200px;
 }
 
     #btnInputFile span {
@@ -148,13 +206,8 @@ hr {
         vertical-align: middle;
     }
 
-#fileMsg {
-    /*display: none;*/
-    font-size: 14px;
-    color: red;
-}
 .progressBar {
-    width: 200px;
+    width: 400px;
     height: 22px;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -171,62 +224,13 @@ hr {
         line-height: 22px; /* same as #progressBar height */
         width: 0;
         background-color: #0ba1b5;
-        border-radius: 3px;
+        border-radius: 5px;
     }
 
 .statusbar {
     min-height: 25px;
     width: 100%;
     padding: 10px 10px 0px 10px;
-    vertical-align: middle;
-}
-
-    /*.statusbar:nth-child(odd) {
-        background: #EBEFF0;
-    }*/
-
-.filename {
-    display: inline-block;
-    vertical-align: middle;
-    width: auto;
-    font-size: 15px;
-}
-
-.filesize {
-    display: inline-block;
-    vertical-align: middle;
-    color: #30693D;
-    width: 100px;
-    margin-left: 10px;
-    margin-right: 5px;
-    font-size: 15px;
-}
-
-.remove {
-    background-color: #0ba1b5;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
-    display: inline-block;
-    color: #fff;
-    font-size: 12px;
-    font-weight: normal;
-    padding: 4px 15px;
-    cursor: pointer;
-    vertical-align: middle;
-}
-
-.abort {
-    background-color: #A8352F;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
-    display: inline-block;
-    color: #fff;
-    font-size: 12px;
-    font-weight: normal;
-    padding: 4px 15px;
-    cursor: pointer;
     vertical-align: middle;
 }
 

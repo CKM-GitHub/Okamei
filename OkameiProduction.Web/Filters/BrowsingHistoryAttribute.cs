@@ -29,6 +29,10 @@ namespace OkameiProduction.Web
             }
 
             var url = this.GetRequestUrl(httpContext);
+            if (session[CURRENT_URL] != null && url == session[CURRENT_URL].ToString())
+            {
+                return;
+            }
 
             session[PREVIOUS_URL] = session[CURRENT_URL];
             session[CURRENT_URL] = url;
