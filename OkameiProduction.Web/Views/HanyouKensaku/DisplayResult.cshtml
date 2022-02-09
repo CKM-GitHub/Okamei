@@ -98,10 +98,10 @@
                             </td>
                         }
                         <td class="edit-td">
-                            @Html.ActionLink("編集", "SetCondition", "HanyouMasterMaintenance", new { Mode = "Edit", ID_val = id, Key = key }, new { @class = "edit-link" })
+                            @Html.ActionLink("編集", "SetCondition", "HanyouMasterMaintenance", new { Mode = "2", ID_val = id, Key = key }, new { @class = "edit-link" })
                         </td>
                         <td class="delete-td">
-                            @Html.ActionLink("削除", "SetCondition", "HanyouMasterMaintenance", new { Mode = "Delete", ID_val = id, Key = key }, new { @class = "delete-link" })
+                            @Html.ActionLink("削除", "SetCondition", "HanyouMasterMaintenance", new { Mode = "3", ID_val = id, Key = key }, new { @class = "delete-link" })
                         </td>
                     </tr>
                 }
