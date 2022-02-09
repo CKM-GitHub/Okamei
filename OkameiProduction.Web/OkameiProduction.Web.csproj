@@ -288,7 +288,6 @@
     <Content Include="Scripts\Common.js" />
     <Content Include="Scripts\lib\jquery-3.6.0.min.map" />
     <Content Include="Scripts\lib\jquery-3.6.0.slim.min.map" />
-    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\lib\jquery.validate-vsdoc.js" />
     <None Include="Scripts\lib\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\lib\jquery-3.6.0.js" />
