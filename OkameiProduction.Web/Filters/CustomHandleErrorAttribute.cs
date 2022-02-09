@@ -50,10 +50,9 @@ namespace OkameiProduction.Web
             };
             filterContext.ExceptionHandled = true;
             filterContext.HttpContext.Response.Clear();
-           
-            filterContext.ExceptionHandled = true;
             filterContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             filterContext.HttpContext.Response.TrySkipIisCustomErrors = true;
+
         }
     }
 }

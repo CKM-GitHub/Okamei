@@ -59,19 +59,17 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
 
         [HttpPost]
         [ValidateInput(false)]
-        public FileResult Export()
+        public ActionResult Export()
         {
-            using (MemoryStream stream = new System.IO.MemoryStream())
-            {
-                StringReader sr = new StringReader("ABC");
-                Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 10f);
-                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
-                pdfDoc.Open();
-                pdfDoc.Add(new Paragraph("DEF"));
-                XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
-                pdfDoc.Close();
-                return File(stream.ToArray(), "application/pdf", "StudentDetails.pdf");
-            }
+
+            Response.Buffer = true;
+            Response.ContentType = "application/pdf";
+            Response.AppendHeader("Content-Disposition", "attachment; filename=MyFile.pdf");
+            Response.TransmitFile(Server.MapPath("~/output/project/") + "123.txt");
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Flush();
+            Response.End();
+            return DisplayResult();
         }
 
         [HttpPost]

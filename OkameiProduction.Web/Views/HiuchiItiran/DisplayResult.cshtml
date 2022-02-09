@@ -187,29 +187,30 @@
                     }
                     @for (var i = 0; i < count; i++)
                     {
-                        <td class="@columns[i].Caption">
-                            @if (columns[i].Caption == "BukkenName")
-                            {
-                                @Html.ActionLink((string)items[i], "Entry", "InputBukkenShousai", new { Mode = "Edit", BukkenNO = bukkenNo }, new { @class = "edit-link" })
-                            }
-                            else if (columns[i].Caption == "Honsuu")
-                            {
-                                <span class="number-align-right">
-                                    @items[i]
-                                </span>
-                            }
-                            else if (columns[i].Caption == "Export")
-                            {
-                                var valId = "pdf_" + bukkenNo + "_" + bukkenName + "_" + souName + "_" + idpdf.ToString();
-                                         <button type="button" class="btn btn-primary" id=@valId.ToString() onclick="pdfClick(this)"   >PDF </button>
+                    <td class="@columns[i].Caption">
+                        @if (columns[i].Caption == "BukkenName")
+                        {
+                            @Html.ActionLink((string)items[i], "Entry", "InputBukkenShousai", new { Mode = "Edit", BukkenNO = bukkenNo }, new { @class = "edit-link" })
+                        }
+                        else if (columns[i].Caption == "Honsuu")
+                        {
+                            <span class="number-align-right">
+                                @items[i]
+                            </span>
+                        }
+                        else if (columns[i].Caption == "Export")
+                        {
+                            var valId = "pdf_" + bukkenNo + "_" + bukkenName + "_" + souName + "_" + idpdf.ToString();
+                            <button type="button" class="btn btn-primary" id=@valId.ToString() onclick="pdfClick(this)">PDF </button>
+                            @*<i>@Html.ActionLink("pdf__", "ExportHiuchiPdf", "HiuchiItiran", new { TantouSitenCD="123" }) </i>*@
 
-                                }
-                                else
-                                {
-                                    @items[i]
-                                }
+                        }
+                        else
+                        {
+                            @items[i]
+                        }
 
-                        </td>
+                    </td>
                     }
 
                 </tr>
@@ -246,7 +247,7 @@
 
             var result = calltoApiController('@Url.Action("Export", "HiuchiItiran")', model);
             if (!result || !result.status) {
-                alert('error')
+               // alert('error')
                 return false;
             }
             else
