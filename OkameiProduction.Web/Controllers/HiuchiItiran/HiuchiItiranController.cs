@@ -79,12 +79,6 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
             }
         }
         //PTK 2022/02/09
-        //:::::::Concerning with Download it shoud simply work in controller or ApiController by giving response with anytype of trsmittedfile/Outputstream/releasing 
-        //:::::::But It dont work well in all PC, some PC work and but some dont. 
-        //:::::::I think may be some of leakage dependecy might affect in releasing response. May be I insuffciently researched. 
-        //:::::::I consumed 2 days in here downloading part although I have done many download sections in some projects So. . . 
-        //:::::::I decided to work with Ajax response trio(Controller + APIcontroller+ Ajax). Then Okhayed for other extensions.
-        //:::::::Even trio, it would be okay all extension except only PDF extension(for our current usage), So it will go with IDM software which might need to install in User's PC. 
         [HttpPost]
         public void ExportHiuchiPdf(HiuchiItiranModel model)
         {
@@ -111,7 +105,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                         var mstr = new FileStream(path + @"/" + FileName, FileMode.Create); 
                         var writer = PdfWriter.GetInstance(doc1, mstr);
                         doc1.Open(); 
-                        var tablea = new PdfPTable(3);
+                        var tablea = new PdfPTable(4);
                         tablea.AddCell(new PdfPCell(new Phrase("火 　 打　  材", font_Class.CreateJapaneseFont(font_folder, 30)))
                         {
                             HorizontalAlignment = Element.ALIGN_CENTER,
@@ -122,7 +116,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                             BorderWidthLeft = 0,
                             BorderWidthRight = 0,
                             PaddingBottom = 0f,
-                            Colspan = 3
+                            Colspan = 4
                         });
 
                         var tempVal = dt.Rows[0]["KoumutenName"].ToString() + "様";
@@ -140,7 +134,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                             BorderWidthLeft = 0.3f,
                             BorderWidthRight = 1f,
                             PaddingBottom = 5f,
-                            Colspan = 3
+                            Colspan = 4
                         });
 
                         tablea.AddCell(new PdfPCell(new Phrase("  ", font_Class.CreateJapaneseFont(font_folder)))
@@ -153,7 +147,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                             BorderWidthLeft = 0f,
                             BorderWidthRight = 0f,
                             PaddingBottom = 10f,
-                            Colspan = 3
+                            Colspan = 4
                         });
 
                         tempVal = dt.Rows[0]["BukkenName"].ToString();
@@ -168,7 +162,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                             BorderWidthRight = 1f,
                             PaddingBottom = 18f,
                             SpaceCharRatio = 4f,
-                            Colspan = 3
+                            Colspan = 4
                         });
                         tablea.AddCell(new PdfPCell(new Phrase("  ", font_Class.CreateJapaneseFont(font_folder)))
                         {
@@ -180,7 +174,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                             BorderWidthLeft = 0f,
                             BorderWidthRight = 0f,
                             PaddingBottom = 5f,
-                            Colspan = 3
+                            Colspan = 4
                         });
                         tempVal = dt.Rows[0]["SouName"].ToString();
                         tablea.AddCell(new PdfPCell(new Phrase(tempVal, font_Class.CreateJapaneseFont(font_folder, 50, 1)))
@@ -193,7 +187,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                             BorderWidthLeft = 0.3f,
                             BorderWidthRight = 1f,
                             PaddingBottom = 15f,
-                            Colspan = 3,
+                            Colspan = 4,
                             PaddingLeft = 25f
 
                         });
@@ -203,7 +197,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                             tempVal += dr["zairyou"].ToString() +   Environment.NewLine+ Environment.NewLine;
 
                         }
-                        tablea.AddCell(new PdfPCell(new Phrase(tempVal, font_Class.CreateJapaneseFont(font_folder, 25)))
+                        tablea.AddCell(new PdfPCell(new Phrase(tempVal, font_Class.CreateJapaneseFont(font_folder, 22)))
                         {
                             HorizontalAlignment = Element.ALIGN_LEFT,
                             VerticalAlignment = Element.ALIGN_TOP,
@@ -214,7 +208,8 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                             BorderWidthRight = 0,
                             PaddingTop=13f,
                             PaddingBottom = 10f,
-                            PaddingLeft = 25f
+                            PaddingLeft = 25f,
+                            Colspan=2
                         });
                         tempVal = "";
                         foreach (DataRow dr in dt.Rows)
@@ -222,9 +217,9 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                             tempVal +=   dr["toukyuu"].ToString() + Environment.NewLine+Environment.NewLine;
 
                         }
-                        tablea.AddCell(new PdfPCell(new Phrase(tempVal, font_Class.CreateJapaneseFont(font_folder, 25)))
+                        tablea.AddCell(new PdfPCell(new Phrase(tempVal, font_Class.CreateJapaneseFont(font_folder, 22)))
                         {
-                            HorizontalAlignment = Element.ALIGN_CENTER,
+                            HorizontalAlignment = Element.ALIGN_LEFT,
                             VerticalAlignment = Element.ALIGN_TOP,
                             FixedHeight = 170,
                             BorderWidthBottom = 1,
@@ -232,7 +227,8 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                             BorderWidthLeft = 0,
                             BorderWidthRight = 0,
                             PaddingTop = 13f,
-                            PaddingBottom = 10f,
+                            PaddingBottom = 10f, 
+                            PaddingRight=10f
                         });
                         tempVal = "";
                         foreach (DataRow dr in dt.Rows)
@@ -240,7 +236,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                             tempVal +=   dr["honsuu"].ToString() + "本" + Environment.NewLine+ Environment.NewLine;
 
                         }
-                        tablea.AddCell(new PdfPCell(new Phrase(tempVal, font_Class.CreateJapaneseFont(font_folder, 25)))
+                        tablea.AddCell(new PdfPCell(new Phrase(tempVal, font_Class.CreateJapaneseFont(font_folder, 22)))
                         {
                             HorizontalAlignment = Element.ALIGN_RIGHT,
                             VerticalAlignment = Element.ALIGN_TOP,
@@ -263,7 +259,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                             BorderWidthLeft = 0,
                             BorderWidthRight = 0,
                             PaddingBottom = 0,
-                            Colspan = 3
+                            Colspan = 4
                         });
                         tablea.AddCell(new PdfPCell(new Phrase("TEL　079-568ｰ2657    ", font_Class.CreateJapaneseFont(font_folder, 15)))
                         {
@@ -275,7 +271,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                             BorderWidthLeft = 0,
                             BorderWidthRight = 0,
                             PaddingBottom = 0,
-                            Colspan = 3,
+                            Colspan = 4,
                             PaddingRight = 63f
 
                         });

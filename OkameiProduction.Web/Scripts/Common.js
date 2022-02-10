@@ -104,7 +104,7 @@ function bindDataTables(table, option) {
     return t.DataTable(obj);
 }
 
-function calltoApiController(url, model) { 
+function calltoApiController(url, model) {
     var result;
     $.ajax({
         url: url,
@@ -118,7 +118,7 @@ function calltoApiController(url, model) {
             Authorization: getApiAuthorization()
         },
         success: function (data) {
-             
+
             result = JSON.parse(data);
         },
         error: function (data, ajaxOption, terror) {
@@ -128,7 +128,7 @@ function calltoApiController(url, model) {
     return result;
 }
 //ptk test and work 2022/02/09
-function calltoApiController_FileDownLoadHandle(url, model) {  
+function calltoApiController_FileDownLoadHandle(url, model) {
     var result;
     $.ajax({
         url: url,
@@ -155,26 +155,15 @@ function calltoApiController_FileDownLoadHandle(url, model) {
             return xhr;
         },
         success: function (data) { 
-            //Convert the Byte Data to BLOB object.
-            var blob = new Blob([data], { type: "application/octetstream" });
-
-            //Check the Browser type and download the File.
-            var isIE = false || !!document.documentMode;
-            if (isIE) {
-                window.navigator.msSaveBlob(blob, fileName);
-            } else {
-                var url = window.URL || window.webkitURL;
-                link = url.createObjectURL(blob);
-                var a = $("<a />");
-                a.attr("download", model.fileName);
-                a.attr("href", link);
-                $("body").append(a);
-                a[0].click();
-                $("body").remove(a);
-            }
         },
-        error: function (data, ajaxOption, terror) {
-           // alert(data.status + ":" + data.statusText + ":" + terror); 
+        complete: function () {
+            // alert('hi')
+            var link = document.createElement('a');
+            link.href = "../../output/project/" + model.FileName; 
+            link.download = model.FileName;
+           
+            link.click();
+            link.remove();
         }
     });
     return result;
@@ -193,7 +182,7 @@ function callSendFileToServer(url, fileData, progresscall, callback, callbackerr
             Authorization: getApiAuthorization(),
         },
         success: function (data) {
-            if (callback) callback(JSON.parse(data));            
+            if (callback) callback(JSON.parse(data));
         },
         error: function (err) {
             alert(err.status + ":" + err.statusText);
@@ -247,8 +236,7 @@ function showConfirmMessage(msgid, callback) {
 }
 
 function showMessage(msg, callback) {
-    if (!msg.MessageID)
-    {
+    if (!msg.MessageID) {
         var model = {
             MessageID: msg,
         };
@@ -486,7 +474,7 @@ function bindKeyPressEvent(areaid) {
             }
             $(selector + cNext).focus();
         }
-    }); 
+    });
 }
 
 $(document).ready(function () {
