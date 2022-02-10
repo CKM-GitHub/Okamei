@@ -132,39 +132,98 @@ namespace OkameiProduction.Web.Controllers
         }
 
         [HttpPost]
-        public string UploadFiles()
+        public async Task<string> UploadFiles()
         {
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                return GetUnsupportedMediaTypeResult();
+            }
+
             var model = base.GetFromRequestForm<InputBukkenShousaiBukkenFileModel>();
             if (model == null || string.IsNullOrEmpty(model.BukkenNO))
             {
                 return GetBadRequestResult();
             }
 
-            if (string.IsNullOrEmpty(StaticCache.UploadedFilePath))
+            if (string.IsNullOrEmpty(StaticCache.AttachedFilePath))
             {
                 throw new CustomException("ファイルを保存するフォルダが設定されていません。");
             }
 
-            var postedFiles = HttpContext.Current.Request.Files;
-            string path = Path.Combine(StaticCache.UploadedFilePath, model.BukkenNO);
+            string path = Path.Combine(StaticCache.AttachedFilePath, model.BukkenNO);
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
 
-            var bl = new InputBukkenShousaiBL();
-            foreach (string key in postedFiles)
-            {
-                var file = postedFiles[key];
-                file.SaveAs(Path.Combine(path, file.FileName));
+            var provider = new MultipartFormDataStreamProvider(path);
+            await Request.Content.ReadAsMultipartAsync(provider);
 
-                model.BukkenFileName = file.FileName;
+            var bl = new InputBukkenShousaiBL();
+            foreach (var file in provider.FileData)
+            {
+                string fileName = file.Headers.ContentDisposition.FileName;
+                if (fileName.StartsWith("\"") && fileName.EndsWith("\""))
+                {
+                    fileName = fileName.Trim('"');
+                }
+                if (fileName.Contains(@"/") || fileName.Contains(@"\"))
+                {
+                    fileName = Path.GetFileName(fileName);
+                }
+
+                var fileFullName = Path.Combine(path, fileName);
+                if (File.Exists(fileFullName))
+                {
+                    File.Delete(fileFullName);
+                }
+                File.Move(Path.Combine(path, file.LocalFileName), fileFullName);
+
+                model.BukkenFileName = fileName;
                 if (!bl.CreateBukkenFile(model, out string msgid))
                 {
                     return GetErrorResult(msgid);
                 }
             }
+
             return GetSuccessResult();
         }
+
+        //async taskがうまくいかなったらこちら。
+        //[HttpPost]
+        //public string UploadFiles()
+        //{
+        //    var model = base.GetFromRequestForm<InputBukkenShousaiBukkenFileModel>();
+        //    if (model == null || string.IsNullOrEmpty(model.BukkenNO))
+        //    {
+        //        return GetBadRequestResult();
+        //    }
+
+        //    if (string.IsNullOrEmpty(StaticCache.AttachedFilePath))
+        //    {
+        //        throw new CustomException("ファイルを保存するフォルダが設定されていません。");
+        //    }
+
+        //    var postedFiles = HttpContext.Current.Request.Files;
+        //    string path = Path.Combine(StaticCache.AttachedFilePath, model.BukkenNO);
+        //    if (!Directory.Exists(path))
+        //    {
+        //        Directory.CreateDirectory(path);
+        //    }
+
+        //    var bl = new InputBukkenShousaiBL();
+        //    foreach (string key in postedFiles)
+        //    {
+        //        var file = postedFiles[key];
+        //        file.SaveAs(Path.Combine(path, file.FileName));
+
+        //        model.BukkenFileName = file.FileName;
+        //        if (!bl.CreateBukkenFile(model, out string msgid))
+        //        {
+        //            return GetErrorResult(msgid);
+        //        }
+        //    }
+        //    return GetSuccessResult();
+        //}
     }
 }

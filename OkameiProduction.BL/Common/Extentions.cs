@@ -363,10 +363,5 @@ namespace OkameiProduction.BL
                 return new string(cutChars);
             }
         }
-
-        public static string SubstringRight(this string s, int length)
-        {
-            return s.Substring(s.Length - length, length);
-        }
     }
 }
