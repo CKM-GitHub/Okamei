@@ -119,18 +119,36 @@ div.dataTables_scrollBody > table > tbody tr td {
 }
 
 .table .BukkenFileName {
-    min-width: 700px;
-    max-width: 700px;
+    min-width: 660px;
+    max-width: 660px;
 }
 
 .table .BukkenComment {
-    min-width: 882px;
-    max-width: 882px;
+    min-width: 848px;
+    max-width: 848px;
 }
 
 .table .InsertOperator {
     min-width: 120px;
     max-width: 120px;
+}
+
+#tblBukkenFile tbody td:nth-child(5) {
+    min-width: 50px;
+    max-width: 50px;
+    text-align: center;
+}
+
+#tblBukkenFile tbody td:nth-child(6) {
+    min-width: 18px;
+    max-width: 18px;
+    text-align: center;
+}
+
+#tblBukkenComment tbody td:nth-child(4) {
+    min-width: 50px;
+    max-width: 50px;
+    text-align: center;
 }
 
 /* control

@@ -493,6 +493,9 @@ $(document).ready(function () {
 
     bindKeyPressEvent("#main");
 
+    $("input[type='text']").focus(function () {
+        $(this).select();
+    });
 });
 
 $(document).on("drop dragover", function (e) {
