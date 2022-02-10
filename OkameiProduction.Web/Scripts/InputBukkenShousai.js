@@ -93,6 +93,13 @@ function addEvents() {
         $('input[name="' + target + '"]').val(text).focus();
     });
 
+    $('.autocomplete').on('keydown', function (e) {
+        var c = e.which ? e.which : e.keyCode;
+        if (c == 13) {
+            $(this).click();
+        }
+    });
+
     //drag area
     $('#dragDropArea').on('dragenter', function (e) {
         e.stopPropagation();
