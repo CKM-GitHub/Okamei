@@ -151,7 +151,12 @@
         max-height: 25px;
         line-height: 15px;
     }
-
+    #tblHiuchiItiran .SouDateTime {
+        min-width: 160px;
+        vertical-align: middle;
+        /*max-height: 25px;
+        line-height: 15px;*/
+    }
     .btn {
         margin-top: 0px !important;
     }
@@ -166,7 +171,7 @@
                 <th>物件番号</th>
                 <th>物件名</th>
                 <th>層</th>
-                <th>加工日</th>
+                <th >加工日</th>
                 <th>材料</th>
                 <th>等級</th>
                 <th style="text-align:right">本数</th>
@@ -236,7 +241,7 @@
     $(document).ready(function () {
 
     $('#btnReturn').click(function () {
-    location.href = '@Url.Action("Hiuchi", "HiuchiItiran")';
+    location.href = '@Url.Action("SetCondition", "HiuchiItiran")';
     });
 
     bindDataTables($('#tblHiuchiItiran'));
@@ -247,7 +252,7 @@
     var model =
     {
     TantouSitenCD: e.id,
-        UserID: $('#user-id').text(),
+        UserID: 'akao',//$('#user-id').text(),
         FileName: fileName
     };
     //// var resultPdf = calltoApiController(@Url.Action("ExportHiuchiPdf", "HiuchiItiran")', model);
