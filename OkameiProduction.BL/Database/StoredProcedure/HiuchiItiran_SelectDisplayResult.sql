@@ -47,7 +47,7 @@ BEGIN
 					cast ( dbh.honsuu'+@sub+' as varchar(3)) as honsuu
 					from D_Bukken db 
 					left join D_BukkenHiuchi dbh on db.BukkenNo = dbh.BukkenNO
-					left join M_Multiporpose mp on mp.ID=''10'' and mp.[Key]= dbh.Sou'+@root+'
+					left join M_Multiporpose mp on mp.ID=''010'' and mp.[Key]= dbh.Sou'+@root+'
 					where 
 				(@TantouSitenCD IS NULL OR db.TantouSitenCD =   @TantouSitenCD )  
 			AND ( cast(@NoukiStart as varchar(15))  IS NULL OR db.Nouki >=   cast(@NoukiStart as varchar(15)) )

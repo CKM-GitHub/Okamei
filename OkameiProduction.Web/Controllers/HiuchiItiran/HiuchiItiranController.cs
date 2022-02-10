@@ -112,7 +112,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                         var writer = PdfWriter.GetInstance(doc1, mstr);
                         doc1.Open(); 
                         var tablea = new PdfPTable(3);
-                        tablea.AddCell(new PdfPCell(new Phrase("火　打　材", font_Class.CreateJapaneseFont(font_folder, 25)))
+                        tablea.AddCell(new PdfPCell(new Phrase("火 　 打　  材", font_Class.CreateJapaneseFont(font_folder, 30)))
                         {
                             HorizontalAlignment = Element.ALIGN_CENTER,
                             VerticalAlignment = Element.ALIGN_MIDDLE,
@@ -166,7 +166,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                             BorderWidthTop = 1,
                             BorderWidthLeft = 0.3f,
                             BorderWidthRight = 1f,
-                            PaddingBottom = 15f,
+                            PaddingBottom = 18f,
                             SpaceCharRatio = 4f,
                             Colspan = 3
                         });
@@ -200,10 +200,10 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                         tempVal = "";
                         foreach (DataRow dr in dt.Rows)
                         {
-                            tempVal += dr["zairyou"].ToString() + Environment.NewLine;
+                            tempVal += dr["zairyou"].ToString() +   Environment.NewLine+ Environment.NewLine;
 
                         }
-                        tablea.AddCell(new PdfPCell(new Phrase(tempVal, font_Class.CreateJapaneseFont(font_folder, 15)))
+                        tablea.AddCell(new PdfPCell(new Phrase(tempVal, font_Class.CreateJapaneseFont(font_folder, 25)))
                         {
                             HorizontalAlignment = Element.ALIGN_LEFT,
                             VerticalAlignment = Element.ALIGN_TOP,
@@ -212,16 +212,17 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                             BorderWidthTop = 0,
                             BorderWidthLeft = 0.3f,
                             BorderWidthRight = 0,
-                            PaddingBottom = 5f,
+                            PaddingTop=13f,
+                            PaddingBottom = 10f,
                             PaddingLeft = 25f
                         });
                         tempVal = "";
                         foreach (DataRow dr in dt.Rows)
                         {
-                            tempVal += dr["toukyuu"].ToString() + Environment.NewLine;
+                            tempVal +=   dr["toukyuu"].ToString() + Environment.NewLine+Environment.NewLine;
 
                         }
-                        tablea.AddCell(new PdfPCell(new Phrase(tempVal, font_Class.CreateJapaneseFont(font_folder, 15)))
+                        tablea.AddCell(new PdfPCell(new Phrase(tempVal, font_Class.CreateJapaneseFont(font_folder, 25)))
                         {
                             HorizontalAlignment = Element.ALIGN_CENTER,
                             VerticalAlignment = Element.ALIGN_TOP,
@@ -230,15 +231,16 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                             BorderWidthTop = 0,
                             BorderWidthLeft = 0,
                             BorderWidthRight = 0,
-                            PaddingBottom = 5f
+                            PaddingTop = 13f,
+                            PaddingBottom = 10f,
                         });
                         tempVal = "";
                         foreach (DataRow dr in dt.Rows)
                         {
-                            tempVal += dr["honsuu"].ToString() + "本" + Environment.NewLine;
+                            tempVal +=   dr["honsuu"].ToString() + "本" + Environment.NewLine+ Environment.NewLine;
 
                         }
-                        tablea.AddCell(new PdfPCell(new Phrase(tempVal, font_Class.CreateJapaneseFont(font_folder, 15)))
+                        tablea.AddCell(new PdfPCell(new Phrase(tempVal, font_Class.CreateJapaneseFont(font_folder, 25)))
                         {
                             HorizontalAlignment = Element.ALIGN_RIGHT,
                             VerticalAlignment = Element.ALIGN_TOP,
@@ -247,7 +249,8 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                             BorderWidthTop = 0,
                             BorderWidthLeft = 0,
                             BorderWidthRight = 1f,
-                            PaddingBottom = 5f,
+                            PaddingTop = 13f,
+                            PaddingBottom = 10f,
                             PaddingRight = 25f
                         });
                         tablea.AddCell(new PdfPCell(new Phrase("株式会社岡本銘木店　三田工場 ", font_Class.CreateJapaneseFont(font_folder, 15)))
