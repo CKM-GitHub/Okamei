@@ -74,10 +74,10 @@ function addEvents() {
                 BukkenComment: $(this).val(),
                 UserID: $('#user-id').text()
             }
-            var result = calltoApiController(url_SaveBukkenComment, model);
-            if (!result) return;
-            if (result.MessageID) {
-                showMessage(result);
+            var ret = calltoApiController(url_SaveBukkenComment, model);
+            if (!ret) return;
+            if (ret.MessageID) {
+                showMessage(ret);
                 return;
             }
             $(this).val("");
@@ -269,10 +269,10 @@ function deleteBukkenFile(row) {
         BukkenNO: txtBukkenNO.val(),
         BukkenFileRows: row,
     }
-    var data = calltoApiController(url_deleteBukkenFile, model);
-    if (!data) return;
-    if (data.MessageID) {
-        showMessage(data);
+    var ret = calltoApiController(url_deleteBukkenFile, model);
+    if (!ret) return;
+    if (ret.MessageID) {
+        showMessage(ret);
         return;
     }
     showBukkenFileTable();
@@ -283,10 +283,10 @@ function deleteBukkenComment(row) {
         BukkenNO: txtBukkenNO.val(),
         BukkenCommentRows: row,
     }
-    var data = calltoApiController(url_deleteBukkenComment, model);
-    if (!data) return;
-    if (data.MessageID) {
-        showMessage(data);
+    var ret = calltoApiController(url_deleteBukkenComment, model);
+    if (!ret) return;
+    if (ret.MessageID) {
+        showMessage(ret);
         return;
     }
     showBukkenCommentTable();
@@ -430,7 +430,7 @@ function setAutocomplete(selector, url, key) {
         }
         ret.forEach(function (item) {
             var data = item.DisplayText;
-            ddl.append('<li class="autocomplete" data-autocomplete="' + data + '" data-target="' + target + '"><a href="#">' + data + '</a></li>');
+            ddl.append('<li class="autocomplete" data-autocomplete="' + data + '" data-target="' + target + '"><a>' + data + '</a></li>');
         });
     }
 }
@@ -448,25 +448,26 @@ function sendFileToServer(fileData, status) {
     fileData.delete('BukkenNO');
     fileData.delete('BukkenFileShurui');
     fileData.delete('UserID');
+
     fileData.append('BukkenNO', txtBukkenNO.val());
     fileData.append('BukkenFileShurui', $('input[name="UpFileOption"]:radio:checked').val());
     fileData.append('UserID', $('#user-id').text());
 
     callSendFileToServer(url_uploadFiles, fileData,
-        function (percent) {
+        function (percent) { //progress bar function
             status.setProgress(percent);
         },
-        function (result) {
+        function (ret) { //success function
             clearFileInfo();
 
-            if (!result) return;
-            if (result.MessageID) {
-                showMessage(result);
+            if (!ret) return;
+            if (ret.MessageID) {
+                showMessage(ret);
                 return;
             }
             showBukkenFileTable();
         },
-        function () {
+        function () { //error function
             clearFileInfo();
         });
 }
@@ -498,7 +499,7 @@ function dropFiles(files, obj) {
 function downloadFiles() {
 
     var rowcsv = "";
-    $('.table input[type=checkbox]:checked').each(function () {
+    $('#tblBukkenFile input[type=checkbox]:checked').each(function () {
         rowcsv += $(this).data('bukkenfilerows') + ",";
     });
 

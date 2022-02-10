@@ -72,7 +72,7 @@ namespace OkameiProduction.Web.Controllers
                 return this.HttpNotFound();
             }
 
-            if (string.IsNullOrEmpty(StaticCache.UploadedFilePath))
+            if (string.IsNullOrEmpty(StaticCache.AttachedFilePath))
             {
                 return this.HttpNotFound();
             }
@@ -83,37 +83,64 @@ namespace OkameiProduction.Web.Controllers
                 var dt = bl.GetBukkenFileName(BukkenNO, decodedFileRowsCsv);
                 //データがない場合も空のzipファイルを返す
 
-                string filePath = Path.Combine(StaticCache.UploadedFilePath, BukkenNO);
-                string zipFileName = BukkenNO + ".zip";
+                var filePath = Path.Combine(StaticCache.AttachedFilePath, BukkenNO);
+                var zipFileName = BukkenNO + ".zip";
 
-                using (MemoryStream zipArchiveMemoryStream = new MemoryStream())
-                {
-                    using (ZipArchive zipArchive = new ZipArchive(zipArchiveMemoryStream, ZipArchiveMode.Create, true))
-                    {
-                        foreach (DataRow dr in dt.Rows)
-                        {
-                            var fileName = dr["BukkenFileName"].ToStringOrEmpty();
-                            var fileFullName = Path.Combine(filePath, fileName);
-
-                            if (System.IO.File.Exists(fileFullName))
-                            {
-                                ZipArchiveEntry zipEntry = zipArchive.CreateEntry(fileName);
-                                using (Stream entryStream = zipEntry.Open())
-                                {
-                                    using (MemoryStream ms = new MemoryStream(System.IO.File.ReadAllBytes(fileFullName)))
-                                    {
-                                        ms.CopyTo(entryStream);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    return File(zipArchiveMemoryStream.ToArray(), "application/zip", zipFileName);
-                }
+                //メモリ不足になるようならCreateZipFilePathResultにする。
+                return CreateZipContentResult(zipFileName, filePath, dt);
+                //return CreateZipFilePathResult(zipFileName, filePath, dt);
             }
             catch (Exception)
             {
                 return this.HttpNotFound();
+            }
+        }
+
+        private FilePathResult CreateZipFilePathResult(string zipFileName, string filePath, DataTable fileNames)
+        {
+            var tempZipFilePath = Path.Combine(StaticCache.AttachedFilePath, Guid.NewGuid() + "_" + zipFileName);
+
+            using (ZipArchive zipArchive = ZipFile.Open(Path.Combine(filePath, tempZipFilePath), ZipArchiveMode.Create))
+            {
+                foreach (DataRow dr in fileNames.Rows)
+                {
+                    var fileName = dr["BukkenFileName"].ToStringOrEmpty();
+                    var fileFullName = Path.Combine(filePath, fileName);
+
+                    if (System.IO.File.Exists(fileFullName))
+                    {
+                        ZipArchiveEntry zipEntry = zipArchive.CreateEntryFromFile(fileFullName, fileName);
+                    }
+                }
+            }
+            return File(tempZipFilePath, "application/zip", zipFileName);
+        }
+
+        private FileContentResult CreateZipContentResult(string zipFileName, string filePath, DataTable fileNames)
+        {
+            using (MemoryStream zipArchiveMemoryStream = new MemoryStream())
+            {
+                using (ZipArchive zipArchive = new ZipArchive(zipArchiveMemoryStream, ZipArchiveMode.Create, true))
+                {
+                    foreach (DataRow dr in fileNames.Rows)
+                    {
+                        var fileName = dr["BukkenFileName"].ToStringOrEmpty();
+                        var fileFullName = Path.Combine(filePath, fileName);
+
+                        if (System.IO.File.Exists(fileFullName))
+                        {
+                            ZipArchiveEntry zipEntry = zipArchive.CreateEntry(fileName);
+                            using (Stream entryStream = zipEntry.Open())
+                            {
+                                using (MemoryStream ms = new MemoryStream(System.IO.File.ReadAllBytes(fileFullName)))
+                                {
+                                    ms.CopyTo(entryStream);
+                                }
+                            }
+                        }
+                    }
+                }
+                return File(zipArchiveMemoryStream.ToArray(), "application/zip", zipFileName);
             }
         }
     }
