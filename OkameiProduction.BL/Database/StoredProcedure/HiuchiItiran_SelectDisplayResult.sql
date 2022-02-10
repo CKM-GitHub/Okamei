@@ -12,7 +12,7 @@ Create PROCEDURE [dbo].[HiuchiItiran_SelectDisplayResult]
 			  ,@TantouCadCD           varchar(15) 
 AS
 BEGIN
-			 create table #ptk(
+			 create table #tempHiuchi(
 			 Flg varchar(500),
 			 Nouki varchar(500),
 			 BukkenNo varchar(500),
@@ -34,20 +34,20 @@ BEGIN
 			   Begin	
 			   	set @sub = cast((@i) as varchar(1))+cast((@j) as varchar(1));
 				set @root =   cast((@i) as varchar(1));
-			  set @sql =N'insert into #ptk  select * from  
+			  set @sql =N'insert into #tempHiuchi  select * from  
 					(select 
 					 '+@sub+' as Flg, 
 					(CASE db.NoukiMiteiKBN WHEN 1 THEN ''未定''  ELSE FORMAT(db.Nouki, ''MM/dd'') END ) as Nouki,
 					cast( db.BukkenNo as varchar(8)) as BukkenNo,
 					cast( db.BukkenName as varchar(16)) as BukkenName,
 					cast ( mp.Char1 as varchar(6)) as SouName, 
-					cast ( FORMAT(dbh.Sou'+@root+'KakouDateTime , ''yyyy/MM/dd hh:mm:ss'')  as varchar(25) ) as SouDateTime,
+					cast ( FORMAT(dbh.Sou'+@root+'KakouDateTime , ''yyyy-MM-dd hh:mm:ss'')  as varchar(25) ) as SouDateTime,
 					cast ( dbh.zairyou'+@sub+' as varchar(30)) as zairyou,
 					cast ( dbh.toukyuu'+@sub+' as varchar(10)) as toukyuu,
 					cast ( dbh.honsuu'+@sub+' as varchar(3)) as honsuu
 					from D_Bukken db 
 					left join D_BukkenHiuchi dbh on db.BukkenNo = dbh.BukkenNO
-					left join M_Multiporpose mp on mp.ID=''10'' and mp.[Key]= dbh.Sou'+@root+'
+					left join M_Multiporpose mp on mp.ID=''010'' and mp.[Key]= dbh.Sou'+@root+'
 					where 
 				(@TantouSitenCD IS NULL OR db.TantouSitenCD =   @TantouSitenCD )  
 			AND ( cast(@NoukiStart as varchar(15))  IS NULL OR db.Nouki >=   cast(@NoukiStart as varchar(15)) )
@@ -65,9 +65,9 @@ BEGIN
 
 		 End 				
 
-			  select  pk.*  ,  cast (db.KoumutenName as varchar(50)) as KoumutenName  from #ptk pk left join D_Bukken db on pk.BukkenNo = db.BukkenNo   where Zairyou is not null  order by Nouki asc, BukkenNo asc, flg asc 
+			  select  pk.*  ,  cast (db.KoumutenName as varchar(50)) as KoumutenName  from #tempHiuchi pk left join D_Bukken db on pk.BukkenNo = db.BukkenNo   where Zairyou is not null  order by Nouki asc, BukkenNo asc, flg asc 
 
 			  --select * from D_Bukken
-					Drop table #ptk
+					Drop table #tempHiuchi
 				
 END

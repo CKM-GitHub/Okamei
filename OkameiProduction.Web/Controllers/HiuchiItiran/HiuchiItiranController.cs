@@ -31,7 +31,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
         {
             return View();
         }
-        public ActionResult Hiuchi()
+        public ActionResult SetCondition()
         {
             var vm = new HiuchiItiranModel(); 
             ViewBag.ServerDate = DateTime.Now.ToString(DateTimeFormat.yyyyMMdd);
@@ -55,51 +55,64 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
             ViewBag.Data = dt;
 
             return View(vm);
-        }
-
+        } 
+        //Work in IDM of some PCs
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Export()
-        {
+        public void Export()
+        { 
+            try
+            {
 
-            Response.Buffer = true;
-            Response.ContentType = "application/pdf";
-            Response.AppendHeader("Content-Disposition", "attachment; filename=MyFile.pdf");
-            Response.TransmitFile(Server.MapPath("~/output/project/") + "123.txt");
-            Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            Response.Flush();
-            Response.End();
-            return DisplayResult();
+                Response.Buffer = true;
+                Response.ContentType = "application/OCTET-STREAM";
+                Response.AddHeader("Access-Control-Allow-Methods", "GET, POST,PUT");
+
+                Response.AppendHeader("Content-Disposition", "attachment; filename=123.txt");
+                Response.TransmitFile(Server.MapPath("~/output/project/") + "123.txt");
+                Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                Response.Flush();
+                Response.End(); 
+            }
+            catch (System.Exception e) 
+            { 
+            }
         }
-
+        //PTK 2022/02/09
+        //:::::::Concerning with Download it shoud simply work in controller or ApiController by giving response with anytype of trsmittedfile/Outputstream/releasing 
+        //:::::::But It dont work well in all PC, some PC work and but some dont. 
+        //:::::::I think may be some of leakage dependecy might affect in releasing response. May be I insuffciently researched. 
+        //:::::::I consumed 2 days in here downloading part although I have done many download sections in some projects So. . . 
+        //:::::::I decided to work with Ajax response trio(Controller + APIcontroller+ Ajax). Then Okhayed for other extensions.
+        //:::::::Even trio, it would be okay all extension except only PDF extension(for our current usage), So it will go with IDM software which might need to install in User's PC. 
         [HttpPost]
-        public ActionResult ExportHiuchiPdf(HiuchiItiranModel model)
+        public void ExportHiuchiPdf(HiuchiItiranModel model)
         {
             var vm = GetFromQueryString<HiuchiItiranModel>();
             var bl = new HiuchiItiranBL();
-            var dt = bl.GetDisplayResult(vm);
-
+            var dt = bl.GetDisplayResult(vm); 
             dt = dt.Select(" BukkenNo = '" + model.TantouSitenCD.Split('_')[1].ToString() + "' and BukkenName ='" + model.TantouSitenCD.Split('_')[2].ToString() + "' and SouName = '" + model.TantouSitenCD.Split('_')[3].ToString() + "'").CopyToDataTable();
             var fbname = model.TantouSitenCD.Split('_')[2].ToString(); 
             PDF_Font font_Class = new PDF_Font();
-            string font_folder = Server.MapPath("~/fonts/");
+            //System.Web.Hosting.HostingEnvironment.MapPath("~/output/project/123.txt");
+            string font_folder = System.Web.Hosting.HostingEnvironment.MapPath("~/fonts/");
             Font font_Header = font_Class.CreateJapaneseFontHeader(font_folder);
             Font font = font_Class.CreateJapaneseFont(font_folder,35);
             Font font_Color = font_Class.CreateJapaneseFont_Color(font_folder);
             if (!Directory.Exists("~/output"))
-                Directory.CreateDirectory(Server.MapPath("~/output"));
+                Directory.CreateDirectory(System.Web.Hosting.HostingEnvironment.MapPath("~/output"));
             if (!Directory.Exists("~/output/project"))
-                Directory.CreateDirectory(Server.MapPath("~/output/project"));
+                Directory.CreateDirectory(System.Web.Hosting.HostingEnvironment.MapPath("~/output/project"));
             var doc1 = new iTextSharp.text.Document();
             #region DocSet
             doc1.SetPageSize(PageSize.A4.Rotate());
-                        string path = Server.MapPath("~/output/project");
+                        string path = System.Web.Hosting.HostingEnvironment.MapPath("~/output/project");
                         string FileName = "火打ラベル_" + fbname + ".pdf";
                         var mstr = new FileStream(path + @"/" + FileName, FileMode.Create); 
                         var writer = PdfWriter.GetInstance(doc1, mstr);
                         doc1.Open(); 
                         var tablea = new PdfPTable(3);
-                        tablea.AddCell(new PdfPCell(new Phrase("火　打　材", font_Class.CreateJapaneseFont(font_folder, 25)))
+                        tablea.AddCell(new PdfPCell(new Phrase("火 　 打　  材", font_Class.CreateJapaneseFont(font_folder, 30)))
                         {
                             HorizontalAlignment = Element.ALIGN_CENTER,
                             VerticalAlignment = Element.ALIGN_MIDDLE,
@@ -153,7 +166,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                             BorderWidthTop = 1,
                             BorderWidthLeft = 0.3f,
                             BorderWidthRight = 1f,
-                            PaddingBottom = 15f,
+                            PaddingBottom = 18f,
                             SpaceCharRatio = 4f,
                             Colspan = 3
                         });
@@ -187,10 +200,10 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                         tempVal = "";
                         foreach (DataRow dr in dt.Rows)
                         {
-                            tempVal += dr["zairyou"].ToString() + Environment.NewLine;
+                            tempVal += dr["zairyou"].ToString() +   Environment.NewLine+ Environment.NewLine;
 
                         }
-                        tablea.AddCell(new PdfPCell(new Phrase(tempVal, font_Class.CreateJapaneseFont(font_folder, 15)))
+                        tablea.AddCell(new PdfPCell(new Phrase(tempVal, font_Class.CreateJapaneseFont(font_folder, 25)))
                         {
                             HorizontalAlignment = Element.ALIGN_LEFT,
                             VerticalAlignment = Element.ALIGN_TOP,
@@ -199,16 +212,17 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                             BorderWidthTop = 0,
                             BorderWidthLeft = 0.3f,
                             BorderWidthRight = 0,
-                            PaddingBottom = 5f,
+                            PaddingTop=13f,
+                            PaddingBottom = 10f,
                             PaddingLeft = 25f
                         });
                         tempVal = "";
                         foreach (DataRow dr in dt.Rows)
                         {
-                            tempVal += dr["toukyuu"].ToString() + Environment.NewLine;
+                            tempVal +=   dr["toukyuu"].ToString() + Environment.NewLine+Environment.NewLine;
 
                         }
-                        tablea.AddCell(new PdfPCell(new Phrase(tempVal, font_Class.CreateJapaneseFont(font_folder, 15)))
+                        tablea.AddCell(new PdfPCell(new Phrase(tempVal, font_Class.CreateJapaneseFont(font_folder, 25)))
                         {
                             HorizontalAlignment = Element.ALIGN_CENTER,
                             VerticalAlignment = Element.ALIGN_TOP,
@@ -217,15 +231,16 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                             BorderWidthTop = 0,
                             BorderWidthLeft = 0,
                             BorderWidthRight = 0,
-                            PaddingBottom = 5f
+                            PaddingTop = 13f,
+                            PaddingBottom = 10f,
                         });
                         tempVal = "";
                         foreach (DataRow dr in dt.Rows)
                         {
-                            tempVal += dr["honsuu"].ToString() + "本" + Environment.NewLine;
+                            tempVal +=   dr["honsuu"].ToString() + "本" + Environment.NewLine+ Environment.NewLine;
 
                         }
-                        tablea.AddCell(new PdfPCell(new Phrase(tempVal, font_Class.CreateJapaneseFont(font_folder, 15)))
+                        tablea.AddCell(new PdfPCell(new Phrase(tempVal, font_Class.CreateJapaneseFont(font_folder, 25)))
                         {
                             HorizontalAlignment = Element.ALIGN_RIGHT,
                             VerticalAlignment = Element.ALIGN_TOP,
@@ -234,7 +249,8 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                             BorderWidthTop = 0,
                             BorderWidthLeft = 0,
                             BorderWidthRight = 1f,
-                            PaddingBottom = 5f,
+                            PaddingTop = 13f,
+                            PaddingBottom = 10f,
                             PaddingRight = 25f
                         });
                         tablea.AddCell(new PdfPCell(new Phrase("株式会社岡本銘木店　三田工場 ", font_Class.CreateJapaneseFont(font_folder, 15)))
@@ -268,16 +284,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
 
             #endregion
 
-            Response.Buffer = true;
-            Response.ContentType = "application/pdf";
-            Response.AppendHeader("Content-Disposition", "attachment; filename=MyFile.pdf");
-            Response.TransmitFile( Server.MapPath("~/output/project/") + FileName);
-            Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            //Response.Flush();
-            Response.End();
-
-            ViewBag.Data = dt;
-            return DisplayResult();
+          
         }
         public   byte[] ReadFully(Stream input)
         {
@@ -304,6 +311,8 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
             Font font = new iTextSharp.text.Font(baseFT, 13, Font.BOLD);
             return null;
         }  
+
+        //May work in IDM 
         private void DownloadFile(string pth)
         {
             HttpContext.Response.AddHeader("Access-Control-Allow-Origin", "*");

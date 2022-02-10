@@ -26,7 +26,7 @@ namespace OkameiProduction.Web.Controllers
             }
         }
         [HttpPost]
-        public string pdf( )
+        public string PDF( )
         {
             HttpResponseMessage result = null;
             result = Request.CreateResponse(HttpStatusCode.OK);
@@ -70,7 +70,21 @@ namespace OkameiProduction.Web.Controllers
             return response;
         }
 
-
+        [HttpPost]
+        public HttpResponseMessage PdfExport(HiuchiItiranModel model)
+        {
+            HiuchiItiran.HiuchiItiranController PdfCaller = new HiuchiItiran.HiuchiItiranController();
+            PdfCaller.ExportHiuchiPdf(model);
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+            string filePath = System.Web.Hosting.HostingEnvironment.MapPath("~/output/project/"+ model.FileName);//
+            byte[] bytes = File.ReadAllBytes(filePath); 
+            response.Content = new ByteArrayContent(bytes); 
+            response.Content.Headers.ContentLength = bytes.LongLength; 
+            response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+            response.Content.Headers.ContentDisposition.FileName = model.FileName; 
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(model.FileName)); 
+            return response;
+        }
 
 
     }

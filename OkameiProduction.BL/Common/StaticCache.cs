@@ -11,7 +11,7 @@ namespace OkameiProduction.BL
         public static Dictionary<string, MessageInfo> SystemMessages { get; private set; } 
             = new Dictionary<string, MessageInfo>();
 
-        public static string UploadedFilePath { get; private set; }
+        public static string AttachedFilePath { get; private set; }
 
         private static readonly object _lockObject = new object();
 
@@ -48,10 +48,15 @@ namespace OkameiProduction.BL
             }
         }
 
-        public static void SetMultiPorposeInfo()
+        public static void SetMControl()
         {
             CommonBL bl = new CommonBL();
-            UploadedFilePath = @"c:\Okamei\TempFile\"; //bl.GetMultiPorpose(EMultiPorpose., "");
+            var dt = bl.GetMControl();
+            if (dt.Rows.Count > 0)
+            {
+                var control = dt.Rows[0].ToEntity<MControl>();
+                AttachedFilePath = control.TenpuFilePass;
+            }
         }
     }
 }

@@ -8,6 +8,7 @@ CREATE PROCEDURE [dbo].[InputBukkenShousai_SelectDisplayResult](
      @BukkenNO  varchar(8)
 )AS
 BEGIN
+    SET NOCOUNT ON
     DECLARE @MaxDate date = '2099/12/31'
 
 	SELECT BukkenNO

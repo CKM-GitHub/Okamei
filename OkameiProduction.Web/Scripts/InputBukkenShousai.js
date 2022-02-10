@@ -1,7 +1,7 @@
 ﻿//InputBukkenShousai.js
 
 function addEvents() {
-    $('#btnReturn').click(function () {
+    btnReturn.click(function () {
         showConfirmMessage("Q003", function () {
             if (eMode == 'New') {
                 location.href = url_homePage;
@@ -74,10 +74,10 @@ function addEvents() {
                 BukkenComment: $(this).val(),
                 UserID: $('#user-id').text()
             }
-            var result = calltoApiController(url_SaveBukkenComment, model);
-            if (!result) return;
-            if (result.MessageID) {
-                showMessage(result);
+            var ret = calltoApiController(url_SaveBukkenComment, model);
+            if (!ret) return;
+            if (ret.MessageID) {
+                showMessage(ret);
                 return;
             }
             $(this).val("");
@@ -91,6 +91,13 @@ function addEvents() {
         var text = $(this).data('autocomplete');
         var target = $(this).data('target');
         $('input[name="' + target + '"]').val(text).focus();
+    });
+
+    $('.autocomplete').on('keydown', function (e) {
+        var c = e.which ? e.which : e.keyCode;
+        if (c == 13) {
+            $(this).click();
+        }
     });
 
     //drag area
@@ -212,7 +219,7 @@ function showBukkenFileTable() {
         {
             "data": null,
             render: function (data, type, row) {
-                return '<input type="checkbox" data-bukkenfile-row="' + data.BukkenFileRows.toString() + '"/>';
+                return '<input type="checkbox" data-bukkenfilerows="' + data.BukkenFileRows.toString() + '"/>';
             }
         },
     ];
@@ -269,10 +276,10 @@ function deleteBukkenFile(row) {
         BukkenNO: txtBukkenNO.val(),
         BukkenFileRows: row,
     }
-    var data = calltoApiController(url_deleteBukkenFile, model);
-    if (!data) return;
-    if (data.MessageID) {
-        showMessage(data);
+    var ret = calltoApiController(url_deleteBukkenFile, model);
+    if (!ret) return;
+    if (ret.MessageID) {
+        showMessage(ret);
         return;
     }
     showBukkenFileTable();
@@ -283,10 +290,10 @@ function deleteBukkenComment(row) {
         BukkenNO: txtBukkenNO.val(),
         BukkenCommentRows: row,
     }
-    var data = calltoApiController(url_deleteBukkenComment, model);
-    if (!data) return;
-    if (data.MessageID) {
-        showMessage(data);
+    var ret = calltoApiController(url_deleteBukkenComment, model);
+    if (!ret) return;
+    if (ret.MessageID) {
+        showMessage(ret);
         return;
     }
     showBukkenCommentTable();
@@ -384,6 +391,8 @@ function btnSaveClick() {
         HundeggerKakou: $('#HundeggerKakou').val(),
         HundeggerSumi: $('#HundeggerSumi').is(':checked') ? 1 : 0,
         HundeggerTime: $('#HundeggerTime').val(),
+        //Page 3.
+        BukkenFileShurui: $('input[name="UpFileOption"]:radio:checked').val(),
         //Page 4.
         BukkenComment: $('#BukkenComment').val(),
         HiddenUpdateDatetime: $('#HiddenUpdateDatetime').val(),
@@ -428,7 +437,7 @@ function setAutocomplete(selector, url, key) {
         }
         ret.forEach(function (item) {
             var data = item.DisplayText;
-            ddl.append('<li class="autocomplete" data-autocomplete="' + data + '" data-target="' + target + '"><a href="#">' + data + '</a></li>');
+            ddl.append('<li class="autocomplete" data-autocomplete="' + data + '" data-target="' + target + '"><a>' + data + '</a></li>');
         });
     }
 }
@@ -446,25 +455,26 @@ function sendFileToServer(fileData, status) {
     fileData.delete('BukkenNO');
     fileData.delete('BukkenFileShurui');
     fileData.delete('UserID');
+
     fileData.append('BukkenNO', txtBukkenNO.val());
     fileData.append('BukkenFileShurui', $('input[name="UpFileOption"]:radio:checked').val());
     fileData.append('UserID', $('#user-id').text());
 
     callSendFileToServer(url_uploadFiles, fileData,
-        function (percent) {
+        function (percent) { //progress bar function
             status.setProgress(percent);
         },
-        function (result) {
+        function (ret) { //success function
             clearFileInfo();
 
-            if (!result) return;
-            if (result.MessageID) {
-                showMessage(result);
+            if (!ret) return;
+            if (ret.MessageID) {
+                showMessage(ret);
                 return;
             }
             showBukkenFileTable();
         },
-        function () {
+        function () { //error function
             clearFileInfo();
         });
 }
@@ -494,11 +504,23 @@ function dropFiles(files, obj) {
 
 //download files
 function downloadFiles() {
-    $('.table input[type=checkbox]:checked').each(function () {
-        var model = {
-            BukkenNO: txtBukkenNO.val(),
-            BukkenFileRows: $(this).data('bukkenfile-row')
-        }
+
+    var rowcsv = "";
+    $('#tblBukkenFile input[type=checkbox]:checked').each(function () {
+        rowcsv += $(this).data('bukkenfilerows') + ",";
     });
 
+    if (rowcsv == "") {
+        showMessage('E289');
+        return;
+    }
+
+    var model = {
+        BukkenNO: txtBukkenNO.val(),
+        BukkenFileRowsCsv: rowcsv.slice(0, -1)
+    }
+
+    const link = document.getElementById("downloadBukkenFile");
+    link.href = url_downloadFiles + querySerialize(model);
+    link.click();
 }
