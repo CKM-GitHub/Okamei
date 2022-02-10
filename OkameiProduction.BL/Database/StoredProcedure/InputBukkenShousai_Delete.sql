@@ -22,6 +22,9 @@ BEGIN
         RETURN
     END
 
+	DELETE D_BukkenFile
+	WHERE BukkenNO = @BukkenNO
+
 	DELETE D_BukkenComment
 	WHERE BukkenNO = @BukkenNO
 
