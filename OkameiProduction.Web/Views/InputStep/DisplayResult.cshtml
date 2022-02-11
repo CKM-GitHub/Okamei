@@ -1,0 +1,131 @@
+﻿
+@{
+    ViewBag.Title = "InputStepList";
+}
+
+<style>
+
+    .table th {
+        padding-top: 2px;
+        padding-bottom: 2px;
+        background-color: #ffff66;
+        white-space: nowrap;
+    }
+
+    #tblInputStep tbody td {
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+    #tblInputStep .JuchuuDate {
+        min-width: 50px;
+    }
+
+    #tblInputStep .Nouki {
+        min-width: 50px;
+    }
+
+    #tblInputStep .BukkenNO {
+    }
+
+    #tblInputStep .BukkenName {
+        min-width: 120px;
+    }
+
+    #tblInputStep .KoumutenName {
+        min-width: 210px;
+    }
+
+    #tblInputStep .KakouTubosuu {
+        text-align: right;
+    }
+
+    #tblInputStep .TantouSitenName {
+        min-width: 50px;
+    }
+
+    #tblInputStep .TantouEigyouName {
+        min-width: 50px;
+    }
+
+    #tblInputStep .TantouCadName {
+        min-width: 50px;
+    }
+    #tblInputStep .KanamonName {
+        min-width: 70px;
+    }
+    td, th {
+        font-size: 14px ;
+    }
+    
+</style>
+
+<h4>入力段階別</h4>
+<div id="main" class="main-content">
+    <table class='table table-bordered'  id="tblInputStep">
+        <thead>
+            <tr>
+                <th>受注日</th>
+                <th>納期</th>
+                <th>物件番号</th>
+                <th>物件名</th>
+                <th>工務店</th>
+                <th>坪数</th>
+                <th>支店</th>
+                <th>営業</th>
+                <th>入力者</th>
+                <th>金物</th>
+            </tr>
+        </thead>
+        <tbody>
+          
+
+            @{
+                var columns = ViewBag.Data.Columns;
+            }
+
+            @foreach (System.Data.DataRow row in ViewBag.Data.Rows)
+            {
+                <tr>
+                    @{
+                        var count = row.ItemArray.Count();
+                        var items = row.ItemArray;
+                        var bukkenNo = row["BukkenNO"].ToString();
+                    }
+                    @for (var i = 0; i < count; i++)
+                    {
+                        <td class="@columns[i].Caption">
+                            @if (columns[i].Caption == "BukkenName")
+                            {
+                                @Html.ActionLink((string)items[i], "Entry", "InputBukkenShousai", new { Mode = "Edit", BukkenNO = bukkenNo }, new { @class = "edit-link" })
+                            }
+                            else
+                            {
+                                @items[i]
+                            }
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="form-group row">
+        <div class="footer-btn mx-auto">
+            <button type="button" id="btnReturn" class="btn btn-secondary">戻る</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#btnReturn').click(function () {
+                location.href = '@Url.Action("SetCondition", "FusezuMiteisyutu")';
+            });
+
+            bindDataTables($('#tblFusezuMiteisyutu'));
+        });
+
+    </script>
+}

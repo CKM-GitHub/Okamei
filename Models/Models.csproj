@@ -57,6 +57,7 @@
     <Compile Include="InputBukkenShousaiModel.cs" />
     <Compile Include="HanyouKensakuModel.cs" />
     <Compile Include="HiuchiItiranModel.cs" />
+    <Compile Include="InputStepModel.cs" />
     <Compile Include="KubunTaisyouModel.cs" />
     <Compile Include="MControl.cs" />
     <Compile Include="MoulderItiranModel.cs" />
