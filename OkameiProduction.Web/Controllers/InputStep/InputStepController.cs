@@ -29,16 +29,17 @@ namespace OkameiProduction.Web.Controllers
 
             return View(vm);
         }
-
-
-
-
         // ----------------------------------------/
         // private
         private void SetDropDownListItems(InputStepModel vm)
         {
             CommonBL dl = new CommonBL();
+            vm.TantouSitenDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouSiten);
+            vm.TantouEigyouDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouEigyou);
+            vm.TantouPcDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouPc);
             vm.TantouCadDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouCad);
+            vm.Dankai1DropDownListItems = dl.GetDankai1DropDownListItems();
+            vm.Dankai2DropDownListItems = dl.GetDankai2DropDownListItems();
         }
     }
 }

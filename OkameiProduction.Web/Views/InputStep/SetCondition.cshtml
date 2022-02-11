@@ -7,9 +7,111 @@
 
 <h4 class="page-title">入力段階別</h4>
 <div id="main" class="main-content">
-    
-   
-    
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label label-title">支店</label>
+        </div>
+        <div class="col-sm-10">
+            @Html.DropDownListFor(
+            model => model.TantouSitenCD,
+            new SelectList(Model.TantouSitenDropDownListItems, "Value", "DisplayText"),
+            "全社",
+            new { @class = "form-control size50" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label label-title">受注残・キャンセル失注</label>
+        </div>
+        <div class="col-sm-10">
+            <div class="custom-control custom-radio">
+                <input id="JuchuuOption1" name="JuchuuOption" type="radio" value="1" checked>
+                <label for="JuchuuOption1" class="label-custom-radio">受注残</label>
+                <input id="JuchuuOption2" name="JuchuuOption" type="radio" value="2">
+                <label for="JuchuuOption2" class="label-custom-radio">キャンセル</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label label-title">物件指定</label>
+        </div>
+        <div class="col-sm-10">
+            <div class="custom-control custom-radio">
+                <input id="BukkenSiteiOption1" name="BukkenSiteiOption" type="radio" value="1" checked>
+                <label for="BukkenSiteiOption1" class="label-custom-radio">全物件</label>
+                <input id="BukkenSiteiOption2" name="BukkenSiteiOption" type="radio" value="2">
+                <label for="BukkenSiteiOption2" class="label-custom-radio">自分関連の物件</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label label-title">納期</label>
+        </div>
+        <div class="col-sm-10 form-inline">
+            <input type="text" id="NoukiStart" name="NoukiStart" class="form-control size10" maxlength="10" />
+            <span>&nbsp;～&nbsp;</span>
+            <input type="text" id="NoukiEnd" name="NoukiEnd" class="form-control size10" maxlength="10" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label label-title">担当営業マン</label>
+        </div>
+        <div class="col-sm-10">
+            @Html.DropDownListFor(
+            model => model.TantouEigyouCD,
+            new SelectList(Model.TantouEigyouDropDownListItems, "Value", "DisplayText"),
+            "",
+            new { @class = "form-control size50" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label label-title">担当CADマン</label>
+        </div>
+        <div class="col-sm-10">
+            @Html.DropDownListFor(
+            model => model.TantouCadCD,
+            new SelectList(Model.TantouCadDropDownListItems, "Value", "DisplayText"),
+            "",
+            new { @class = "form-control size50" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label label-title">担当PCサポート</label>
+        </div>
+        <div class="col-sm-10">
+            @Html.DropDownListFor(
+            model => model.TantouPcCD,
+            new SelectList(Model.TantouPcDropDownListItems, "Value", "DisplayText"),
+            "",
+            new { @class = "form-control size50" })
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label label-title">段階</label>
+        </div>
+        <div class="col-sm-10 form-inline">
+            @Html.DropDownListFor(
+            model => model.TantouCadCD,
+            new SelectList(Model.Dankai1DropDownListItems, "Value", "DisplayText"),
+            "",
+            new { @class = "form-control size6" })
+
+            <span>&nbsp;&nbsp;</span>
+            @Html.DropDownListFor(
+            model => model.TantouCadCD,
+            new SelectList(Model.Dankai2DropDownListItems, "Value", "DisplayText"),
+            "",
+            new { @class = "form-control size6" })
+        </div>
+    </div>
+
     <div class="form-group row">
         <div class="main-content-footer mx-auto">
             <button type="button" id="btnReturn" class="btn btn-secondary" nofocus>戻る</button>
@@ -34,16 +136,28 @@
                     showConfirmMessage("Q201", btnDisplayClick);
                 }
             });
-            $('#TantouCadCD').focus();
-           
+              //date
+            setDateTypeValidate('#NoukiStart')
+            setDateTypeValidate('#NoukiEnd')
+            //compare date
+            setCompareDateValidate('#NoukiEnd', '#NoukiStart')
+            //is half-width
+            setIsHalfWidthValidate('#BukkenNO');
+            //is double-byte
+            setDoubleByteValidate('#BukkenName');
+            setDoubleByteValidate('#KoumutenName');
+
+            $('#NoukiStart').val('@serverDate');
+            $('#TantouSitenCD').focus();
+
         });
 
         function btnDisplayClick() {
             var model =
             {
-               
+
                 TantouCadCD: $('#TantouCadCD').val(),
-               
+
             };
 
             var result = calltoApiController('@Url.Action("ExistsDisplayResult", "api/InputStepApi")', model);
