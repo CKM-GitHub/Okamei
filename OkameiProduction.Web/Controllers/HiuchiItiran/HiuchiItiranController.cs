@@ -7,20 +7,8 @@ using System.Data;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.IO;
-using System.Net;
-using System.Collections.Generic;
-using iTextSharp.text.pdf.parser;
-using iText.Kernel.Pdf.Canvas.Parser.Listener;
-//using LocationTextExtractionStrategy = iTextSharp.text.pdf.parser.LocationTextExtractionStrategy;
-using System.Linq;
-using System.Text.RegularExpressions;
-//using PDFExtraction;
-using SautinSoft.Document;
-using SautinSoft.Document.Drawing;
 using Path = System.IO.Path;
 using System.Web;
-using System.Net.Http;
-using iTextSharp.tool.xml;
 
 namespace OkameiProduction.Web.Controllers.HiuchiItiran
 {
@@ -79,25 +67,23 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
             }
         }
         //PTK 2022/02/09
-        //:::::::Concerning with Download it shoud simply work in controller or ApiController by giving response with anytype of trsmittedfile/Outputstream/releasing 
-        //:::::::But It dont work well in all PC, some PC work and but some dont. 
-        //:::::::I think may be some of leakage dependecy might affect in releasing response. May be I insuffciently researched. 
-        //:::::::I consumed 2 days in here downloading part although I have done many download sections in some projects So. . . 
-        //:::::::I decided to work with Ajax response trio(Controller + APIcontroller+ Ajax). Then Okhayed for other extensions.
-        //:::::::Even trio, it would be okay all extension except only PDF extension(for our current usage), So it will go with IDM software which might need to install in User's PC. 
+        //Tried and spent 3 days in most of trammited Response  or Via Xmr. Failed and Thought current method would be fine in "ControllerAPI via Anchor Link" donload procedure.  
+        //In this procedure, this might work both IDM and build in chrome download.
         [HttpPost]
         public void ExportHiuchiPdf(HiuchiItiranModel model)
         {
             var vm = GetFromQueryString<HiuchiItiranModel>();
             var bl = new HiuchiItiranBL();
-            var dt = bl.GetDisplayResult(vm); 
+            var dt = bl.GetDisplayResult(vm);
+            //this Line shall use  for group according to SouName
             dt = dt.Select(" BukkenNo = '" + model.TantouSitenCD.Split('_')[1].ToString() + "' and BukkenName ='" + model.TantouSitenCD.Split('_')[2].ToString() + "' and SouName = '" + model.TantouSitenCD.Split('_')[3].ToString() + "'").CopyToDataTable();
-            var fbname = model.TantouSitenCD.Split('_')[2].ToString(); 
+            //dt= dt.
+            var fbname = model.TantouSitenCD.Split('_')[2].ToString();
             PDF_Font font_Class = new PDF_Font();
             //System.Web.Hosting.HostingEnvironment.MapPath("~/output/project/123.txt");
             string font_folder = System.Web.Hosting.HostingEnvironment.MapPath("~/fonts/");
             Font font_Header = font_Class.CreateJapaneseFontHeader(font_folder);
-            Font font = font_Class.CreateJapaneseFont(font_folder,35);
+            Font font = font_Class.CreateJapaneseFont(font_folder, 35);
             Font font_Color = font_Class.CreateJapaneseFont_Color(font_folder);
             if (!Directory.Exists("~/output"))
                 Directory.CreateDirectory(System.Web.Hosting.HostingEnvironment.MapPath("~/output"));
@@ -106,185 +92,182 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
             var doc1 = new iTextSharp.text.Document();
             #region DocSet
             doc1.SetPageSize(PageSize.A4.Rotate());
-                        string path = System.Web.Hosting.HostingEnvironment.MapPath("~/output/project");
-                        string FileName = "火打ラベル_" + fbname + ".pdf";
-                        var mstr = new FileStream(path + @"/" + FileName, FileMode.Create); 
-                        var writer = PdfWriter.GetInstance(doc1, mstr);
-                        doc1.Open(); 
-                        var tablea = new PdfPTable(3);
-                        tablea.AddCell(new PdfPCell(new Phrase("火 　 打　  材", font_Class.CreateJapaneseFont(font_folder, 30)))
-                        {
-                            HorizontalAlignment = Element.ALIGN_CENTER,
-                            VerticalAlignment = Element.ALIGN_MIDDLE,
-                            FixedHeight = 50,
-                            BorderWidthBottom = 0,
-                            BorderWidthTop = 0,
-                            BorderWidthLeft = 0,
-                            BorderWidthRight = 0,
-                            PaddingBottom = 0f,
-                            Colspan = 3
-                        });
+            string path = System.Web.Hosting.HostingEnvironment.MapPath("~/output/project");
+            string FileName = "火打ラベル_" + fbname + ".pdf";
+            var mstr = new FileStream(path + @"/" + FileName, FileMode.Create);
+            var writer = PdfWriter.GetInstance(doc1, mstr);
+            doc1.Open();
+            var Tablea = new PdfPTable(4);
+            Tablea.AddCell(new PdfPCell(new Phrase("火 　 打　  材", font_Class.CreateJapaneseFont(font_folder, 30)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 50,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                BorderWidthLeft = 0,
+                BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 4
+            });
 
-                        var tempVal = dt.Rows[0]["KoumutenName"].ToString() + "様";
-                        //tempVal =  //System.IO.File.ReadAllLines(@"D:\ptk.txt").Last();
-                        var GetFont = ShrinkValue(tempVal);
-                        //  (Convert.ToInt32(System.IO.File.ReadAllLines(@"D:\ptk.txt").First()));
+            var TempVal = dt.Rows[0]["KoumutenName"].ToString() + "様";
+            var GetFont = ShrinkValue(TempVal); 
+            Tablea.AddCell(new PdfPCell(new Phrase(TempVal, font_Class.CreateJapaneseFont(font_folder, GetFont)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 70,
+                BorderWidthBottom = 1,
+                BorderWidthTop = 1,
+                BorderWidthLeft = 0.3f,
+                BorderWidthRight = 1f,
+                PaddingBottom = 5f,
+                Colspan = 4
+            });
 
-                        tablea.AddCell(new PdfPCell(new Phrase(tempVal, font_Class.CreateJapaneseFont(font_folder, GetFont)))
-                        {
-                            HorizontalAlignment = Element.ALIGN_CENTER,
-                            VerticalAlignment = Element.ALIGN_MIDDLE,
-                            FixedHeight = 70,
-                            BorderWidthBottom = 1,
-                            BorderWidthTop = 1,
-                            BorderWidthLeft = 0.3f,
-                            BorderWidthRight = 1f,
-                            PaddingBottom = 5f,
-                            Colspan = 3
-                        });
+            Tablea.AddCell(new PdfPCell(new Phrase("  ", font_Class.CreateJapaneseFont(font_folder)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 4,
+                BorderWidthBottom = 0f,
+                BorderWidthTop = 0f,
+                BorderWidthLeft = 0f,
+                BorderWidthRight = 0f,
+                PaddingBottom = 10f,
+                Colspan = 4
+            });
 
-                        tablea.AddCell(new PdfPCell(new Phrase("  ", font_Class.CreateJapaneseFont(font_folder)))
-                        {
-                            HorizontalAlignment = Element.ALIGN_CENTER,
-                            VerticalAlignment = Element.ALIGN_MIDDLE,
-                            FixedHeight = 4,
-                            BorderWidthBottom = 0f,
-                            BorderWidthTop = 0f,
-                            BorderWidthLeft = 0f,
-                            BorderWidthRight = 0f,
-                            PaddingBottom = 10f,
-                            Colspan = 3
-                        });
+            TempVal = dt.Rows[0]["BukkenName"].ToString();
+            Tablea.AddCell(new PdfPCell(new Phrase(TempVal, font_Class.CreateJapaneseFont(font_folder, 65, 1)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 85,
+                BorderWidthBottom = 1,
+                BorderWidthTop = 1,
+                BorderWidthLeft = 0.3f,
+                BorderWidthRight = 1f,
+                PaddingBottom = 18f,
+                SpaceCharRatio = 4f,
+                Colspan = 4
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("  ", font_Class.CreateJapaneseFont(font_folder)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 4,
+                BorderWidthBottom = 0f,
+                BorderWidthTop = 0f,
+                BorderWidthLeft = 0f,
+                BorderWidthRight = 0f,
+                PaddingBottom = 5f,
+                Colspan = 4
+            });
+            TempVal = dt.Rows[0]["SouName"].ToString();
+            Tablea.AddCell(new PdfPCell(new Phrase(TempVal, font_Class.CreateJapaneseFont(font_folder, 50, 1)))
+            {
+                HorizontalAlignment = Element.ALIGN_LEFT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 70,
+                BorderWidthBottom = 1,
+                BorderWidthTop = 1,
+                BorderWidthLeft = 0.3f,
+                BorderWidthRight = 1f,
+                PaddingBottom = 15f,
+                Colspan = 4,
+                PaddingLeft = 25f
 
-                        tempVal = dt.Rows[0]["BukkenName"].ToString();
-                        tablea.AddCell(new PdfPCell(new Phrase(tempVal, font_Class.CreateJapaneseFont(font_folder, 65, 1)))
-                        {
-                            HorizontalAlignment = Element.ALIGN_CENTER,
-                            VerticalAlignment = Element.ALIGN_MIDDLE,
-                            FixedHeight = 85,
-                            BorderWidthBottom = 1,
-                            BorderWidthTop = 1,
-                            BorderWidthLeft = 0.3f,
-                            BorderWidthRight = 1f,
-                            PaddingBottom = 18f,
-                            SpaceCharRatio = 4f,
-                            Colspan = 3
-                        });
-                        tablea.AddCell(new PdfPCell(new Phrase("  ", font_Class.CreateJapaneseFont(font_folder)))
-                        {
-                            HorizontalAlignment = Element.ALIGN_CENTER,
-                            VerticalAlignment = Element.ALIGN_MIDDLE,
-                            FixedHeight = 4,
-                            BorderWidthBottom = 0f,
-                            BorderWidthTop = 0f,
-                            BorderWidthLeft = 0f,
-                            BorderWidthRight = 0f,
-                            PaddingBottom = 5f,
-                            Colspan = 3
-                        });
-                        tempVal = dt.Rows[0]["SouName"].ToString();
-                        tablea.AddCell(new PdfPCell(new Phrase(tempVal, font_Class.CreateJapaneseFont(font_folder, 50, 1)))
-                        {
-                            HorizontalAlignment = Element.ALIGN_LEFT,
-                            VerticalAlignment = Element.ALIGN_MIDDLE,
-                            FixedHeight = 70,
-                            BorderWidthBottom = 1,
-                            BorderWidthTop = 1,
-                            BorderWidthLeft = 0.3f,
-                            BorderWidthRight = 1f,
-                            PaddingBottom = 15f,
-                            Colspan = 3,
-                            PaddingLeft = 25f
+            });
+            TempVal = "";
+            foreach (DataRow dr in dt.Rows)
+            {
+                TempVal += dr["zairyou"].ToString() + Environment.NewLine + Environment.NewLine;
 
-                        });
-                        tempVal = "";
-                        foreach (DataRow dr in dt.Rows)
-                        {
-                            tempVal += dr["zairyou"].ToString() +   Environment.NewLine+ Environment.NewLine;
+            }
+            Tablea.AddCell(new PdfPCell(new Phrase(model.Zairyou.Trim(), font_Class.CreateJapaneseFont(font_folder, 22)))
+            {
+                HorizontalAlignment = Element.ALIGN_LEFT,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 170,
+                BorderWidthBottom = 1,
+                BorderWidthTop = 0,
+                BorderWidthLeft = 0.3f,
+                BorderWidthRight = 0,
+                PaddingTop = 13f,
+                PaddingBottom = 10f,
+                PaddingLeft = 25f,
+                Colspan = 2
+            });
+            TempVal = "";
+            foreach (DataRow dr in dt.Rows)
+            {
+                TempVal += dr["toukyuu"].ToString() + Environment.NewLine + Environment.NewLine;
 
-                        }
-                        tablea.AddCell(new PdfPCell(new Phrase(tempVal, font_Class.CreateJapaneseFont(font_folder, 25)))
-                        {
-                            HorizontalAlignment = Element.ALIGN_LEFT,
-                            VerticalAlignment = Element.ALIGN_TOP,
-                            FixedHeight = 170,
-                            BorderWidthBottom = 1,
-                            BorderWidthTop = 0,
-                            BorderWidthLeft = 0.3f,
-                            BorderWidthRight = 0,
-                            PaddingTop=13f,
-                            PaddingBottom = 10f,
-                            PaddingLeft = 25f
-                        });
-                        tempVal = "";
-                        foreach (DataRow dr in dt.Rows)
-                        {
-                            tempVal +=   dr["toukyuu"].ToString() + Environment.NewLine+Environment.NewLine;
+            }
+            Tablea.AddCell(new PdfPCell(new Phrase(model.Toukyuu.Trim(), font_Class.CreateJapaneseFont(font_folder, 22)))
+            {
+                HorizontalAlignment = Element.ALIGN_LEFT,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 170,
+                BorderWidthBottom = 1,
+                BorderWidthTop = 0,
+                BorderWidthLeft = 0,
+                BorderWidthRight = 0,
+                PaddingTop = 13f,
+                PaddingBottom = 10f,
+                PaddingRight = 10f
+            });
+            TempVal = "";
+            foreach (DataRow dr in dt.Rows)
+            {
+                TempVal += dr["honsuu"].ToString() + "本" + Environment.NewLine + Environment.NewLine;
 
-                        }
-                        tablea.AddCell(new PdfPCell(new Phrase(tempVal, font_Class.CreateJapaneseFont(font_folder, 25)))
-                        {
-                            HorizontalAlignment = Element.ALIGN_CENTER,
-                            VerticalAlignment = Element.ALIGN_TOP,
-                            FixedHeight = 170,
-                            BorderWidthBottom = 1,
-                            BorderWidthTop = 0,
-                            BorderWidthLeft = 0,
-                            BorderWidthRight = 0,
-                            PaddingTop = 13f,
-                            PaddingBottom = 10f,
-                        });
-                        tempVal = "";
-                        foreach (DataRow dr in dt.Rows)
-                        {
-                            tempVal +=   dr["honsuu"].ToString() + "本" + Environment.NewLine+ Environment.NewLine;
+            }
+            Tablea.AddCell(new PdfPCell(new Phrase(model.Honsuu.Trim(), font_Class.CreateJapaneseFont(font_folder, 22)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 170,
+                BorderWidthBottom = 1,
+                BorderWidthTop = 0,
+                BorderWidthLeft = 0,
+                BorderWidthRight = 1f,
+                PaddingTop = 13f,
+                PaddingBottom = 10f,
+                PaddingRight = 25f
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("株式会社岡本銘木店　三田工場 ", font_Class.CreateJapaneseFont(font_folder, 15)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 30,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                BorderWidthLeft = 0,
+                BorderWidthRight = 0,
+                PaddingBottom = 0,
+                Colspan = 4
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("TEL　079-568ｰ2657    ", font_Class.CreateJapaneseFont(font_folder, 15)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 30,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                BorderWidthLeft = 0,
+                BorderWidthRight = 0,
+                PaddingBottom = 0,
+                Colspan = 4,
+                PaddingRight = 63f
 
-                        }
-                        tablea.AddCell(new PdfPCell(new Phrase(tempVal, font_Class.CreateJapaneseFont(font_folder, 25)))
-                        {
-                            HorizontalAlignment = Element.ALIGN_RIGHT,
-                            VerticalAlignment = Element.ALIGN_TOP,
-                            FixedHeight = 170,
-                            BorderWidthBottom = 1,
-                            BorderWidthTop = 0,
-                            BorderWidthLeft = 0,
-                            BorderWidthRight = 1f,
-                            PaddingTop = 13f,
-                            PaddingBottom = 10f,
-                            PaddingRight = 25f
-                        });
-                        tablea.AddCell(new PdfPCell(new Phrase("株式会社岡本銘木店　三田工場 ", font_Class.CreateJapaneseFont(font_folder, 15)))
-                        {
-                            HorizontalAlignment = Element.ALIGN_RIGHT,
-                            VerticalAlignment = Element.ALIGN_MIDDLE,
-                            FixedHeight = 30,
-                            BorderWidthBottom = 0,
-                            BorderWidthTop = 0,
-                            BorderWidthLeft = 0,
-                            BorderWidthRight = 0,
-                            PaddingBottom = 0,
-                            Colspan = 3
-                        });
-                        tablea.AddCell(new PdfPCell(new Phrase("TEL　079-568ｰ2657    ", font_Class.CreateJapaneseFont(font_folder, 15)))
-                        {
-                            HorizontalAlignment = Element.ALIGN_RIGHT,
-                            VerticalAlignment = Element.ALIGN_MIDDLE,
-                            FixedHeight = 30,
-                            BorderWidthBottom = 0,
-                            BorderWidthTop = 0,
-                            BorderWidthLeft = 0,
-                            BorderWidthRight = 0,
-                            PaddingBottom = 0,
-                            Colspan = 3,
-                            PaddingRight = 63f
+            });
+            doc1.Add(Tablea);
+            doc1.Close();
 
-                        });
-                        doc1.Add(tablea);
-                        doc1.Close();
-
-            #endregion
-
-          
+            #endregion 
         }
         public   byte[] ReadFully(Stream input)
         {

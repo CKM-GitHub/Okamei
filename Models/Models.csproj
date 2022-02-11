@@ -47,7 +47,7 @@
   <ItemGroup>
     <Compile Include="BaseModel.cs" />
     <Compile Include="CadStaffMiteiModel.cs" />
-    <Compile Include="InputStepModel.cs" />
+    <Compile Include="EigyouJissekiModel.cs" />
     <Compile Include="HanyouMasterMaintenanceModel.cs" />
     <Compile Include="HundeggerItiranModel.cs" />
     <Compile Include="FusezuMiteisyutuModel.cs" />

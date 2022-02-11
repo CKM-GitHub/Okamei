@@ -118,19 +118,19 @@
     }
 
     #tblHiuchiItiran .KubunName {
-        min-width: 250px
+        min-width: 250px;
     }
 
     #tblHiuchiItiran .SouName {
-        min-width: 50px
+        min-width: 50px;
     }
 
     #tblHiuchiItiran .SouDateTime {
-        min-width: 120px
+        min-width: 120px;
     }
 
     #tblHiuchiItiran .Zairyou {
-        min-width: 120px
+        min-width: 220px;
     }
 
     #tblHiuchiItiran .Toukyuu {
@@ -162,7 +162,7 @@
     }
 </style>
 
-<h4>火打一覧</h4>
+<h4>火打</h4>
 <div id="main" class="main-content">
     <table class='table table-bordered' id="tblHiuchiItiran">
         <thead>
@@ -195,6 +195,9 @@
                         var bukkenNo = row["BukkenNO"].ToString();
                         var bukkenName = row["BukkenName"].ToString();
                         var souName = row["SouName"].ToString();
+                        var zaiyou = row["Zairyou"].ToString();
+                        var toukyuu = row["Toukyuu"].ToString();
+                        var honsuu = row["Honsuu"].ToString();
                     }
                     @for (var i = 0; i < count; i++)
                     {
@@ -211,10 +214,10 @@
                             }
                             else if (columns[i].Caption == "Export")
                             {
-                                var valId = "pdf_" + bukkenNo + "_" + bukkenName + "_" + souName + "_" + idpdf.ToString();
+                                var valId = "pdf_" + bukkenNo + "_" + bukkenName + "_" + souName + "_"  + idpdf.ToString();
                                 <button type="button" class="btn btn-primary" id=@valId.ToString() onclick="pdfClick(this)">PDF </button>
                                 @*<i>@Html.ActionLink("pdf__", "ExportHiuchiPdf", "HiuchiItiran", new { TantouSitenCD="123" }) </i>*@
-                                @*<a href="http://localhost:61795/output/project/火打ラベル_碧山邸ーーーー⑧.pdf" download="123-Copy.txt.txt">Download</a>*@
+                                @*<a href="../output/project/123.zip" id='a_@valId.ToString()' download="123.zip">Download</a>*@
                             }
                             else
                             {
@@ -236,7 +239,8 @@
 </div>
 
 @section Scripts{
-    <script type="text/javascript"> 
+    <script type="text/javascript">
+
 
     $(document).ready(function () {
 
@@ -247,20 +251,21 @@
     bindDataTables($('#tblHiuchiItiran'));
     });
         function pdfClick(e) {
-            var fileName = '火打ラベル_' + e.id.split("_")[2] + '.pdf';
-           //alert(fileName);
-    var model =
-    {
-    TantouSitenCD: e.id,
-        UserID: 'akao',//$('#user-id').text(),
-        FileName: fileName
-    };
-    //// var resultPdf = calltoApiController(@Url.Action("ExportHiuchiPdf", "HiuchiItiran")', model);
-    //alert(resultPdf)
-    
-    var result = calltoApiController_FileDownLoadHandle('@Url.Action("PdfExport", "api/HiuchiItiranApi")', model);
-    return;
-    }
+            var currentRow = $('#' + e.id).closest("tr");
+            var fileName = '火打ラベル_' + e.id.split('_')[2] + '.pdf';
+            var model =
+            {
+                TantouSitenCD: e.id,
+                UserID: $('#user-id').text(),
+                FileName: fileName,
+                Zairyou: currentRow.find("td:eq(5)").text(),
+                Toukyuu: currentRow.find("td:eq(6)").text(),
+                Honsuu: currentRow.find("td:eq(7)").text(),
+
+            }; 
+              calltoApiController_FileDownLoadHandle('@Url.Action("PdfExport", "api/HiuchiItiranApi")', model); 
+            return;
+        }
 
     </script>
 }
