@@ -226,6 +226,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CadStaffMitei\CadStaffMiteiApiController.cs" />
     <Compile Include="Controllers\CadStaffMitei\CadStaffMiteiController.cs" />
+    <Compile Include="Controllers\InputStep\InputStepApiController.cs" />
+    <Compile Include="Controllers\InputStep\InputStepController.cs" />
     <Compile Include="Controllers\UnsouSoukoire\UnsouSoukoireApiController.cs" />
     <Compile Include="Controllers\UnsouSoukoire\UnsouSoukoireController.cs" />
     <Compile Include="Controllers\HanyouMasterMaintenance\HanyouMasterMaintenanceApiController.cs" />
@@ -424,6 +426,8 @@
     <Content Include="Views\HanyouMasterMaintenance\SetCondition.cshtml" />
     <Content Include="Views\UnsouSoukoire\DisplayResult.cshtml" />
     <Content Include="Views\UnsouSoukoire\SetCondition.cshtml" />
+    <Content Include="Views\InputStep\DisplayResult.cshtml" />
+    <Content Include="Views\InputStep\SetCondition.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

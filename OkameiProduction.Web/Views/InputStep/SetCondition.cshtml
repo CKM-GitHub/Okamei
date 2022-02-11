@@ -1,0 +1,63 @@
+﻿@model Models.InputStepModel
+
+@{
+    ViewBag.Title = "InputStepCondition";
+    var serverDate = ViewBag.ServerDate;
+}
+
+<h4 class="page-title">入力段階別</h4>
+<div id="main" class="main-content">
+    
+   
+    
+    <div class="form-group row">
+        <div class="main-content-footer mx-auto">
+            <button type="button" id="btnReturn" class="btn btn-secondary" nofocus>戻る</button>
+            <button type="button" id="btnDisplay" class="btn btn-primary active">表示</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#btnReturn').click(function () {
+                showConfirmMessage("Q004", function () {
+                    window.location.reload();
+                });
+            });
+
+            $('#btnDisplay').click(function () {
+                if (checkErrorOnSave()) {
+                    showConfirmMessage("Q201", btnDisplayClick);
+                }
+            });
+            $('#TantouCadCD').focus();
+           
+        });
+
+        function btnDisplayClick() {
+            var model =
+            {
+               
+                TantouCadCD: $('#TantouCadCD').val(),
+               
+            };
+
+            var result = calltoApiController('@Url.Action("ExistsDisplayResult", "api/InputStepApi")', model);
+            if (!result) {
+                return false;
+            }
+            if (result.MessageID) {
+                showMessage(result);
+                return false;
+            }
+
+            location.href = '@Url.Action("DisplayResult", "InputStep")' + querySerialize(model);
+            return true;
+        }
+
+    </script>
+}
