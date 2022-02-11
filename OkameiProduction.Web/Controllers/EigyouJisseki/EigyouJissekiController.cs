@@ -13,18 +13,10 @@ namespace OkameiProduction.Web.Controllers.EigyouJisseki
         public ActionResult SetCondition()
         {
             var vm = new EigyouJissekiModel();
-            ViewBag.ServerDate = DateTime.Now.ToString(DateTimeFormat.yyyyMMdd);
-            SetDropDownListItems(vm);
+            var dtMonth = DateTime.Now.ToString(DateTimeFormat.yyyyMMdd);
+            ViewBag.ServerDate = dtMonth.Remove(dtMonth.Length - 3).Replace("-","/"); 
             return View(vm);
-        }
-
-        private void SetDropDownListItems(EigyouJissekiModel vm)
-        {
-            CommonBL dl = new CommonBL();
-            vm.TantouSitenDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouSiten);
-            vm.TantouEigyouDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouEigyou);
-            vm.TantouCadDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouCad);
-        }
+        } 
 
     }
 }
