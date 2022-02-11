@@ -278,9 +278,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                         doc1.Add(tablea);
                         doc1.Close();
 
-            #endregion
-
-          
+            #endregion 
         }
         public   byte[] ReadFully(Stream input)
         {

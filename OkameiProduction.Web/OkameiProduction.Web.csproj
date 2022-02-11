@@ -226,6 +226,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CadStaffMitei\CadStaffMiteiApiController.cs" />
     <Compile Include="Controllers\CadStaffMitei\CadStaffMiteiController.cs" />
+    <Compile Include="Controllers\EigyouJisseki\EigyouJissekiController.cs" />
     <Compile Include="Controllers\UnsouSoukoire\UnsouSoukoireApiController.cs" />
     <Compile Include="Controllers\UnsouSoukoire\UnsouSoukoireController.cs" />
     <Compile Include="Controllers\HanyouMasterMaintenance\HanyouMasterMaintenanceApiController.cs" />
