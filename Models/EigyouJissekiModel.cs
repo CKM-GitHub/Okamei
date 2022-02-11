@@ -29,5 +29,9 @@ namespace Models
         public IEnumerable<DropDownListItem> TantouCadDropDownListItems { get; set; }
         public IEnumerable<DropDownListItem> KubunDropDownListItems { get; set; }
         public IEnumerable<DropDownListItem> TokuchuuzaiUmuDropDownListItems { get; set; }
+
+        public string DetailPattern { get; set; } 
+        public string KankeiMonth { get; set; }
+
     }
 }

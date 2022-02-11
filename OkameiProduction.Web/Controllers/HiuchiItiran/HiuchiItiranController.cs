@@ -225,7 +225,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                 TempVal += dr["honsuu"].ToString() + "本" + Environment.NewLine + Environment.NewLine;
 
             }
-            Tablea.AddCell(new PdfPCell(new Phrase(model.Honsuu.Trim(), font_Class.CreateJapaneseFont(font_folder, 22)))
+            Tablea.AddCell(new PdfPCell(new Phrase(model.Honsuu.Trim()+ "本", font_Class.CreateJapaneseFont(font_folder, 22)))
             {
                 HorizontalAlignment = Element.ALIGN_RIGHT,
                 VerticalAlignment = Element.ALIGN_TOP,

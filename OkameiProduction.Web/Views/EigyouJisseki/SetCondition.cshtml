@@ -1,5 +1,87 @@
 ﻿@model Models.EigyouJissekiModel
 @{
     ViewBag.Title = "EigyouJisseki";
-    //var serverDate = ViewBag.ServerDate;
+    var serverDate = ViewBag.ServerDate;
 }
+<h4 class="page-title">営業実績見込み </h4>
+<div id="main" class="main-content">
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label label-title require">会計年月</label>
+        </div>
+        <div class="col-sm-10 form-inline">
+            <input type="text" id="KankeiMonth" name="KankeiMonth" class="form-control size7" maxlength="7" required />
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label class="col-form-label label-title">明細パターン</label>
+        </div>
+        <div class="col-sm-10">
+            <div class="custom-control custom-radio">
+                <input id="DetailPattern1" name="DetailPattern" type="radio" value="1" checked>
+                <label for="DetailPattern1" class="label-custom-radio">受注残</label>
+                <input id="DetailPattern2" name="DetailPattern" type="radio" value="2">
+                <label for="DetailPattern2" class="label-custom-radio">支店別</label>
+                <input id="DetailPattern3" name="DetailPattern" type="radio" value="3">
+                <label for="DetailPattern3" class="label-custom-radio">合計</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="main-content-footer mx-auto">
+            <button type="button" id="btnReturn" class="btn btn-secondary" nofocus>戻る</button>
+            <button type="button" id="btnDisplay" class="btn btn-primary active">表示</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#btnReturn').click(function () {
+                showConfirmMessage("Q004", function () {
+                    window.location.reload();
+                });
+            });//
+
+            $('#btnDisplay').click(function () {
+
+                if (checkErrorOnSave()) { 
+                    showConfirmMessage("Q201", btnDisplayClick);
+                }
+            }); 
+            $('#KankeiMonth').val('@serverDate');
+            $('#KankeiMonth').focus();
+            setRequired('#KankeiMonth');
+            //:::::::::::::::::::::PTK
+            //NeedDayMonthCheck#KankeiMonth
+
+        });
+
+        function btnDisplayClick() {
+           
+            var model =
+            {
+                KankeiMonth: $("#KankeiMonth").text() == '全社' ? null : $('#KankeiMonth').val(),
+                DetailPattern: $("input[name='DetailPattern']:checked").val() , 
+                UserID: $('#user-id').text()
+            };
+
+            var result = calltoApiController('@Url.Action("ExistsDisplayResult", "api/EigyouJissekiApi")', model);
+            if (!result) {
+                return false;
+            }
+            if (result.MessageID) {
+                showMessage(result);
+                return false;
+            }
+
+            location.href = '@Url.Action("DisplayResult", "EigyouJisseki")' + querySerialize(model);
+            return true;
+        }
+
+    </script>
+    }

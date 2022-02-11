@@ -169,12 +169,12 @@
             <tr>
                 <th>出荷</th>
                 <th>物件番号</th>
-                <th>物件名</th>
-                <th>層</th>
-                <th >加工日</th>
-                <th>材料</th>
-                <th>等級</th>
-                <th style="text-align:right">本数</th>
+                <th style="text-align:center">物件名</th>
+                <th style="text-align:center">層</th>
+                <th style="text-align:center">加工日</th>
+                <th style="text-align:center">材料</th>
+                <th style="text-align:center">等級</th>
+                <th style="text-align:right">本数</th> 
                 <th style="text-align:center"></th>
             </tr>
         </thead>
@@ -251,7 +251,8 @@
     bindDataTables($('#tblHiuchiItiran'));
     });
         function pdfClick(e) {
-            var currentRow = $('#' + e.id).closest("tr");
+            showConfirmMessage("Q204", function () {
+                 var currentRow = $('#' + e.id).closest("tr");
             var fileName = '火打ラベル_' + e.id.split('_')[2] + '.pdf';
             var model =
             {
@@ -262,9 +263,10 @@
                 Toukyuu: currentRow.find("td:eq(6)").text(),
                 Honsuu: currentRow.find("td:eq(7)").text(),
 
-            }; 
-              calltoApiController_FileDownLoadHandle('@Url.Action("PdfExport", "api/HiuchiItiranApi")', model); 
-            return;
+            };
+              calltoApiController_FileDownLoadHandle('@Url.Action("PdfExport", "api/HiuchiItiranApi")', model);
+            });
+             
         }
 
     </script>
