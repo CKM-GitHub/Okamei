@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-  public  class HiuchiItiranModel :BaseModel
-    {
-
-        public string TantouSitenCD  { get; set; }
+    public class EigyouJissekiModel : BaseModel
+    { 
+        public string TantouSitenCD { get; set; }
         public int? JuchuuOption { get; set; }
         public int? BukkenSiteiOption { get; set; }
         public string NoukiStart { get; set; }
@@ -30,9 +29,5 @@ namespace Models
         public IEnumerable<DropDownListItem> TantouCadDropDownListItems { get; set; }
         public IEnumerable<DropDownListItem> KubunDropDownListItems { get; set; }
         public IEnumerable<DropDownListItem> TokuchuuzaiUmuDropDownListItems { get; set; }
-
-        public string Zairyou { get; set; }
-        public string Toukyuu { get; set; }
-        public string Honsuu { get; set; }
     }
 }
