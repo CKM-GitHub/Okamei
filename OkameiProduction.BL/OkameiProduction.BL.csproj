@@ -44,6 +44,8 @@
   <ItemGroup>
     <Compile Include="CadStaffMiteiBL.cs" />
     <Compile Include="Common\DataTableExtentions.cs" />
+    <Compile Include="EigyouJissekiBL.cs" />
+    <Compile Include="InputStepBL.cs" />
     <Compile Include="HanyouMasterMaintenanceBL.cs" />
     <Compile Include="InputBukkenShousaiBL.cs" />
     <Compile Include="Common\ExclusionException.cs" />

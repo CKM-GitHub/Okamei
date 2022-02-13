@@ -76,7 +76,7 @@ namespace OkameiProduction.Web.Controllers
             HiuchiItiran.HiuchiItiranController PdfCaller = new HiuchiItiran.HiuchiItiranController();
             PdfCaller.ExportHiuchiPdf(model);
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
-            string filePath = System.Web.Hosting.HostingEnvironment.MapPath("~/output/project/"+ model.FileName);//
+            string filePath = System.Web.Hosting.HostingEnvironment.MapPath("~/output/project/"+ (model.FileName.TrimEnd()));//
             byte[] bytes = File.ReadAllBytes(filePath); 
             response.Content = new ByteArrayContent(bytes); 
             response.Content.Headers.ContentLength = bytes.LongLength; 

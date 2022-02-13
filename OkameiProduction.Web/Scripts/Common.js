@@ -363,7 +363,7 @@ function removeNumericValidate(selector) {
 //<--------------------
 
 function checkCommon(ctrl) {
-
+    
     ctrl = $(ctrl);
 
     var required = ctrl.attr("validate-required");
