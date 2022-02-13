@@ -8,8 +8,8 @@ function getModalOptions(target) {
 
     // ----->
 
-    if (target == 'HiuchiEntry') {
-        url = url_HiuchiEntry;
+    if (target == 'HiuchiSubEntry') {
+        url = url_HiuchiSubEntry;
         funcInitialize = initialize_Hiuchi;
     }
 

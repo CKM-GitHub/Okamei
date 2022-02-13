@@ -62,11 +62,13 @@ body {
     .global-header-user a {
         color: black;
         text-decoration: none;
+        outline: none;
     }
 
     .global-header-user .dropdown-menu a {
         /*font-size: 14px;*/
         line-height: 20px;
+        outline: none;
     }
 
     .global-header-user .dropdown-menu i {

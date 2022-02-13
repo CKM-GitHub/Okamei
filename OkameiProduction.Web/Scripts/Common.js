@@ -36,12 +36,14 @@ function setSuggestList(selector, url, key, items) {
         items = result;
     }
 
-    targer.typeahead({
-        minLength: 0,
-    },
-        {
-            source: substringMatcher(items)
-        });
+    if (items.length > 0) {
+        targer.typeahead({
+            minLength: 0,
+        },
+            {
+                source: substringMatcher(items)
+            });
+    }
 }
 
 function setDropDownList(selector, url, key, items) {
@@ -312,7 +314,7 @@ function removeRequired(selector) {
 
 // date type  ----->
 function setDateTypeValidate(selector) {
-    $(selector).attr('validate-datetype', 'true');
+    $(selector).attr('validate-datetype', 'true').attr('inputmode', 'numeric');
 }
 function removeDateTypeValidate(selector) {
     $(selector).removeAttr('validate-datetype');
@@ -331,7 +333,7 @@ function removeCompareDateValidate(selector) {
 
 // doublebyte  ----->
 function setDoubleByteValidate(selector, isDoublebyteonly) {
-    $(selector).attr('validate-doublebyte', 'true');
+    $(selector).attr('validate-doublebyte', 'true').attr('inputmode', 'kana');
     if (isDoublebyteonly) {
         $(selector).attr('isDoublebyteonly', isDoublebyteonly);
     }
@@ -342,7 +344,7 @@ function removeDoubleByteValidate(selector) {
 
 // is halfwidth ----->
 function setIsHalfWidthValidate(selector) {
-    $(selector).attr('validate-halfwidth', 'true');
+    $(selector).attr('validate-halfwidth', 'true').attr('inputmode', 'text');
 }
 function removeIsHalfWidthValidate(selector) {
     $(selector).removeAttr('validate-halfwidth');
@@ -353,7 +355,8 @@ function removeIsHalfWidthValidate(selector) {
 function setNumericValidate(selector, integerdigits, decimaldigits) {
     $(selector).attr('validate-numeric', 'true')
         .attr('integerdigits', integerdigits)
-        .attr('decimaldigits', decimaldigits);
+        .attr('decimaldigits', decimaldigits)
+        .attr('inputmode', 'decimal');
 }
 function removeNumericValidate(selector) {
     $(selector).removeAttr('validate-numeric')
@@ -407,7 +410,7 @@ function checkCommon(ctrl) {
             if (!result) {
                 return false;
             }
-            if (model.IsDateType || model.IsNumeric) {
+            if (model.IsDateType || model.IsHalfWidth || model.IsNumeric) {
                 if (result.ReturnValue && result.ReturnValue != "") {
                     ctrl.val(result.ReturnValue);
                 }

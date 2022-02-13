@@ -56,7 +56,7 @@ namespace OkameiProduction.Web.Controllers
 
             if (model.IsHalfWidth)
             {
-                if (!bl.CheckIsHalfWidth(model.InputValue1, out msgid))
+                if (!bl.CheckIsHalfWidth(model.InputValue1, out msgid, out outVal))
                 {
                     return GetErrorResult(msgid, outVal);
                 }

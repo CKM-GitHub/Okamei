@@ -149,7 +149,7 @@ namespace OkameiProduction.Web.Controllers
 
         //Hiuchi -------------------->
         [HttpPost]
-        public ActionResult HiuchiEntry()
+        public ActionResult HiuchiSubEntry()
         {
             var vm = new InputBukkenShousaiHiuchiModel();
 

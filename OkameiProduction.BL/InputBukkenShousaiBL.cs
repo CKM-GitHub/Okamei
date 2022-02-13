@@ -146,7 +146,7 @@ namespace OkameiProduction.BL
             return sqlParams;
         }
 
-        public bool CreateBukkenAll(InputBukkenShousaiModel model, out string msgid)
+        public bool CreateBukken(InputBukkenShousaiModel model, out string msgid)
         {
             msgid = "";
             SqlParameter[] sqlParams = CreateSqlParams(model).ToArray();
@@ -162,7 +162,7 @@ namespace OkameiProduction.BL
             }
         }
 
-        public bool UpdateBukkenAll(InputBukkenShousaiModel model, out string msgid)
+        public bool UpdateBukken(InputBukkenShousaiModel model, out string msgid)
         {
             msgid = "";
             SqlParameter[] sqlParams = CreateSqlParams(model).ToArray();
@@ -178,7 +178,7 @@ namespace OkameiProduction.BL
             }
         }
 
-        public bool DeleteBukkenAll(InputBukkenShousaiModel model, out string msgid)
+        public bool DeleteBukken(InputBukkenShousaiModel model, out string msgid)
         {
             msgid = "";
 

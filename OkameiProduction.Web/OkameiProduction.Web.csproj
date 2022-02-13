@@ -220,7 +220,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CadStaffMitei\CadStaffMiteiApiController.cs" />
     <Compile Include="Controllers\CadStaffMitei\CadStaffMiteiController.cs" />
-    <Compile Include="Controllers\InputBukkenShousai\InputBukkenShousaiHiuchiApiController.cs" />
     <Compile Include="Controllers\EigyouJisseki\EigyouJissekiApiController.cs" />
     <Compile Include="Controllers\EigyouJisseki\EigyouJissekiController.cs" />
     <Compile Include="Controllers\InputStep\InputStepApiController.cs" />
@@ -434,7 +433,7 @@
     <Content Include="Views\EigyouJisseki\DisplayResult.cshtml" />
     <Content Include="Views\InputStep\DisplayResult.cshtml" />
     <Content Include="Views\InputStep\SetCondition.cshtml" />
-    <Content Include="Views\InputBukkenShousai\HiuchiEntry.cshtml" />
+    <Content Include="Views\InputBukkenShousai\HiuchiSubEntry.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

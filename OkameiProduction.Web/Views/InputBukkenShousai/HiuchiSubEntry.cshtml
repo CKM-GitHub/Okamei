@@ -1,96 +1,96 @@
 ﻿@model Models.InputBukkenShousaiHiuchiModel
 
 @{
-    ViewBag.Title = "HiuchiEntry";
+    ViewBag.Title = "HiuchiSubEntry";
     Layout = "";
 }
 
 @Styles.Render("~/Content/modalForm.css")
 <style>
-    .HiuchiEntry_content {
+    .HiuchiSubEntry_content {
         width: 1200px;
     }
 
-    #HiuchiEntry .detail_content {
+    #HiuchiSubEntry .detail_content {
         padding-left: 10px;
     }
 
         /* Override BootStrap　---> */
-        #HiuchiEntry .detail_content .form-control {
+        #HiuchiSubEntry .detail_content .form-control {
             line-height: 1;
             border-radius: 0;
             height: 33px;
         }
 
-        #HiuchiEntry .detail_content .form-control:focus {
+        #HiuchiSubEntry .detail_content .form-control:focus {
             outline: none;
             box-shadow: none;
         }
         /* <--- */
 
-        #HiuchiEntry .detail_content label {
+        #HiuchiSubEntry .detail_content label {
             margin-left: 0;
             border: 1px solid #ced4da;
             border-radius: 0;
         }
 
-        #HiuchiEntry .detail_content input[type=checkbox] {
+        #HiuchiSubEntry .detail_content input[type=checkbox] {
             margin: 0;
         }
 
-        #HiuchiEntry .detail_content button {
+        #HiuchiSubEntry .detail_content button {
             height: 33px;
             line-height: 1;
         }
 
 
-    #HiuchiEntry .size-sou {
+    #HiuchiSubEntry .size-sou {
         width: 168px; /* select.size12 */
     }
-    #HiuchiEntry .size-kakoudate {
+    #HiuchiSubEntry .size-kakoudate {
         width: 238px; /* select.size19 */
     }
-    #HiuchiEntry .size-zairyou {
+    #HiuchiSubEntry .size-zairyou {
         width: 348px; /*select_size30*/
     }
-    #HiuchiEntry .size-toukyuu {
+    #HiuchiSubEntry .size-toukyuu {
         width: 148px; /*select_size10*/
     }
-    #HiuchiEntry .size-honsuu {
+    #HiuchiSubEntry .size-honsuu {
         width: 78px; /*select_size3*/
     }
-    #HiuchiEntry .size-sumi {
+    #HiuchiSubEntry .size-sumi {
         width: 50px;
     }
-    #HiuchiEntry .size-pdf {
+    #HiuchiSubEntry .size-pdf {
         width: 80px;
         margin-left: 20px;
         padding-top: 4px;
     }
 
 
-    #HiuchiEntry div.size-sumi {
+    #HiuchiSubEntry div.size-sumi {
         height: 33px;
         border: 1px solid #ced4da;
     }
-        #HiuchiEntry div.size-sumi.blank_sumi {
+        #HiuchiSubEntry div.size-sumi.blank_sumi {
             border: none;
         }
 
-    #HiuchiEntry .blank_sou {
+    #HiuchiSubEntry .blank_sou {
         margin-left: 168px; /* select.size12 */
     }
-    #HiuchiEntry .blank_kakoudate {
+    #HiuchiSubEntry .blank_kakoudate {
         margin-left: 238px; /* select.size19 */
     }
-    #HiuchiEntry .blank_pdf {
+    #HiuchiSubEntry .blank_pdf {
         margin-left: 100px; /* Same as button of pdf's width + margin-left */
     }
 </style>
 
-<div id="HiuchiEntry" class="modal js-modal">
+<div id="HiuchiSubEntry" class="modal js-modal">
     <div class="modal_bg"></div>
-    <div class="modal_content HiuchiEntry_content">
+    <div class="modal_content HiuchiSubEntry_content">
         <div class="modal_header">
             <div class="modal_title">
                 <h5>火打</h5>
@@ -149,7 +149,7 @@
                         <div class="size-sumi d-flex align-items-center justify-content-center">
                             <input type="checkbox" id="Sou1Sumi" name="Sou1Sumi" data-dbvalue="@Model.Sou1Sumi" />
                         </div>
-                        <button class="btn btn-primary size-pdf" id="btnPdf1"  nofocus>PDF</button>
+                        <button class="btn btn-primary size-pdf" id="btnPdf1" nofocus>PDF</button>
                     </div>
                     <div class="d-flex flex-row">
                         <div class="blank_sou"></div>
@@ -362,6 +362,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="hidden-area">
+            <input type="text" hidden id="HiddenUpdateDateTimeHiuchi" name="HiddenUpdateDateTimeHiuchi" value="@Model.HiddenUpdateDateTime" />
         </div>
         <div class="row">
             <div class="footer-btn mx-auto">

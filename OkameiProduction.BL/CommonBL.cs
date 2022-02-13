@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Text;
 using Models;
 
@@ -9,6 +10,13 @@ namespace OkameiProduction.BL
 {
     public class CommonBL
     {
+        private static Dictionary<char, char> strConvDictionary = new Dictionary<char, char>() {
+            {'０','0'},{'１','1'},{'２','2'},{'３','3'},
+            {'４','4'},{'５','5'},{'６','6'},{'７','7'},
+            {'８','8'},{'９','9'},{ '．','.' },{ '／','/'}
+        };
+
+
         public IEnumerable<DropDownListItem> GetMultiPorposeDropDownListItems(EMultiPorpose id, string char4 = "")
         {
             var options = new List<DropDownListItem>();
@@ -86,60 +94,60 @@ namespace OkameiProduction.BL
 
 
 
-        public bool CheckAndFormatDate(string val, out string errorcd, out string outVal)
+        public bool CheckAndFormatDate(string inputText, out string errorcd, out string outVal)
         {
             errorcd = "";
             outVal = "";
 
-            if (string.IsNullOrEmpty(val)) return true;
+            if (string.IsNullOrEmpty(inputText)) return true;
 
-            if (!CheckIsHalfWidth(val, out errorcd))
+            if (!CheckIsHalfWidth(inputText, out errorcd, out inputText))
             {
                 return false;
 
             }
 
-            if (val.Length > 10)
+            if (inputText.Length > 10)
             {
                 errorcd = "E103";
                 return false;
             }
 
-            if (val.Contains("/"))
+            if (inputText.Contains("/"))
             {
-                var split = val.Split('/');
+                var split = inputText.Split('/');
                 if (split.Length <= 2)
                 {
                     //MM/dd -> yyyy/MM/dd
-                    val = DateTime.Now.Year.ToString() + "/" + val;
+                    inputText = DateTime.Now.Year.ToString() + "/" + inputText;
                 }
                 else if (split.Length == 3)
                 {
                     //yy/MM/dd -> yyyy/MM/dd
-                    val = DateTime.Now.Year.ToString().Substring(0, 4 - split[0].Length) + val;
+                    inputText = DateTime.Now.Year.ToString().Substring(0, 4 - split[0].Length) + inputText;
                 }
             }
             else
             {
-                if (val.Length <= 4)
+                if (inputText.Length <= 4)
                 {
                     //MMdd -> yyyyMMdd
-                    val = DateTime.Now.Year.ToString() + val.PadLeft(4, '0');
+                    inputText = DateTime.Now.Year.ToString() + inputText.PadLeft(4, '0');
                 }
-                else if (val.Length < 8)
+                else if (inputText.Length < 8)
                 {
                     //yyMMdd -> yyyyMMdd
-                    val = DateTime.Now.Year.ToString().Substring(0, 8 - val.Length) + val;
+                    inputText = DateTime.Now.Year.ToString().Substring(0, 8 - inputText.Length) + inputText;
                 }
             }
 
-            if (val.ToDateTime() == null)
+            if (inputText.ToDateTime() == null)
             {
                 errorcd = "E103";
                 return false;
             }
 
-            outVal = val.ToDateTime(DateTime.Now).ToString(DateTimeFormat.yyyyMMdd);
+            outVal = inputText.ToDateTime(DateTime.Now).ToString(DateTimeFormat.yyyyMMdd);
             return true;
         }
 
@@ -165,12 +173,12 @@ namespace OkameiProduction.BL
             return true;
         }
 
-        public bool CheckByteCount(string val, int maxLength, out string errorcd, out string cutString)
+        public bool CheckByteCount(string inputText, int maxLength, out string errorcd, out string cutString)
         {
             errorcd = "";
 
-            cutString = val.GetByteString(maxLength);
-            if (val != cutString)
+            cutString = inputText.GetByteString(maxLength);
+            if (inputText != cutString)
             {
                 errorcd = "E142"; //入力した値の桁数が正しくありません。
                 return false;
@@ -178,38 +186,43 @@ namespace OkameiProduction.BL
             return true;
         }
 
-        public bool CheckIsHalfWidth(string val, out string errorcd)
-        {
-            errorcd = "";
-
-            Encoding e = Encoding.GetEncoding("Shift_JIS");
-            if (e.GetByteCount(val) != val.Length)
-            {
-                errorcd = "E221"; //入力できない文字が含まれています。
-                return false;
-            }
-            return true;
-        }
-
-        public bool CheckIsDoubleByte(string val, out string errorcd)
-        {
-            errorcd = "";
-
-            Encoding e = Encoding.GetEncoding("Shift_JIS");
-            if (e.GetByteCount(val) != (val.Length * 2))
-            {
-                errorcd = "E221"; //入力できない文字が含まれています。
-                return false;
-            }
-            return true;
-        }
-
-        public bool CheckIsNumeric(string val, int integerdigits, int decimaldigits, out string errorcd, out string outVal)
+        public bool CheckIsHalfWidth(string inputText, out string errorcd, out string outVal)
         {
             errorcd = "";
             outVal = "";
+            inputText = ConvertDoubleByteToSingleByte(inputText);
 
-            if (!Decimal.TryParse(val.Trim(), out decimal decimalValue))
+            Encoding e = Encoding.GetEncoding("Shift_JIS");
+            if (e.GetByteCount(inputText) != inputText.Length)
+            {
+                errorcd = "E221"; //入力できない文字が含まれています。
+                return false;
+            }
+
+            outVal = inputText;
+            return true;
+        }
+
+        public bool CheckIsDoubleByte(string inputText, out string errorcd)
+        {
+            errorcd = "";
+
+            Encoding e = Encoding.GetEncoding("Shift_JIS");
+            if (e.GetByteCount(inputText) != (inputText.Length * 2))
+            {
+                errorcd = "E221"; //入力できない文字が含まれています。
+                return false;
+            }
+            return true;
+        }
+
+        public bool CheckIsNumeric(string inputText, int integerdigits, int decimaldigits, out string errorcd, out string outVal)
+        {
+            errorcd = "";
+            outVal = "";
+            inputText = ConvertDoubleByteToSingleByte(inputText);
+
+            if (!Decimal.TryParse(inputText.Trim(), out decimal decimalValue))
             {
                 errorcd = "E221"; //入力できない文字が含まれています。
                 return false;
@@ -255,6 +268,17 @@ namespace OkameiProduction.BL
             }
 
             return true;
+        }
+
+        public string ConvertDoubleByteToSingleByte(string text)
+        {
+            var replaced = new String(
+              text.Select(
+                n => (strConvDictionary.ContainsKey(n) ? strConvDictionary[n] : n)
+                ).ToArray()
+              );
+
+            return replaced;
         }
     }
 }
