@@ -24,7 +24,11 @@ namespace OkameiProduction.Web.Controllers
             {
                 var bl = new InputBukkenShousaiBL();
                 var dt = bl.GetDisplayResult(vm);
-                if (dt.Rows.Count > 0)
+                if (dt.Rows.Count == 0)
+                {
+                    vm.BukkenNO = "";
+                }
+                else
                 {
                     var mode = vm.Mode;
                     vm = dt.AsEnumerableEntity<InputBukkenShousaiModel>().FirstOrDefault();
@@ -52,18 +56,15 @@ namespace OkameiProduction.Web.Controllers
             if (string.IsNullOrEmpty(vm.TantouSitenCD))
             {
                 vm.TantouEigyouDropDownListItems = new List<DropDownListItem>();
-                //vm.KoumutenDropDownListItems = new List<DropDownListItem>();
             }
             else
             {
                 vm.TantouEigyouDropDownListItems = bl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouEigyou, vm.TantouSitenCD);
-                //vm.KoumutenDropDownListItems = bl.GetMultiPorposeDropDownListItems(EMultiPorpose.Koumuten, vm.TantouSitenCD);
             }
         }
 
-
-
         // GET:
+        [BrowsingHistory(Disable = true)]
         public ActionResult DownloadFiles(string BukkenNO, string BukkenFileRowsCsv)
         {
             var decodedFileRowsCsv = HttpUtility.UrlDecode(BukkenFileRowsCsv);
@@ -143,5 +144,29 @@ namespace OkameiProduction.Web.Controllers
                 return File(zipArchiveMemoryStream.ToArray(), "application/zip", zipFileName);
             }
         }
+
+
+
+        //Hiuchi -------------------->
+        [HttpPost]
+        public ActionResult HiuchiEntry()
+        {
+            var vm = new InputBukkenShousaiHiuchiModel();
+
+            var request = System.Web.HttpContext.Current.Request;
+            vm.BukkenNO = request.Form["BukkenNO"].ToStringOrEmpty();
+            vm.BukkenName = request.Form["BukkenName"].ToStringOrEmpty();
+
+            SetDropDownListItemsHiuchi(vm);
+            return View(vm);
+        }
+
+        private void SetDropDownListItemsHiuchi(InputBukkenShousaiHiuchiModel vm)
+        {
+            CommonBL bl = new CommonBL();
+            vm.SouDropDownListItems = bl.GetMultiPorposeDropDownListItems(EMultiPorpose.HiuchiSou);
+        }
+        //Hiuchi <--------------------
+
     }
 }

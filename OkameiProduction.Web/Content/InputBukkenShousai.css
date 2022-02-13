@@ -11,7 +11,7 @@ hr {
 /* layout
 --------------------------------------------------
 */
-.wrap-container {
+.detail_wrap {
     display: -webkit-box;   
     display: -webkit-flex;
     display: -moz-box;
@@ -21,60 +21,49 @@ hr {
     justify-content: space-between;
 }
 
-#leftWrap1stPage,
-#rightWrap1stPage {
+.detail_left1,
+.detail_right1 {
     width: 49%;
 }
 
-#leftWrap2ndPage {
+.detail_left2 {
     width: 32%;
 }
 
-#rightWrap2ndPage {
+.detail_right2 {
     width: 68%;
+}
+
+.left-margin-adjuster {
+    margin-left: 10px;
+}
+
+/* radio button
+--------------------------------------------------
+*/
+.radio_wrap {
+    display: inline-block;
 }
 
 /* Checkbox
 --------------------------------------------------
 */
-input[type="checkbox"] {
+.main-content input[type="checkbox"] {
     margin-left: 14px;
     margin-right: 4px;
 }
 
-    input[type="checkbox"] + label {
+    .main-content input[type="checkbox"] + label {
         margin-right: 10px;
+        margin-bottom: 0px;
     }
 
-/* radio button
+/* anchor
 --------------------------------------------------
 */
-.radioWrap {
-    display: inline-block;
+.main-content a {
+    outline: none;
 }
-
-/* autocomplete 
---------------------------------------------------
-*/
-.autocomplete .dropdown-menu {
-    overflow: auto;
-    max-height: 250px;
-    min-width: 100%;
-}
-
-    .autocomplete .dropdown-menu a {
-        display: block;
-        padding: 2px 12px 2px 12px;
-        text-decoration: none;
-        outline: none;
-        color: black;
-    }
-
-        .autocomplete .dropdown-menu a:focus,
-        .autocomplete .dropdown-menu a:hover {
-            background-color: #4C93FF;
-            color: #fff;
-        }
 
 /* table
 --------------------------------------------------
@@ -151,22 +140,10 @@ div.dataTables_scrollBody > table > tbody tr td {
     text-align: center;
 }
 
-/* control
+/* file drag drop 
 --------------------------------------------------
 */
-#YukaGouhanShurui,
-#NoziGouhanShurui {
-    margin-left: 10px;
-}
-
-#btnUpload {
-    margin-left: 10px;
-}
-
-/* file drag & drop 
---------------------------------------------------
-*/
-#dragDropArea {
+.drop_area {
     position: relative;
     top: 0;
     left: 0;
@@ -178,18 +155,22 @@ div.dataTables_scrollBody > table > tbody tr td {
     text-align: center;
 }
 
-#dragDropArea {
+.drop_area {
     font-size: 18px;
 }
 
-    #dragDropArea.selected {
-        border: 2px solid #16a5bf;
-        background: #f4f4f4;
+    .drop_area.selected {
+        border: 1px solid #16a5bf;
     }
 
-    #dragDropArea.close {
+    .drop_area.close {
         display: none;
     }
+
+.drop_buttons {
+    position: relative;
+    display: inline-block;
+}
 
 #inputFile {
     position: absolute;
@@ -200,11 +181,6 @@ div.dataTables_scrollBody > table > tbody tr td {
     width: 200px;
     height: 40px;
     opacity: 0;
-}
-
-.dragDrop-buttons {
-    position: relative;
-    display: inline-block;
 }
 
 #btnInputFile {
@@ -260,36 +236,52 @@ div.dataTables_scrollBody > table > tbody tr td {
 /* Responsive
 --------------------------------------------------
 */
-@media (max-width: 1576px) {
-    #YukaZai, #NojiZai {
-        width: 60%;
+@media (max-width: 1519px) {
+    #YukaGouhanShurui, #NoziGouhanShurui {
+        width: 70%;
     }
 }
 
-@media (max-width: 1197px) {
-    #rightWrap2ndPage label[for*="Check"] {
-        display: none;
-    }
-}
-
-@media (max-width: 575px) {
+@media (max-width: 991px) {
     .blankline {
         display: none;
     }
 
-    .wrap-container {
+    .detail_wrap {
         display: block;
     }
 
-    #leftWrap1stPage,
-    #leftWrap2ndPage,
-    #rightWrap1stPage,
-    #rightWrap2ndPage{
+    .detail_left1,
+    .detail_right1,
+    .detail_right2{
         width: 100%;
     }
 
-    #YukaGouhanShurui,
-    #NoziGouhanShurui {
+    .detail_left2 {
+        width: 66%;
+    }
+}
+
+@media (max-width: 767px) {
+    /* same as customize.css @media (max-width: 575px) ---> */
+    .main-content {
+        margin: 0px;
+    }
+
+    .label-title {
+        font-weight: bold;
+        background-color: transparent;
         margin-left: 0px;
+        padding-left: 0px;
+    }
+
+        .label-title.pk {
+            background-color: transparent;
+            color: #FF4F6F;
+        }
+    /* <-------------------------------------------------- */
+
+    .left-margin-adjuster {
+        margin-left: 0;
     }
 }

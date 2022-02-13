@@ -2,29 +2,77 @@
 var gCommonApiUrl = "/api/CommonApi/";
 var gCustomValidate = function (ctrl) { return true; }
 
-function setDropDownList(selector, url, key) {
+var substringMatcher = function (strs) {
+    return function findMatches(q, cb) {
+        var matches;
+
+        matches = [];
+
+        substrRegex = new RegExp(q, 'i');
+
+        $.each(strs, function (i, str) {
+            if (substrRegex.test(str)) {
+                matches.push(str);
+            }
+        });
+
+        cb(matches);
+    };
+};
+function setSuggestList(selector, url, key, items) {
+
+    var targer = $(selector + '.typeahead');
+    targer.typeahead('destroy');
+
+    if (url && url != "") {
+        var result = calltoApiController(url, key);
+        if (!result) {
+            return;
+        }
+        if (result.MessageID) {
+            showMessage(result);
+            return;
+        }
+        items = result;
+    }
+
+    targer.typeahead({
+        minLength: 0,
+    },
+        {
+            source: substringMatcher(items)
+        });
+}
+
+function setDropDownList(selector, url, key, items) {
     var ddl = $(selector);
     ddl.children().remove();
     ddl.append('<option></option>');
 
-    if (key != "") {
-        var ret = calltoApiController(url, key);
-        if (!ret) {
+    if (url && url != "") {
+        var result = calltoApiController(url, key);
+        if (!result) {
             return;
         }
-        if (ret.MessageID) {
-            showMessage(ret);
+        if (result.MessageID) {
+            showMessage(result);
             return;
         }
-        ret.forEach(function (item) {
+        items = result;
+    }
+
+    if (items && items.length > 0) {
+        items.forEach(function (item) {
             ddl.append('<option value=' + item.Value + '>' + item.DisplayText + '</option>');
         });
     }
 }
 
-function setDisabledAll(selector) {
+function setDisabledAll(selector, isDisabledFooterbuttons) {
     $(selector + ' :input:not(:hidden)').prop('disabled', true);
-    $('.main-content-footer :button').prop('disabled', false);
+    if (!isDisabledFooterbuttons) {
+        $('.main-content-footer :button').prop('disabled', false);
+    }
 }
 
 function querySerialize(data) {
@@ -121,8 +169,8 @@ function calltoApiController(url, model) {
 
             result = JSON.parse(data);
         },
-        error: function (data, ajaxOption, terror) {
-            alert(data.status + ":" + data.statusText + ":" + terror);
+        error: function (err) {
+            alert(err.status + ":" + err.statusText);
         }
     });
     return result;
@@ -406,12 +454,8 @@ function bindKeyPressEvent(areaid) {
     if (typeof areaid === 'undefined') {
         areaid = '#global-sub-container';
     }
-    else if (areaid.slice(0, 1) != "#") {
-        areaid = '#' + areaid;
-    }
 
     var selector = areaid + ' :input:not(:hidden)';
-
     $(selector).keypress(function (e) {
         var c = e.which ? e.which : e.keyCode;
         if (c == 13 || c == 9) {
@@ -489,4 +533,10 @@ $(document).ready(function () {
 $(document).on("drop dragover", function (e) {
     e.stopPropagation();
     e.preventDefault();
+});
+
+window.addEventListener('pageshow', function (event) {
+    if (event.persisted) {
+        window.location.reload();
+    }
 });

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -22,13 +24,15 @@ namespace OkameiProduction.Web.Controllers
             var bl = new CommonBL();
             return ConvertToJsonResult(bl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouEigyou, tantouSitenCD));
         }
+
         [HttpPost]
-        public string GetKoumutenDropDownListItems([FromBody]string tantouSitenCD)
+        public string GetKoumutenSuggestItems([FromBody]string tantouSitenCD)
         {
             if (tantouSitenCD == null) return GetBadRequestResult();
 
             var bl = new CommonBL();
-            return ConvertToJsonResult(bl.GetMultiPorposeDropDownListItems(EMultiPorpose.Koumuten, tantouSitenCD));
+            var array = bl.GetMultiPorposeDropDownListItems(EMultiPorpose.Koumuten, tantouSitenCD).Select(r => r.DisplayText).ToArray();
+            return ConvertToJsonResult(array);
         }
 
         [HttpPost]

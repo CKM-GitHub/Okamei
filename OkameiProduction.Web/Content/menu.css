@@ -34,7 +34,7 @@ body {
     display: flex;
 }
 
-.header-brand-logo {
+.global-header-logo {
     background: no-repeat center center;
     background-size: 100% 100%;
     -webkit-transition: .35s ease-in-out;
@@ -42,34 +42,34 @@ body {
     transition: .35s ease-in-out;
 }
 
-.header-brand-logo img {
+.global-header-logo img {
     width: 95%;
     max-width: 95%;
     height: auto;
 }
 
-.header-user-area {
+.global-header-user {
     position: fixed;
     right: 10px;
     padding-top: 8px;
 }
 
-    .header-user-area .material-icons {
+    .global-header-user .material-icons {
         font-size: 28px;
         color: gray;
     }
 
-    .header-user-area a {
+    .global-header-user a {
         color: black;
         text-decoration: none;
     }
 
-    .header-user-area .dropdown-menu a {
+    .global-header-user .dropdown-menu a {
         /*font-size: 14px;*/
         line-height: 20px;
     }
 
-    .header-user-area .dropdown-menu i {
+    .global-header-user .dropdown-menu i {
         padding-left: 10px;
         padding-right: 5px;
     }
@@ -222,7 +222,7 @@ body {
     margin-left: 0;
 }
 
-.closeMenu .header-brand-logo {
+.closeMenu .global-header-logo {
     margin-left: 50px;
 }
 
@@ -237,7 +237,7 @@ body {
         margin-left: 0;
     }
 
-    .header-brand-logo {
+    .global-header-logo {
         margin-left: 50px;
     }
 

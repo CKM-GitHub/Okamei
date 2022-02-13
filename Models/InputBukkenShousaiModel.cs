@@ -35,7 +35,7 @@ namespace Models
         public string KannouDate { get; set; }
         public string CancelDate { get; set; }
         public string KakouNissuu { get; set; }
-        public string UpdateDatetime { get; set; }
+        public string UpdateDateTime { get; set; }
         public string KanamonoCD { get; set; }
         public byte OukazaiKakou { get; set; }
         public byte OukazaiSumi { get; set; }
@@ -66,14 +66,14 @@ namespace Models
         public byte BukkenFileShurui { get; set; }
         //Page 4.
         public string BukkenComment { get; set; }
-        public string HiddenUpdateDatetime { get; set; }
+        public string HiddenUpdateDateTime { get; set; }
+
 
 
         public IEnumerable<DropDownListItem> TantouSitenDropDownListItems { get; set; }
         public IEnumerable<DropDownListItem> TantouEigyouDropDownListItems { get; set; }
         public IEnumerable<DropDownListItem> TantouPcDropDownListItems { get; set; }
         public IEnumerable<DropDownListItem> TantouCadDropDownListItems { get; set; }
-        public IEnumerable<DropDownListItem> KoumutenDropDownListItems { get; set; }
         public IEnumerable<DropDownListItem> NyuuryokusakiDropDownListItems { get; set; }
         public IEnumerable<DropDownListItem> TokuchuuzaiUmuDropDownListItems { get; set; }
         public IEnumerable<DropDownListItem> KubunDropDownListItems { get; set; }

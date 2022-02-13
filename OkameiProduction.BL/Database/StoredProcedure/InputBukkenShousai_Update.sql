@@ -58,7 +58,7 @@ CREATE PROCEDURE [dbo].[InputBukkenShousai_Update](
     ,@HundeggerTime             decimal(5,1)    
     ,@BukkenComment             varchar(100)
     ,@Operator                  varchar(10)
-    ,@UpdateDatetime            varchar(23)
+    ,@UpdateDateTime            varchar(23)
     ,@BukkenMoulderTBL          T_BukkenMoulder READONLY
     ,@OutExclusionError         tinyint OUTPUT
 )AS
@@ -121,7 +121,7 @@ BEGIN
     ,UpdateDateTime         = @SysDatetime
 
     WHERE BukkenNO = @BukkenNO
-    AND   UpdateDateTime = @UpdateDatetime
+    AND   UpdateDateTime = @UpdateDateTime
 
     IF @@ROWCOUNT = 0
     BEGIN

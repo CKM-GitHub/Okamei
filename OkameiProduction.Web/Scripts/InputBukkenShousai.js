@@ -27,8 +27,7 @@ function addEvents() {
     txtSitenCD.change(function () {
         var key = $(this).val();
         setDropDownList('#TantouEigyouCD', url_getTantouEigyouListItems, key);
-        //setDropDownList('#KoumutenName', url_getKoumutenListItems, key);
-        setAutocomplete('ul[aria-labelledby="KoumutenName"]', url_getKoumutenListItems, key);
+        setSuggestList('#KoumutenName', url_getKoumutenListItems, key);
         if (eMode == 'New') {
             txtBukkenNO.val("");
         }
@@ -59,7 +58,7 @@ function addEvents() {
     });
 
     $('input[name="DownFileOption"]:radio').change(function () {
-        showBukkenFileTable();
+        createBukkenFileTable();
     });
 
     $('#btnDownload').click(function () {
@@ -74,34 +73,19 @@ function addEvents() {
                 BukkenComment: $(this).val(),
                 UserID: $('#user-id').text()
             }
-            var ret = calltoApiController(url_SaveBukkenComment, model);
-            if (!ret) return;
-            if (ret.MessageID) {
-                showMessage(ret);
+            var result = calltoApiController(url_SaveBukkenComment, model);
+            if (!result) return;
+            if (result.MessageID) {
+                showMessage(result);
                 return;
             }
             $(this).val("");
-            showBukkenCommentTable();
+            createBukkenCommentTable();
         }
     });
 
-    //jquery on ---------->
-    //autocomplete
-    $(document).on('ontouched click', '.autocomplete', function () {
-        var text = $(this).data('autocomplete');
-        var target = $(this).data('target');
-        $('input[name="' + target + '"]').val(text).focus();
-    });
-
-    $('.autocomplete').on('keydown', function (e) {
-        var c = e.which ? e.which : e.keyCode;
-        if (c == 13) {
-            $(this).click();
-        }
-    });
-
-    //drag area
-    $('#dragDropArea').on('dragenter', function (e) {
+    //drop area
+    $('.drop_area').on('dragenter', function (e) {
         e.stopPropagation();
         e.preventDefault();
         $(this).addClass('selected');
@@ -171,34 +155,47 @@ function setScreen() {
         $(this).prop('checked', $(this).data('dbvalue') == "1").change();
     });
 
+    if (eMode == 'Edit' || eMode == 'Delete') {
+        //when browser back
+        if (txtBukkenNO.val() == "") {
+            $('#main :input:not(button)').val('');
+            $('#main a').addClass('not-available');
+            setDisabledAll('#main', true);
+            btnReturn.prop('disabled', false).focus();
+            return;
+        }
+    }
+
+    createBukkenFileTable();
+    createBukkenCommentTable();
     clearFileInfo();
 
-    showBukkenFileTable();
-    showBukkenCommentTable();
-
-    if (eMode != 'New') {
-        btnSet.hide();
-        txtSitenCD.removeClass('size39').addClass('size50');
+    if (eMode == 'New') {
+        btnSet.show();
+        txtSitenCD.removeClass('size50').addClass('size39');
     }
-    if (eMode == 'Edit') {
-        setAutocomplete('ul[aria-labelledby="KoumutenName"]', url_getKoumutenListItems, txtSitenCD.val());
+    else if (eMode == 'Edit') {
+        setSuggestList('#KoumutenName', url_getKoumutenListItems, txtSitenCD.val());
     }
-    if (eMode == 'Delete') {
+    else if (eMode == 'Delete') {
         setDisabledAll('#main');
         btnSave.text('削除');
     }
 }
 
-function showBukkenFileTable() {
+function createBukkenFileTable() {
+    var data;
+
     var model = {
         BukkenNO: txtBukkenNO.val(),
         BukkenFileShurui: $('input[name="DownFileOption"]:radio:checked').val(),
     }
-    var data = calltoApiController(url_getBukkenFile, model);
-    if (!data) return;
-    if (data.MessageID) {
-        showMessage(data);
-        return;
+    var result = calltoApiController(url_getBukkenFile, model);
+    if (result && result.MessageID) {
+        showMessage(result);
+    }
+    else if (result) {
+        data = result;
     }
 
     var option = {};
@@ -228,21 +225,28 @@ function showBukkenFileTable() {
         { targets: '_all', visible: true },
     ];
 
+    if (eMode == 'Delete') {
+        option.drawCallback = function () { setDisabledAll('#tblBukkenFile'); }
+    }
+
     option.paging = false;
     option.info = false;
 
     bindDataTables($('#tblBukkenFile'), option);
 }
 
-function showBukkenCommentTable() {
+function createBukkenCommentTable() {
+    var data;
+
     var model = {
         BukkenNO: txtBukkenNO.val(),
     }
-    var data = calltoApiController(url_getBukkenComment, model);
-    if (!data) return;
-    if (data.MessageID) {
-        showMessage(data);
-        return;
+    var result = calltoApiController(url_getBukkenComment, model);
+    if (result && result.MessageID) {
+        showMessage(result);
+    }
+    else if (result) {
+        data = result;
     }
 
     var option = {};
@@ -265,6 +269,10 @@ function showBukkenCommentTable() {
         { targets: '_all', visible: true },
     ];
 
+    if (eMode == 'Delete') {
+        option.drawCallback = function() { setDisabledAll('#tblBukkenComment'); }
+    }
+
     option.paging = false;
     option.info = false;
 
@@ -276,13 +284,13 @@ function deleteBukkenFile(row) {
         BukkenNO: txtBukkenNO.val(),
         BukkenFileRows: row,
     }
-    var ret = calltoApiController(url_deleteBukkenFile, model);
-    if (!ret) return;
-    if (ret.MessageID) {
-        showMessage(ret);
+    var result = calltoApiController(url_deleteBukkenFile, model);
+    if (!result) return;
+    if (result.MessageID) {
+        showMessage(result);
         return;
     }
-    showBukkenFileTable();
+    createBukkenFileTable();
 }
 
 function deleteBukkenComment(row) {
@@ -290,13 +298,13 @@ function deleteBukkenComment(row) {
         BukkenNO: txtBukkenNO.val(),
         BukkenCommentRows: row,
     }
-    var ret = calltoApiController(url_deleteBukkenComment, model);
-    if (!ret) return;
-    if (ret.MessageID) {
-        showMessage(ret);
+    var result = calltoApiController(url_deleteBukkenComment, model);
+    if (!result) return;
+    if (result.MessageID) {
+        showMessage(result);
         return;
     }
-    showBukkenCommentTable();
+    createBukkenCommentTable();
 }
 
 function getNewBukkenNO() {
@@ -312,16 +320,16 @@ function getNewBukkenNO() {
         return;
     }
 
-    var ret = calltoApiController(url_getBukkenNO, txtSitenCD.val());
-    if (!ret) {
+    var result = calltoApiController(url_getBukkenNO, txtSitenCD.val());
+    if (!result) {
         return;
     }
-    if (ret.MessageID) {
-        showMessage(ret);
+    if (result.MessageID) {
+        showMessage(result);
         return;
     }
-    if (ret.NewBukkenNO) {
-        txtBukkenNO.val(ret.NewBukkenNO);
+    if (result.NewBukkenNO) {
+        txtBukkenNO.val(result.NewBukkenNO);
         txtBukkenName.focus();
     }
 }
@@ -364,7 +372,7 @@ function btnSaveClick() {
         KannouDate: $('#KannouDate').val(),
         CancelDate: $('#CancelDate').val(),
         KakouNissuu: $('#KakouNissuu').val(),
-        UpdateDatetime: $('#UpdateDatetime').val(),
+        UpdateDateTime: $('#UpdateDateTime').val(),
         KanamonoCD: $('#KanamonoCD').val(),
         OukazaiKakou: $('#OukazaiKakou').val(),
         OukazaiSumi: $('#OukazaiSumi').is(':checked') ? 1 : 0,
@@ -395,16 +403,16 @@ function btnSaveClick() {
         BukkenFileShurui: $('input[name="UpFileOption"]:radio:checked').val(),
         //Page 4.
         BukkenComment: $('#BukkenComment').val(),
-        HiddenUpdateDatetime: $('#HiddenUpdateDatetime').val(),
+        HiddenUpdateDateTime: $('#HiddenUpdateDateTime').val(),
         UserID: $('#user-id').text(),
     };
 
-    var ret = calltoApiController(url_SaveData, model);
-    if (!ret) {
+    var result = calltoApiController(url_SaveData, model);
+    if (!result) {
         return false;
     }
-    if (ret.MessageID) {
-        showMessage(ret);
+    if (result.MessageID) {
+        showMessage(result);
         return false;
     }
 
@@ -416,30 +424,6 @@ function btnSaveClick() {
             location.href = url_previousPage;
         }
     });
-}
-
-
-
-//autocomplete -------------------->
-function setAutocomplete(selector, url, key) {
-    var ddl = $(selector);
-    var target = ddl.attr('aria-labelledby');
-    ddl.children().remove();
-
-    if (key != "") {
-        var ret = calltoApiController(url, key);
-        if (!ret) {
-            return;
-        }
-        if (ret.MessageID) {
-            showMessage(ret);
-            return;
-        }
-        ret.forEach(function (item) {
-            var data = item.DisplayText;
-            ddl.append('<li class="autocomplete" data-autocomplete="' + data + '" data-target="' + target + '"><a>' + data + '</a></li>');
-        });
-    }
 }
 
 
@@ -464,15 +448,15 @@ function sendFileToServer(fileData, status) {
         function (percent) { //progress bar function
             status.setProgress(percent);
         },
-        function (ret) { //success function
+        function (result) { //success function
             clearFileInfo();
 
-            if (!ret) return;
-            if (ret.MessageID) {
-                showMessage(ret);
+            if (!result) return;
+            if (result.MessageID) {
+                showMessage(result);
                 return;
             }
-            showBukkenFileTable();
+            createBukkenFileTable();
         },
         function () { //error function
             clearFileInfo();
@@ -502,6 +486,7 @@ function dropFiles(files, obj) {
 
 
 
+
 //download files
 function downloadFiles() {
 
@@ -523,4 +508,6 @@ function downloadFiles() {
     const link = document.getElementById("downloadBukkenFile");
     link.href = url_downloadFiles + querySerialize(model);
     link.click();
+
+    $('#tblBukkenFile input[type=checkbox]:checked').prop('checked', false);
 }
