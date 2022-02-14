@@ -77,10 +77,10 @@
     </aside>
     <div id="globalContainer" class="global-container">
         <header class="global-header">
-            <div class="header-brand-logo">
+            <div class="global-header-logo">
                 <img src="@Url.Content("~/Images/brandlogo.png")" alt="Logo">
             </div>
-            <div class="header-user-area dropdown">
+            <div class="global-header-user dropdown">
                 <a href="#" class="dropdown-toggle active form-inline" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="material-icons">account_circle</span>
                     <span id="user-id" hidden>@userId</span>
@@ -98,6 +98,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.4/fc-4.0.1/datatables.min.js"></script>
+    @*<script src="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/bundles/common")" type="text/javascript"></script>*@
     @Scripts.Render("~/bundles/common")
     <script type="text/javascript">
         gApplicationPath = '@appPath';

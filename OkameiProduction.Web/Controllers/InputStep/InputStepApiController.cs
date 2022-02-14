@@ -12,7 +12,7 @@ namespace OkameiProduction.Web.Controllers
             if (model == null) return GetBadRequestResult();
 
             var bl = new InputStepBL();
-            if (bl.ExistsDisplayResult(model))
+            if (bl.GetDisplayResult(model).Rows.Count >0)
             {
                 return GetSuccessResult();
             }

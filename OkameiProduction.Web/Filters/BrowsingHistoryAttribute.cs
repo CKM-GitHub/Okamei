@@ -13,12 +13,19 @@ namespace OkameiProduction.Web
         public static string PREVIOUS_URL = "PREVIOUS_URL";
         public static string CURRENT_URL = "CURRENT_URL";
 
+        public bool Disable { get; set; }
+
         public void OnActionExecuted(ActionExecutedContext filterContext)
         {
         }
 
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            if (this.Disable)
+            {
+                return;
+            }
+
             var httpContext = filterContext.HttpContext;
             var session = httpContext.Session;
             var request = httpContext.Request;

@@ -8,14 +8,14 @@ CREATE PROCEDURE [dbo].[InputBukkenShousai_CreateBukkenComment](
      @BukkenNO                  varchar(8)
     ,@BukkenComment             varchar(100)
     ,@Operator                  varchar(10)
-    ,@UpdateDatetime            varchar(23)
+    ,@UpdateDateTime            varchar(23)
     ,@OutExclusionError         tinyint OUTPUT
 )AS
 BEGIN
     SET @OutExclusionError = 0
     DECLARE @SysDatetime datetime = GETDATE()
 
-    --IF EXISTS (SELECT BukkenNO FROM D_Bukken WHERE BukkenNO = @BukkenNO AND UpdateDatetime <> @UpdateDatetime)
+    --IF EXISTS (SELECT BukkenNO FROM D_Bukken WHERE BukkenNO = @BukkenNO AND UpdateDatetime <> @UpdateDateTime)
     --BEGIN
     --    SET @OutExclusionError = 1
     --    RETURN

@@ -141,12 +141,12 @@ namespace OkameiProduction.BL
 
             if (model.Mode == EMode.Edit)
             {
-                sqlParams.Add(new SqlParameter("@UpdateDatetime", SqlDbType.VarChar) { Value = model.HiddenUpdateDatetime.ToStringOrNull() });
+                sqlParams.Add(new SqlParameter("@UpdateDatetime", SqlDbType.VarChar) { Value = model.HiddenUpdateDateTime.ToStringOrNull() });
             }
             return sqlParams;
         }
 
-        public bool CreateBukkenAll(InputBukkenShousaiModel model, out string msgid)
+        public bool CreateBukken(InputBukkenShousaiModel model, out string msgid)
         {
             msgid = "";
             SqlParameter[] sqlParams = CreateSqlParams(model).ToArray();
@@ -162,7 +162,7 @@ namespace OkameiProduction.BL
             }
         }
 
-        public bool UpdateBukkenAll(InputBukkenShousaiModel model, out string msgid)
+        public bool UpdateBukken(InputBukkenShousaiModel model, out string msgid)
         {
             msgid = "";
             SqlParameter[] sqlParams = CreateSqlParams(model).ToArray();
@@ -178,13 +178,13 @@ namespace OkameiProduction.BL
             }
         }
 
-        public bool DeleteBukkenAll(InputBukkenShousaiModel model, out string msgid)
+        public bool DeleteBukken(InputBukkenShousaiModel model, out string msgid)
         {
             msgid = "";
 
             SqlParameter[] sqlParams = new SqlParameter[2];
             sqlParams[0] = new SqlParameter("@BukkenNO", SqlDbType.VarChar) { Value = model.BukkenNO.ToStringOrNull() };
-            sqlParams[1] = new SqlParameter("@UpdateDatetime", SqlDbType.VarChar) { Value = model.HiddenUpdateDatetime.ToStringOrNull() };
+            sqlParams[1] = new SqlParameter("@UpdateDatetime", SqlDbType.VarChar) { Value = model.HiddenUpdateDateTime.ToStringOrNull() };
 
             try
             {

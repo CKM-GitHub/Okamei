@@ -95,6 +95,10 @@
         /// </summary>
         LoginUser = 20,
         /// <summary>
+        /// 段階
+        /// </summary>
+        Dankai = 21,
+        /// <summary>
         /// 承認期日算出日数
         /// </summary>
         SnouninNissuu = 999
