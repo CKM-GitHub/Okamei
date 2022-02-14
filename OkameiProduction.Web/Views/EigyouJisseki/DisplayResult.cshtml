@@ -1,6 +1,165 @@
 ﻿
 @{
-    Layout = null;
-}
+    ViewBag.Title = "EigyouJisseki";
 
- 
+}
+<style>
+    .table th {
+        padding-top: 2px;
+        padding-bottom: 2px;
+        background-color: #ffff66;
+    }
+
+    #tblHiuchiItiran tbody td {
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+
+    #tblHiuchiItiran .Nouki {
+        min-width: 50px;
+    }
+
+    #tblHiuchiItiran .UnsouKuraireDate {
+        min-width: 50px;
+    }
+
+    #tblHiuchiItiran .BukkenNO {
+        min-width: 100px;
+    }
+
+    #tblHiuchiItiran .BukkenName {
+        min-width: 120px;
+    }
+
+    #tblHiuchiItiran .KoumutenName {
+        min-width: 210px;
+    }
+
+
+    #tblHiuchiItiran .KakouTubosuu {
+        text-align: right;
+    }
+
+    #tblHiuchiItiran .TantouSitenName {
+        min-width: 50px;
+    }
+
+    #tblHiuchiItiran .TantouEigyouName {
+        min-width: 50px;
+    }
+
+    #tblHiuchiItiran .TantouCadName {
+        min-width: 50px;
+    }
+
+    #tblHiuchiItiran .FusezuTeishutuDate {
+        min-width: 60px;
+    }
+
+    #tblHiuchiItiran .ShouninKijitu {
+        min-width: 60px;
+    }
+
+    #tblHiuchiItiran .KakouShouninDate {
+        min-width: 60px;
+    }
+
+    #tblHiuchiItiran .SijiKikitu {
+        min-width: 60px;
+    }
+
+    #tblHiuchiItiran .KakouNissuu {
+        min-width: 60px;
+        text-align: right;
+    }
+
+    #tblHiuchiItiran .UpdateDateTime {
+        min-width: 60px;
+    }
+
+    #tblHiuchiItiran .KanamonoName {
+        min-width: 70px;
+    }
+
+    #tblHiuchiItiran .NyuuryokusakiName {
+        min-width: 60px;
+    }
+
+    #tblHiuchiItiran .TokuchuuzaiUmu {
+        min-width: 50px;
+    }
+
+    #tblHiuchiItiran .SinchokuJoukyou {
+        min-width: 90px;
+    }
+
+    #tblHiuchiItiran .delete-td {
+        min-width: 30px;
+    }
+
+    #tblHiuchiItiran .number-align-right {
+        float: right;
+    }
+
+    td, th {
+        font-size: 14px !important;
+    }
+
+    #tblHiuchiItiran .ShitenName {
+        min-width: 50px;
+    }
+
+    #tblHiuchiItiran .eigyouName {
+        min-width: 50px;
+    }
+
+    #tblHiuchiItiran .cadName {
+        min-width: 50px;
+    }
+
+    #tblHiuchiItiran .KubunName {
+        min-width: 250px;
+    }
+
+    #tblHiuchiItiran .SouName {
+        min-width: 50px;
+    }
+
+    #tblHiuchiItiran .SouDateTime {
+        min-width: 120px;
+    }
+
+    #tblHiuchiItiran .Zairyou {
+        min-width: 220px;
+    }
+
+    #tblHiuchiItiran .Toukyuu {
+        min-width: 100px
+    }
+
+    #tblHiuchiItiran .Honsuu {
+        min-width: 50px
+    }
+
+    #tblHiuchiItiran .Export {
+        min-width: 50px
+    }
+
+    #tblHiuchiItiran .btn-primary {
+        min-width: 50px;
+        vertical-align: middle;
+        max-height: 25px;
+        line-height: 15px;
+    }
+
+    #tblHiuchiItiran .SouDateTime {
+        min-width: 160px;
+        vertical-align: middle;
+        /*max-height: 25px;
+        line-height: 15px;*/
+    }
+
+    .btn {
+        margin-top: 0px !important;
+    }
+</style>

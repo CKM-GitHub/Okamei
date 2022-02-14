@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="CadStaffMiteiBL.cs" />
     <Compile Include="Common\DataTableExtentions.cs" />
+    <Content Include="Database\StoredProcedure\EigyouJisseki_SelectDisplayResult.sql" />
     <Compile Include="EigyouJissekiBL.cs" />
     <Compile Include="InputStepBL.cs" />
     <Compile Include="HanyouMasterMaintenanceBL.cs" />

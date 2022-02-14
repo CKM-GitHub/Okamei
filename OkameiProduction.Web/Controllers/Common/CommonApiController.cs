@@ -29,6 +29,13 @@ namespace OkameiProduction.Web.Controllers
                     return GetErrorResult(msgid, outVal);
                 }
             }
+            if (model.IsDateYYMM)
+            {
+                if (!bl.CheckAndFormatYMDate(model.InputValue1, out msgid, out outVal))
+                {
+                    return GetErrorResult(msgid, outVal);
+                }
+            }
 
             if (model.IsCompareDate)
             {

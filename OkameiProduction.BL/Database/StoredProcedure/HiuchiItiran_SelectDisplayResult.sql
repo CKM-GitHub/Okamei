@@ -41,7 +41,7 @@ BEGIN
 					cast( db.BukkenNo as varchar(8)) as BukkenNo,
 					cast( db.BukkenName as varchar(16)) as BukkenName,
 					cast ( mp.Char1 as varchar(6)) as SouName, 
-					cast ( FORMAT(dbh.Sou'+@root+'KakouDateTime , ''yyyy-MM-dd hh:mm:ss'')  as varchar(25) ) as SouDateTime,
+					cast ( FORMAT(dbh.Sou'+@root+'KakouDateTime , ''yyyy-MM-dd HH:mm:ss'')  as varchar(25) ) as SouDateTime,
 					cast ( dbh.zairyou'+@sub+' as varchar(30)) as zairyou,
 					cast ( dbh.toukyuu'+@sub+' as varchar(10)) as toukyuu,
 					cast ( dbh.honsuu'+@sub+' as varchar(3)) as honsuu

@@ -21,21 +21,21 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
         }
         public ActionResult SetCondition()
         {
-            var vm = new HiuchiItiranModel(); 
+            var vm = new HiuchiItiranModel();
             ViewBag.ServerDate = DateTime.Now.ToString(DateTimeFormat.yyyyMMdd);
-            SetDropDownListItems(vm); 
+            SetDropDownListItems(vm);
             return View(vm);
-        } 
+        }
         private void SetDropDownListItems(HiuchiItiranModel vm)
         {
             CommonBL dl = new CommonBL();
             vm.TantouSitenDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouSiten);
-            vm.TantouEigyouDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouEigyou); 
-            vm.TantouCadDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouCad);  
+            vm.TantouEigyouDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouEigyou);
+            vm.TantouCadDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouCad);
         }
         public ActionResult DisplayResult()
         {
-            var vm = GetFromQueryString<HiuchiItiranModel>(); 
+            var vm = GetFromQueryString<HiuchiItiranModel>();
             var bl = new HiuchiItiranBL();
             var dt = bl.GetDisplayResult(vm);
             dt.Columns.Remove("KoumutenName");
@@ -43,12 +43,12 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
             ViewBag.Data = dt;
 
             return View(vm);
-        } 
+        }
         //Work in IDM of some PCs
         [HttpPost]
         [ValidateInput(false)]
         public void Export()
-        { 
+        {
             try
             {
 
@@ -60,14 +60,14 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                 Response.TransmitFile(Server.MapPath("~/output/project/") + "123.txt");
                 Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 Response.Flush();
-                Response.End(); 
+                Response.End();
             }
-            catch (System.Exception e) 
-            { 
+            catch (System.Exception e)
+            {
             }
         }
         //PTK 2022/02/09
-        //Tried and spent 3 days in most of trammited Response  or Via Xmr. Failed and Thought current method would be fine in "ControllerAPI via Anchor Link" donload procedure.  
+        //Tried and spent 3 days in most of trammited Response  or Via Xmr. Failed and Thought current method would be fine in "ControllerAPI via Anchor Link" download procedure.  
         //In this procedure, this might work both IDM and build in chrome download.
         [HttpPost]
         public void ExportHiuchiPdf(HiuchiItiranModel model)
@@ -111,8 +111,8 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                 Colspan = 4
             });
 
-            var TempVal = dt.Rows[0]["KoumutenName"].ToString() + "様";
-            var GetFont = ShrinkValue(TempVal); 
+            var TempVal = dt.Rows[0]["KoumutenName"].ToString() + " 様";
+            var GetFont = ShrinkValue(TempVal);
             Tablea.AddCell(new PdfPCell(new Phrase(TempVal, font_Class.CreateJapaneseFont(font_folder, GetFont)))
             {
                 HorizontalAlignment = Element.ALIGN_CENTER,
@@ -225,7 +225,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                 TempVal += dr["honsuu"].ToString() + "本" + Environment.NewLine + Environment.NewLine;
 
             }
-            Tablea.AddCell(new PdfPCell(new Phrase(model.Honsuu.Trim()+ "本", font_Class.CreateJapaneseFont(font_folder, 22)))
+            Tablea.AddCell(new PdfPCell(new Phrase(model.Honsuu.Trim() + "本", font_Class.CreateJapaneseFont(font_folder, 22)))
             {
                 HorizontalAlignment = Element.ALIGN_RIGHT,
                 VerticalAlignment = Element.ALIGN_TOP,
@@ -269,7 +269,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
 
             #endregion 
         }
-        public   byte[] ReadFully(Stream input)
+        public byte[] ReadFully(Stream input)
         {
             byte[] buffer = new byte[16 * 1024];
             using (MemoryStream ms = new MemoryStream())
@@ -290,10 +290,10 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
         }
         public Font CreateJapaneseFontHeader(string font_folder)
         {
-            BaseFont baseFT = BaseFont.CreateFont(font_folder + "SIMSUN.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);  
+            BaseFont baseFT = BaseFont.CreateFont(font_folder + "SIMSUN.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             Font font = new iTextSharp.text.Font(baseFT, 13, Font.BOLD);
             return null;
-        }  
+        }
 
         //May work in IDM 
         private void DownloadFile(string pth)
@@ -304,12 +304,12 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
 
             // Write the file to the Response  
             const int bufferLength = 1024 * 1024;
-                byte[] buffer = new Byte[bufferLength];
+            byte[] buffer = new Byte[bufferLength];
             int length = 0;
             Stream download = null;
             try
             {
-                download = new FileStream(pth,   FileMode.Open,  FileAccess.Read);
+                download = new FileStream(pth, FileMode.Open, FileAccess.Read);
                 do
                 {
                     if (Response.IsClientConnected)
@@ -333,30 +333,30 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                     download.Close();
             }
         }
-        public int ShrinkValue(string val )
-        { 
-            int LengthShrink = Convert.ToInt32(Encoding.GetEncoding(932).GetByteCount(val).ToString()) ;
-             
+        public int ShrinkValue(string val)
+        {
+            int LengthShrink = Convert.ToInt32(Encoding.GetEncoding(932).GetByteCount(val).ToString());
+
             if (LengthShrink > 40)
             {
-                return 22;
+                return 21;
             }
-            else if (LengthShrink > 30  )
+            else if (LengthShrink > 30)
             {
-                return 28;
+                return 27;
             }
             else if (LengthShrink > 20)
             {
-                return 36;
+                return 35;
             }
             else if (LengthShrink > 10)
             {
-                return 46;
+                return 45;
             }
-            else   
+            else
             {
-                return 50;
-            } 
+                return 49;
+            }
         }
     }
      

@@ -49,13 +49,15 @@
 
             $('#btnDisplay').click(function () {
 
-                if (checkErrorOnSave()) { 
+                if (checkErrorOnSave()) {
                     showConfirmMessage("Q201", btnDisplayClick);
                 }
-            }); 
+            });
             $('#KankeiMonth').val('@serverDate');
             $('#KankeiMonth').focus();
+            setDateYMTypeValidate('#KankeiMonth');
             setRequired('#KankeiMonth');
+           
             //:::::::::::::::::::::PTK
             //NeedDayMonthCheck#KankeiMonth
 

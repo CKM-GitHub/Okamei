@@ -64,6 +64,77 @@ namespace OkameiProduction.BL
             return db.SelectDatatable("M_Control_Select", null);
         }
 
+        public bool CheckAndFormatYMDate(string val, out string errorcd, out string outVal)
+        {
+            errorcd = "";
+            outVal = "";
+
+            if (string.IsNullOrEmpty(val)) return true;
+
+            if (!CheckIsHalfWidth(val, out errorcd))
+            {
+                return false; 
+            }
+
+            if (val.Length > 7)
+            {
+                errorcd = "E103";
+                return false;
+            }
+
+            if (val.Contains("/"))
+            {
+                var split = val.Split('/');
+                if (split.Length == 2)
+                {
+                    //yyyyMM -> yyyy/MM/dd
+                    val = split[0] + "/" + split[1]+ "/" + "01";
+                }
+              
+            }
+            else if (val.Contains("-"))
+            {
+                var split = val.Split('-');
+                if (split.Length == 2)
+                {
+                    //yyyyMM -> yyyy/MM/dd
+                    val = split[0] + "/" + split[1] + "/" + "01";
+                }
+            }
+            else
+            {
+                if (val.Length == 6)
+                {
+                    //yyyyMM -> yyyyMMdd
+                    val = val.ToString().Substring(0, 4) + "/"+ val.ToString().Substring(6-2)+"/"+"01";
+                }
+                else if (val.Length ==4)
+                {
+                    //yyyy -> yyyyMMdd
+                    val = val.ToString() + "/" + DateTime.Now.Month.ToString().PadLeft(2,'0') + "/" + "01";
+                }
+                else if (val.Length ==2)
+                {
+                    //mm -> yyyyMMdd
+                    val = DateTime.Now.Year.ToString().PadLeft(4, '0') + "/" + val.ToString() + "/" + "01";
+                }
+                else if (val.Length ==1)
+                {
+                    //m -> yyyyMMdd
+                    val = DateTime.Now.Year.ToString().PadLeft(4, '0') + "/" + val.ToString().PadLeft(2,'0') + "/" + "01";
+                }
+            }
+
+            if (val.ToDateTime() == null)
+            {
+                errorcd = "E103";
+                return false;
+            }
+
+            outVal = val.ToDateTime(DateTime.Now).ToString(DateTimeFormat.yyyyMMdd);
+            outVal = outVal.Substring(0, 7).Replace("-","/");
+            return true;
+        }
 
 
         public bool CheckAndFormatDate(string val, out string errorcd, out string outVal)
