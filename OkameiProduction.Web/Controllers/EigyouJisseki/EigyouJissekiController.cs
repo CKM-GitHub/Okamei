@@ -11,8 +11,7 @@ using System.Collections.Generic;
 namespace OkameiProduction.Web.Controllers.EigyouJisseki
 {
     public class EigyouJissekiController : BaseController
-    {
-
+    { 
         public ActionResult SetCondition()
         {
             var vm = new EigyouJissekiModel();
