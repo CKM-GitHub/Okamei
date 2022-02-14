@@ -439,7 +439,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Properties\PublishProfiles\" />
-    <Folder Include="Views\EigyouJissekiApi\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\lib\bootstrap-grid.css.map" />

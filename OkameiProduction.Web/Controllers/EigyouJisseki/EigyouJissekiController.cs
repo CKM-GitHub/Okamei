@@ -24,14 +24,24 @@ namespace OkameiProduction.Web.Controllers.EigyouJisseki
             var vm = GetFromQueryString<EigyouJissekiModel>();
             var bl = new EigyouJissekiBL();
             var dt = bl.GetDisplayResult(vm);
-            //ViewBag.Data = dt;
+            
             try
             {
-                GetDataTable(dt, "2022-01");
+                var drResult=  GetDataTable(dt, vm);
+                drResult.Columns.Remove("mp1Num1");
+                drResult.Columns.Remove("mp2Num1");
+                drResult.AcceptChanges();
+                ViewBag.Data = drResult;
+                var inputDate = Convert.ToDateTime(vm.KankeiMonth.Replace("/", "-") + "-01");
+                var MaxDay = DateTime.DaysInMonth(inputDate.Year, inputDate.Month);
+                //ViewBag.SecondEndDay = MaxDay.ToString();
+                TempData["MaxDay"] = MaxDay.ToString();
+                vm.KubunCD = MaxDay.ToString();
             }
             catch { }
             return View(vm);
-        } 
+        }
+       
 
         private (DateTime, DateTime) GetDatePartition(DateTime date, int count)
         {
@@ -44,8 +54,9 @@ namespace OkameiProduction.Web.Controllers.EigyouJisseki
             }
             else if (count ==2)
             {
-                date1 = Convert.ToDateTime(date.Year + "-" + date.Month.ToString().PadLeft(2, '0') + "-" + "26"); 
-                date2 = Convert.ToDateTime(date.Year + "-" + date.Month.ToString().PadLeft(2, '0') + "-" + date.Day.ToString().PadLeft(2, '0')); 
+                date1 = Convert.ToDateTime(date.Year + "-" + date.Month.ToString().PadLeft(2, '0') + "-" + "26");
+                var MaxDay = DateTime.DaysInMonth(date.Year, date.Month);
+                date2 = Convert.ToDateTime(date.Year + "-" + date.Month.ToString().PadLeft(2, '0') + "-" + MaxDay.ToString().PadLeft(2, '0')); 
             }
             else if (count == 3)
             {
@@ -72,8 +83,9 @@ namespace OkameiProduction.Web.Controllers.EigyouJisseki
             
 
         }
-        private DataTable GetDataTable  (DataTable dt, string DateMonth)
+        private DataTable GetDataTable  (DataTable dt, EigyouJissekiModel vm) 
         {
+            string DateMonth = vm.KankeiMonth;
             DateMonth = DateMonth.Replace("/", "-") + "-01"; 
             var ShopName = ""; 
             var DutierName = "";
@@ -84,15 +96,38 @@ namespace OkameiProduction.Web.Controllers.EigyouJisseki
             InitialDate = Convert.ToDateTime(InitialDate.Year + "-" + InitialDate.Month.ToString().PadLeft(2,'0') + "-" + "21");
             var FinalDate = new DateTime();
             var dtShopDutier = new DataTable();
-            dtShopDutier = dt.AsEnumerable() .GroupBy(r => new { Col1 = r["Shop"], Col2 = r["Dutier"] }) .Select(g => g.OrderBy(r => r["mp1Num1"]).First()).CopyToDataTable();
-            
+            if (vm.DetailPattern == "1")
+            {
+                dtShopDutier = dt.AsEnumerable().GroupBy(r => new { Col1 = r["Shop"], Col2 = r["Dutier"] }).Select(g => g.OrderBy(r => r["mp1Num1"]).First()).CopyToDataTable();
+            }
+            else if (vm.DetailPattern =="2")
+            {
+                dtShopDutier = dt.AsEnumerable().GroupBy(r => new { Col1 = r["Shop"] }).Select(g => g.OrderBy(r => r["mp1Num1"]).First()).CopyToDataTable();
+
+            }
+            else
+                dtShopDutier = dt;
+
             foreach (DataRow dr in dtShopDutier.Rows)
             {
                 ShopName = dr["Shop"].ToStringOrNull();
                 DutierName = dr["Dutier"].ToStringOrNull();
                 var drNew = DtIterate.NewRow();
-                drNew["Shop"] = ShopName;
-                drNew["Dutier"] = DutierName;
+                if (vm.DetailPattern == "1")
+                {
+                    drNew["Shop"] = ShopName;
+                    drNew["Dutier"] = DutierName;
+                }
+                else if (vm.DetailPattern == "2")
+                {
+                    drNew["Shop"] = ShopName;
+                    drNew["Dutier"] = "";
+                }
+                else
+                {
+                    drNew["Shop"] = "";
+                    drNew["Dutier"] = "";
+                }
                 drNew["mp1Num1"] = dr["mp1Num1"].ToStringOrNull();
                 drNew["mp2Num1"] = dr["mp2Num1"].ToStringOrNull();
                 
@@ -101,8 +136,36 @@ namespace OkameiProduction.Web.Controllers.EigyouJisseki
                     var Resultant = GetDatePartition(Convert.ToDateTime(DateMonth).AddMonths(-1), (i + 1));
                     InitialDate = Resultant.Item1;
                     FinalDate = Resultant.Item2;
-                    var drow = dt.Select(" Shop = '" + ShopName + "' and Dutier = '" + DutierName + "' and Nouki >= '" + InitialDate + "' and Nouki <= '" + FinalDate + "'");
-                  
+                    DataRow[] drow = null;
+                    if (vm.DetailPattern == "1")
+                    {
+                        if (DutierName == null && ShopName == null)
+                        {
+                            drow = dt.Select(" Shop is null and Dutier is null and Nouki >= '" + InitialDate + "' and Nouki <= '" + FinalDate + "'");
+
+                        }
+                        else if (DutierName == null)
+                        {
+                            drow = dt.Select(" Shop = '" + ShopName + "' and Dutier is null and Nouki >= '" + InitialDate + "' and Nouki <= '" + FinalDate + "'");
+
+                        }
+                        else if (ShopName == null)
+                        {
+                            drow = dt.Select(" Shop is null and Dutier = '" + DutierName + "' and Nouki >= '" + InitialDate + "' and Nouki <= '" + FinalDate + "'");
+
+                        }
+                        else
+                            drow = dt.Select(" Shop = '" + ShopName + "' and Dutier = '" + DutierName + "' and Nouki >= '" + InitialDate + "' and Nouki <= '" + FinalDate + "'");
+                    }
+                    else if (vm.DetailPattern == "2")
+                    {
+                        drow = dt.Select("Shop = '" + ShopName + "' and Nouki >= '" + InitialDate + "' and Nouki <= '" + FinalDate + "'");
+                    }
+                    else
+                    {
+                        drow = dt.Select(" Nouki >= '" + InitialDate + "' and Nouki <= '" + FinalDate + "'");
+                    }
+                    
 
                     if (i == 0)
                     {
@@ -177,6 +240,10 @@ namespace OkameiProduction.Web.Controllers.EigyouJisseki
                 DtIterate.Rows.Add(drNew);
                 CountAll = 0;
                 AmountAll = 0;
+                if  (vm.DetailPattern == "3")
+                {
+                    break;
+                }
             } 
             return DtIterate; 
         }
@@ -199,7 +266,17 @@ namespace OkameiProduction.Web.Controllers.EigyouJisseki
                                  //mp1Num1 = grp.Max(r => r.Field<string>("mp1Num1")),
                                  //mp2Num1 = grp.Max(r => r.Field<string>("mp2Num1")),
                              }).ToList();
-            return (query[0].Count,query[0].KakoutuboSuu); 
+            int iCount = 0; decimal Amount = 0;
+             if (query.Count() > 1)
+            {
+                for ( int k = 0; k < query.Count(); k++ )
+                {
+                    iCount += query[k].Count;
+                    Amount += query[k].KakoutuboSuu;
+                }
+
+            }
+            return (iCount,Amount); 
         }
         private DataTable GetHeader()
         {
@@ -211,8 +288,7 @@ namespace OkameiProduction.Web.Controllers.EigyouJisseki
             }
             return dt;
         }
-
-
+         
 
     }
 }
