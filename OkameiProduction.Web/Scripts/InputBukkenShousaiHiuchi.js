@@ -15,12 +15,12 @@ function initialize_Hiuchi() {
         });
     });
 
-    $('#HiuchiSubEntry #btnSave').click(function () {
+    $('#HiuchiSubEntry #btnSaveSub').click(function () {
         if (checkErrorOnSave('#HiuchiSubEntry')) {
             var models = createModels();
             if (checkAllHiuchi(models)) {
                 showConfirmMessage('Q101', function () {
-                    btnSaveHiuchiClick(models);
+                    btnSaveSubClick(models);
                     return true;
                 });
             }
@@ -53,7 +53,6 @@ function initialize_Hiuchi() {
     //setScreen
     setZairyouSuggestList();
     setToukyuuSuggestList();
-
 
     if (eMode == 'Delete') {
         $('#HiuchiSubEntry #btnClose').focus();
@@ -239,7 +238,7 @@ function checkAllHiuchi(models) {
     return true;
 }
 
-function btnSaveHiuchiClick(models) {
+function btnSaveSubClick(models) {
     var dbModel = {};
 
     for (var i = 1; i <= models.length; i++) {

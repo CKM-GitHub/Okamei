@@ -86,6 +86,15 @@
     #HiuchiSubEntry .blank_pdf {
         margin-left: 100px; /* Same as button of pdf's width + margin-left */
     }
+
+    @@media (max-height: 800px) {
+        .modal_body {
+            display: none;
+        }
+        #btnSaveSub {
+            display: none;
+        }
+    }
 </style>
 
 <div id="HiuchiSubEntry" class="modal js-modal">
@@ -369,7 +378,7 @@
         <div class="row">
             <div class="footer-btn mx-auto">
                 <button type="button" class="btn btn-secondary" id="btnClose" nofocus>閉じる</button>
-                <button type="button" class="btn btn-primary" id="btnSave">登録</button>
+                <button type="button" class="btn btn-primary" id="btnSaveSub">登録</button>
             </div>
         </div>
     </div>

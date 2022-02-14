@@ -343,8 +343,12 @@ function removeDoubleByteValidate(selector) {
 }
 
 // is halfwidth ----->
-function setIsHalfWidthValidate(selector) {
-    $(selector).attr('validate-halfwidth', 'true').attr('inputmode', 'text');
+function setIsHalfWidthValidate(selector, isNumberonly) {
+    var inputmode = 'text'
+    if (isNumberonly) {
+        inputmode = 'numeric';
+    }
+    $(selector).attr('validate-halfwidth', 'true').attr('inputmode', inputmode);
 }
 function removeIsHalfWidthValidate(selector) {
     $(selector).removeAttr('validate-halfwidth');
@@ -528,9 +532,9 @@ $(document).ready(function () {
 
     bindKeyPressEvent("#main");
 
-    $("input[type='text']").focus(function () {
-        $(this).select();
-    });
+    //$("input[type='text']").focus(function () {
+    //    $(this).select();
+    //});
 });
 
 $(document).on("drop dragover", function (e) {
