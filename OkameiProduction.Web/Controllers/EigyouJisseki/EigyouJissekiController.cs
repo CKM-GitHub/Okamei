@@ -267,7 +267,7 @@ namespace OkameiProduction.Web.Controllers.EigyouJisseki
                                  //mp2Num1 = grp.Max(r => r.Field<string>("mp2Num1")),
                              }).ToList();
             int iCount = 0; decimal Amount = 0;
-             if (query.Count() > 1)
+             if (query.Count() > 0)
             {
                 for ( int k = 0; k < query.Count(); k++ )
                 {
