@@ -92,74 +92,74 @@ namespace OkameiProduction.BL
             return db.SelectDatatable("M_Control_Select", null);
         }
 
-        public bool CheckAndFormatYMDate(string val, out string errorcd, out string outVal)
+        public bool CheckAndFormatYMDate(string inputText, out string errorcd, out string outVal)
         {
             errorcd = "";
             outVal = "";
 
-            if (string.IsNullOrEmpty(val)) return true;
+            if (string.IsNullOrEmpty(inputText)) return true;
 
-            if (!CheckIsHalfWidth(val, out errorcd))
+            if (!CheckIsHalfWidth(inputText, out errorcd, out inputText))
             {
                 return false; 
             }
 
-            if (val.Length > 7)
+            if (inputText.Length > 7)
             {
                 errorcd = "E103";
                 return false;
             }
 
-            if (val.Contains("/"))
+            if (inputText.Contains("/"))
             {
-                var split = val.Split('/');
+                var split = inputText.Split('/');
                 if (split.Length == 2)
                 {
                     //yyyyMM -> yyyy/MM/dd
-                    val = split[0] + "/" + split[1]+ "/" + "01";
+                    inputText = split[0] + "/" + split[1]+ "/" + "01";
                 }
               
             }
-            else if (val.Contains("-"))
+            else if (inputText.Contains("-"))
             {
-                var split = val.Split('-');
+                var split = inputText.Split('-');
                 if (split.Length == 2)
                 {
                     //yyyyMM -> yyyy/MM/dd
-                    val = split[0] + "/" + split[1] + "/" + "01";
+                    inputText = split[0] + "/" + split[1] + "/" + "01";
                 }
             }
             else
             {
-                if (val.Length == 6)
+                if (inputText.Length == 6)
                 {
                     //yyyyMM -> yyyyMMdd
-                    val = val.ToString().Substring(0, 4) + "/"+ val.ToString().Substring(6-2)+"/"+"01";
+                    inputText = inputText.ToString().Substring(0, 4) + "/"+ inputText.ToString().Substring(6-2)+"/"+"01";
                 }
-                else if (val.Length ==4)
+                else if (inputText.Length ==4)
                 {
                     //yyyy -> yyyyMMdd
-                    val = val.ToString() + "/" + DateTime.Now.Month.ToString().PadLeft(2,'0') + "/" + "01";
+                    inputText = inputText.ToString() + "/" + DateTime.Now.Month.ToString().PadLeft(2,'0') + "/" + "01";
                 }
-                else if (val.Length ==2)
+                else if (inputText.Length ==2)
                 {
                     //mm -> yyyyMMdd
-                    val = DateTime.Now.Year.ToString().PadLeft(4, '0') + "/" + val.ToString() + "/" + "01";
+                    inputText = DateTime.Now.Year.ToString().PadLeft(4, '0') + "/" + inputText.ToString() + "/" + "01";
                 }
-                else if (val.Length ==1)
+                else if (inputText.Length ==1)
                 {
                     //m -> yyyyMMdd
-                    val = DateTime.Now.Year.ToString().PadLeft(4, '0') + "/" + val.ToString().PadLeft(2,'0') + "/" + "01";
+                    inputText = DateTime.Now.Year.ToString().PadLeft(4, '0') + "/" + inputText.ToString().PadLeft(2,'0') + "/" + "01";
                 }
             }
 
-            if (val.ToDateTime() == null)
+            if (inputText.ToDateTime() == null)
             {
                 errorcd = "E103";
                 return false;
             }
 
-            outVal = val.ToDateTime(DateTime.Now).ToString(DateTimeFormat.yyyyMMdd);
+            outVal = inputText.ToDateTime(DateTime.Now).ToString(DateTimeFormat.yyyyMMdd);
             outVal = outVal.Substring(0, 7).Replace("-","/");
             return true;
         }
