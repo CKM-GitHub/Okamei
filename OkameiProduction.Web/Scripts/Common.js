@@ -320,6 +320,15 @@ function removeDateTypeValidate(selector) {
     $(selector).removeAttr('validate-datetype');
 }
 
+
+//// dateYM type  ----->
+function setDateYMTypeValidate(selector) {
+    $(selector).attr('validate-dateYMtype', 'true');
+}
+function removeDateYMTypeValidate(selector) {
+    $(selector).removeAttr('validate-dateYMtype'); 
+}
+
 // compare date  ----->
 function setCompareDateValidate(selector, comparisonTargetName) {
     $(selector).attr({
@@ -389,9 +398,10 @@ function checkCommon(ctrl) {
             IsHalfWidth: ctrl.attr("validate-halfwidth"),
             IsDoubleByte: ctrl.attr("validate-doublebyte"),
             IsNumeric: ctrl.attr("validate-numeric"),
+            IsDateYYMM: ctrl.attr("validate-dateYMtype"),
         };
 
-        if (model.IsDateType || model.IsCompareDate || model.IsHalfWidth || model.IsDoubleByte || model.IsNumeric) {
+        if (model.IsDateType || model.IsCompareDate || model.IsHalfWidth || model.IsDoubleByte || model.IsNumeric || model.IsDateYYMM) {
 
             model.InputValue1 = ctrl.val();
 
@@ -414,7 +424,7 @@ function checkCommon(ctrl) {
             if (!result) {
                 return false;
             }
-            if (model.IsDateType || model.IsHalfWidth || model.IsNumeric) {
+            if (model.IsDateType || model.IsHalfWidth || model.IsNumeric || model.IsDateYYMM) {
                 if (result.ReturnValue && result.ReturnValue != "") {
                     ctrl.val(result.ReturnValue);
                 }
