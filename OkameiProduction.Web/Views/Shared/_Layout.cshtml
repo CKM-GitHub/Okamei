@@ -11,6 +11,12 @@
         userId = Session["UserInfo"].ToString().Split('_')[0];
         userName = Session["UserInfo"].ToString().Split('_')[1];
     }
+    string categoryID = "";
+    if (Session["MenuState"] != null)
+    {
+        categoryID = "#" + Session["MenuState"].ToString();
+    }
+    var url_SaveMenuState = @Url.Action("SaveMenuState", "Home");
 }
 
 <!DOCTYPE html>
@@ -104,11 +110,29 @@
         gApplicationPath = '@appPath';
         (function ($) {
             $(function () {
+                if ('@categoryID') {
+                    $('.nav-menu-category a[data-toggle="collapse"][href="' + '@categoryID' + '"]').click();
+                }
+
+                $('.nav-menu-category a[data-toggle="collapse"]').on('click', function () {
+                    if ($(this).prop('aria-expanded')) {
+                        calltoApiController('@url_SaveMenuState', { categoryID: $(this).attr('id') });
+                    }
+                    else {
+                        calltoApiController('@url_SaveMenuState', { categoryID: '' });
+                    }
+                });
+
+                $('.nav-menu-category ul[id^="category"] a').on('click', function () {
+                    calltoApiController('@url_SaveMenuState', { categoryID: $(this).parent().parent().attr('id') });
+                });
+
                 $('.nav-toggle').on('click', function () {
                     $('body').toggleClass('closeMenu');
                 });
             });
         })(jQuery);
+
     </script>
     @RenderSection("scripts", required: false)
     @RenderSection("styles", required: false)
