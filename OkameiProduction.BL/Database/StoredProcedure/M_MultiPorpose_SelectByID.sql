@@ -5,19 +5,12 @@ END
 GO
 
 CREATE PROCEDURE [dbo].[M_MultiPorpose_SelectByID](
-    @ID			INT,
-	@UserID		VARCHAR(10)
+    @ID			INT
 )AS
 BEGIN
     SET NOCOUNT ON;
     
-	IF((SELECT ID FROM M_MultiPorpose WHERE [Key] = @UserID) != 20 AND @ID = 20)
-	BEGIN
-		SELECT 'E141' AS MessageID
-	END
-	ELSE
-	BEGIN
-		SELECT 
+	SELECT 
 		ID
 		,[Key]
 		,IDName
@@ -40,8 +33,8 @@ BEGIN
 		,CONVERT(varchar, InsertDateTime, 121) AS InsertDateTime
 		,UpdateOperator
 		,CONVERT(varchar, UpdateDateTime, 121) AS UpdateDateTime
-		FROM M_MultiPorpose
-		WHERE ID = @ID
-		ORDER BY [Key]
-	END
+	FROM M_MultiPorpose
+	WHERE ID = @ID
+	ORDER BY [Key]
+
 END
