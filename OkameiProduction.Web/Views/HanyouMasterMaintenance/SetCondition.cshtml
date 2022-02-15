@@ -3,6 +3,12 @@
 @{
     ViewBag.Title = "HanyouMasterMaintenanceCondition";
     var serverDate = ViewBag.ServerDate;
+
+    string _id = "";
+    if (Session["UserID"] != null)
+    {
+        _id = Session["UserID"].ToString();
+    }
 }
 
 <h4 class="page-title">物件一覧</h4>
@@ -212,7 +218,6 @@
                     if (e.keyCode == 13 || e.keyCode == 9) {
                         var model = {
                             ID_val: $('#ID').val().trim(),
-                            UserID: $('#user-id').text(),
                             Key: 'ID_Check'
                         }
                         var result = calltoApiController('@Url.Action("CheckModifiedData", "api/HanyouMasterMaintenanceApi")', model);
@@ -221,6 +226,11 @@
                         }
                         if (result.MessageID) {
                             showMessage(result);
+                            return false;
+                        }
+
+                        if (@_id !== 20 && $('#ID').val().trim() == 20) {
+                            showMessage('E141');
                             return false;
                         }
                         else

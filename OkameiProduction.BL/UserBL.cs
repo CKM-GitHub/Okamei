@@ -31,6 +31,7 @@ namespace OkameiProduction.BL
             }
 
             userModel.UserName = dr["Char1"].ToStringOrEmpty();
+            userModel.UserID = dr["ID"].ToStringOrEmpty();
             return true;
         }
     }

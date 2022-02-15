@@ -3,6 +3,12 @@
 @{
     ViewBag.Title = "HanyouKensakuList";
     var serverDate = ViewBag.ServerDate;
+
+    string _id = "";
+    if (Session["UserID"] != null)
+    {
+        _id = Session["UserID"].ToString();
+    }
 }
 
 <style>
@@ -130,6 +136,9 @@
                 });
             });
             bindDataTables($('#tblHanyouKensaku'));
+            
+            if (@_id !== 20)
+                $("#ID option[value='20']").remove();
 
             $('#ID').change(function () {
                 DisplayResult();
