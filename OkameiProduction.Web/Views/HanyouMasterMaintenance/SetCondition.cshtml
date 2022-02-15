@@ -175,7 +175,10 @@
 
             $('#btnProcess').click(function () {
                 if (checkErrorOnSave()) {
-                    showConfirmMessage("Q101", btnProcess);
+                    if (Mode == "Delete")
+                        showConfirmMessage("Q102", btnProcess);
+                    else
+                        showConfirmMessage("Q101", btnProcess);
                 }
             });
 
@@ -360,11 +363,11 @@
 
         function btn_finalProcess(Mode) {
             if (Mode == "New")
-                window.location.reload();
+                setTimeout(function () { window.location.reload() }, 2000);
             else if (Mode == "Edit")
-                location.href = '@Url.Action("DisplayResult","HanyouKensaku")?ID=' + $("#ID").val();
+                setTimeout(function () { location.href = '@Url.Action("DisplayResult","HanyouKensaku")?ID=' + $("#ID").val() }, 2000);
             else if (Mode == "Delete")
-                location.href = '@Url.Action("DisplayResult","HanyouKensaku")?ID=' + $("#ID").val();
+                setTimeout(function () { location.href = '@Url.Action("DisplayResult","HanyouKensaku")?ID=' + $("#ID").val() }, 2000);
         }
     </script>
 }
