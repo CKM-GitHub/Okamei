@@ -218,6 +218,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CadInputStaff\CadInputStaffController.cs" />
+    <Compile Include="Controllers\CadInputStaff\CardInputStaffApiController.cs" />
     <Compile Include="Controllers\CadStaffMitei\CadStaffMiteiApiController.cs" />
     <Compile Include="Controllers\CadStaffMitei\CadStaffMiteiController.cs" />
     <Compile Include="Controllers\EigyouJisseki\EigyouJissekiApiController.cs" />
@@ -434,6 +436,7 @@
     <Content Include="Views\InputStep\DisplayResult.cshtml" />
     <Content Include="Views\InputStep\SetCondition.cshtml" />
     <Content Include="Views\InputBukkenShousai\HiuchiSubEntry.cshtml" />
+    <Content Include="Views\CadInputStaff\SetCondition.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

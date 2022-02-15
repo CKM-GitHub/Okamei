@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseModel.cs" />
+    <Compile Include="CadInputStaffModel.cs" />
     <Compile Include="CadStaffMiteiModel.cs" />
     <Compile Include="EigyouJissekiModel.cs" />
     <Compile Include="HanyouMasterMaintenanceModel.cs" />

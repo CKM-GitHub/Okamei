@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CadInputStaffBL.cs" />
     <Compile Include="CadStaffMiteiBL.cs" />
     <Compile Include="Common\DataTableExtentions.cs" />
     <Content Include="Database\StoredProcedure\EigyouJisseki_SelectDisplayResult.sql" />
