@@ -35,7 +35,7 @@ namespace OkameiProduction.Web.Controllers.EigyouJisseki
                 }
                 else if (vm.DetailPattern == "2")
                 {
-                    dataView.Sort = "mp2Num1 ASC";
+                    dataView.Sort = "mp1Num1 ASC";
                 }
                 var LastData = dataView.ToTable();
                 LastData.Columns.Remove("mp1Num1");
