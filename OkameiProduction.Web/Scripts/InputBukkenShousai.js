@@ -444,7 +444,7 @@ function sendFileToServer(fileData, status) {
     fileData.append('BukkenFileShurui', $('input[name="UpFileOption"]:radio:checked').val());
     fileData.append('UserID', $('#user-id').text());
 
-    callSendFileToServer(url_uploadFiles, fileData,
+    calltoApiController_FileUploadHandle(url_uploadFiles, fileData,
         function (percent) { //progress bar function
             status.setProgress(percent);
         },

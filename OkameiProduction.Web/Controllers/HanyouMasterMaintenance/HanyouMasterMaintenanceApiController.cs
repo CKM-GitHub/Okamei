@@ -19,7 +19,10 @@ namespace OkameiProduction.Web.Controllers
                 dt = bl.GetIDDataResult(model);
                 if (dt.Rows.Count > 0)
                 {
-                    return DataTableToJSON(dt);
+                    if(dt.Columns.Contains("MessageID"))
+                        return GetErrorResult("E141");
+                    else
+                        return DataTableToJSON(dt);
                 }
                 else
                 {

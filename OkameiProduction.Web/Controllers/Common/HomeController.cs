@@ -8,9 +8,17 @@ namespace OkameiProduction.Web.Controllers
 {
     public class HomeController : BaseController
     {
-        public ActionResult Index(string id)
+        public ActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        public string SaveMenuState(string categoryID)
+        {
+            //メニューの開かれているカテゴリIDを保存
+            Session["MenuState"] = categoryID;
+            return "true";
         }
     }
 }

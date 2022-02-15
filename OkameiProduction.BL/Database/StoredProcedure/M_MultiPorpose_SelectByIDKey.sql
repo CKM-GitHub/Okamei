@@ -25,11 +25,11 @@ BEGIN
     ,Num3
     ,Num4
     ,Num5
-    ,Date1
-    ,Date2
-    ,Date3
-    ,Date4
-    ,Date5
+    ,CONVERT(VARCHAR(10), Date1, 111) AS Date1
+    ,CONVERT(VARCHAR(10), Date2, 111) AS Date2
+    ,CONVERT(VARCHAR(10), Date3, 111) AS Date3
+    ,CONVERT(VARCHAR(10), Date4, 111) AS Date4
+    ,CONVERT(VARCHAR(10), Date5, 111) AS Date5
     ,InsertOperator
     ,CONVERT(varchar, InsertDateTime, 121) AS InsertDateTime
     ,UpdateOperator

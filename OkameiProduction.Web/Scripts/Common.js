@@ -219,7 +219,7 @@ function calltoApiController_FileDownLoadHandle(url, model) {
     return result;
 }
 
-function callSendFileToServer(url, fileData, progresscall, callback, callbackerror) {
+function calltoApiController_FileUploadHandle(url, fileData, progresscall, callback, callbackerror) {
     var obj = {
         url: url,
         type: "POST",

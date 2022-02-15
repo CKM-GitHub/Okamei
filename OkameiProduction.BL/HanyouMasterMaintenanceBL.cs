@@ -10,8 +10,9 @@ namespace OkameiProduction.BL
     {
         public DataTable GetIDDataResult(HanyouMasterMaintenanceModel model)
         {
-            SqlParameter[] sqlParams = new SqlParameter[1];
+            SqlParameter[] sqlParams = new SqlParameter[2];
             sqlParams[0] = new SqlParameter("@ID", SqlDbType.VarChar) { Value = model.ID_val.ToStringOrNull() };
+            sqlParams[1] = new SqlParameter("@UserID", SqlDbType.VarChar) { Value = model.UserID.ToStringOrNull() };
 
             DBAccess db = new DBAccess();
             var dt = db.SelectDatatable("M_MultiPorpose_SelectByID", sqlParams);
