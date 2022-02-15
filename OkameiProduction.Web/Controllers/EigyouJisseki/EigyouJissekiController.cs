@@ -28,10 +28,20 @@ namespace OkameiProduction.Web.Controllers.EigyouJisseki
             try
             {
                 var drResult=  GetDataTable(dt, vm);
-                drResult.Columns.Remove("mp1Num1");
-                drResult.Columns.Remove("mp2Num1");
-                drResult.AcceptChanges();
-                ViewBag.Data = drResult;
+                var dataView = new DataView(drResult);
+                if (vm.DetailPattern == "1")
+                {
+                    dataView.Sort = "mp1Num1 ASC, mp2Num1 ASC";
+                }
+                else if (vm.DetailPattern == "2")
+                {
+                    dataView.Sort = "mp2Num1 ASC";
+                }
+                var LastData = dataView.ToTable();
+                LastData.Columns.Remove("mp1Num1");
+                LastData.Columns.Remove("mp2Num1");
+                LastData.AcceptChanges();
+                ViewBag.Data = LastData;
                 var inputDate = Convert.ToDateTime(vm.KankeiMonth.Replace("/", "-") + "-01").AddMonths(-1); ;
                 var MaxDay = DateTime.DaysInMonth(inputDate.Year, inputDate.Month);
                 //ViewBag.SecondEndDay = MaxDay.ToString();
