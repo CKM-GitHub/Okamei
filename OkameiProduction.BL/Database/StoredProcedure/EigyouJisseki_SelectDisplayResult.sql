@@ -8,7 +8,7 @@ Create PROCEDURE[dbo].[EigyouJisseki_SelectDisplayResult]
 AS
 BEGIN
 
-				declare @i as int=0, @date as date = @DateMonth,@startDate as date, @endDate as Date;
+					declare @i as int=0, @date as date = @DateMonth,@startDate as date, @endDate as Date;
 					set @startDate= convert(varchar(7), (DATEADD(MONTH,-1,@date)), 126) +'-21';
 					set @endDate= convert(varchar(7), @date, 126) +'-20'; 
 						

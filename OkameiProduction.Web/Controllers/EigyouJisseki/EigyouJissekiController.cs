@@ -32,7 +32,7 @@ namespace OkameiProduction.Web.Controllers.EigyouJisseki
                 drResult.Columns.Remove("mp2Num1");
                 drResult.AcceptChanges();
                 ViewBag.Data = drResult;
-                var inputDate = Convert.ToDateTime(vm.KankeiMonth.Replace("/", "-") + "-01");
+                var inputDate = Convert.ToDateTime(vm.KankeiMonth.Replace("/", "-") + "-01").AddMonths(-1); ;
                 var MaxDay = DateTime.DaysInMonth(inputDate.Year, inputDate.Month);
                 //ViewBag.SecondEndDay = MaxDay.ToString();
                 TempData["MaxDay"] = MaxDay.ToString();
@@ -87,8 +87,9 @@ namespace OkameiProduction.Web.Controllers.EigyouJisseki
         {
             string DateMonth = vm.KankeiMonth;
             DateMonth = DateMonth.Replace("/", "-") + "-01"; 
-            var ShopName = ""; 
-            var DutierName = "";
+            var ShopName = ""; var ShopCD = "";
+            var DutierName = "";var DutierCD = "";
+            
             var CountAll = 0;
             decimal AmountAll = 0 ;
             var DtIterate = GetHeader() ;
@@ -110,8 +111,8 @@ namespace OkameiProduction.Web.Controllers.EigyouJisseki
 
             foreach (DataRow dr in dtShopDutier.Rows)
             {
-                ShopName = dr["Shop"].ToStringOrNull();
-                DutierName = dr["Dutier"].ToStringOrNull();
+                ShopName = dr["Shop"].ToStringOrNull(); ShopCD = dr["TantouSitenCD"].ToString();
+                DutierName = dr["Dutier"].ToStringOrNull(); DutierCD = dr["TantouEigyouCD"].ToString();
                 var drNew = DtIterate.NewRow();
                 if (vm.DetailPattern == "1")
                 {
@@ -139,34 +140,32 @@ namespace OkameiProduction.Web.Controllers.EigyouJisseki
                     DataRow[] drow = null;
                     if (vm.DetailPattern == "1")
                     {
-                        if (DutierName == null && ShopName == null)
+                        if (ShopCD == null && DutierCD == null)
                         {
-                            drow = dt.Select(" Shop is null and Dutier is null and Nouki >= '" + InitialDate + "' and Nouki <= '" + FinalDate + "'");
+                            drow = dt.Select(" TantouSitenCD is null and TantouEigyouCD is null and Nouki >= '" + InitialDate + "' and Nouki <= '" + FinalDate + "'");
 
                         }
-                        else if (DutierName == null)
+                        else if (DutierCD == null)
                         {
-                            drow = dt.Select(" Shop = '" + ShopName + "' and Dutier is null and Nouki >= '" + InitialDate + "' and Nouki <= '" + FinalDate + "'");
+                            drow = dt.Select(" TantouSitenCD = '" + ShopCD + "' and TantouEigyouCD is null and Nouki >= '" + InitialDate + "' and Nouki <= '" + FinalDate + "'");
 
                         }
-                        else if (ShopName == null)
+                        else if (ShopCD == null)
                         {
-                            drow = dt.Select(" Shop is null and Dutier = '" + DutierName + "' and Nouki >= '" + InitialDate + "' and Nouki <= '" + FinalDate + "'");
+                            drow = dt.Select(" TantouSitenCD is null and TantouEigyouCD = '" + DutierCD + "' and Nouki >= '" + InitialDate + "' and Nouki <= '" + FinalDate + "'");
 
                         }
                         else
-                            drow = dt.Select(" Shop = '" + ShopName + "' and Dutier = '" + DutierName + "' and Nouki >= '" + InitialDate + "' and Nouki <= '" + FinalDate + "'");
+                            drow = dt.Select(" TantouSitenCD = '" + ShopCD + "' and TantouEigyouCD = '" + DutierCD + "' and Nouki >= '" + InitialDate + "' and Nouki <= '" + FinalDate + "'");
                     }
                     else if (vm.DetailPattern == "2")
                     {
-                        drow = dt.Select("Shop = '" + ShopName + "' and Nouki >= '" + InitialDate + "' and Nouki <= '" + FinalDate + "'");
+                        drow = dt.Select("TantouSitenCD = '" + ShopCD + "' and Nouki >= '" + InitialDate + "' and Nouki <= '" + FinalDate + "'");
                     }
                     else
                     {
                         drow = dt.Select(" Nouki >= '" + InitialDate + "' and Nouki <= '" + FinalDate + "'");
-                    }
-                    
-
+                    } 
                     if (i == 0)
                     {
                         if (drow.Count() != 0)
