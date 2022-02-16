@@ -12,7 +12,8 @@ BEGIN
 					set @startDate= convert(varchar(7), (DATEADD(MONTH,-1,@date)), 126) +'-21';
 					set @endDate= convert(varchar(7), @date, 126) +'-20'; 
 						
-						select distinct
+						select 
+						--distinct
 							(cast (mp1.Char1 as varchar(10))) Shop,
 							(cast (mp2.Char1 as varchar(20)))  Dutier ,
 							(mp1.Num1)  as mp1Num1,
