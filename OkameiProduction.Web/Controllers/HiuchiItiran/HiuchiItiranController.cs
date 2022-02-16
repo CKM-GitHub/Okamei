@@ -70,19 +70,16 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
         //Tried and spent 3 days in most of trammited Response  or Via Xmr. Failed and Thought current method would be fine in "ControllerAPI via Anchor Link" download procedure.  
         //In this procedure, this might work both IDM and build in chrome download.
         [HttpPost]
-        public void ExportHiuchiPdf(HiuchiItiranModel model, DataTable dtExternal= null)
+        public void ExportHiuchiPdf(HiuchiItiranModel model, DataTable dtExternal= null)  // if dtExternal exist, call as  ExportHiuchiPdf(new HiuchiItiranModel/null,dt)
         {
-           
-            var vm = GetFromQueryString<HiuchiItiranModel>();
-            var bl = new HiuchiItiranBL();
-            var dt = bl.GetDisplayResult(vm);
-            //this Line shall use  for group according to SouName
-            dt = dt.Select(" BukkenNo = '" + model.TantouSitenCD.Split('_')[1].ToString() + "' and BukkenName ='" + model.TantouSitenCD.Split('_')[2].ToString() + "' and SouName = '" + model.TantouSitenCD.Split('_')[3].ToString() + "'").CopyToDataTable();
-            //dt= dt.
-            var fbname = model.TantouSitenCD.Split('_')[2].ToString();
+            //Initilize
+            #region initialize
+            var dt = new DataTable();
+            var fbname = "";
+            string FileName = "";
             PDF_Font font_Class = new PDF_Font();
-            //System.Web.Hosting.HostingEnvironment.MapPath("~/output/project/123.txt");
             string font_folder = System.Web.Hosting.HostingEnvironment.MapPath("~/fonts/");
+            string path = System.Web.Hosting.HostingEnvironment.MapPath("~/output/project");
             Font font_Header = font_Class.CreateJapaneseFontHeader(font_folder);
             Font font = font_Class.CreateJapaneseFont(font_folder, 35);
             Font font_Color = font_Class.CreateJapaneseFont_Color(font_folder);
@@ -90,14 +87,32 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                 Directory.CreateDirectory(System.Web.Hosting.HostingEnvironment.MapPath("~/output"));
             if (!Directory.Exists("~/output/project"))
                 Directory.CreateDirectory(System.Web.Hosting.HostingEnvironment.MapPath("~/output/project"));
+            #endregion
+            //Foreign DataTable
+            if (dtExternal == null)
+            {
+                var vm = GetFromQueryString<HiuchiItiranModel>();
+                var bl = new HiuchiItiranBL();
+                dt = bl.GetDisplayResult(vm);
+                dt = dt.Select(" BukkenNo = '" + model.TantouSitenCD.Split('_')[1].ToString() + "' and BukkenName ='" + model.TantouSitenCD.Split('_')[2].ToString() + "' and SouName = '" + model.TantouSitenCD.Split('_')[3].ToString() + "'").CopyToDataTable();
+                fbname = model.TantouSitenCD.Split('_')[2].ToString();
+                FileName = "火打ラベル_" + fbname + ".pdf";
+            }
+            else
+            {
+                dt = dtExternal;
+                fbname = dt.Rows[0]["BukkenName"].ToString();
+                FileName = "火打材ラベル_" + fbname + ".pdf";
+                model = new HiuchiItiranModel();
+            }
+            //Create PDF
             var doc1 = new iTextSharp.text.Document();
             #region DocSet
             doc1.SetPageSize(PageSize.A4.Rotate());
-            string path = System.Web.Hosting.HostingEnvironment.MapPath("~/output/project");
-            string FileName = "火打ラベル_" + fbname + ".pdf";
             var mstr = new FileStream(path + @"/" + FileName, FileMode.Create);
             var writer = PdfWriter.GetInstance(doc1, mstr);
             doc1.Open();
+
             var Tablea = new PdfPTable(4);
             Tablea.AddCell(new PdfPCell(new Phrase("火 　 打　  材", font_Class.CreateJapaneseFont(font_folder, 30)))
             {
@@ -154,6 +169,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                 SpaceCharRatio = 4f,
                 Colspan = 4
             });
+
             Tablea.AddCell(new PdfPCell(new Phrase("  ", font_Class.CreateJapaneseFont(font_folder)))
             {
                 HorizontalAlignment = Element.ALIGN_CENTER,
@@ -166,6 +182,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                 PaddingBottom = 5f,
                 Colspan = 4
             });
+
             TempVal = dt.Rows[0]["SouName"].ToString();
             Tablea.AddCell(new PdfPCell(new Phrase(TempVal, font_Class.CreateJapaneseFont(font_folder, 50, 1)))
             {
@@ -181,12 +198,18 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                 PaddingLeft = 25f
 
             });
-            TempVal = "";
-            foreach (DataRow dr in dt.Rows)
-            {
-                TempVal += dr["zairyou"].ToString() + Environment.NewLine + Environment.NewLine;
 
+            //Zairyou
+            TempVal = "";
+            if (dtExternal != null)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    TempVal += dr["Zairyou"].ToString() + Environment.NewLine + Environment.NewLine;
+                }
+                model.Zairyou = TempVal;
             }
+
             Tablea.AddCell(new PdfPCell(new Phrase(model.Zairyou.Trim(), font_Class.CreateJapaneseFont(font_folder, 22)))
             {
                 HorizontalAlignment = Element.ALIGN_LEFT,
@@ -201,11 +224,16 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                 PaddingLeft = 25f,
                 Colspan = 2
             });
-            TempVal = "";
-            foreach (DataRow dr in dt.Rows)
-            {
-                TempVal += dr["toukyuu"].ToString() + Environment.NewLine + Environment.NewLine;
 
+            //Toukyuu
+            TempVal = "";
+            if (dtExternal != null)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    TempVal += dr["Toukyuu"].ToString() + Environment.NewLine + Environment.NewLine; 
+                }
+                model.Toukyuu = TempVal;
             }
             Tablea.AddCell(new PdfPCell(new Phrase(model.Toukyuu.Trim(), font_Class.CreateJapaneseFont(font_folder, 22)))
             {
@@ -220,11 +248,17 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                 PaddingBottom = 10f,
                 PaddingRight = 10f
             });
-            TempVal = "";
-            foreach (DataRow dr in dt.Rows)
-            {
-                TempVal += dr["honsuu"].ToString() + "本" + Environment.NewLine + Environment.NewLine;
 
+            //Honsuu
+            TempVal = "";
+            if (dtExternal != null)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    TempVal += dr["honsuu"].ToString() + "本" + Environment.NewLine + Environment.NewLine;
+
+                }
+                model.Honsuu = TempVal;
             }
             Tablea.AddCell(new PdfPCell(new Phrase(model.Honsuu.Trim() + "本", font_Class.CreateJapaneseFont(font_folder, 22)))
             {
@@ -239,6 +273,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                 PaddingBottom = 10f,
                 PaddingRight = 25f
             });
+
             Tablea.AddCell(new PdfPCell(new Phrase("株式会社岡本銘木店　三田工場 ", font_Class.CreateJapaneseFont(font_folder, 15)))
             {
                 HorizontalAlignment = Element.ALIGN_RIGHT,
@@ -251,6 +286,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                 PaddingBottom = 0,
                 Colspan = 4
             });
+
             Tablea.AddCell(new PdfPCell(new Phrase("TEL　079-568ｰ2657    ", font_Class.CreateJapaneseFont(font_folder, 15)))
             {
                 HorizontalAlignment = Element.ALIGN_RIGHT,
