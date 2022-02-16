@@ -70,8 +70,9 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
         //Tried and spent 3 days in most of trammited Response  or Via Xmr. Failed and Thought current method would be fine in "ControllerAPI via Anchor Link" download procedure.  
         //In this procedure, this might work both IDM and build in chrome download.
         [HttpPost]
-        public void ExportHiuchiPdf(HiuchiItiranModel model)
+        public void ExportHiuchiPdf(HiuchiItiranModel model, DataTable dtExternal= null)
         {
+           
             var vm = GetFromQueryString<HiuchiItiranModel>();
             var bl = new HiuchiItiranBL();
             var dt = bl.GetDisplayResult(vm);
