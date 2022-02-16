@@ -26,6 +26,6 @@ BEGIN
 							left join M_Multiporpose mp1 on db.TantouSitenCD = mp1.[Key] and mp1.ID='003'
 							left join M_Multiporpose mp2 on db.TantouEigyouCD= mp2.[Key] and mp2.ID='004' 
 							where Nouki >= @startDate and Nouki <= @endDate
-							order by mp1.Num1 asc, mp2.num1 asc,TantouSitenCD asc, TantouEigyouCD asc
+							order by mp1.Num1 asc, mp2.num1 asc--,TantouSitenCD asc, TantouEigyouCD asc
 							--order by  Num1 asc, num2 asc
 END
