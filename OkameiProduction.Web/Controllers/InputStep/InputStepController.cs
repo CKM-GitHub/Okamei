@@ -10,6 +10,7 @@ namespace OkameiProduction.Web.Controllers
         // GET: 
         public ActionResult SetCondition()
         {
+            
             var vm = new InputStepModel();
             SetDropDownListItems(vm);
 
@@ -19,7 +20,7 @@ namespace OkameiProduction.Web.Controllers
         }
 
         // GET: 
-        public ActionResult DisplayResult ()
+        public ActionResult DisplayResult()
         {
             var vm = GetFromQueryString<InputStepModel>();
 

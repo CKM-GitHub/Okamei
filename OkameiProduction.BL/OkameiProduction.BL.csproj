@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CadInputStaffBL.cs" />
     <Compile Include="CadStaffMiteiBL.cs" />
     <Compile Include="Common\DataTableExtentions.cs" />
     <Content Include="Database\StoredProcedure\EigyouJisseki_SelectDisplayResult.sql" />
@@ -68,6 +69,7 @@
     <Compile Include="MessageBL.cs" />
     <Compile Include="MoulderItiranBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SmitumoriKanriBL.cs" />
     <Compile Include="UnsouSoukoireBL.cs" />
     <Compile Include="UserBL.cs" />
   </ItemGroup>
@@ -100,6 +102,7 @@
     <Content Include="Database\StoredProcedure\InputBukkenShousai_Update.sql" />
     <Content Include="Database\StoredProcedure\InputBukkenShousai_Create.sql" />
     <Content Include="Database\StoredProcedure\FusezuMiteisyutu_SelectDisplayResult.sql" />
+    <Content Include="Database\StoredProcedure\InputStep_SelectDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\KubunTaisyou_SelectDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\MoulderItiran_SelectDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\M_Control_Select.sql" />
@@ -109,6 +112,7 @@
     <Content Include="Database\StoredProcedure\M_MultiPorpose_SelectByIDKey.sql" />
     <Content Include="Database\StoredProcedure\M_MultiPorpose_GetNewBukkenNO.sql" />
     <Content Include="Database\StoredProcedure\M_MultiPorpose_SelectForDropDownLit.sql" />
+    <Content Include="Database\StoredProcedure\SmitumoriKanri_ExistsDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\UnsouSoukoire_SelectDisplayResult.sql" />
     <Content Include="Database\TableType\T_BukkenMoulder.sql" />
     <Content Include="Database\TableType\T_BukkenComment.sql" />
