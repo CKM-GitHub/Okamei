@@ -3,12 +3,6 @@
 @{
     ViewBag.Title = "HanyouMasterMaintenanceCondition";
     var serverDate = ViewBag.ServerDate;
-
-    string _id = "";
-    if (Session["UserID"] != null)
-    {
-        _id = Session["UserID"].ToString();
-    }
 }
 
 <h4 class="page-title">物件一覧</h4>
@@ -229,7 +223,7 @@
                             return false;
                         }
 
-                        if (@_id !== 20 && $('#ID').val().trim() == 20) {
+                        if ($('#user-id').text() !== 'Admin' && $('#ID').val().trim() == 20) {
                             showMessage('E141');
                             return false;
                         }
