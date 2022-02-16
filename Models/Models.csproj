@@ -64,6 +64,7 @@
     <Compile Include="MControl.cs" />
     <Compile Include="MoulderItiranModel.cs" />
     <Compile Include="PDF_fonts.cs" />
+    <Compile Include="SmitumoriKanriModel.cs" />
     <Compile Include="UnsouSoukoireModel.cs" />
     <Compile Include="ValidateModel.cs" />
     <Compile Include="DropDownListItem.cs" />
