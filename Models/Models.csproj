@@ -55,6 +55,7 @@
     <Compile Include="BukkenItiranModel.cs" />
     <Compile Include="InputBukkenShousaiBukkenCommentModel.cs" />
     <Compile Include="InputBukkenShousaiBukkenFileModel.cs" />
+    <Compile Include="InputBukkenShousaiHiuchiPdfExportModel.cs" />
     <Compile Include="InputBukkenShousaiHiuchiModel.cs" />
     <Compile Include="InputBukkenShousaiModel.cs" />
     <Compile Include="HanyouKensakuModel.cs" />

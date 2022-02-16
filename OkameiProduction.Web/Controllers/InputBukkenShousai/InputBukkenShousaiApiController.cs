@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Net.Http.Headers;
 using Models;
 using OkameiProduction.BL;
 
@@ -266,7 +267,120 @@ namespace OkameiProduction.Web.Controllers
             //}
             return GetSuccessResult();
         }
-        //Hiuchi <----------
+
+        [HttpPost]
+        public string ReadHiuchiFile(HttpPostedFile postedFile)
+        {
+            //var postedFiles = HttpContext.Current.Request.Files;
+            //if (postedFiles.Count == 0)
+            //{
+            //    return GetSuccessResult();
+            //}
+
+            if (string.IsNullOrEmpty(postedFile.FileName))
+            {
+                return GetSuccessResult();
+            }
+
+            string path = HttpContext.Current.Server.MapPath("~/temp");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            var fileName = Path.Combine(path, "HiuchiTorikomi_" + Guid.NewGuid());
+            postedFile.SaveAs(fileName);
+
+            try
+            {
+                using (var reader = new StreamReader(fileName, System.Text.Encoding.GetEncoding("Shift_JIS")))
+                {
+                    // データを行単位で取得
+                    while (!reader.EndOfStream)
+                    {
+                        string[] readArray = reader.ReadLine().Split(',');
+                        if (readArray[0] != "木材火打") continue;
+
+                        var model = new InputBukkenShousaiHiuchiModel();
+                        foreach (var read in readArray)
+                        {
+                        }
+                    }
+                    reader.Close();
+                }
+            }
+            finally
+            {
+                File.Delete(path);
+            }
+
+            return "";
+        }
+
+        [HttpPost]
+        public HttpResponseMessage HiuchiPdfExport([FromBody]InputBukkenShousaiHiuchiPdfExportModel model)
+        {
+            #region CreateDataTable
+
+            var dt = new DataTable();
+            dt.Columns.Add("BukkenNO");
+            dt.Columns.Add("BukkenName");
+            dt.Columns.Add("KoumutenName");
+            dt.Columns.Add("SouName");
+            dt.Columns.Add("Zairyou");
+            dt.Columns.Add("Toukyuu");
+            dt.Columns.Add("Honsuu");
+
+            DataRow dr = dt.NewRow();
+            dr["BukkenNO"] = model.BukkenNO;
+            dr["BukkenName"] = model.BukkenName;
+            dr["KoumutenName"] = model.KoumutenName;
+            dr["SouName"] = model.SouName;
+            dr["Zairyou"] = model.Zairyou1;
+            dr["Toukyuu"] = model.Toukyuu1;
+            dr["Honsuu"] = model.Honsuu1;
+            dt.Rows.Add(dr);
+
+            if (!string.IsNullOrEmpty(model.Zairyou2))
+            {
+                dr = dt.NewRow();
+                dr["BukkenNO"] = model.BukkenNO;
+                dr["BukkenName"] = model.BukkenName;
+                dr["KoumutenName"] = model.KoumutenName;
+                dr["SouName"] = model.SouName;
+                dr["Zairyou"] = model.Zairyou2;
+                dr["Toukyuu"] = model.Toukyuu2;
+                dr["Honsuu"] = model.Honsuu2;
+                dt.Rows.Add(dr);
+            }
+
+            if (!string.IsNullOrEmpty(model.Zairyou3))
+            {
+                dr = dt.NewRow();
+                dr["BukkenNO"] = model.BukkenNO;
+                dr["BukkenName"] = model.BukkenName;
+                dr["KoumutenName"] = model.KoumutenName;
+                dr["SouName"] = model.SouName;
+                dr["Zairyou"] = model.Zairyou3;
+                dr["Toukyuu"] = model.Toukyuu3;
+                dr["Honsuu"] = model.Honsuu3;
+                dt.Rows.Add(dr);
+            }
+            #endregion
+
+            HiuchiItiran.HiuchiItiranController PdfCaller = new HiuchiItiran.HiuchiItiranController();
+            //PdfCaller.ExportHiuchiPdf(new HiuchiItiranModel(), dt);
+
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+            string filePath = System.Web.Hosting.HostingEnvironment.MapPath("~/output/project/" + (model.FileName.TrimEnd()));
+            byte[] bytes = File.ReadAllBytes(filePath);
+            response.Content = new ByteArrayContent(bytes);
+            response.Content.Headers.ContentLength = bytes.LongLength;
+            response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+            response.Content.Headers.ContentDisposition.FileName = model.FileName;
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(model.FileName));
+            return response;
+        }
 
     }
 }

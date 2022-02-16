@@ -14,7 +14,7 @@
     string categoryID = "";
     if (Session["MenuState"] != null)
     {
-        categoryID = "#" + Session["MenuState"].ToString();
+        categoryID = Session["MenuState"].ToString();
     }
     var url_SaveMenuState = @Url.Action("SaveMenuState", "Home");
 }
@@ -45,16 +45,16 @@
         <nav class="nav-menu">
             <ul id="accordionOwner">
                 <li class="nav-menu-category">
-                    <a href="~/Home/Index">Home</a>
+                    <a id="home" href="~/Home/Index">Home</a>
                 </li>
                 <li class="nav-menu-category">
-                    <a data-toggle="collapse" href="#category01" aria-controls="#category01" aria-expanded="false">物件詳細登録</a>
+                    <a data-toggle="collapse" href="#category01" aria-controls="category01" aria-expanded="false">物件詳細登録</a>
                     <ul id="category01" class="collapse" data-parent="#accordionOwner">
                         <li><a href="~/InputBukkenShousai/Entry?Mode=New">物件詳細登録</a></li>
                     </ul>
                 </li>
                 <li class="nav-menu-category">
-                    <a data-toggle="collapse" href="#category02" aria-controls="#category02" aria-expanded="false">物件情報</a>
+                    <a data-toggle="collapse" href="#category02" aria-controls="category02" aria-expanded="false">物件情報</a>
                     <ul id="category02" class="collapse" data-parent="#accordionOwner">
                         <li><a href="~/BukkenItiran/SetCondition">物件一覧</a></li>
                         <li><a href="~/KadouKeikaku/">稼働計画</a></li>
@@ -72,7 +72,7 @@
                     </ul>
                 </li>
                 <li class="nav-menu-category">
-                    <a data-toggle="collapse" href="#category03" aria-controls="#category03" aria-expanded="false">マスタメンテ</a>
+                    <a data-toggle="collapse" href="#category03" aria-controls="category03" aria-expanded="false">マスタメンテ</a>
                     <ul id="category03" class="collapse" data-parent="#accordionOwner">
                         <li><a href="~/HanyouKensaku/DisplayResult">汎用マスタ検索</a></li>
                         <li><a href="~/HanyouMasterMaintenance/SetCondition">汎用マスタメンテ</a></li>
@@ -111,20 +111,21 @@
         (function ($) {
             $(function () {
                 if ('@categoryID') {
-                    $('.nav-menu-category a[data-toggle="collapse"][href="' + '@categoryID' + '"]').click();
+                    $('.nav-menu-category a[data-toggle="collapse"][aria-controls="' + '@categoryID' + '"]').click();
                 }
 
                 $('.nav-menu-category a[data-toggle="collapse"]').on('click', function () {
-                    if ($(this).prop('aria-expanded')) {
-                        calltoApiController('@url_SaveMenuState', { categoryID: $(this).attr('id') });
+                    if ($(this).attr('aria-expanded') == 'true') {
+                        //to close(true -> false)
+                        calltoApiController('@url_SaveMenuState', { categoryID: '' });
                     }
                     else {
-                        calltoApiController('@url_SaveMenuState', { categoryID: '' });
+                        calltoApiController('@url_SaveMenuState', { categoryID: $(this).attr('aria-controls') });
                     }
                 });
 
-                $('.nav-menu-category ul[id^="category"] a').on('click', function () {
-                    calltoApiController('@url_SaveMenuState', { categoryID: $(this).parent().parent().attr('id') });
+                $('#home').on('click', function () {
+                    calltoApiController('@url_SaveMenuState', { categoryID: '' });
                 });
 
                 $('.nav-toggle').on('click', function () {
