@@ -113,6 +113,7 @@
     <Content Include="Database\StoredProcedure\M_MultiPorpose_GetNewBukkenNO.sql" />
     <Content Include="Database\StoredProcedure\M_MultiPorpose_SelectForDropDownLit.sql" />
     <Content Include="Database\StoredProcedure\SmitumoriKanri_ExistsDisplayResult.sql" />
+    <Content Include="Database\StoredProcedure\SmitumoriKanri_SelectDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\UnsouSoukoire_SelectDisplayResult.sql" />
     <Content Include="Database\TableType\T_BukkenMoulder.sql" />
     <Content Include="Database\TableType\T_BukkenComment.sql" />
