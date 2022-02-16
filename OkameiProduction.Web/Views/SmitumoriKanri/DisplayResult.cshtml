@@ -1,0 +1,155 @@
+﻿
+@{
+    ViewBag.Title = "SmitumoriKanriList";
+}
+
+<style>
+    .table th {
+        padding-top: 2px;
+        padding-bottom: 2px;
+        background-color: #ffff66;
+        font-size: 14px;
+        white-space: nowrap;
+    }
+
+    .table tbody td {
+        padding-top: 2px;
+        padding-bottom: 2px;
+        font-size: 14px;
+    }
+
+    #tblBukkenItiran .KakouTubosuu,
+    #tblBukkenItiran .KakouNissuu {
+        text-align: right;
+    }
+
+    #tblBukkenItiran .BukkenNO {
+    }
+
+    #tblBukkenItiran .delete-td {
+        min-width: 36px;
+    }
+
+    #tblBukkenItiran .Nouki,
+    #tblBukkenItiran .UnsouKuraireDate,
+    #tblBukkenItiran .KakouTubosuu,
+    #tblBukkenItiran .JuchuuDate,
+    #tblBukkenItiran .TokuchuuzaiUmu {
+        min-width: 50px;
+    }
+
+    #tblBukkenItiran .TantouSitenName,
+    #tblBukkenItiran .TantouEigyouName,
+    #tblBukkenItiran .TantouCadName {
+        min-width: 54px;
+    }
+
+    #tblBukkenItiran .FusezuTeishutuDate,
+    #tblBukkenItiran .ShouninKijitu,
+    #tblBukkenItiran .KakouShouninDate,
+    #tblBukkenItiran .SijiKikitu,
+    #tblBukkenItiran .UpdateDateTime,
+    #tblBukkenItiran .NyuuryokusakiName,
+    #tblBukkenItiran .KakouNissuu {
+        min-width: 60px;
+    }
+
+    #tblBukkenItiran .KanamonoName {
+        min-width: 88px;
+    }
+
+    #tblBukkenItiran .SinchokuJoukyou {
+        min-width: 106px;
+    }
+
+    #tblBukkenItiran .BukkenName {
+        min-width: 140px;
+    }
+
+    #tblBukkenItiran .KoumutenName {
+        min-width: 262px;
+    }
+</style>
+
+<h4>物件一覧</h4>
+<div id="main" class="main-content">
+    <table class='table table-bordered' id="tblBukkenItiran">
+        <thead>
+            <tr>
+                <th>納期</th>
+                <th>倉庫入</th>
+                <th>物件番号</th>
+                <th>物件名</th>
+                <th>工務店</th>
+                <th>坪数</th>
+                <th>支店</th>
+                <th>営業</th>
+                <th>入力者</th>
+                <th>受注日</th>
+                <th>伏図提出</th>
+                <th>承認期日</th>
+                <th>加工承認</th>
+                <th>指示期日</th>
+                <th>加工日数</th>
+                <th>最終更新</th>
+                <th>金物</th>
+                <th>入力先</th>
+                <th>特注材</th>
+                <th>進捗状況</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var columns = ViewBag.Data.Columns;
+            }
+
+            @foreach (System.Data.DataRow row in ViewBag.Data.Rows)
+            {
+                <tr>
+                    @{
+                        var count = row.ItemArray.Count();
+                        var items = row.ItemArray;
+                        var bukkenNo = row["BukkenNO"].ToString();
+                    }
+                    @for (var i = 0; i < count; i++)
+                    {
+                        <td class="@columns[i].Caption">
+                            @if (columns[i].Caption == "BukkenName")
+                            {
+                                @Html.ActionLink((string)items[i], "Entry", "InputBukkenShousai", new { Mode = "Edit", BukkenNO = bukkenNo }, new { @class = "edit-link" })
+                            }
+                            else
+                            {
+                                @items[i]
+                            }
+                        </td>
+                    }
+                    <td class="delete-td">
+                        @Html.ActionLink("削除", "Entry", "InputBukkenShousai", new { Mode = "Delete", BukkenNO = bukkenNo }, new { @class = "delete-link" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="form-group row">
+        <div class="footer-btn mx-auto">
+            <button type="button" id="btnReturn" class="btn btn-secondary">戻る</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#btnReturn').click(function () {
+                location.href = '@Url.Action("SetCondition", "BukkenItiran")';
+            });
+
+            var t = bindDataTables($('#tblBukkenItiran'));
+        });
+
+    </script>
+}
