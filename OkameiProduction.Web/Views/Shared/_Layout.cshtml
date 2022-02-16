@@ -11,6 +11,12 @@
         userId = Session["UserInfo"].ToString().Split('_')[0];
         userName = Session["UserInfo"].ToString().Split('_')[1];
     }
+    string categoryID = "";
+    if (Session["MenuState"] != null)
+    {
+        categoryID = "#" + Session["MenuState"].ToString();
+    }
+    var url_SaveMenuState = @Url.Action("SaveMenuState", "Home");
 }
 
 <!DOCTYPE html>
@@ -55,7 +61,7 @@
                         <li><a href="~/HundeggerItiran/SetCondition">フンデガー</a></li>
                         <li><a href="~/HiuchiItiran/SetCondition">火打</a></li>
                         <li><a href="~/MoulderItiran/SetCondition">モルダー</a></li>
-                        <li><a href="~/CadInputStaff/">CAD入力者担当状況</a></li>
+                        <li><a href="~/CadInputStaff/SetCondition">CAD入力者担当状況</a></li>
                         <li><a href="~/FusezuMiteisyutu/SetCondition">伏図未提出物件</a></li>
                         <li><a href="~/CadStaffMitei/SetCondition">担当者未定物件</a></li>
                         <li><a href="~/InputStep/SetCondition">入力段階別</a></li>
@@ -77,10 +83,10 @@
     </aside>
     <div id="globalContainer" class="global-container">
         <header class="global-header">
-            <div class="header-brand-logo">
+            <div class="global-header-logo">
                 <img src="@Url.Content("~/Images/brandlogo.png")" alt="Logo">
             </div>
-            <div class="header-user-area dropdown">
+            <div class="global-header-user dropdown">
                 <a href="#" class="dropdown-toggle active form-inline" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="material-icons">account_circle</span>
                     <span id="user-id" hidden>@userId</span>
@@ -98,16 +104,35 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.4/fc-4.0.1/datatables.min.js"></script>
+    @*<script src="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/bundles/common")" type="text/javascript"></script>*@
     @Scripts.Render("~/bundles/common")
     <script type="text/javascript">
         gApplicationPath = '@appPath';
         (function ($) {
             $(function () {
+                if ('@categoryID') {
+                    $('.nav-menu-category a[data-toggle="collapse"][href="' + '@categoryID' + '"]').click();
+                }
+
+                $('.nav-menu-category a[data-toggle="collapse"]').on('click', function () {
+                    if ($(this).prop('aria-expanded')) {
+                        calltoApiController('@url_SaveMenuState', { categoryID: $(this).attr('id') });
+                    }
+                    else {
+                        calltoApiController('@url_SaveMenuState', { categoryID: '' });
+                    }
+                });
+
+                $('.nav-menu-category ul[id^="category"] a').on('click', function () {
+                    calltoApiController('@url_SaveMenuState', { categoryID: $(this).parent().parent().attr('id') });
+                });
+
                 $('.nav-toggle').on('click', function () {
                     $('body').toggleClass('closeMenu');
                 });
             });
         })(jQuery);
+
     </script>
     @RenderSection("scripts", required: false)
     @RenderSection("styles", required: false)

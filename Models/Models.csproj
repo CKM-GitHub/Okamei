@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseModel.cs" />
+    <Compile Include="CadInputStaffModel.cs" />
     <Compile Include="CadStaffMiteiModel.cs" />
     <Compile Include="EigyouJissekiModel.cs" />
     <Compile Include="HanyouMasterMaintenanceModel.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="BukkenItiranModel.cs" />
     <Compile Include="InputBukkenShousaiBukkenCommentModel.cs" />
     <Compile Include="InputBukkenShousaiBukkenFileModel.cs" />
+    <Compile Include="InputBukkenShousaiHiuchiModel.cs" />
     <Compile Include="InputBukkenShousaiModel.cs" />
     <Compile Include="HanyouKensakuModel.cs" />
     <Compile Include="HiuchiItiranModel.cs" />

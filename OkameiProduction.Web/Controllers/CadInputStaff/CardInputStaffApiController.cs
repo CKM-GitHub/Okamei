@@ -9,15 +9,13 @@ using OkameiProduction.BL;
 
 namespace OkameiProduction.Web.Controllers
 {
-    public class EigyouJissekiApiController : BaseApiController
+    public class CardInputStaffApiController : BaseApiController
     {
-        // GET: EigyouJissekiApi
-
         [HttpPost]
-        public string ExistsDisplayResult([FromBody] EigyouJissekiModel model)
+        public string ExistsDisplayResult([FromBody] CadInputStaffModel model)
         {
             if (model == null) return GetBadRequestResult();
-            var bl = new EigyouJissekiBL();
+            var bl = new CadInputStaffBL();
             if (bl.GetDisplayResult(model).Rows.Count > 0)
             {
                 return GetSuccessResult();
@@ -27,6 +25,5 @@ namespace OkameiProduction.Web.Controllers
                 return GetErrorResult("S013");
             }
         }
-         
     }
 }

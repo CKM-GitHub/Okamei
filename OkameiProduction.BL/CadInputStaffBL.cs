@@ -2,14 +2,15 @@
 using System.Data;
 using System.Data.SqlClient;
 using Models;
+
 namespace OkameiProduction.BL
 {
-    public class EigyouJissekiBL
+   public class CadInputStaffBL
     {
-        public DataTable GetDisplayResult(EigyouJissekiModel model)
+        public DataTable GetDisplayResult(CadInputStaffModel model)
         {
             SqlParameter[] sqlParams = new SqlParameter[1];
-            sqlParams[0] = new SqlParameter("@DateMonth", SqlDbType.VarChar) { Value = model.KankeiMonth.Replace("/","-") + "-01" };
+            sqlParams[0] = new SqlParameter("@DateMonth", SqlDbType.VarChar) { Value = model.KankeiMonth.Replace("/", "-") + "-01" };
             DBAccess db = new DBAccess();
             var dt = db.SelectDatatable("EigyouJisseki_SelectDisplayResult", sqlParams);
             return dt;

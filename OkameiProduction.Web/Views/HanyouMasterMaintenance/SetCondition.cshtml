@@ -85,7 +85,7 @@
             <label class="col-form-label label-title">数字型項目1</label>
         </div>
         <div class="col-sm-4">
-            <input type="text" class="form-control size10" maxlength="10" id="Num1" name="Num1" />
+            <input type="text" class="form-control size13" maxlength="10" id="Num1" name="Num1" />
         </div>
         <div class="col-sm-2">
             <label class="col-form-label label-title">日付型項目1</label>
@@ -99,7 +99,7 @@
             <label class="col-form-label label-title">数字型項目2</label>
         </div>
         <div class="col-sm-4">
-            <input type="text" class="form-control size10" maxlength="10" id="Num2" name="Num2" />
+            <input type="text" class="form-control size13" maxlength="10" id="Num2" name="Num2" />
         </div>
         <div class="col-sm-2">
             <label class="col-form-label label-title">日付型項目2</label>
@@ -113,7 +113,7 @@
             <label class="col-form-label label-title">数字型項目3</label>
         </div>
         <div class="col-sm-4">
-            <input type="text" class="form-control size10" maxlength="10" id="Num3" name="Num3" />
+            <input type="text" class="form-control size13" maxlength="10" id="Num3" name="Num3" />
         </div>
         <div class="col-sm-2">
             <label class="col-form-label label-title">日付型項目3</label>
@@ -127,7 +127,7 @@
             <label class="col-form-label label-title">数字型項目4</label>
         </div>
         <div class="col-sm-4">
-            <input type="text" class="form-control size10" maxlength="10" id="Num4" name="Num4" />
+            <input type="text" class="form-control size13" maxlength="10" id="Num4" name="Num4" />
         </div>
         <div class="col-sm-2">
             <label class="col-form-label label-title">日付型項目4</label>
@@ -141,7 +141,7 @@
             <label class="col-form-label label-title">数字型項目5</label>
         </div>
         <div class="col-sm-4">
-            <input type="text" class="form-control size10" maxlength="10" id="Num5" name="Num5" />
+            <input type="text" class="form-control size13" maxlength="10" id="Num5" name="Num5" />
         </div>
         <div class="col-sm-2">
             <label class="col-form-label label-title">日付型項目5</label>
@@ -164,7 +164,7 @@
         $(document).ready(function () {
             var Mode = '@Model.Mode';
             $('#btnReturn').click(function () {
-                showConfirmMessage("Q004", function () {
+                showConfirmMessage("Q003", function () {
                     if (Mode == "New") {
                         window.location.reload();
                     }
@@ -175,7 +175,10 @@
 
             $('#btnProcess').click(function () {
                 if (checkErrorOnSave()) {
-                    showConfirmMessage("Q201", btnProcess);
+                    if (Mode == "Delete")
+                        showConfirmMessage("Q102", btnProcess);
+                    else
+                        showConfirmMessage("Q101", btnProcess);
                 }
             });
 
@@ -188,11 +191,11 @@
 
             //number
             setNumericValidate('#ID', 3, 0);
-            setNumericValidate('#Num1', 3, 0);
-            setNumericValidate('#Num2', 3, 0);
-            setNumericValidate('#Num3', 3, 0);
-            setNumericValidate('#Num4', 3, 0);
-            setNumericValidate('#Num5', 3, 0);
+            setNumericValidate('#Num1', 10, 0);
+            setNumericValidate('#Num2', 10, 0);
+            setNumericValidate('#Num3', 10, 0);
+            setNumericValidate('#Num4', 10, 0);
+            setNumericValidate('#Num5', 10, 0);
 
             //is double-byte
             setDoubleByteValidate('#Key');
@@ -219,13 +222,17 @@
                             showMessage(result);
                             return false;
                         }
+
+                        if ($('#user-id').text() !== 'Admin' && $('#ID').val().trim() == 20) {
+                            showMessage('E141');
+                            return false;
+                        }
                         else
                             $('#IDName').html(result[0].IDName);
                     }
                 });
 
                 $('#Key').keydown(function (e) {
-                    debugger;
                     if (e.keyCode == 13 || e.keyCode == 9) {
                         var model = {
                             ID_val: $('#ID').val().trim(),
@@ -297,7 +304,7 @@
             $('#Num3').val(result[0].Num3);
             $('#Num4').val(result[0].Num4);
             $('#Num5').val(result[0].Num5);
-            $('#Date1').val(result[0].Date1);
+            $('#Date1').val(result[0].Date1.toString("YYYY/MM/dd"));
             $('#Date2').val(result[0].Date2);
             $('#Date3').val(result[0].Date3);
             $('#Date4').val(result[0].Date4);
@@ -305,41 +312,66 @@
         }
 
         function btnProcess() {
-            var model =
-            {
-                ID_val: $('#ID').val(),
-                Key: $('#Key').val(),
-                IDName: $('#IDName').val(),
-                Char1: $('#Char1').val(),
-                Char2: $('#Char2').val(),
-                Char3: $('#Char3').val(),
-                Char4: $('#Char4').val(),
-                Char5: $('#Char5').val(),
-                Num1: $('#Num1').val(),
-                Num2: $('#Num2').val(),
-                Num3: $('#Num3').val(),
-                Num4: $('#Num4').val(),
-                Num5: $('#Num5').val(),
-                Date1: $('#Date1').val(),
-                Date2: $('#Date2').val(),
-                Date3: $('#Date3').val(),
-                Date4: $('#Date4').val(),
-                Date5: $('#Date5').val(),
-                Mode: "New",
-                UserID: $('#user-id').text()
-            };
+            var Mode = '@Model.Mode';
+            if (Mode == "New" || Mode == "Edit") {
+                if (!$('#ID').val() || !$('#Key').val())
+                    showMessage('E102');
 
-            var result = calltoApiController('@Url.Action("ExistsDisplayResult", "api/BukkenItiranApi")', model);
-            if (!result) {
-                return false;
+                var model = GetUIData(Mode);
+                var result = calltoApiController('@Url.Action("ModifyData", "api/HanyouMasterMaintenanceApi")', model);
+                if (!result) {
+                    return false;
+                }
+                else
+                    showMessage('I101', btn_finalProcess(Mode));
             }
-            if (result.MessageID) {
-                showMessage(result);
-                return false;
+            else if (Mode == "Delete") {
+                var model = GetUIData(Mode);
+                var result = calltoApiController('@Url.Action("ModifyData", "api/HanyouMasterMaintenanceApi")', model);
+                if (!result) {
+                    return false;
+                }
+                else
+                    showMessage('I102', btn_finalProcess(Mode));
             }
 
             return true;
         }
 
+        function GetUIData(Mode) {
+            obj =
+            {
+                ID_val: $('#ID').val(),
+                Key: $('#Key').val(),
+                ID_name: $('#IDName').text(),
+                Char1: $('#Char1').val(),
+                Char2: $('#Char2').val(),
+                Char3: $('#Char3').val(),
+                Char4: $('#Char4').val(),
+                Char5: $('#Char5').val(),
+                Num1: $('#Num1').val().replace(/,/g, ""),
+                Num2: $('#Num2').val().replace(/,/g, ""),
+                Num3: $('#Num3').val().replace(/,/g, ""),
+                Num4: $('#Num4').val().replace(/,/g, ""),
+                Num5: $('#Num5').val().replace(/,/g, ""),
+                Date1: $('#Date1').val(),
+                Date2: $('#Date2').val(),
+                Date3: $('#Date3').val(),
+                Date4: $('#Date4').val(),
+                Date5: $('#Date5').val(),
+                Mode: Mode,
+                UserID: $('#user-id').text()
+            };
+            return obj;
+        }
+
+        function btn_finalProcess(Mode) {
+            if (Mode == "New")
+                setTimeout(function () { window.location.reload() }, 2000);
+            else if (Mode == "Edit")
+                setTimeout(function () { location.href = '@Url.Action("DisplayResult","HanyouKensaku")?ID=' + $("#ID").val() }, 2000);
+            else if (Mode == "Delete")
+                setTimeout(function () { location.href = '@Url.Action("DisplayResult","HanyouKensaku")?ID=' + $("#ID").val() }, 2000);
+        }
     </script>
 }

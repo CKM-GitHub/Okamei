@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -22,13 +24,15 @@ namespace OkameiProduction.Web.Controllers
             var bl = new CommonBL();
             return ConvertToJsonResult(bl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouEigyou, tantouSitenCD));
         }
+
         [HttpPost]
-        public string GetKoumutenDropDownListItems([FromBody]string tantouSitenCD)
+        public string GetKoumutenSuggestItems([FromBody]string tantouSitenCD)
         {
             if (tantouSitenCD == null) return GetBadRequestResult();
 
             var bl = new CommonBL();
-            return ConvertToJsonResult(bl.GetMultiPorposeDropDownListItems(EMultiPorpose.Koumuten, tantouSitenCD));
+            var array = bl.GetMultiPorposeDropDownListItems(EMultiPorpose.Koumuten, tantouSitenCD).Select(r => r.DisplayText).ToArray();
+            return ConvertToJsonResult(array);
         }
 
         [HttpPost]
@@ -99,9 +103,9 @@ namespace OkameiProduction.Web.Controllers
             var msgid = "";
             var bl = new InputBukkenShousaiBL();
 
-            if (model.Mode == EMode.New) result = bl.CreateBukkenAll(model, out msgid);
-            if (model.Mode == EMode.Edit) result = bl.UpdateBukkenAll(model, out msgid);
-            if (model.Mode == EMode.Delete) result = bl.DeleteBukkenAll(model, out msgid);
+            if (model.Mode == EMode.New) result = bl.CreateBukken(model, out msgid);
+            if (model.Mode == EMode.Edit) result = bl.UpdateBukken(model, out msgid);
+            if (model.Mode == EMode.Delete) result = bl.DeleteBukken(model, out msgid);
 
             if (!result)
             {
@@ -225,5 +229,44 @@ namespace OkameiProduction.Web.Controllers
         //    }
         //    return GetSuccessResult();
         //}
+
+
+
+        //Hiuchi ---------->
+        [HttpPost]
+        public string GetZairyouSuggestItems()
+        {
+            var bl = new CommonBL();
+            var array = bl.GetMultiPorposeDropDownListItems(EMultiPorpose.HiuchiZairyou).Select(r => r.DisplayText).ToArray();
+            return ConvertToJsonResult(array);
+        }
+
+        [HttpPost]
+        public string GetToukyuuSuggestItems()
+        {
+            var bl = new CommonBL();
+            var array = bl.GetMultiPorposeDropDownListItems(EMultiPorpose.HiuchiToukyuu).Select(r => r.DisplayText).ToArray();
+            return ConvertToJsonResult(array);
+        }
+
+        [HttpPost]
+        public string SaveHiuchiData([FromBody] InputBukkenShousaiHiuchiModel model)
+        {
+            if (model == null) return GetBadRequestResult();
+
+            var msgid = "";
+            var bl = new InputBukkenShousaiBL();
+            //if (bl.CreateOrUpdateBukkenHiuchi(model))
+            //{
+            //    return GetSuccessResult();
+            //}
+            //else
+            //{
+            //    return GetErrorResult(msgid);
+            //}
+            return GetSuccessResult();
+        }
+        //Hiuchi <----------
+
     }
 }

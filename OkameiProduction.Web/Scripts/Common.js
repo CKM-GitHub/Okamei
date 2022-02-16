@@ -2,29 +2,79 @@
 var gCommonApiUrl = "/api/CommonApi/";
 var gCustomValidate = function (ctrl) { return true; }
 
-function setDropDownList(selector, url, key) {
+var substringMatcher = function (strs) {
+    return function findMatches(q, cb) {
+        var matches;
+
+        matches = [];
+
+        substrRegex = new RegExp(q, 'i');
+
+        $.each(strs, function (i, str) {
+            if (substrRegex.test(str)) {
+                matches.push(str);
+            }
+        });
+
+        cb(matches);
+    };
+};
+function setSuggestList(selector, url, key, items) {
+
+    var targer = $(selector + '.typeahead');
+    targer.typeahead('destroy');
+
+    if (url && url != "") {
+        var result = calltoApiController(url, key);
+        if (!result) {
+            return;
+        }
+        if (result.MessageID) {
+            showMessage(result);
+            return;
+        }
+        items = result;
+    }
+
+    if (items.length > 0) {
+        targer.typeahead({
+            minLength: 0,
+        },
+            {
+                source: substringMatcher(items)
+            });
+    }
+}
+
+function setDropDownList(selector, url, key, items) {
     var ddl = $(selector);
     ddl.children().remove();
     ddl.append('<option></option>');
 
-    if (key != "") {
-        var ret = calltoApiController(url, key);
-        if (!ret) {
+    if (url && url != "") {
+        var result = calltoApiController(url, key);
+        if (!result) {
             return;
         }
-        if (ret.MessageID) {
-            showMessage(ret);
+        if (result.MessageID) {
+            showMessage(result);
             return;
         }
-        ret.forEach(function (item) {
+        items = result;
+    }
+
+    if (items && items.length > 0) {
+        items.forEach(function (item) {
             ddl.append('<option value=' + item.Value + '>' + item.DisplayText + '</option>');
         });
     }
 }
 
-function setDisabledAll(selector) {
+function setDisabledAll(selector, isDisabledFooterbuttons) {
     $(selector + ' :input:not(:hidden)').prop('disabled', true);
-    $('.main-content-footer :button').prop('disabled', false);
+    if (!isDisabledFooterbuttons) {
+        $('.main-content-footer :button').prop('disabled', false);
+    }
 }
 
 function querySerialize(data) {
@@ -121,8 +171,8 @@ function calltoApiController(url, model) {
 
             result = JSON.parse(data);
         },
-        error: function (data, ajaxOption, terror) {
-            alert(data.status + ":" + data.statusText + ":" + terror);
+        error: function (err) {
+            alert(err.status + ":" + err.statusText);
         }
     });
     return result;
@@ -169,7 +219,7 @@ function calltoApiController_FileDownLoadHandle(url, model) {
     return result;
 }
 
-function callSendFileToServer(url, fileData, progresscall, callback, callbackerror) {
+function calltoApiController_FileUploadHandle(url, fileData, progresscall, callback, callbackerror) {
     var obj = {
         url: url,
         type: "POST",
@@ -264,10 +314,19 @@ function removeRequired(selector) {
 
 // date type  ----->
 function setDateTypeValidate(selector) {
-    $(selector).attr('validate-datetype', 'true');
+    $(selector).attr('validate-datetype', 'true').attr('inputmode', 'numeric');
 }
 function removeDateTypeValidate(selector) {
     $(selector).removeAttr('validate-datetype');
+}
+
+
+//// dateYM type  ----->
+function setDateYMTypeValidate(selector) {
+    $(selector).attr('validate-dateYMtype', 'true');
+}
+function removeDateYMTypeValidate(selector) {
+    $(selector).removeAttr('validate-dateYMtype'); 
 }
 
 // compare date  ----->
@@ -283,7 +342,7 @@ function removeCompareDateValidate(selector) {
 
 // doublebyte  ----->
 function setDoubleByteValidate(selector, isDoublebyteonly) {
-    $(selector).attr('validate-doublebyte', 'true');
+    $(selector).attr('validate-doublebyte', 'true').attr('inputmode', 'kana');
     if (isDoublebyteonly) {
         $(selector).attr('isDoublebyteonly', isDoublebyteonly);
     }
@@ -293,8 +352,12 @@ function removeDoubleByteValidate(selector) {
 }
 
 // is halfwidth ----->
-function setIsHalfWidthValidate(selector) {
-    $(selector).attr('validate-halfwidth', 'true');
+function setIsHalfWidthValidate(selector, isNumberonly) {
+    var inputmode = 'text'
+    if (isNumberonly) {
+        inputmode = 'numeric';
+    }
+    $(selector).attr('validate-halfwidth', 'true').attr('inputmode', inputmode);
 }
 function removeIsHalfWidthValidate(selector) {
     $(selector).removeAttr('validate-halfwidth');
@@ -305,7 +368,8 @@ function removeIsHalfWidthValidate(selector) {
 function setNumericValidate(selector, integerdigits, decimaldigits) {
     $(selector).attr('validate-numeric', 'true')
         .attr('integerdigits', integerdigits)
-        .attr('decimaldigits', decimaldigits);
+        .attr('decimaldigits', decimaldigits)
+        .attr('inputmode', 'decimal');
 }
 function removeNumericValidate(selector) {
     $(selector).removeAttr('validate-numeric')
@@ -334,9 +398,10 @@ function checkCommon(ctrl) {
             IsHalfWidth: ctrl.attr("validate-halfwidth"),
             IsDoubleByte: ctrl.attr("validate-doublebyte"),
             IsNumeric: ctrl.attr("validate-numeric"),
+            IsDateYYMM: ctrl.attr("validate-dateYMtype"),
         };
 
-        if (model.IsDateType || model.IsCompareDate || model.IsHalfWidth || model.IsDoubleByte || model.IsNumeric) {
+        if (model.IsDateType || model.IsCompareDate || model.IsHalfWidth || model.IsDoubleByte || model.IsNumeric || model.IsDateYYMM) {
 
             model.InputValue1 = ctrl.val();
 
@@ -359,7 +424,7 @@ function checkCommon(ctrl) {
             if (!result) {
                 return false;
             }
-            if (model.IsDateType || model.IsNumeric) {
+            if (model.IsDateType || model.IsHalfWidth || model.IsNumeric || model.IsDateYYMM) {
                 if (result.ReturnValue && result.ReturnValue != "") {
                     ctrl.val(result.ReturnValue);
                 }
@@ -406,12 +471,8 @@ function bindKeyPressEvent(areaid) {
     if (typeof areaid === 'undefined') {
         areaid = '#global-sub-container';
     }
-    else if (areaid.slice(0, 1) != "#") {
-        areaid = '#' + areaid;
-    }
 
     var selector = areaid + ' :input:not(:hidden)';
-
     $(selector).keypress(function (e) {
         var c = e.which ? e.which : e.keyCode;
         if (c == 13 || c == 9) {
@@ -481,12 +542,18 @@ $(document).ready(function () {
 
     bindKeyPressEvent("#main");
 
-    $("input[type='text']").focus(function () {
-        $(this).select();
-    });
+    //$("input[type='text']").focus(function () {
+    //    $(this).select();
+    //});
 });
 
 $(document).on("drop dragover", function (e) {
     e.stopPropagation();
     e.preventDefault();
+});
+
+window.addEventListener('pageshow', function (event) {
+    if (event.persisted) {
+        window.location.reload();
+    }
 });

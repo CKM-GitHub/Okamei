@@ -131,6 +131,9 @@
             });
             bindDataTables($('#tblHanyouKensaku'));
 
+            if ($('#user-id').text() !== 'Admin')
+                $("#ID option[value='20']").remove();
+
             $('#ID').change(function () {
                 DisplayResult();
             })

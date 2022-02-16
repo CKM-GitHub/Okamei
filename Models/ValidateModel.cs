@@ -18,7 +18,8 @@ namespace Models
         public int Decimaldigits { get; set; }
         public string InputValue1 { get; set; }
         public string ComparisonValue { get; set; }
-        public string MaxLength { get; set; }
+        public string MaxLength { get; set; } 
+        public bool IsDateYYMM { get; set; }
 
     }
 }

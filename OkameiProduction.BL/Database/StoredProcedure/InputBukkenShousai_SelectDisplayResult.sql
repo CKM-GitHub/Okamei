@@ -63,7 +63,7 @@ BEGIN
         ,HundeggerSumi
         ,FORMAT(HundeggerTime, '##0.0') AS HundeggerTime
         ,FORMAT(UpdateDateTime, 'yyyy/MM/dd HH:mm:ss') AS UpdateDateTime
-        ,FORMAT(UpdateDateTime, 'yyyy/MM/dd HH:mm:ss.fff') AS HiddenUpdateDatetime
+        ,FORMAT(UpdateDateTime, 'yyyy/MM/dd HH:mm:ss.fff') AS HiddenUpdateDateTime
 
 	FROM D_Bukken
 	WHERE BukkenNO = @BukkenNO

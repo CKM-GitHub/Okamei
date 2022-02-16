@@ -1,6 +1,222 @@
 ﻿
+@model Models.EigyouJissekiModel 
 @{
-    Layout = null;
+    ViewBag.Title = "EigyouJisseki";
 }
+<style>
+    .table th {
+        padding-top: 2px;
+        padding-bottom: 2px;
+        background-color: #ffff66;
+    }
 
- 
+    #tblEigyouJisseki tbody td {
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+
+
+    #tblEigyouJisseki .number-align-right {
+        float: right;
+    }
+
+    td, th {
+        font-size: 14px !important;
+    }
+
+    #tblEigyouJisseki .ShitenName {
+        min-width: 50px;
+    }
+
+
+    #tblEigyouJisseki .Export {
+        min-width: 50px
+    }
+
+    #tblEigyouJisseki .btn-primary {
+        min-width: 50px;
+        vertical-align: middle;
+        max-height: 25px;
+        line-height: 15px;
+    }
+
+
+
+    .btn {
+        margin-top: 0px !important;
+    }
+
+    #tblEigyouJisseki .Shop {
+        min-width: 100px;
+    }
+
+    #tblEigyouJisseki .Dutier {
+        min-width: 160px;
+    }
+
+    #tblEigyouJisseki .Amount21 {
+        min-width: 80px;
+        text-align: right;
+    }
+
+    #tblEigyouJisseki .Count21 {
+        min-width: 20px;
+        text-align: right;
+    }
+
+    #tblEigyouJisseki .Amount26 {
+        min-width: 80px;
+        text-align: right;
+    }
+
+    #tblEigyouJisseki .Count26 {
+        min-width: 20px;
+        text-align: right;
+    }
+
+    #tblEigyouJisseki .Amount01 {
+        min-width: 80px;
+        text-align: right;
+    }
+
+    #tblEigyouJisseki .Count01 {
+        min-width: 20px;
+        text-align: right;
+    }
+
+    #tblEigyouJisseki .Amount06 {
+        min-width: 80px;
+        text-align: right;
+    }
+
+    #tblEigyouJisseki .Count06 {
+        min-width: 20px;
+        text-align: right;
+    }
+
+    #tblEigyouJisseki .Amount11 {
+        min-width: 80px;
+        text-align: right;
+    }
+
+    #tblEigyouJisseki .Count11 {
+        min-width: 20px;
+        text-align: right;
+    }
+
+    #tblEigyouJisseki .Amount16 {
+        min-width: 80px;
+        text-align: right;
+    }
+
+    #tblEigyouJisseki .Count16 {
+        min-width: 20px;
+        text-align: right;
+    }
+
+    #tblEigyouJisseki .AmountAll {
+        min-width: 80px;
+        text-align: right;
+    }
+
+    #tblEigyouJisseki .CountAll {
+        min-width: 20px;
+        text-align: right;
+    }
+</style>
+
+<h4>営業実績・見込み</h4>
+<div id="main" class="main-content">
+    <table class='table table-bordered' id="tblEigyouJisseki">
+        <thead>
+            <tr>
+                <th class="align-middle text-center" rowspan="2">支店</th>
+                <th class="align-middle text-center" rowspan="2">担当</th>
+
+                <th class="align-middle text-center" colspan="2">21～25</th>
+
+                <th class="align-middle text-center" colspan="2"><span id="endDate">26～ @Model.KubunCD</span></th>
+
+                <th class="align-middle text-center" colspan="2">01～05</th>
+
+                <th class="align-middle text-center" colspan="2">06～10</th>
+
+                <th class="align-middle text-center" colspan="2">11～15</th>
+
+                <th class="align-middle text-center" colspan="2">16～20</th>
+
+                <th class="align-middle text-center" colspan="2">合計</th>
+
+            </tr>
+            <tr>
+                <th style="text-align:center">棟</th>
+                <th style="text-align:center">坪数</th>
+
+                <th style="text-align:center">棟</th>
+                <th style="text-align:center">坪数</th>
+
+                <th style="text-align:center">棟</th>
+                <th style="text-align:center">坪数</th>
+
+                <th style="text-align:center">棟</th>
+                <th style="text-align:center">坪数</th>
+
+                <th style="text-align:center">棟</th>
+                <th style="text-align:center">坪数</th>
+
+                <th style="text-align:center">棟</th>
+                <th style="text-align:center">坪数</th>
+
+                <th style="text-align:center">棟</th>
+                <th style="text-align:center">坪数</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @{
+                var columns = ViewBag.Data.Columns;
+                var idpdf = 0;
+            }
+
+            @foreach (System.Data.DataRow row in ViewBag.Data.Rows)
+            {
+                idpdf++;
+                <tr>
+                    @{
+                        var count = row.ItemArray.Count();
+                        var items = row.ItemArray;
+                    }
+                    @for (var i = 0; i < count; i++)
+                    {
+                        <td class="@columns[i].Caption">
+                            @items[i]
+                        </td>
+                    }
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="form-group row">
+        <div class="footer-btn mx-auto">
+            <button type="button" id="btnReturn" class="btn btn-secondary">戻る</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+
+    $('#btnReturn').click(function () {
+    location.href = '@Url.Action("SetCondition", "EigyouJisseki")';
+    });
+        bindDataTables($('#tblEigyouJisseki'));
+
+
+
+    });
+    </script>
+}
