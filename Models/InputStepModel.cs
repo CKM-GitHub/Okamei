@@ -13,7 +13,8 @@ namespace Models
         public string TantouEigyouCD { get; set; }
         public string TantouCadCD { get; set; }
         public string TantouPcCD { get; set; }
-        public int Dankai { get; set; }
+        public int Dankai1 { get; set; }
+        public int Dankai2 { get; set; }
         public IEnumerable<DropDownListItem> TantouSitenDropDownListItems { get; set; }
         public IEnumerable<DropDownListItem> TantouEigyouDropDownListItems { get; set; }
         public IEnumerable<DropDownListItem> TantouPcDropDownListItems { get; set; }

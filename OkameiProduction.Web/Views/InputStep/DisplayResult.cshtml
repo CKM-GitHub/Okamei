@@ -16,6 +16,7 @@
         padding-top: 2px;
         padding-bottom: 2px;
     }
+
     #tblInputStep .JuchuuDate {
         min-width: 50px;
     }
@@ -24,15 +25,19 @@
         min-width: 50px;
     }
 
+    #tblInputStep .Dankai {
+        min-width: 50px;
+    }
+
     #tblInputStep .BukkenNO {
     }
 
     #tblInputStep .BukkenName {
-        min-width: 120px;
+        min-width: 140px;
     }
 
     #tblInputStep .KoumutenName {
-        min-width: 210px;
+        min-width: 262px;
     }
 
     #tblInputStep .KakouTubosuu {
@@ -50,9 +55,15 @@
     #tblInputStep .TantouCadName {
         min-width: 50px;
     }
+
     #tblInputStep .KanamonName {
         min-width: 70px;
     }
+
+    table th:nth-child(4), th:nth-child(5), th:nth-child(6), th:nth-child(7) {
+        text-align: center;
+    }
+    
     td, th {
         font-size: 14px ;
     }
@@ -122,10 +133,10 @@
         $(document).ready(function () {
 
             $('#btnReturn').click(function () {
-                location.href = '@Url.Action("SetCondition", "FusezuMiteisyutu")';
+                location.href = '@Url.Action("SetCondition", "InputStep")';
             });
 
-            bindDataTables($('#tblFusezuMiteisyutu'));
+            bindDataTables($('#tblInputStep'));
         });
 
     </script>
