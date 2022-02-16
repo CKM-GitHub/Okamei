@@ -68,18 +68,18 @@ namespace OkameiProduction.BL
         public IEnumerable<DropDownListItem> GetDankai1DropDownListItems()
         {
             var options = new List<DropDownListItem>();
-            options.Add(new DropDownListItem() { Value = "1", DisplayText = "指", SortNumber = 0 });
+            options.Add(new DropDownListItem() { Value = "1", DisplayText = "未", SortNumber = 0 });
             options.Add(new DropDownListItem() { Value = "2", DisplayText = "待", SortNumber = 1 });
-            options.Add(new DropDownListItem() { Value = "3", DisplayText = "未", SortNumber = 2 });
+            options.Add(new DropDownListItem() { Value = "3", DisplayText = "指", SortNumber = 2 });
 
             return options;
         }
         public IEnumerable<DropDownListItem> GetDankai2DropDownListItems()
         {
             var options = new List<DropDownListItem>();
-            options.Add(new DropDownListItem() { Value = "1", DisplayText = "指", SortNumber = 0 });
+            options.Add(new DropDownListItem() { Value = "1", DisplayText = "未", SortNumber = 0 });
             options.Add(new DropDownListItem() { Value = "2", DisplayText = "待", SortNumber = 1 });
-            options.Add(new DropDownListItem() { Value = "3", DisplayText = "未", SortNumber = 2 });
+            options.Add(new DropDownListItem() { Value = "3", DisplayText = "指", SortNumber = 2 });
 
             return options;
         }
