@@ -371,12 +371,14 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="hidden-area">
-            <input type="text" hidden id="HiddenUpdateDateTimeHiuchi" name="HiddenUpdateDateTimeHiuchi" value="@Model.HiddenUpdateDateTime" />
+            <div>
+                <input type="file" id="inputFileHiuchi" style="display:none;">
+            </div>
         </div>
         <div class="row">
             <div class="footer-btn mx-auto">
+                <button type="button" class="btn btn-info" id="btnFileOpen" nofocus>ファイルを選択</button>
+                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                 <button type="button" class="btn btn-secondary" id="btnClose" nofocus>閉じる</button>
                 <button type="button" class="btn btn-primary" id="btnSaveSub">登録</button>
             </div>

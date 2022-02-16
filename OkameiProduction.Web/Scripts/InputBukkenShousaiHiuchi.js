@@ -1,8 +1,9 @@
 ﻿//InputBukkenShousaiHiuchi.js
-var url_HiuchiSubEntry = gApplicationPath + '/InputBukkenShousai/HiuchiSubEntry';
 var url_getZairyouListItems = gApplicationPath + '/api/InputBukkenShousaiApi/GetZairyouSuggestItems';
 var url_getToukyuuListItems = gApplicationPath + '/api/InputBukkenShousaiApi/GetToukyuuSuggestItems';
 var url_SaveHiuchiData = gApplicationPath + '/api/InputBukkenShousaiApi/SaveHiuchiData';
+var url_readHiuchiFile = gApplicationPath + '/api/InputBukkenShousaiApi/ReadHiuchiFile';
+var url_exportHiuchiPdf = gApplicationPath + '/api/InputBukkenShousaiApi/HiuchiPdfExport';
 
 function initialize_Hiuchi() {
 
@@ -11,14 +12,14 @@ function initialize_Hiuchi() {
 
     $('#HiuchiSubEntry #btnClose').click(function () {
         showConfirmMessage("Q003", function () {
-            $('.js-modal-close').click();
+            ModalForm.Close();
         });
     });
 
     $('#HiuchiSubEntry #btnSaveSub').click(function () {
         if (checkErrorOnSave('#HiuchiSubEntry')) {
-            var models = createModels();
-            if (checkAllHiuchi(models)) {
+            var models = createModels_Hiuchi();
+            if (checkAll_Hiuchi(models)) {
                 showConfirmMessage('Q101', function () {
                     btnSaveSubClick(models);
                     return true;
@@ -30,11 +31,67 @@ function initialize_Hiuchi() {
 
     $('#HiuchiSubEntry [id^="btnPdf"]').click(function () {
         var id = this.id;
-        showConfirmMessage('Q204', function () {
-            var row = id.slice(-1);
-            alert('call Hiuchi label Pdf row=' + row);
-        });
+        var row = id.slice(-1);
+
+        var model =
+        {
+            BukkenNO: $('#HiuchiBukkenNO').val(),
+            BukkenName: $('#HiuchiBukkenName').val(),
+            KoumutenName: $('#KoumutenName').val(),
+            SouName: $('#Sou' + row + ' option:selected').text(),
+            Zairyou1: $('#Zairyou' + row + '1').val(),
+            Toukyuu1: $('#Toukyuu' + row + '1').val(),
+            Honsuu1: $('#Honsuu' + row + '1').val(),
+            Zairyou2: $('#Zairyou' + row + '2').val(),
+            Toukyuu2: $('#Toukyuu' + row + '2').val(),
+            Honsuu2: $('#Honsuu' + row + '2').val(),
+            Zairyou3: $('#Zairyou' + row + '3').val(),
+            Toukyuu3: $('#Toukyuu' + row + '3').val(),
+            Honsuu3: $('#Honsuu' + row + '3').val(),
+        };
+
+        if (model.SouName && model.Zairyou1) {
+            showConfirmMessage('Q204', function () {
+                model.FileName = '火打材ラベル_' + model.BukkenName + '.pdf';
+                calltoApiController_FileDownLoadHandle('/api/InputBukkenShousaiApi/HiuchiPdfExport', model);
+            });
+        }
     });
+
+    $('#btnFileOpen').click(function () {
+        $('#inputFileHiuchi').click();
+    });
+
+    $('#inputFileHiuchi').change(function () {
+        var files = $(this).prop('files')
+        var fileData = new FormData();
+        fileData.append('file', files[0]);
+
+        var status = new createFileStatusbar();
+        $('.modal-body').after(status.statusbar);
+
+        calltoApiController_FileUploadHandle(url_readHiuchiFile, fileData,
+            function (percent) { //progress bar function
+                status.setProgress(percent);
+            },
+            function (result) { //success function
+                //clearFileInfo();
+
+                if (!result) return;
+                if (result.MessageID) {
+                    showMessage(result);
+                    return;
+                }
+                createBukkenFileTable();
+            },
+            function () { //error function
+                //clearFileInfo();
+            });
+
+        $(this).val(null);
+    });
+
+
 
     //addValidate
     setNumericValidate('#Honsuu11', 3, 0);
@@ -75,7 +132,7 @@ function setZairyouSuggestList() {
 
     setSuggestList('#Zairyou11', undefined, undefined, data);
     setSuggestList('#Zairyou12', undefined, undefined, data);
-    setSuggestList('#Zairyou23', undefined, undefined, data);
+    setSuggestList('#Zairyou13', undefined, undefined, data);
     setSuggestList('#Zairyou21', undefined, undefined, data);
     setSuggestList('#Zairyou22', undefined, undefined, data);
     setSuggestList('#Zairyou23', undefined, undefined, data);
@@ -99,7 +156,7 @@ function setToukyuuSuggestList() {
 
     setSuggestList('#Toukyuu11', undefined, undefined, data);
     setSuggestList('#Toukyuu12', undefined, undefined, data);
-    setSuggestList('#Toukyuu23', undefined, undefined, data);
+    setSuggestList('#Toukyuu13', undefined, undefined, data);
     setSuggestList('#Toukyuu21', undefined, undefined, data);
     setSuggestList('#Toukyuu22', undefined, undefined, data);
     setSuggestList('#Toukyuu23', undefined, undefined, data);
@@ -111,7 +168,7 @@ function setToukyuuSuggestList() {
     setSuggestList('#Toukyuu43', undefined, undefined, data);
 }
 
-function createModels() {
+function createModels_Hiuchi() {
     var model1 = {
         Sou: $('#Sou1').val(),
         SouSumi: $('#Sou1Sumi').prop('checked') ? 1 : 0,
@@ -168,7 +225,7 @@ function createModels() {
     return new Array(model1, model2, model3, model4);
 }
 
-function checkAllHiuchi(models) {
+function checkAll_Hiuchi(models) {
 
     for (var i = 1; i <= models.length; i++) {
         var model = models[i - 1];
@@ -257,7 +314,7 @@ function btnSaveSubClick(models) {
         dbModel['Honsuu' + i + '3'] = model.Honsuu3;
     }
 
-    dbModel.HiddenUpdateDateTime = $('#HiddenUpdateDateTimeHiuchi').val();
+    dbModel.HiddenUpdateDateTime = $('#HiddenUpdateDateTime').val();
     dbModel.UserID = $('#user-id').text();
 
     var result = calltoApiController(url_SaveHiuchiData, dbModel);
@@ -270,6 +327,6 @@ function btnSaveSubClick(models) {
     }
 
     showMessage('I101', function () {
-        $('.js-modal-close').click();
+        ModalForm.Close();
     });
 }
