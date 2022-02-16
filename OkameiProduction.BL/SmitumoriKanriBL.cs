@@ -9,7 +9,7 @@ namespace OkameiProduction.BL
     {
         public bool ExistsDisplayResult(SmitumoriKanriModel model)
         {
-            SqlParameter[] sqlParams = new SqlParameter[2];
+            SqlParameter[] sqlParams = new SqlParameter[3];
             sqlParams[0] = new SqlParameter("@sagyou_sDate", SqlDbType.VarChar) { Value = model.sagyou_sDate.ToStringOrNull() };
             sqlParams[1] = new SqlParameter("@sagyou_eDate", SqlDbType.VarChar) { Value = model.sagyou_eDate.ToStringOrNull() };
             sqlParams[2] = new SqlParameter("@UserID", SqlDbType.VarChar) { Value = model.UserID.ToStringOrNull() };
