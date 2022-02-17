@@ -153,9 +153,18 @@ namespace OkameiProduction.Web.Controllers
         {
             var vm = new InputBukkenShousaiHiuchiModel();
 
-            var request = System.Web.HttpContext.Current.Request;
-            vm.BukkenNO = request.Form["BukkenNO"].ToStringOrEmpty();
-            vm.BukkenName = request.Form["BukkenName"].ToStringOrEmpty();
+            var form = System.Web.HttpContext.Current.Request.Form;
+            vm.BukkenNO = form["BukkenNO"].ToStringOrEmpty();
+            vm.BukkenName = form["BukkenName"].ToStringOrEmpty();
+
+            var bl = new InputBukkenShousaiHiuchiBL();
+            var dt = bl.GetBukkenHiuchiData(vm);
+            if (dt.Rows.Count > 0)
+            {
+                var bukkenName = vm.BukkenName;
+                vm = dt.AsEnumerableEntity<InputBukkenShousaiHiuchiModel>().FirstOrDefault();
+                vm.BukkenName = bukkenName;
+            }
 
             SetDropDownListItemsHiuchi(vm);
             return View(vm);

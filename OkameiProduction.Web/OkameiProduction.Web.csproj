@@ -219,13 +219,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CadInputStaff\CadInputStaffController.cs" />
-    <Compile Include="Controllers\CadInputStaff\CardInputStaffApiController.cs" />
+    <Compile Include="Controllers\CadInputStaff\CadInputStaffApiController.cs" />
     <Compile Include="Controllers\CadStaffMitei\CadStaffMiteiApiController.cs" />
     <Compile Include="Controllers\CadStaffMitei\CadStaffMiteiController.cs" />
     <Compile Include="Controllers\EigyouJisseki\EigyouJissekiApiController.cs" />
     <Compile Include="Controllers\EigyouJisseki\EigyouJissekiController.cs" />
-    <Compile Include="Controllers\KadouKeikaku\KadouKeikakuApiController.cs" />
-    <Compile Include="Controllers\KadouKeikaku\KadouKeikakuController.cs" />
+    <Compile Include="Controllers\InputBukkenShousai\InputBukkenShousaiHiuchiApiController.cs" />
     <Compile Include="Controllers\InputStep\InputStepApiController.cs" />
     <Compile Include="Controllers\InputStep\InputStepController.cs" />
     <Compile Include="Controllers\SmitumoriKanri\SmitumoriKanriApiController.cs" />
@@ -443,8 +442,7 @@
     <Content Include="Views\CadInputStaff\SetCondition.cshtml" />
     <Content Include="Views\SmitumoriKanri\DisplayResult.cshtml" />
     <Content Include="Views\SmitumoriKanri\SetCondition.cshtml" />
-    <Content Include="Views\KadouKeikaku\DisplayResult.cshtml" />
-    <Content Include="Views\KadouKeikaku\SetCondition.cshtml" />
+    <Content Include="Views\CadInputStaff\DisplayResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

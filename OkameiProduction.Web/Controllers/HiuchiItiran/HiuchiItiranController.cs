@@ -129,7 +129,8 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
 
             var TempVal = dt.Rows[0]["KoumutenName"].ToString() + " 様";
             var GetFont = ShrinkValue(TempVal);
-            Tablea.AddCell(new PdfPCell(new Phrase(TempVal, font_Class.CreateJapaneseFont(font_folder, GetFont)))
+            
+            Tablea.AddCell(new PdfPCell(new Phrase(TempVal, font_Class.CreateJapaneseFont(font_folder, GetFont.Item1)))
             {
                 HorizontalAlignment = Element.ALIGN_CENTER,
                 VerticalAlignment = Element.ALIGN_MIDDLE,
@@ -138,7 +139,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                 BorderWidthTop = 1,
                 BorderWidthLeft = 0.3f,
                 BorderWidthRight = 1f,
-                PaddingBottom = 5f,
+                PaddingBottom =GetFont.Item2,
                 Colspan = 4
             });
 
@@ -260,7 +261,7 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                 }
                 model.Honsuu = TempVal;
             }
-            Tablea.AddCell(new PdfPCell(new Phrase(model.Honsuu.Trim() + "本", font_Class.CreateJapaneseFont(font_folder, 22)))
+            Tablea.AddCell(new PdfPCell(new Phrase(model.Honsuu.Trim() + (dtExternal== null ? "本" : "") , font_Class.CreateJapaneseFont(font_folder, 22)))
             {
                 HorizontalAlignment = Element.ALIGN_RIGHT,
                 VerticalAlignment = Element.ALIGN_TOP,
@@ -370,29 +371,29 @@ namespace OkameiProduction.Web.Controllers.HiuchiItiran
                     download.Close();
             }
         }
-        public int ShrinkValue(string val)
+        public (int,float) ShrinkValue(string val)
         {
             int LengthShrink = Convert.ToInt32(Encoding.GetEncoding(932).GetByteCount(val).ToString());
 
             if (LengthShrink > 40)
             {
-                return 21;
+                return (21,5f);
             }
             else if (LengthShrink > 30)
             {
-                return 27;
+                return (27, 7f);
             }
             else if (LengthShrink > 20)
             {
-                return 35;
+                return (35,7f);
             }
             else if (LengthShrink > 10)
             {
-                return 45;
+                return (45,9f);
             }
             else
             {
-                return 49;
+                return (49,9f);
             }
         }
     }

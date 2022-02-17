@@ -18,7 +18,7 @@ namespace Models
         public string Zairyou11 { get; set; }
         public string Toukyuu11 { get; set; }
         public string Honsuu11 { get; set; }
-        public string Sou1Sumi { get; set; }
+        public byte Sou1Sumi { get; set; }
         public string Zairyou12 { get; set; }
         public string Toukyuu12 { get; set; }
         public string Honsuu12 { get; set; }
@@ -32,7 +32,7 @@ namespace Models
         public string Zairyou21 { get; set; }
         public string Toukyuu21 { get; set; }
         public string Honsuu21 { get; set; }
-        public string Sou2Sumi { get; set; }
+        public byte Sou2Sumi { get; set; }
         public string Zairyou22 { get; set; }
         public string Toukyuu22 { get; set; }
         public string Honsuu22 { get; set; }
@@ -46,7 +46,7 @@ namespace Models
         public string Zairyou31 { get; set; }
         public string Toukyuu31 { get; set; }
         public string Honsuu31 { get; set; }
-        public string Sou3Sumi { get; set; }
+        public byte Sou3Sumi { get; set; }
         public string Zairyou32 { get; set; }
         public string Toukyuu32 { get; set; }
         public string Honsuu32 { get; set; }
@@ -61,7 +61,7 @@ namespace Models
         public string Zairyou41 { get; set; }
         public string Toukyuu41 { get; set; }
         public string Honsuu41 { get; set; }
-        public string Sou4Sumi { get; set; }
+        public byte Sou4Sumi { get; set; }
         public string Zairyou42 { get; set; }
         public string Toukyuu42 { get; set; }
         public string Honsuu42 { get; set; }

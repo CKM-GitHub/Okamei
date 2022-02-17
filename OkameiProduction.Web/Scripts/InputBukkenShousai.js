@@ -445,9 +445,6 @@ function sendFileToServer(fileData, status) {
     fileData.append('UserID', $('#user-id').text());
 
     calltoApiController_FileUploadHandle(url_uploadFiles, fileData,
-        function (percent) { //progress bar function
-            status.setProgress(percent);
-        },
         function (result) { //success function
             clearFileInfo();
 
@@ -460,6 +457,9 @@ function sendFileToServer(fileData, status) {
         },
         function () { //error function
             clearFileInfo();
+        },
+        function (percent) { //progress bar function
+            status.setProgress(percent);
         });
 }
 

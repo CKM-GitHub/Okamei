@@ -16,6 +16,17 @@ namespace OkameiProduction.BL
             {'８','8'},{'９','9'},{ '．','.' },{ '／','/'}
         };
 
+        //M_MultiPorpose ---------->
+
+        public DataTable GetMultiPorposeByIDChar2(EMultiPorpose id, string char2)
+        {
+            SqlParameter[] sqlParams = new SqlParameter[2];
+            sqlParams[0] = new SqlParameter("@ID", SqlDbType.Int) { Value = (int)id };
+            sqlParams[1] = new SqlParameter("@Char2", SqlDbType.VarChar) { Value = char2 };
+
+            DBAccess db = new DBAccess();
+            return db.SelectDatatable("M_MultiPorpose_SelectByIDChar2", sqlParams);
+        }
 
         public IEnumerable<DropDownListItem> GetMultiPorposeDropDownListItems(EMultiPorpose id, string char4 = "")
         {
@@ -84,13 +95,27 @@ namespace OkameiProduction.BL
             return options;
         }
 
+        //M_MultiPorpose <----------
 
+
+
+
+
+        //M_Control ---------->
 
         public DataTable GetMControl()
         {
             DBAccess db = new DBAccess();
             return db.SelectDatatable("M_Control_Select", null);
         }
+
+        //M_Control <----------
+
+
+
+
+
+        //Validation ---------->
 
         public bool CheckAndFormatYMDate(string inputText, out string errorcd, out string outVal)
         {
@@ -351,5 +376,7 @@ namespace OkameiProduction.BL
 
             return replaced;
         }
+
+        //Validation <----------
     }
 }

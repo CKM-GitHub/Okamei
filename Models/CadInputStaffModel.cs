@@ -8,28 +8,27 @@ namespace Models
 {
    public class CadInputStaffModel
     {
-        public string TantouSitenCD { get; set; }
-        public int? JuchuuOption { get; set; }
-        public int? BukkenSiteiOption { get; set; }
-        public string NoukiStart { get; set; }
-        public string NoukiEnd { get; set; }
-        public string TantouEigyouCD { get; set; }
+        //TantouCadCD
         public string TantouCadCD { get; set; }
-        public string TantouPcCD { get; set; }
-        public int? SortOption { get; set; }
-        public string BukkenNO { get; set; }
-        public string KubunCD { get; set; }
-        public string BukkenName { get; set; }
-        public string KoumutenName { get; set; }
-        public int TokuchuuzaiUmu { get; set; }
-        public string FileName { get; set; }
+
+        public string TantouSitenCD { get; set; }
+        public string TantouCadCD1 { get; set; }
+        public string TantouCadCD2{ get; set; }
+        public string TantouCadCD3{ get; set; }
+        public string TantouCadCD4 { get; set; }
+        public string TantouCadCD5 { get; set; }
+        public string TantouCadCD6 { get; set; }
+        public string TantouCadCD7 { get; set; }
+        public string TantouCadCD8 { get; set; }
+        public string TantouCadCD9 { get; set; }
+        public string TantouCadCD10 { get; set; }  
         public IEnumerable<DropDownListItem> TantouSitenDropDownListItems { get; set; }
         public IEnumerable<DropDownListItem> TantouEigyouDropDownListItems { get; set; }
         public IEnumerable<DropDownListItem> TantouPcDropDownListItems { get; set; }
         public IEnumerable<DropDownListItem> TantouCadDropDownListItems { get; set; }
         public IEnumerable<DropDownListItem> KubunDropDownListItems { get; set; }
-        public IEnumerable<DropDownListItem> TokuchuuzaiUmuDropDownListItems { get; set; } 
-        public string DetailPattern { get; set; }
-        public string KankeiMonth { get; set; }
+        public IEnumerable<DropDownListItem> TokuchuuzaiUmuDropDownListItems { get; set; }  
+
+        
     }
 }

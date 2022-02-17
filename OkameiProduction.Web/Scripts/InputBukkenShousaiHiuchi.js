@@ -1,9 +1,9 @@
 ﻿//InputBukkenShousaiHiuchi.js
-var url_getZairyouListItems = gApplicationPath + '/api/InputBukkenShousaiApi/GetZairyouSuggestItems';
-var url_getToukyuuListItems = gApplicationPath + '/api/InputBukkenShousaiApi/GetToukyuuSuggestItems';
-var url_SaveHiuchiData = gApplicationPath + '/api/InputBukkenShousaiApi/SaveHiuchiData';
-var url_readHiuchiFile = gApplicationPath + '/api/InputBukkenShousaiApi/ReadHiuchiFile';
-var url_exportHiuchiPdf = gApplicationPath + '/api/InputBukkenShousaiApi/HiuchiPdfExport';
+var url_getZairyouListItems = gApplicationPath + '/api/InputBukkenShousaiHiuchiApi/GetZairyouSuggestItems';
+var url_getToukyuuListItems = gApplicationPath + '/api/InputBukkenShousaiHiuchiApi/GetToukyuuSuggestItems';
+var url_SaveHiuchiData = gApplicationPath + '/api/InputBukkenShousaiHiuchiApi/SaveHiuchiData';
+var url_importHiuchiCsv = gApplicationPath + '/api/InputBukkenShousaiHiuchiApi/ImportHiuchiCsv';
+var url_exportHiuchiPdf = gApplicationPath + '/api/InputBukkenShousaiHiuchiApi/HiuchiPdfExport';
 
 function initialize_Hiuchi() {
 
@@ -30,32 +30,7 @@ function initialize_Hiuchi() {
     });
 
     $('#HiuchiSubEntry [id^="btnPdf"]').click(function () {
-        var id = this.id;
-        var row = id.slice(-1);
-
-        var model =
-        {
-            BukkenNO: $('#HiuchiBukkenNO').val(),
-            BukkenName: $('#HiuchiBukkenName').val(),
-            KoumutenName: $('#KoumutenName').val(),
-            SouName: $('#Sou' + row + ' option:selected').text(),
-            Zairyou1: $('#Zairyou' + row + '1').val(),
-            Toukyuu1: $('#Toukyuu' + row + '1').val(),
-            Honsuu1: $('#Honsuu' + row + '1').val(),
-            Zairyou2: $('#Zairyou' + row + '2').val(),
-            Toukyuu2: $('#Toukyuu' + row + '2').val(),
-            Honsuu2: $('#Honsuu' + row + '2').val(),
-            Zairyou3: $('#Zairyou' + row + '3').val(),
-            Toukyuu3: $('#Toukyuu' + row + '3').val(),
-            Honsuu3: $('#Honsuu' + row + '3').val(),
-        };
-
-        if (model.SouName && model.Zairyou1) {
-            showConfirmMessage('Q204', function () {
-                model.FileName = '火打材ラベル_' + model.BukkenName + '.pdf';
-                calltoApiController_FileDownLoadHandle('/api/InputBukkenShousaiApi/HiuchiPdfExport', model);
-            });
-        }
+        btnExportPdfHiuchi(this);
     });
 
     $('#btnFileOpen').click(function () {
@@ -63,35 +38,8 @@ function initialize_Hiuchi() {
     });
 
     $('#inputFileHiuchi').change(function () {
-        var files = $(this).prop('files')
-        var fileData = new FormData();
-        fileData.append('file', files[0]);
-
-        var status = new createFileStatusbar();
-        $('.modal-body').after(status.statusbar);
-
-        calltoApiController_FileUploadHandle(url_readHiuchiFile, fileData,
-            function (percent) { //progress bar function
-                status.setProgress(percent);
-            },
-            function (result) { //success function
-                //clearFileInfo();
-
-                if (!result) return;
-                if (result.MessageID) {
-                    showMessage(result);
-                    return;
-                }
-                createBukkenFileTable();
-            },
-            function () { //error function
-                //clearFileInfo();
-            });
-
-        $(this).val(null);
+        inputFileHiuchiChange(this);
     });
-
-
 
     //addValidate
     setNumericValidate('#Honsuu11', 3, 0);
@@ -108,6 +56,11 @@ function initialize_Hiuchi() {
     setNumericValidate('#Honsuu43', 3, 0);
 
     //setScreen
+    //Set the value of the checkbox
+    $('#HiuchiSubEntry input[type=checkbox]').each(function () {
+        $(this).prop('checked', $(this).data('dbvalue') == "1").change();
+    });
+
     setZairyouSuggestList();
     setToukyuuSuggestList();
 
@@ -172,61 +125,61 @@ function createModels_Hiuchi() {
     var model1 = {
         Sou: $('#Sou1').val(),
         SouSumi: $('#Sou1Sumi').prop('checked') ? 1 : 0,
-        Zairyou1: $('#Zairyou11').val(),
-        Toukyuu1: $('#Toukyuu11').val(),
-        Honsuu1: $('#Honsuu11').val(),
-        Zairyou2: $('#Zairyou12').val(),
-        Toukyuu2: $('#Toukyuu12').val(),
-        Honsuu2: $('#Honsuu12').val(),
-        Zairyou3: $('#Zairyou13').val(),
-        Toukyuu3: $('#Toukyuu13').val(),
-        Honsuu3: $('#Honsuu13').val(),
+        Zairyou1: $('#Zairyou11').val().trim(),
+        Toukyuu1: $('#Toukyuu11').val().trim(),
+        Honsuu1: $('#Honsuu11').val().trim(),
+        Zairyou2: $('#Zairyou12').val().trim(),
+        Toukyuu2: $('#Toukyuu12').val().trim(),
+        Honsuu2: $('#Honsuu12').val().trim(),
+        Zairyou3: $('#Zairyou13').val().trim(),
+        Toukyuu3: $('#Toukyuu13').val().trim(),
+        Honsuu3: $('#Honsuu13').val().trim(),
     }
     var model2 = {
         Sou: $('#Sou2').val(),
         SouSumi: $('#Sou2Sumi').prop('checked') ? 1 : 0,
-        Zairyou1: $('#Zairyou21').val(),
-        Toukyuu1: $('#Toukyuu21').val(),
-        Honsuu1: $('#Honsuu21').val(),
-        Zairyou2: $('#Zairyou22').val(),
-        Toukyuu2: $('#Toukyuu22').val(),
-        Honsuu2: $('#Honsuu22').val(),
-        Zairyou3: $('#Zairyou23').val(),
-        Toukyuu3: $('#Toukyuu23').val(),
-        Honsuu3: $('#Honsuu23').val(),
+        Zairyou1: $('#Zairyou21').val().trim(),
+        Toukyuu1: $('#Toukyuu21').val().trim(),
+        Honsuu1: $('#Honsuu21').val().trim(),
+        Zairyou2: $('#Zairyou22').val().trim(),
+        Toukyuu2: $('#Toukyuu22').val().trim(),
+        Honsuu2: $('#Honsuu22').val().trim(),
+        Zairyou3: $('#Zairyou23').val().trim(),
+        Toukyuu3: $('#Toukyuu23').val().trim(),
+        Honsuu3: $('#Honsuu23').val().trim(),
     }
     var model3 = {
         Sou: $('#Sou3').val(),
         SouSumi: $('#Sou3Sumi').prop('checked') ? 1 : 0,
-        Zairyou1: $('#Zairyou31').val(),
-        Toukyuu1: $('#Toukyuu31').val(),
-        Honsuu1: $('#Honsuu31').val(),
-        Zairyou2: $('#Zairyou32').val(),
-        Toukyuu2: $('#Toukyuu32').val(),
-        Honsuu2: $('#Honsuu32').val(),
-        Zairyou3: $('#Zairyou33').val(),
-        Toukyuu3: $('#Toukyuu33').val(),
-        Honsuu3: $('#Honsuu33').val(),
+        Zairyou1: $('#Zairyou31').val().trim(),
+        Toukyuu1: $('#Toukyuu31').val().trim(),
+        Honsuu1: $('#Honsuu31').val().trim(),
+        Zairyou2: $('#Zairyou32').val().trim(),
+        Toukyuu2: $('#Toukyuu32').val().trim(),
+        Honsuu2: $('#Honsuu32').val().trim(),
+        Zairyou3: $('#Zairyou33').val().trim(),
+        Toukyuu3: $('#Toukyuu33').val().trim(),
+        Honsuu3: $('#Honsuu33').val().trim(),
     }
     var model4 = {
         Sou: $('#Sou4').val(),
         SouSumi: $('#Sou4Sumi').prop('checked') ? 1 : 0,
-        Zairyou1: $('#Zairyou41').val(),
-        Toukyuu1: $('#Toukyuu41').val(),
-        Honsuu1: $('#Honsuu41').val(),
-        Zairyou2: $('#Zairyou42').val(),
-        Toukyuu2: $('#Toukyuu42').val(),
-        Honsuu2: $('#Honsuu42').val(),
-        Zairyou3: $('#Zairyou43').val(),
-        Toukyuu3: $('#Toukyuu43').val(),
-        Honsuu3: $('#Honsuu43').val(),
+        Zairyou1: $('#Zairyou41').val().trim(),
+        Toukyuu1: $('#Toukyuu41').val().trim(),
+        Honsuu1: $('#Honsuu41').val().trim(),
+        Zairyou2: $('#Zairyou42').val().trim(),
+        Toukyuu2: $('#Toukyuu42').val().trim(),
+        Honsuu2: $('#Honsuu42').val().trim(),
+        Zairyou3: $('#Zairyou43').val().trim(),
+        Toukyuu3: $('#Toukyuu43').val().trim(),
+        Honsuu3: $('#Honsuu43').val().trim(),
     }
 
     return new Array(model1, model2, model3, model4);
 }
 
 function checkAll_Hiuchi(models) {
-
+    var count = 0;
     for (var i = 1; i <= models.length; i++) {
         var model = models[i - 1];
 
@@ -290,9 +243,13 @@ function checkAll_Hiuchi(models) {
                 return false;
             }
         }
-    }
 
-    return true;
+        if (model.Sou)
+        {
+            count++;
+        }
+    }
+    return count > 0;
 }
 
 function btnSaveSubClick(models) {
@@ -301,20 +258,28 @@ function btnSaveSubClick(models) {
     for (var i = 1; i <= models.length; i++) {
         var model = models[i - 1];
 
-        dbModel['Sou' + i] = model.Sou;
-        dbModel['Sou' + i + 'Sumi'] = model.SouSumi;
-        dbModel['Zairyou' + i + '1'] = model.Zairyou1;
-        dbModel['Toukyuu' + i + '1'] = model.Toukyuu1;
-        dbModel['Honsuu' + i + '1'] = model.Honsuu1;
-        dbModel['Zairyou' + i + '2'] = model.Zairyou2;
-        dbModel['Toukyuu' + i + '2'] = model.Toukyuu2;
-        dbModel['Honsuu' + i + '2'] = model.Honsuu2;
-        dbModel['Zairyou' + i + '3'] = model.Zairyou3;
-        dbModel['Toukyuu' + i + '3'] = model.Toukyuu3;
-        dbModel['Honsuu' + i + '3'] = model.Honsuu3;
+        if (model.Sou) {
+            dbModel['Sou' + i] = model.Sou;
+            dbModel['Sou' + i + 'Sumi'] = model.SouSumi;
+            dbModel['Zairyou' + i + '1'] = model.Zairyou1;
+            dbModel['Toukyuu' + i + '1'] = model.Toukyuu1;
+            dbModel['Honsuu' + i + '1'] = model.Honsuu1;
+
+            if (model.Zairyou2) {
+                dbModel['Zairyou' + i + '2'] = model.Zairyou2;
+                dbModel['Toukyuu' + i + '2'] = model.Toukyuu2;
+                dbModel['Honsuu' + i + '2'] = model.Honsuu2;
+            }
+            if (model.Zairyou3) {
+                dbModel['Zairyou' + i + '3'] = model.Zairyou3;
+                dbModel['Toukyuu' + i + '3'] = model.Toukyuu3;
+                dbModel['Honsuu' + i + '3'] = model.Honsuu3;
+            }
+        }
     }
 
-    dbModel.HiddenUpdateDateTime = $('#HiddenUpdateDateTime').val();
+    dbModel.BukkenNO = $('#HiuchiBukkenNO').val();
+    dbModel.HiddenUpdateDateTime = $('#HiddenHiuchiUpdateDateTime').val();
     dbModel.UserID = $('#user-id').text();
 
     var result = calltoApiController(url_SaveHiuchiData, dbModel);
@@ -329,4 +294,68 @@ function btnSaveSubClick(models) {
     showMessage('I101', function () {
         ModalForm.Close();
     });
+}
+
+function btnExportPdfHiuchi(e) {
+    var id = e.id;
+    var row = id.slice(-1);
+
+    var model =
+    {
+        BukkenNO: $('#HiuchiBukkenNO').val(),
+        BukkenName: $('#HiuchiBukkenName').val(),
+        KoumutenName: $('#KoumutenName').val(),
+        SouName: $('#Sou' + row + ' option:selected').text(),
+        Zairyou1: $('#Zairyou' + row + '1').val(),
+        Toukyuu1: $('#Toukyuu' + row + '1').val(),
+        Honsuu1: $('#Honsuu' + row + '1').val(),
+        Zairyou2: $('#Zairyou' + row + '2').val(),
+        Toukyuu2: $('#Toukyuu' + row + '2').val(),
+        Honsuu2: $('#Honsuu' + row + '2').val(),
+        Zairyou3: $('#Zairyou' + row + '3').val(),
+        Toukyuu3: $('#Toukyuu' + row + '3').val(),
+        Honsuu3: $('#Honsuu' + row + '3').val(),
+    };
+
+    if (model.SouName && model.Zairyou1) {
+        showConfirmMessage('Q204', function () {
+            model.FileName = '火打材ラベル_' + model.BukkenName + '.pdf';
+            calltoApiController_FileDownLoadHandle(url_exportHiuchiPdf, model);
+        });
+    }
+}
+
+function inputFileHiuchiChange(e) {
+    var files = $(e).prop('files')
+    for (var i = 0; i < files.length; i++) {
+        if (files[i].name.slice(-4) != '.csv') continue;
+
+        var fileData = new FormData();
+        fileData.append('file', files[i]);
+
+        calltoApiController_FileUploadHandle(url_importHiuchiCsv, fileData,
+            function (result) {
+                if (!result) return;
+                if (result.MessageID) {
+                    showMessage(result);
+                    return;
+                }
+
+                for (key in result) {
+                    if (key == "BukkenNO" || key == "BukkenName" || key == "HiddenUpdateDateTime") {
+                    }
+                    else if (key == "Sou1Sumi" || key == "Sou2Sumi" || key == "Sou3Sumi" || key == "Sou4Sumi") {
+                        $('#' + key).prop('checked', result[key] == "1")
+                    }
+                    else {
+                        $('#' + key).val(result[key]);
+                    }
+                }
+
+                setZairyouSuggestList();
+                setToukyuuSuggestList();
+            });
+    }
+
+    $(e).val(null);
 }
