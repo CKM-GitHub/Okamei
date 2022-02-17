@@ -219,7 +219,7 @@ function calltoApiController_FileDownLoadHandle(url, model) {
     return result;
 }
 
-function calltoApiController_FileUploadHandle(url, fileData, progresscall, callback, callbackerror) {
+function calltoApiController_FileUploadHandle(url, fileData, callback, callbackerror, callbackprogress) {
     var obj = {
         url: url,
         type: "POST",
@@ -239,7 +239,7 @@ function calltoApiController_FileUploadHandle(url, fileData, progresscall, callb
             if (callbackerror) callbackerror();
         }
     };
-    if (progresscall) {
+    if (callbackprogress) {
         obj.xhr = function () {
             var xhrobj = $.ajaxSettings.xhr();
             if (xhrobj.upload) {
@@ -250,7 +250,7 @@ function calltoApiController_FileUploadHandle(url, fileData, progresscall, callb
                     if (event.lengthComputable) {
                         percent = parseInt(position / total * 10000) / 100;
                     }
-                    progresscall(percent);
+                    callbackprogress(percent);
                 }, false);
             }
             return xhrobj;

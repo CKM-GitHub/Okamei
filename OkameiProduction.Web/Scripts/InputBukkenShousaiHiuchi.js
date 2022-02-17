@@ -2,7 +2,7 @@
 var url_getZairyouListItems = gApplicationPath + '/api/InputBukkenShousaiApi/GetZairyouSuggestItems';
 var url_getToukyuuListItems = gApplicationPath + '/api/InputBukkenShousaiApi/GetToukyuuSuggestItems';
 var url_SaveHiuchiData = gApplicationPath + '/api/InputBukkenShousaiApi/SaveHiuchiData';
-var url_readHiuchiFile = gApplicationPath + '/api/InputBukkenShousaiApi/ReadHiuchiFile';
+var url_importHiuchiCsv = gApplicationPath + '/api/InputBukkenShousaiApi/ImportHiuchiCsv';
 var url_exportHiuchiPdf = gApplicationPath + '/api/InputBukkenShousaiApi/HiuchiPdfExport';
 
 function initialize_Hiuchi() {
@@ -30,32 +30,7 @@ function initialize_Hiuchi() {
     });
 
     $('#HiuchiSubEntry [id^="btnPdf"]').click(function () {
-        var id = this.id;
-        var row = id.slice(-1);
-
-        var model =
-        {
-            BukkenNO: $('#HiuchiBukkenNO').val(),
-            BukkenName: $('#HiuchiBukkenName').val(),
-            KoumutenName: $('#KoumutenName').val(),
-            SouName: $('#Sou' + row + ' option:selected').text(),
-            Zairyou1: $('#Zairyou' + row + '1').val(),
-            Toukyuu1: $('#Toukyuu' + row + '1').val(),
-            Honsuu1: $('#Honsuu' + row + '1').val(),
-            Zairyou2: $('#Zairyou' + row + '2').val(),
-            Toukyuu2: $('#Toukyuu' + row + '2').val(),
-            Honsuu2: $('#Honsuu' + row + '2').val(),
-            Zairyou3: $('#Zairyou' + row + '3').val(),
-            Toukyuu3: $('#Toukyuu' + row + '3').val(),
-            Honsuu3: $('#Honsuu' + row + '3').val(),
-        };
-
-        if (model.SouName && model.Zairyou1) {
-            showConfirmMessage('Q204', function () {
-                model.FileName = '火打材ラベル_' + model.BukkenName + '.pdf';
-                calltoApiController_FileDownLoadHandle('/api/InputBukkenShousaiApi/HiuchiPdfExport', model);
-            });
-        }
+        btnExportPdfHiuchi(this);
     });
 
     $('#btnFileOpen').click(function () {
@@ -63,35 +38,8 @@ function initialize_Hiuchi() {
     });
 
     $('#inputFileHiuchi').change(function () {
-        var files = $(this).prop('files')
-        var fileData = new FormData();
-        fileData.append('file', files[0]);
-
-        var status = new createFileStatusbar();
-        $('.modal-body').after(status.statusbar);
-
-        calltoApiController_FileUploadHandle(url_readHiuchiFile, fileData,
-            function (percent) { //progress bar function
-                status.setProgress(percent);
-            },
-            function (result) { //success function
-                //clearFileInfo();
-
-                if (!result) return;
-                if (result.MessageID) {
-                    showMessage(result);
-                    return;
-                }
-                createBukkenFileTable();
-            },
-            function () { //error function
-                //clearFileInfo();
-            });
-
-        $(this).val(null);
+        inputFileHiuchiChange(this);
     });
-
-
 
     //addValidate
     setNumericValidate('#Honsuu11', 3, 0);
@@ -329,4 +277,61 @@ function btnSaveSubClick(models) {
     showMessage('I101', function () {
         ModalForm.Close();
     });
+}
+
+function btnExportPdfHiuchi(e) {
+    var id = e.id;
+    var row = id.slice(-1);
+
+    var model =
+    {
+        BukkenNO: $('#HiuchiBukkenNO').val(),
+        BukkenName: $('#HiuchiBukkenName').val(),
+        KoumutenName: $('#KoumutenName').val(),
+        SouName: $('#Sou' + row + ' option:selected').text(),
+        Zairyou1: $('#Zairyou' + row + '1').val(),
+        Toukyuu1: $('#Toukyuu' + row + '1').val(),
+        Honsuu1: $('#Honsuu' + row + '1').val(),
+        Zairyou2: $('#Zairyou' + row + '2').val(),
+        Toukyuu2: $('#Toukyuu' + row + '2').val(),
+        Honsuu2: $('#Honsuu' + row + '2').val(),
+        Zairyou3: $('#Zairyou' + row + '3').val(),
+        Toukyuu3: $('#Toukyuu' + row + '3').val(),
+        Honsuu3: $('#Honsuu' + row + '3').val(),
+    };
+
+    if (model.SouName && model.Zairyou1) {
+        showConfirmMessage('Q204', function () {
+            model.FileName = '火打材ラベル_' + model.BukkenName + '.pdf';
+            calltoApiController_FileDownLoadHandle(url_exportHiuchiPdf, model);
+        });
+    }
+}
+
+function inputFileHiuchiChange(e) {
+    var files = $(e).prop('files')
+    for (var i = 0; i < files.length; i++) {
+        debugger;
+        if (files[i].name.slice(-4) != '.csv') continue;
+
+        var fileData = new FormData();
+        fileData.append('file', files[i]);
+
+        calltoApiController_FileUploadHandle(url_importHiuchiCsv, fileData,
+            function (result) {
+                if (!result) return;
+                if (result.MessageID) {
+                    showMessage(result);
+                    return;
+                }
+
+                for (key in result) {
+                    if (key != "BukkenNO" && key != "BukkenName" && key != "HiddenUpdateDateTime") {
+                        $('#' + key).val(result[key]);
+                    }
+                }
+            });
+    }
+
+    $(e).val(null);
 }

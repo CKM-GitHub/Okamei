@@ -109,6 +109,7 @@
     <Content Include="Database\StoredProcedure\M_Message_SelectAll.sql" />
     <Content Include="Database\StoredProcedure\M_Message_SelectByID.sql" />
     <Content Include="Database\StoredProcedure\M_MultiPorpose_SelectByID.sql" />
+    <Content Include="Database\StoredProcedure\M_MultiPorpose_SelectByIDChar2.sql" />
     <Content Include="Database\StoredProcedure\M_MultiPorpose_SelectByIDKey.sql" />
     <Content Include="Database\StoredProcedure\M_MultiPorpose_GetNewBukkenNO.sql" />
     <Content Include="Database\StoredProcedure\M_MultiPorpose_SelectForDropDownLit.sql" />
