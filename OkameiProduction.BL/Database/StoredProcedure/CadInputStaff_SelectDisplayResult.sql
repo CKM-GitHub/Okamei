@@ -26,7 +26,7 @@ BEGIN
 						   AS SijiKikitu,
 						   mp.Char2 as TantouName,
 						   ('['+(Case   when db.KakoutuShouninDate is not null then '指'  when db.FusezuTeiShutuDate is not null then '待'  else '未' end) + ']' +
-						   '['+Cast (Floor(db.KakoutuboSuu) as varchar(6) )+']' + Cast (db.KoumutenName as varchar (14)) + '/' + db.BukkenName ) as BukkenName
+						   '['+Cast (Floor(db.KakoutuboSuu) as varchar(6) )+']' + Cast (db.KoumutenName as varchar (14)) + '/' + Cast(db.BukkenName as varchar(16)) ) as BukkenName
 						    
 						   from D_Bukken db 
 						   left join M_Multiporpose mp on mp.ID= '006' and mp.[Key] = db.TantouCAdCD 
@@ -56,7 +56,7 @@ BEGIN
 						   AS SijiKikitu,
 						   mp.Char2 as TantouName,
 						   ('['+(Case   when db.KakoutuShouninDate is not null then '指'  when db.FusezuTeiShutuDate is not null then '待'  else '未' end) + ']' +
-						   '['+Cast (Floor(db.KakoutuboSuu) as varchar(6) )+']' + Cast (db.KoumutenName as varchar (14)) + '/' + db.BukkenName ) as BukkenName
+						   '['+Cast (Floor(db.KakoutuboSuu) as varchar(6) )+']' + Cast (db.KoumutenName as varchar (14)) + '/' +Cast(db.BukkenName as varchar(16))) as BukkenName
 						    
 						   from D_Bukken db 
 						   left join M_Multiporpose mp on mp.ID= '006' and mp.[Key] = db.TantouCAdCD 
