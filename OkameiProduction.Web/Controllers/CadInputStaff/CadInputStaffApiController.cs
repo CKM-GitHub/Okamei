@@ -9,14 +9,14 @@ using OkameiProduction.BL;
 
 namespace OkameiProduction.Web.Controllers
 {
-    public class CardInputStaffApiController : BaseApiController
+    public class CadInputStaffApiController : BaseApiController
     {
         [HttpPost]
         public string ExistsDisplayResult([FromBody] CadInputStaffModel model)
         {
             if (model == null) return GetBadRequestResult();
             var bl = new CadInputStaffBL();
-            if (bl.GetDisplayResult(model).Rows.Count > 0)
+            if (bl.ExistDisplayResult(model).Rows.Count > 0 )
             {
                 return GetSuccessResult();
             }

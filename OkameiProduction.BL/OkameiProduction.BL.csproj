@@ -45,6 +45,8 @@
     <Compile Include="CadInputStaffBL.cs" />
     <Compile Include="CadStaffMiteiBL.cs" />
     <Compile Include="Common\DataTableExtentions.cs" />
+    <Content Include="Database\StoredProcedure\CadInputStaff_ExistDisplayResult.sql" />
+    <Content Include="Database\StoredProcedure\CadInputStaff_SelectDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\EigyouJisseki_SelectDisplayResult.sql" />
     <Compile Include="EigyouJissekiBL.cs" />
     <Compile Include="InputStepBL.cs" />

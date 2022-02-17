@@ -1,0 +1,150 @@
+﻿@{
+    ViewBag.Title = "CadInputStaff";
+}
+    <style>
+        .table th {
+            padding-top: 2px;
+            padding-bottom: 2px;
+            background-color: #ffff66;
+        }
+
+        #tblCadInputStaff tbody td {
+            padding-top: 2px;
+            padding-bottom: 2px;
+        }
+
+
+        #tblCadInputStaff .number-align-right {
+            float: right;
+        }
+
+        td, th {
+            font-size: 14px !important;
+        }
+
+        #tblCadInputStaff .ShitenName {
+            min-width: 50px;
+        }
+
+
+        #tblCadInputStaff .Export {
+            min-width: 50px
+        }
+
+        #tblCadInputStaff .btn-primary {
+            min-width: 50px;
+            vertical-align: middle;
+            max-height: 25px;
+            line-height: 15px;
+        } 
+        .btn {
+            margin-top: 0px !important;
+        }
+
+        #tblCadInputStaff .Shop {
+            min-width: 100px;
+        }
+
+        #tblCadInputStaff .指示期限 {
+            min-width: 60px;
+        }
+        .dataTables_scrollBody {
+            position: relative;
+            overflow: auto;
+            height: 600px;
+            width: 100%;
+        }
+    </style>
+    <h4>CAD入力者担当状況</h4>
+<div id="main" class="main-content">
+    <table class='table table-bordered' id="tblCadInputStaff">
+        <thead>
+        
+            <tr>
+
+
+                @foreach (System.Data.DataColumn cols in ViewBag.Data.Columns)
+                {
+                    if (@cols.ColumnName != "BukkenNo")
+                    {
+                        if (@cols.ColumnName != "指示期限")
+                        {
+                            <th class="@cols.Caption" style="min-width:300px !important; text-align:center">
+                                @cols.ColumnName
+                            </th>
+                        }
+                        else
+                        {
+                            <th class="@cols.Caption" style="min-width:60px !important; text-align:center">
+                                @cols.ColumnName
+                            </th>
+                        }
+                    }
+
+                }
+            </tr>
+        </thead>
+        <tbody>
+
+            @{
+                var columns = ViewBag.Data.Columns;
+            }
+
+            @foreach (System.Data.DataRow row in ViewBag.Data.Rows)
+            {
+            <tr>
+                @{
+                    var count = row.ItemArray.Count();
+                    var items = row.ItemArray;
+                }
+                @for (var i = 0; i < count; i++)
+                {
+                    if (@columns[i].Caption != "BukkenNo")
+                    {
+                        if ((@columns[i].Caption != "指示期限"))
+                        {
+                <td class="@columns[i].Caption" style="min-width: 300px !important; text-align:left">
+                    @if (@items[i].ToString() != "" && @items[i] != null)
+                    {
+                    foreach (var bName in System.Text.RegularExpressions.Regex.Split(items[i].ToString(), @"\#\#\#"))
+                    {
+                        @Html.ActionLink( (System.Text.RegularExpressions.Regex.Split( bName, @"\^\^\^").Last() + Environment.NewLine), "Entry", "InputBukkenShousai", new { Mode = "Edit", BukkenNO = (System.Text.RegularExpressions.Regex.Split(bName, @"\^\^\^").First()) }, new { @class = "edit-link" })
+
+                    }
+
+
+                    }
+                </td>
+                        }
+                        else
+                        {
+            <td class="@columns[i].Caption" style="min-width: 60px !important; text-align:left">
+                @items[i]
+            </td>
+                        }
+                    }
+                }
+
+            </tr>
+                    }
+        </tbody>
+    </table>
+    <div class="form-group row">
+        <div class="footer-btn mx-auto">
+            <button type="button" id="btnReturn" class="btn btn-secondary">戻る</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+
+    $('#btnReturn').click(function () {
+    location.href = '@Url.Action("SetCondition", "CadInputStaff")';
+    });
+        bindDataTables($('#tblCadInputStaff'));
+    });
+    </script>
+}
