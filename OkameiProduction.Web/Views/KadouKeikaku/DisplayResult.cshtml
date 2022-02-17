@@ -1,0 +1,141 @@
+﻿
+@{
+    ViewBag.Title = "KadouKeikakuList";
+}
+
+<style>
+
+    .table th {
+        padding-top: 2px;
+        padding-bottom: 2px;
+        background-color: #ffff66;
+        white-space: nowrap;
+    }
+
+    #tblKadouKeikaku tbody td {
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+    #tblKadouKeikaku .JuchuuDate {
+        min-width: 50px;
+    }
+
+    #tblKadouKeikaku .Nouki {
+        min-width: 50px;
+    }
+
+    #tblKadouKeikaku .BukkenNO {
+    }
+
+    #tblKadouKeikaku .BukkenName {
+        min-width: 120px;
+    }
+
+    #tblKadouKeikaku .KoumutenName {
+        min-width: 210px;
+    }
+
+    #tblKadouKeikaku .KakouTubosuu {
+        text-align: right;
+    }
+
+    #tblKadouKeikaku .TantouSitenName {
+        min-width: 50px;
+    }
+
+    #tblKadouKeikaku .TantouEigyouName {
+        min-width: 50px;
+    }
+
+    #tblKadouKeikaku .TantouCadName {
+        min-width: 50px;
+    }
+    #tblKadouKeikaku .KanamonName {
+        min-width: 70px;
+    }
+    td, th {
+        font-size: 14px ;
+    }
+    
+</style>
+
+<h4>稼働計画</h4>
+<div id="main" class="main-content">
+    <table class='table table-bordered'  id="tblKadouKeikaku">
+        <thead>
+            <tr>
+                <th>納期</th>
+                <th>倉庫入</th>
+                <th>物件番号</th>
+                <th>物件名</th>
+                <th>工務店</th>
+                <th>CAD</th>
+                <th>坪数</th>
+                <th>金物</th>
+                <th>木出</th>
+                <th>指示</th>
+                <th>横</th>
+                <th>柱</th>
+                <th>羽</th>
+                <th>床</th>
+                <th>野</th>
+                <th>壁</th>
+                <th>火</th>
+                <th>手</th>
+                <th>フ</th>
+                <th>材納</th>
+            </tr>
+        </thead>
+        <tbody>
+          
+
+            @{
+                var columns = ViewBag.Data.Columns;
+            }
+
+            @foreach (System.Data.DataRow row in ViewBag.Data.Rows)
+            {
+                <tr>
+                    @{
+                        var count = row.ItemArray.Count();
+                        var items = row.ItemArray;
+                        var bukkenNo = row["BukkenNO"].ToString();
+                    }
+                    @for (var i = 0; i < count; i++)
+                    {
+                        <td class="@columns[i].Caption">
+                            @if (columns[i].Caption == "BukkenName")
+                            {
+                                @Html.ActionLink((string)items[i], "Entry", "InputBukkenShousai", new { Mode = "Edit", BukkenNO = bukkenNo }, new { @class = "edit-link" })
+                            }
+                            else
+                            {
+                                @items[i]
+                            }
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="form-group row">
+        <div class="footer-btn mx-auto">
+            <button type="button" id="btnReturn" class="btn btn-secondary">戻る</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#btnReturn').click(function () {
+                location.href = '@Url.Action("SetCondition", "KadouKeikaku")';
+            });
+
+            bindDataTables($('#tblKadouKeikaku'));
+        });
+
+    </script>
+}

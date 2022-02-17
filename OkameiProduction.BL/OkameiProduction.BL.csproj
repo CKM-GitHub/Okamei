@@ -69,6 +69,7 @@
     <Compile Include="Common\StaticCache.cs" />
     <Compile Include="HanyouKensakuBL.cs" />
     <Compile Include="HiuchiItiranBL.cs" />
+    <Compile Include="KadouKeikakuBL.cs" />
     <Compile Include="KubunTaisyouBL.cs" />
     <Compile Include="MessageBL.cs" />
     <Compile Include="MoulderItiranBL.cs" />

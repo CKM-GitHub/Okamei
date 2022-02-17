@@ -5,22 +5,25 @@ using OkameiProduction.BL;
 
 namespace OkameiProduction.Web.Controllers
 {
-    public class SmitumoriKanriController : BaseController
+    public class KadouKeikakuController : BaseController
     {
         // GET: 
         public ActionResult SetCondition()
         {
+            var vm = new KadouKeikakuModel();
+            SetDropDownListItems(vm);
+
             ViewBag.ServerDate = DateTime.Now.ToString(DateTimeFormat.yyyyMMdd);
-            return View();
+
+            return View(vm);
         }
 
         // GET: 
         public ActionResult DisplayResult ()
         {
-            var vm = GetFromQueryString<SmitumoriKanriModel>();
-            SetDropDownListItems(vm);
+            var vm = GetFromQueryString<KadouKeikakuModel>();
 
-            SmitumoriKanriBL bl = new SmitumoriKanriBL();
+            KadouKeikakuBL bl = new KadouKeikakuBL();
             var dt = bl.GetDisplayResult(vm);
             ViewBag.Data = dt;
 
@@ -28,14 +31,17 @@ namespace OkameiProduction.Web.Controllers
         }
 
 
+
+
+        // ----------------------------------------/
         // private
-        private void SetDropDownListItems(SmitumoriKanriModel vm)
+        private void SetDropDownListItems(KadouKeikakuModel vm)
         {
             CommonBL dl = new CommonBL();
-            vm.TantouCadDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouCad);
-            vm.KoumutenDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.Koumuten);
             vm.TantouSitenDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouSiten);
             vm.TantouEigyouDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouEigyou);
+            vm.TantouPcDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouPc);
+            vm.TantouCadDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouCad);
         }
     }
 }
