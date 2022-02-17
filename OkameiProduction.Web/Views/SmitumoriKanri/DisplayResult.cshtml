@@ -1,14 +1,20 @@
-﻿
+﻿@model Models.SmitumoriKanriModel
+
 @{
     ViewBag.Title = "SmitumoriKanriList";
 }
 
 <style>
+    .table th:nth-child(6) {
+        text-align: left;
+    }
+
     .table th {
         padding-top: 2px;
         padding-bottom: 2px;
         background-color: #ffff66;
         font-size: 14px;
+        text-align: center;
         white-space: nowrap;
     }
 
@@ -18,56 +24,37 @@
         font-size: 14px;
     }
 
-    #tblBukkenItiran .KakouTubosuu,
-    #tblBukkenItiran .KakouNissuu {
+    #tblSmitumoriKanri .SagyouDate,
+    #tblSmitumoriKanri .KaesiYoteiDate,
+    #tblSmitumoriKanri .TantouSiten,
+    #tblSmitumoriKanri .TantouEigyou {
+        min-width: 100px;
+    }
+
+    #tblSmitumoriKanri .TantouCad {
+        min-width: 150px;
+    }
+
+    #tblSmitumoriKanri .BukkenName,
+    #tblSmitumoriKanri .KoumutenName {
+        line-break: anywhere;
+        min-width: 250px;
+        max-width: 250px;
+    }
+
+    #tblSmitumoriKanri .KakoutuboSuu {
+        min-width: 80px;
         text-align: right;
     }
 
-    #tblBukkenItiran .BukkenNO {
+    #tblSmitumoriKanri .SMitumoriCounter {
+        display: none;
     }
 
-    #tblBukkenItiran .delete-td {
-        min-width: 36px;
-    }
-
-    #tblBukkenItiran .Nouki,
-    #tblBukkenItiran .UnsouKuraireDate,
-    #tblBukkenItiran .KakouTubosuu,
-    #tblBukkenItiran .JuchuuDate,
-    #tblBukkenItiran .TokuchuuzaiUmu {
+    #tblSmitumoriKanri .delete-td {
+        text-align: center;
         min-width: 50px;
-    }
-
-    #tblBukkenItiran .TantouSitenName,
-    #tblBukkenItiran .TantouEigyouName,
-    #tblBukkenItiran .TantouCadName {
-        min-width: 54px;
-    }
-
-    #tblBukkenItiran .FusezuTeishutuDate,
-    #tblBukkenItiran .ShouninKijitu,
-    #tblBukkenItiran .KakouShouninDate,
-    #tblBukkenItiran .SijiKikitu,
-    #tblBukkenItiran .UpdateDateTime,
-    #tblBukkenItiran .NyuuryokusakiName,
-    #tblBukkenItiran .KakouNissuu {
-        min-width: 60px;
-    }
-
-    #tblBukkenItiran .KanamonoName {
-        min-width: 88px;
-    }
-
-    #tblBukkenItiran .SinchokuJoukyou {
-        min-width: 106px;
-    }
-
-    #tblBukkenItiran .BukkenName {
-        min-width: 140px;
-    }
-
-    #tblBukkenItiran .KoumutenName {
-        min-width: 262px;
+        white-space: nowrap;
     }
 </style>
 
@@ -102,12 +89,58 @@
                     }
                     @for (var i = 0; i < count; i++)
                     {
-                        <td class="@columns[i].Caption">
-                            @items[i]
-                        </td>
+                        if (@columns[i].Caption != "SMitumoriCounter")
+                        {
+                            if (@columns[i].Caption == "TantouCad")
+                            {
+                                <td class="@columns[i].Caption">
+                                    @Html.DropDownListFor(
+                                    model => model.TantouCad,
+                                    new SelectList(Model.TantouCadDropDownListItems, "Value", "DisplayText"),
+                                    "",
+                                    new { @class = "form-control" })
+                                </td>
+                            }
+                            else if (@columns[i].Caption == "KoumutenName")
+                            {
+                                <td class="@columns[i].Caption">
+                                    @Html.DropDownListFor(
+                                    model => model.KoumutenName,
+                                    new SelectList(Model.KoumutenDropDownListItems, "Value", "DisplayText"),
+                                    "",
+                                    new { @class = "form-control" })
+                                </td>
+                            }
+                            else if (@columns[i].Caption == "TantouSiten")
+                            {
+                                <td class="@columns[i].Caption">
+                                    @Html.DropDownListFor(
+                                    model => model.TantouSiten,
+                                    new SelectList(Model.TantouSitenDropDownListItems, "Value", "DisplayText"),
+                                    "",
+                                    new { @class = "form-control" })
+                                </td>
+                            }
+                            else if (@columns[i].Caption == "TantouEigyou")
+                            {
+                                <td class="@columns[i].Caption">
+                                    @Html.DropDownListFor(
+                                    model => model.TantouEigyou,
+                                    new SelectList(Model.TantouEigyouDropDownListItems, "Value", "DisplayText"),
+                                    "",
+                                    new { @class = "form-control" })
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="@columns[i].Caption">
+                                    @items[i]
+                                </td>
+                            }
+                        }
                     }
                     <td class="delete-td">
-                        @Html.ActionLink("削除", "Entry", "InputBukkenShousai", new { Mode = "Delete", SMitumoriCounter = SMitumoriCounter }, new { @class = "delete-link" })
+                        <button type="button" class="btn btn-link delete-link" onclick="DeleteData('@SMitumoriCounter')">削除</button>
                     </td>
                 </tr>
             }
@@ -126,11 +159,17 @@
         $(document).ready(function () {
 
             $('#btnReturn').click(function () {
-                location.href = '@Url.Action("SetCondition", "BukkenItiran")';
+                location.href = '@Url.Action("SetCondition", "SmitumoriKanri")';
             });
 
             var t = bindDataTables($('#tblSmitumoriKanri'));
         });
 
+        function DeleteData(SMitumoriCounter) {
+            var model = {
+                SMitumoriCounter: SMitumoriCounter
+            }
+            alert(SMitumoriCounter);
+        }
     </script>
 }
