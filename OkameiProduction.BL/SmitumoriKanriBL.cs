@@ -21,7 +21,10 @@ namespace OkameiProduction.BL
 
         public DataTable GetDisplayResult(SmitumoriKanriModel model)
         {
-            SqlParameter[] sqlParams = new SqlParameter[0];
+            SqlParameter[] sqlParams = new SqlParameter[3];
+            sqlParams[0] = new SqlParameter("@sagyou_sDate", SqlDbType.VarChar) { Value = model.sagyou_sDate.ToStringOrNull() };
+            sqlParams[1] = new SqlParameter("@sagyou_eDate", SqlDbType.VarChar) { Value = model.sagyou_eDate.ToStringOrNull() };
+            sqlParams[2] = new SqlParameter("@UserID", SqlDbType.VarChar) { Value = model.UserID.ToStringOrNull() };
 
             DBAccess db = new DBAccess();
             var dt = db.SelectDatatable("SmitumoriKanri_SelectDisplayResult", sqlParams);
