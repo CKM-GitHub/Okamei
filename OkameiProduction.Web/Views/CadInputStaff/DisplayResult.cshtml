@@ -106,11 +106,15 @@
                 <td class="@columns[i].Caption" style="min-width: 300px !important; text-align:left">
                     @if (@items[i].ToString() != "" && @items[i] != null)
                     {
-                    foreach (var bName in System.Text.RegularExpressions.Regex.Split(items[i].ToString(), @"\#\#\#"))
-                    {
-                        @Html.ActionLink( (System.Text.RegularExpressions.Regex.Split( bName, @"\^\^\^").Last() + Environment.NewLine), "Entry", "InputBukkenShousai", new { Mode = "Edit", BukkenNO = (System.Text.RegularExpressions.Regex.Split(bName, @"\^\^\^").First()) }, new { @class = "edit-link" })
+                        foreach (var bName in System.Text.RegularExpressions.Regex.Split(items[i].ToString(), @"\#\#\#"))
+                        {
+                            if (!String.IsNullOrEmpty(bName))
+                            {
+                        @Html.ActionLink((System.Text.RegularExpressions.Regex.Split(bName, @"\^\^\^").Last()), "Entry", "InputBukkenShousai", new { Mode = "Edit", BukkenNO = (System.Text.RegularExpressions.Regex.Split(bName, @"\^\^\^").First()) }, new { @class = "edit-link" })
+                    <br />
+                            }
 
-                    }
+                        }
 
 
                     }
