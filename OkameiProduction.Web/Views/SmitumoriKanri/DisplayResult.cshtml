@@ -29,6 +29,7 @@
     #tblSmitumoriKanri .TantouSiten,
     #tblSmitumoriKanri .TantouEigyou {
         min-width: 100px;
+        max-width: 100px;
     }
 
     #tblSmitumoriKanri .TantouCad {
@@ -37,9 +38,7 @@
 
     #tblSmitumoriKanri .BukkenName,
     #tblSmitumoriKanri .KoumutenName {
-        line-break: anywhere;
-        min-width: 250px;
-        max-width: 250px;
+        min-width: 200px;
     }
 
     #tblSmitumoriKanri .KakoutuboSuu {
@@ -55,6 +54,16 @@
         text-align: center;
         min-width: 50px;
         white-space: nowrap;
+    }
+
+    .btnAdd {
+        min-width: 120px;
+        position: relative;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+    button.btnAdd {
+        margin-top: 5px;
     }
 </style>
 
@@ -96,7 +105,7 @@
                                 <td class="@columns[i].Caption">
                                     @Html.DropDownListFor(
                                     model => model.TantouCad,
-                                    new SelectList(Model.TantouCadDropDownListItems, "Value", "DisplayText"),
+                                    new SelectList(Model.TantouCadDropDownListItems, "DisplayText", "DisplayText", @items[i]),
                                     "",
                                     new { @class = "form-control" })
                                 </td>
@@ -106,9 +115,9 @@
                                 <td class="@columns[i].Caption">
                                     @Html.DropDownListFor(
                                     model => model.KoumutenName,
-                                    new SelectList(Model.KoumutenDropDownListItems, "Value", "DisplayText"),
+                                    new SelectList(Model.KoumutenDropDownListItems, "DisplayText", "DisplayText", @items[i]),
                                     "",
-                                    new { @class = "form-control" })
+                                    new { @class = "form-control size20" })
                                 </td>
                             }
                             else if (@columns[i].Caption == "TantouSiten")
@@ -116,9 +125,9 @@
                                 <td class="@columns[i].Caption">
                                     @Html.DropDownListFor(
                                     model => model.TantouSiten,
-                                    new SelectList(Model.TantouSitenDropDownListItems, "Value", "DisplayText"),
+                                    new SelectList(Model.TantouSitenDropDownListItems, "DisplayText", "DisplayText", @items[i]),
                                     "",
-                                    new { @class = "form-control" })
+                                    new { @class = "form-control size20" })
                                 </td>
                             }
                             else if (@columns[i].Caption == "TantouEigyou")
@@ -126,9 +135,9 @@
                                 <td class="@columns[i].Caption">
                                     @Html.DropDownListFor(
                                     model => model.TantouEigyou,
-                                    new SelectList(Model.TantouEigyouDropDownListItems, "Value", "DisplayText"),
+                                    new SelectList(Model.TantouEigyouDropDownListItems, "DisplayText", "DisplayText", @items[i]),
                                     "",
-                                    new { @class = "form-control" })
+                                    new { @class = "form-control size20" })
                                 </td>
                             }
                             else
@@ -146,9 +155,13 @@
             }
         </tbody>
     </table>
-    <div class="form-group row">
+    <div class="form-group row" style="margin-top: 20px;">
+        <div class="btnAdd">
+            <button type="button" id="btnAdd" class="btn btn-secondary btnAdd">行追加</button>
+        </div>
         <div class="footer-btn mx-auto">
             <button type="button" id="btnReturn" class="btn btn-secondary">戻る</button>
+            <button type="button" id="btnProcess" class="btn btn-secondary">登録</button>
         </div>
     </div>
 </div>
@@ -159,7 +172,9 @@
         $(document).ready(function () {
 
             $('#btnReturn').click(function () {
-                location.href = '@Url.Action("SetCondition", "SmitumoriKanri")';
+                showConfirmMessage("Q004", function () {
+                    location.href = '@Url.Action("SetCondition", "SmitumoriKanri")';
+                })
             });
 
             var t = bindDataTables($('#tblSmitumoriKanri'));
