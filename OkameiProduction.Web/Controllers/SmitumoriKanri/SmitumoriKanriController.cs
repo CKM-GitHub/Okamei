@@ -18,6 +18,7 @@ namespace OkameiProduction.Web.Controllers
         public ActionResult DisplayResult ()
         {
             var vm = GetFromQueryString<SmitumoriKanriModel>();
+            SetDropDownListItems(vm);
 
             SmitumoriKanriBL bl = new SmitumoriKanriBL();
             var dt = bl.GetDisplayResult(vm);
@@ -31,6 +32,10 @@ namespace OkameiProduction.Web.Controllers
         private void SetDropDownListItems(SmitumoriKanriModel vm)
         {
             CommonBL dl = new CommonBL();
+            vm.TantouCadDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouCad);
+            vm.KoumutenDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.Koumuten);
+            vm.TantouSitenDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouSiten);
+            vm.TantouEigyouDropDownListItems = dl.GetMultiPorposeDropDownListItems(EMultiPorpose.TantouEigyou);
         }
     }
 }
