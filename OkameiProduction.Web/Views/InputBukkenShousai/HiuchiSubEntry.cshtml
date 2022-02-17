@@ -372,7 +372,10 @@
                 </div>
             </div>
             <div>
-                <input type="file" id="inputFileHiuchi" accept=".csv" style="display:none;">
+            </div>
+            <div class="hidden-area">
+                <input type="text" hidden id="HiddenHiuchiUpdateDateTime" name="HiddenHiuchiUpdateDateTime" value="@Model.HiddenUpdateDateTime" />
+                <input type="file" hidden id="inputFileHiuchi" accept=".csv">
             </div>
         </div>
         <div class="row">

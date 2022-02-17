@@ -28,6 +28,12 @@ BEGIN
 	DELETE D_BukkenComment
 	WHERE BukkenNO = @BukkenNO
 
+    DELETE D_BukkenHiuchi
+    WHERE BukkenNO = @BukkenNO
+
+    DELETE D_BukkenTeKakou
+    WHERE BukkenNO = @BukkenNO
+
     DELETE D_BukkenMoulder
     WHERE BukkenNO = @BukkenNO
 

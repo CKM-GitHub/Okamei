@@ -47,6 +47,7 @@
     <Compile Include="Common\DataTableExtentions.cs" />
     <Content Include="Database\StoredProcedure\EigyouJisseki_SelectDisplayResult.sql" />
     <Compile Include="EigyouJissekiBL.cs" />
+    <Compile Include="InputBukkenShousaiHiuchiBL.cs" />
     <Compile Include="InputStepBL.cs" />
     <Compile Include="HanyouMasterMaintenanceBL.cs" />
     <Compile Include="InputBukkenShousaiBL.cs" />
@@ -89,6 +90,8 @@
     <Content Include="Database\StoredProcedure\HanyouMasterMaintenance_InsertUpdateDeleteData.sql" />
     <Content Include="Database\StoredProcedure\HiuchiItiran_SelectDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\HundeggerItiran_SelectDisplayResult.sql" />
+    <Content Include="Database\StoredProcedure\InputBukkenShousai_CreateBukkenHiuchi.sql" />
+    <Content Include="Database\StoredProcedure\InputBukkenShousai_SelectBukkenHiuchi.sql" />
     <Content Include="Database\StoredProcedure\InputBukkenShousai_SendMail.sql" />
     <Content Include="Database\StoredProcedure\InputBukkenShousai_CreateBukkenComment.sql" />
     <Content Include="Database\StoredProcedure\InputBukkenShousai_CreateBukkenFile.sql" />
