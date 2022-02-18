@@ -227,6 +227,8 @@
     <Compile Include="Controllers\InputBukkenShousai\InputBukkenShousaiHiuchiApiController.cs" />
     <Compile Include="Controllers\InputStep\InputStepApiController.cs" />
     <Compile Include="Controllers\InputStep\InputStepController.cs" />
+    <Compile Include="Controllers\KadouKeikaku\KadouKeikakuApiController.cs" />
+    <Compile Include="Controllers\KadouKeikaku\KadouKeikakuController.cs" />
     <Compile Include="Controllers\SmitumoriKanri\SmitumoriKanriApiController.cs" />
     <Compile Include="Controllers\SmitumoriKanri\SmitumoriKanriController.cs" />
     <Compile Include="Controllers\UnsouSoukoire\UnsouSoukoireApiController.cs" />

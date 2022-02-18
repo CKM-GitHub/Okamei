@@ -6,7 +6,6 @@ namespace Models
     public class KadouKeikakuModel : BaseModel
     {
         public string TantouSitenCD { get; set; }
-        public int? JuchuuOption { get; set; }
         public int? BukkenSiteiOption { get; set; }
         public string NoukiStart { get; set; }
         public string NoukiEnd { get; set; }
