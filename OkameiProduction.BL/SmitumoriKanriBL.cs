@@ -48,7 +48,7 @@ namespace OkameiProduction.BL
             sqlParams[0] = new SqlParameter("@SMitumoriCounter", SqlDbType.VarChar) { Value = model.SMitumoriCounter.ToStringOrNull() };
 
             DBAccess db = new DBAccess();
-            return db.InsertUpdateDeleteData("SmitumoriKanri_DeleteDataResult", true, sqlParams);
+            return db.InsertUpdateDeleteData("SmitumoriKanri_DeleteDataResult", false, sqlParams);
         }
     }
 }
