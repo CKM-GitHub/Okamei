@@ -30,5 +30,25 @@ namespace OkameiProduction.BL
             var dt = db.SelectDatatable("SmitumoriKanri_SelectDisplayResult", sqlParams);
             return dt;
         }
+
+        public bool UserIDCheck(SmitumoriKanriModel model)
+        {
+            SqlParameter[] sqlParams = new SqlParameter[2];
+            sqlParams[0] = new SqlParameter("@ID", SqlDbType.VarChar) { Value = "015" };
+            sqlParams[1] = new SqlParameter("@Key", SqlDbType.VarChar) { Value = model.UserID.ToStringOrNull() };
+
+            DBAccess db = new DBAccess();
+            var dt = db.SelectDatatable("M_MultiPorpose_SelectByIDKey", sqlParams);
+            return dt.Rows.Count > 0;
+        }
+
+        public bool DeleteSMitumoriCounterData(SmitumoriKanriModel model)
+        {
+            SqlParameter[] sqlParams = new SqlParameter[1];
+            sqlParams[0] = new SqlParameter("@SMitumoriCounter", SqlDbType.VarChar) { Value = model.SMitumoriCounter.ToStringOrNull() };
+
+            DBAccess db = new DBAccess();
+            return db.InsertUpdateDeleteData("SmitumoriKanri_DeleteDataResult", true, sqlParams);
+        }
     }
 }
