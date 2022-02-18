@@ -5,6 +5,9 @@
 }
 
 <style>
+    input[type="text"] {
+        font-size: 14px;
+    }
     .table th:nth-child(6) {
         text-align: left;
     }
@@ -22,24 +25,26 @@
         padding-top: 2px;
         padding-bottom: 2px;
         font-size: 14px;
+        vertical-align: middle;
     }
 
     #tblSmitumoriKanri .SagyouDate,
     #tblSmitumoriKanri .KaesiYoteiDate,
     #tblSmitumoriKanri .TantouSiten,
     #tblSmitumoriKanri .TantouEigyou {
-        min-width: 100px;
+        min-width: 110px;
+        max-width: 110px;
     }
 
     #tblSmitumoriKanri .TantouCad {
         min-width: 150px;
     }
 
-    #tblSmitumoriKanri .BukkenName,
+    #tblSmitumoriKanri .BukkenName {
+        min-width: 300px;
+    }
     #tblSmitumoriKanri .KoumutenName {
-        line-break: anywhere;
-        min-width: 250px;
-        max-width: 250px;
+        min-width: 200px;
     }
 
     #tblSmitumoriKanri .KakoutuboSuu {
@@ -47,7 +52,7 @@
         text-align: right;
     }
 
-    #tblSmitumoriKanri .SMitumoriCounter {
+    #tblSmitumoriKanri .SMitumoriCounter, #tblSmitumoriKanri_Clone {
         display: none;
     }
 
@@ -55,6 +60,16 @@
         text-align: center;
         min-width: 50px;
         white-space: nowrap;
+    }
+
+    .btnAdd {
+        min-width: 120px;
+        position: relative;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+    button.btnAdd {
+        margin-top: 5px;
     }
 </style>
 
@@ -71,6 +86,7 @@
                 <th>支店</th>
                 <th>営業</th>
                 <th>返し予定日</th>
+                <th style="display: none;">SMitumoriCounter</th>
                 <th></th>
             </tr>
         </thead>
@@ -81,74 +97,128 @@
 
             @foreach (System.Data.DataRow row in ViewBag.Data.Rows)
             {
-                <tr>
-                    @{
-                        var count = row.ItemArray.Count();
-                        var items = row.ItemArray;
-                        var SMitumoriCounter = row["SMitumoriCounter"].ToString();
-                    }
-                    @for (var i = 0; i < count; i++)
+            <tr>
+                @{
+                    var count = row.ItemArray.Count();
+                    var items = row.ItemArray;
+                    var SMitumoriCounter = row["SMitumoriCounter"].ToString();
+                }
+                @for (var i = 0; i < count; i++)
+                {
+                    if (@columns[i].Caption == "TantouCad")
                     {
-                        if (@columns[i].Caption != "SMitumoriCounter")
-                        {
-                            if (@columns[i].Caption == "TantouCad")
-                            {
-                                <td class="@columns[i].Caption">
-                                    @Html.DropDownListFor(
-                                    model => model.TantouCad,
-                                    new SelectList(Model.TantouCadDropDownListItems, "Value", "DisplayText"),
-                                    "",
-                                    new { @class = "form-control" })
-                                </td>
-                            }
-                            else if (@columns[i].Caption == "KoumutenName")
-                            {
-                                <td class="@columns[i].Caption">
-                                    @Html.DropDownListFor(
-                                    model => model.KoumutenName,
-                                    new SelectList(Model.KoumutenDropDownListItems, "Value", "DisplayText"),
-                                    "",
-                                    new { @class = "form-control" })
-                                </td>
-                            }
-                            else if (@columns[i].Caption == "TantouSiten")
-                            {
-                                <td class="@columns[i].Caption">
-                                    @Html.DropDownListFor(
-                                    model => model.TantouSiten,
-                                    new SelectList(Model.TantouSitenDropDownListItems, "Value", "DisplayText"),
-                                    "",
-                                    new { @class = "form-control" })
-                                </td>
-                            }
-                            else if (@columns[i].Caption == "TantouEigyou")
-                            {
-                                <td class="@columns[i].Caption">
-                                    @Html.DropDownListFor(
-                                    model => model.TantouEigyou,
-                                    new SelectList(Model.TantouEigyouDropDownListItems, "Value", "DisplayText"),
-                                    "",
-                                    new { @class = "form-control" })
-                                </td>
-                            }
-                            else
-                            {
-                                <td class="@columns[i].Caption">
-                                    @items[i]
-                                </td>
-                            }
-                        }
+                        <td class="@columns[i].Caption">
+                            @Html.DropDownListFor(
+                            model => model.TantouCad,
+                            new SelectList(Model.TantouCadDropDownListItems, "DisplayText", "DisplayText", @items[i]),
+                            "",
+                            new { @class = "form-control" })
+                        </td>
                     }
-                    <td class="delete-td">
-                        <button type="button" class="btn btn-link delete-link" onclick="DeleteData('@SMitumoriCounter')">削除</button>
-                    </td>
-                </tr>
+                    else if (@columns[i].Caption == "KoumutenName")
+                    {
+                        <td class="@columns[i].Caption">
+                            @Html.DropDownListFor(
+                            model => model.KoumutenName,
+                            new SelectList(Model.KoumutenDropDownListItems, "DisplayText", "DisplayText", @items[i]),
+                            "",
+                            new { @class = "form-control size20" })
+                        </td>
+                    }
+                    else if (@columns[i].Caption == "TantouSiten")
+                    {
+                        <td class="@columns[i].Caption">
+                            @Html.DropDownListFor(
+                            model => model.TantouSiten,
+                            new SelectList(Model.TantouSitenDropDownListItems, "DisplayText", "DisplayText", @items[i]),
+                            "",
+                            new { @class = "form-control size20" })
+                        </td>
+                    }
+                    else if (@columns[i].Caption == "TantouEigyou")
+                    {
+                        <td class="@columns[i].Caption">
+                            @Html.DropDownListFor(
+                            model => model.TantouEigyou,
+                            new SelectList(Model.TantouEigyouDropDownListItems, "DisplayText", "DisplayText", @items[i]),
+                            "",
+                            new { @class = "form-control size20" })
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="@columns[i].Caption">
+                            @items[i]
+                        </td>
+                    }
+                }
+                <td class="delete-td">
+                    <button type="button" class="btn btn-link delete-link" onclick="DeleteData('@SMitumoriCounter')">削除</button>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
-    <div class="form-group row">
+
+    <table class='table table-bordered' id="tblSmitumoriKanri_Clone">
+        <tbody>
+            <tr>
+                <td class="SagyouDate">
+                    <input type="text" class="form-control size10" maxlength="10" id="txtSagyouDate" name="SagyouDate" />
+                </td>
+                <td class="TantouCad">
+                    @Html.DropDownListFor(
+                    model => model.TantouCad,
+                    new SelectList(Model.TantouCadDropDownListItems, "DisplayText", "DisplayText"),
+                    "",
+                    new { @class = "form-control" })
+                </td>
+                <td class="BukkenName">
+                    <input type="text" class="form-control size30" maxlength="30" id="txtBukkenName" name="BukkenName" />
+                </td>
+                <td class="KoumutenName">
+                    @Html.DropDownListFor(
+                    model => model.KoumutenName,
+                    new SelectList(Model.KoumutenDropDownListItems, "DisplayText", "DisplayText"),
+                    "",
+                    new { @class = "form-control size20" })
+                </td>
+                <td class="KakoutuboSuu">
+                    <input type="text" class="form-control size7" maxlength="6" id="txtKakoutuboSuu" name="KakoutuboSuu" />
+                </td>
+                <td class="TantouSiten">
+                    @Html.DropDownListFor(
+                    model => model.TantouSiten,
+                    new SelectList(Model.TantouSitenDropDownListItems, "DisplayText", "DisplayText"),
+                    "",
+                    new { @class = "form-control size20" })
+                </td>
+                <td class="TantouEigyou">
+                    @Html.DropDownListFor(
+                    model => model.TantouEigyou,
+                    new SelectList(Model.TantouEigyouDropDownListItems, "DisplayText", "DisplayText"),
+                    "",
+                    new { @class = "form-control size20" })
+                </td>
+                <td class="KaesiYoteiDate">
+                    <input type="text" class="form-control size10" maxlength="10" id="txtKaesiYoteiDate" name="KaesiYoteiDate" />
+                </td>
+                <td class="SMitumoriCounter">
+                </td>
+                <td class="delete-td">
+                    <button type="button" class="btn btn-link delete-link" onclick="DeleteData(0)">削除</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="form-group row" style="margin-top: 20px;">
+        <div class="btnAdd">
+            <button type="button" id="btnAdd" class="btn btn-secondary btnAdd">行追加</button>
+        </div>
         <div class="footer-btn mx-auto">
             <button type="button" id="btnReturn" class="btn btn-secondary">戻る</button>
+            <button type="button" id="btnProcess" class="btn btn-secondary">登録</button>
         </div>
     </div>
 </div>
@@ -159,17 +229,87 @@
         $(document).ready(function () {
 
             $('#btnReturn').click(function () {
-                location.href = '@Url.Action("SetCondition", "SmitumoriKanri")';
+                showConfirmMessage("Q004", function () {
+                    location.href = '@Url.Action("SetCondition", "SmitumoriKanri")';
+                })
             });
+
+            $('#btnAdd').click(function () {
+                addNewRow();
+            });
+
+            //check user id who has access or not to edit
+            var model = {
+                UserID: $('#user-id').text()
+            }
+            var user_role = calltoApiController('@Url.Action("UserIDCheck", "api/SmitumoriKanriApi")', model);
+            if (!user_role) {
+                $('#tblSmitumoriKanri tr td:nth-child(2) select').attr("disabled", true);
+                $('#tblSmitumoriKanri tr td:nth-child(4) select').attr("disabled", true);
+                $('#tblSmitumoriKanri tr td:nth-child(6) select').attr("disabled", true);
+                $('#tblSmitumoriKanri tr td:nth-child(7) select').attr("disabled", true);
+                $('#tblSmitumoriKanri tr th:last-child').attr("style", "display: none;");
+                $('#tblSmitumoriKanri tr td:last-child').attr("style", "display: none;");
+                $('#btnAdd').attr("style", "display: none;");
+                $('#btnProcess').attr("style", "display: none;");
+            }
 
             var t = bindDataTables($('#tblSmitumoriKanri'));
         });
 
         function DeleteData(SMitumoriCounter) {
-            var model = {
-                SMitumoriCounter: SMitumoriCounter
+            showConfirmMessage("Q003", function () {
+                var model = {
+                    SMitumoriCounter: SMitumoriCounter
+                }
+                var result = calltoApiController('@Url.Action("DeleteSMitumoriCounterData", "api/SmitumoriKanriApi")', model);
+                if (!result)
+                    return false;
+                else
+                    showMessage('I102', setTimeout(function () { window.location.reload(); }, 2000));
+                return true;
+            });
+        }
+
+        function addNewRow() {
+            if ($('#tblSmitumoriKanri tbody tr:last-child td:nth-child(9)').text().trim() != "") {
+                $('#tblSmitumoriKanri_next a').click();
+                $('#tblSmitumoriKanri tbody:last-child').append($('#tblSmitumoriKanri_Clone tbody tr').clone());
+
+                setDateTypeValidate('#txtSagyouDate');
+                setDoubleByteValidate('#txtBukkenName');
+                setNumericValidate('#txtKakoutuboSuu', 3, 2);
+                setDateTypeValidate('#txtKaesiYoteiDate');
+
+                $('#txtSagyouDate').change(function () {
+                    ErrorCheck(this, "#tblSmitumoriKanri tbody tr:last-child td #TantouCad");
+                })
+                $('#txtBukkenName').change(function () {
+                    ErrorCheck(this, "#tblSmitumoriKanri tbody tr:last-child td #KoumutenName");
+                })
+                $('#txtKakoutuboSuu').change(function () {
+                    ErrorCheck(this, "#tblSmitumoriKanri tbody tr:last-child td #TantouSiten");
+                })
+                $('#txtKaesiYoteiDate').change(function () {
+                    ErrorCheck(this, "#tblSmitumoriKanri tbody tr:last-child td button");
+                })
             }
-            alert(SMitumoriCounter);
+        }
+
+        function ErrorCheck(ctrl, nextctrl) {
+            var result = checkCommon(ctrl);
+            if (!result) {
+                success = false;
+                return false;
+            }
+            if (result && result.MessageID) {
+                success = false;
+                $(this).focus();
+                showMessage(result);
+                return false;
+            }
+            else
+                $(nextctrl).focus();
         }
     </script>
 }

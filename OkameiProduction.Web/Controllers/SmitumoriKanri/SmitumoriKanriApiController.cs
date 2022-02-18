@@ -21,5 +21,20 @@ namespace OkameiProduction.Web.Controllers
                 return GetErrorResult("S013");
             }
         }
+
+        [HttpPost]
+        public bool UserIDCheck([FromBody] SmitumoriKanriModel model)
+        {
+            var bl = new SmitumoriKanriBL();
+            return bl.UserIDCheck(model);
+        }
+
+
+        [HttpPost]
+        public bool DeleteSMitumoriCounterData([FromBody] SmitumoriKanriModel model)
+        {
+            var bl = new SmitumoriKanriBL();
+            return bl.DeleteSMitumoriCounterData(model);
+        }
     }
 }

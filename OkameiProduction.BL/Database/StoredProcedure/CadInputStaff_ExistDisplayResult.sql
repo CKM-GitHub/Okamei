@@ -35,7 +35,7 @@ BEGIN
 							-- db.TantouCadCD   in  (select Item from SplitString(@TantouCadCD,','))    and
 						  ---Follow Query is about tO Neglect Null in Sama Filed Char2 After Testing , Recomment
 							--UnsouKuraireDate is not null and mp.Char2 is not null and
-							KakousijishoHakkouDate is null   
+							KakousijishoHakkouDate is null   and mp.Char2 is not null
 							 
 							 ) Bken 
 							Order by SijiKikitu asc, Num1 asc, BukkenNo asc
@@ -65,7 +65,7 @@ BEGIN
 							 db.TantouCadCD   in  (select Item from SplitString(@TantouCadCD,','))    and
 						  ---Follow Query is about tO Neglect Null in Sama Filed Char2 After Testing , Recomment
 							--UnsouKuraireDate is not null and mp.Char2 is not null and
-							KakousijishoHakkouDate is null   
+							KakousijishoHakkouDate is null   and mp.Char2 is not null
 							 
 							 ) Bken 
 							Order by SijiKikitu asc, Num1 asc, BukkenNo asc

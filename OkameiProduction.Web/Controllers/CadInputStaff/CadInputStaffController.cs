@@ -57,7 +57,7 @@ namespace OkameiProduction.Web.Controllers.CadInputStaff
                 dr["SijiKikitu"] = (dr["SijiKikitu"].ToStringOrNull() == null) ? "" : dr["SijiKikitu"].ToString();
                 if (dr["TantouName"].ToStringOrNull() == null)
                     samaNull += 1;
-                dr["TantouName"] = (dr["TantouName"].ToStringOrNull() == null) ? ("Sama" + samaNull ): dr["TantouName"].ToString();
+                dr["TantouName"] = (dr["TantouName"].ToStringOrNull() == null) ? ("SamaNull" + samaNull ): dr["TantouName"].ToString();
             }
 
             var dtHeader = new DataTable();
