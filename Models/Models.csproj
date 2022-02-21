@@ -31,12 +31,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ClosedXML">
+      <HintPath>..\OkameiProduction.Web\References\ClosedXML.dll</HintPath>
+    </Reference>
     <Reference Include="itextsharp">
       <HintPath>..\packages\iTextSharp.5.5.13.2\lib\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -62,6 +66,7 @@
     <Compile Include="HanyouKensakuModel.cs" />
     <Compile Include="HiuchiItiranModel.cs" />
     <Compile Include="InputStepModel.cs" />
+    <Compile Include="KakouShoudaku.cs" />
     <Compile Include="KubunTaisyouModel.cs" />
     <Compile Include="MControl.cs" />
     <Compile Include="MoulderItiranModel.cs" />
