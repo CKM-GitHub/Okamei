@@ -239,7 +239,29 @@ namespace OkameiProduction.BL
                 return false;
             }
         }
+        public DataTable ExportAgreementForm(InputBukkenShousaiModel model, out string msgid)
+        { 
+            msgid = "";
 
+            SqlParameter[] sqlParams = new SqlParameter[5];
+            sqlParams[0] = new SqlParameter("@TantousitenCD", SqlDbType.VarChar) { Value = model.TantouSitenCD.ToStringOrNull() };
+            sqlParams[1] = new SqlParameter("@TantoueigyouCD", SqlDbType.VarChar) { Value = model.TantouEigyouCD.ToStringOrNull() };
+            sqlParams[2] = new SqlParameter("@Nouki", SqlDbType.Date) { Value = model.Nouki.ToStringOrNull() };
+            sqlParams[3] = new SqlParameter("@KoumuTenName", SqlDbType.VarChar) { Value = model.KoumutenName.ToStringOrNull() };
+            sqlParams[4] = new SqlParameter("@BukkenName", SqlDbType.VarChar) { Value = model.BukkenName.ToStringOrNull() };
+
+            try
+            {
+                DBAccess db = new DBAccess();
+                return   db.SelectDatatable("InputBukkenShousai_KakoukadoShoExport", sqlParams);
+                 
+            }
+            catch (ExclusionException)
+            {
+                msgid = "S004"; //他端末エラー
+                return null;
+            }
+        }
         public bool CreateBukkenComment(InputBukkenShousaiBukkenCommentModel model, out string msgid)
         {
             msgid = "";
