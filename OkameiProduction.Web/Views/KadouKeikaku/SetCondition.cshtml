@@ -165,7 +165,7 @@
                 TekakouSumi: $('input[name=TekakouSumi]:checked').val(),
                 HundeggerSumi: $('input[name=HundeggerSumi]:checked').val(),
                 UserID: $('#user-id').text()
-             };
+            };
 
             var result = calltoApiController('@Url.Action("ExistsDisplayResult", "api/KadouKeikakuApi")', model);
             if (!result) {

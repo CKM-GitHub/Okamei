@@ -16,103 +16,79 @@
         padding-top: 2px;
         padding-bottom: 2px;
     }
-    #tblKadouKeikaku .Nouki {
-        min-width: 50px;
-    }
 
+    #tblKadouKeikaku .Nouki,
     #tblKadouKeikaku .UnsouKuraireDate {
         min-width: 50px;
     }
+
     #tblKadouKeikaku .BukkenNO {
     }
+   
 
-    #tblKadouKeikaku .BukkenName {
-        min-width: 120px;
-    }
-
-    #tblKadouKeikaku .KoumutenName {
-        min-width: 210px;
-    }
     #tblKadouKeikaku .TantouCadName {
-        min-width: 50px;
+        min-width: 60px;
     }
     #tblKadouKeikaku .KakouTubosuu {
         text-align: right;
     }
+
     #tblKadouKeikaku .KanamonName {
-        min-width: 70px;
-    }
-    #tblKadouKeikaku .KidasiDate {
-       min-width:50px;
+        min-width: 88px;
     }
 
+    #tblKadouKeikaku .KidasiDate,
     #tblKadouKeikaku .SijiKikitu {
         min-width: 50px;
     }
-    #tblKadouKeikaku .OukazaiSumi {
-        min-width: 30px;
-    }
-    #tblKadouKeikaku .HasirazaiSumi {
-        min-width: 30px;
-    }
-    #tblKadouKeikaku .HagarazaiSumi {
-        min-width: 30px;
-    }
-    #tblKadouKeikaku .YukaSumi {
-        min-width: 30px;
-    }
-    #tblKadouKeikaku .NoziSumi {
-        min-width: 30px;
-    }
-    #tblKadouKeikaku .KabeSumi {
-        min-width: 30px;
-    }
 
-    #tblKadouKeikaku .HiuchiSumi {
-        min-width: 30px;
-    }
-
-    #tblKadouKeikaku .TekakouSumi {
-        min-width: 30px;
-    }
-
+    #tblKadouKeikaku .OukazaiSumi,
+    #tblKadouKeikaku .HasirazaiSumi,
+    #tblKadouKeikaku .HagarazaiSumi,
+    #tblKadouKeikaku .YukaSumi,
+    #tblKadouKeikaku .NoziSumi,
+    #tblKadouKeikaku .KabeSumi,
+    #tblKadouKeikaku .HiuchiSumi,
+    #tblKadouKeikaku .TekakouSumi,
     #tblKadouKeikaku .HundeggerSumi {
-        min-width: 30px;
+        min-width: 35px;
     }
 
-
-    #tblKadouKeikaku .ZairyouNouki {
-        min-width: 30px;
+    #tblKadouKeikaku .ZairyouNouki
+    {
+        min-width:50px;
     }
-
-    #tblKadouKeikaku .HagarazaiSuu {
-        min-width: 30px;
-    }
-
     #tblKadouKeikaku .YukaGouhanSuu {
-        min-width: 30px;
+        min-width: 50px;
+        text-align: right;
     }
-
+    #tblKadouKeikaku .HagarazaiSuu,
     #tblKadouKeikaku .NoziGouhanSuu {
-        min-width: 30px;
+        min-width: 95px;
+        text-align: right;
     }
 
-    #tblKadouKeikaku .TekakouTime {
-        min-width: 30px;
-    }
-
+    #tblKadouKeikaku .TekakouTime,
     #tblKadouKeikaku .HundeggerTime {
         min-width: 50px;
+        text-align: right;
     }
+    #tblKadouKeikaku .BukkenName {
+        min-width: 140px;
+    }
+
+    #tblKadouKeikaku .KoumutenName {
+        min-width: 240px;
+    }
+
     td, th {
-        font-size: 14px ;
+        font-size: 14px;
     }
-    
 </style>
 
 <h4>稼働計画</h4>
 <div id="main" class="main-content">
-    <table class='table table-bordered'  id="tblKadouKeikaku">
+    <table class='table table-bordered' id="tblKadouKeikaku">
         <thead>
             <tr>
                 <th>納期</th>
@@ -143,7 +119,7 @@
             </tr>
         </thead>
         <tbody>
-          
+
 
             @{
                 var columns = ViewBag.Data.Columns;
