@@ -49,6 +49,7 @@
     <Compile Include="CadInputStaffModel.cs" />
     <Compile Include="CadStaffMiteiModel.cs" />
     <Compile Include="EigyouJissekiModel.cs" />
+    <Compile Include="InputBukkenShousaiTekakouModel.cs" />
     <Compile Include="KadouKeikakuModel.cs" />
     <Compile Include="HanyouMasterMaintenanceModel.cs" />
     <Compile Include="HundeggerItiranModel.cs" />

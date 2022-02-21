@@ -20,24 +20,36 @@ namespace OkameiProduction.Web
                         ));
             bundles.Add(new ScriptBundle("~/bundles/common").Include(
                         "~/Scripts/SweetAlert2.js",
+                        "~/Scripts/typeahead.js",
                         "~/Scripts/Common.js"
                         ));
             bundles.Add(new ScriptBundle("~/bundles/login").Include(
                         "~/Scripts/SweetAlert2.js",
                         "~/Scripts/tilt.jquery.js"
                         ));
+            bundles.Add(new ScriptBundle("~/bundles/InputBukkenShousai").Include(
+                        "~/Scripts/InputBukkenShousai.js",
+                        "~/Scripts/InputBukkenShousaiHiuchi.js",
+                        "~/Scripts/InputBukkenShousaiTekakou.js",
+                        "~/Scripts/ModalForm.js"
+                        ));
 
             //css
-            bundles.Add(new StyleBundle("~/Content/lib/css").Include(
+            bundles.Add(new StyleBundle("~/Content/lib/Css").Include(
                         "~/Content/lib/bootstrap.css"
                         ));
             bundles.Add(new StyleBundle("~/Content/login/Css").Include(
                         "~/Content/login.css"
                         ));
             bundles.Add(new StyleBundle("~/Content/common/Css").Include(
+                        "~/Content/typeahead.css",
                         "~/Content/menu.css",
                         "~/Content/customize.css",
                         "~/Content/inputsize.css"
+                        ));
+            bundles.Add(new StyleBundle("~/Content/InputBukkenShousaiCss").Include(
+                        "~/Content/InputBukkenShousai.css",
+                        "~/Content/ModalForm.css"
                         ));
 
         }

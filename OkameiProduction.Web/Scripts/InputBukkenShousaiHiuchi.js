@@ -16,12 +16,12 @@ function initialize_Hiuchi() {
         });
     });
 
-    $('#HiuchiSubEntry #btnSaveSub').click(function () {
+    $('#HiuchiSubEntry #btnSaveHiuchi').click(function () {
         if (checkErrorOnSave('#HiuchiSubEntry')) {
             var models = createModels_Hiuchi();
             if (checkAll_Hiuchi(models)) {
                 showConfirmMessage('Q101', function () {
-                    btnSaveSubClick(models);
+                    btnSaveHiuchiClick(models);
                     return true;
                 });
             }
@@ -65,6 +65,7 @@ function initialize_Hiuchi() {
     setToukyuuSuggestList();
 
     if (eMode == 'Delete') {
+        setDisabledAll('#HiuchiSubEntry');
         $('#HiuchiSubEntry #btnClose').focus();
     }
     else {
@@ -249,12 +250,15 @@ function checkAll_Hiuchi(models) {
             count++;
         }
     }
-    return count > 0;
+    //If not all are entered, delete them from the database.
+    //return count > 0;
+    return true;
 }
 
-function btnSaveSubClick(models) {
+function btnSaveHiuchiClick(models) {
     var dbModel = {};
 
+    var count = 0;
     for (var i = 1; i <= models.length; i++) {
         var model = models[i - 1];
 
@@ -275,12 +279,14 @@ function btnSaveSubClick(models) {
                 dbModel['Toukyuu' + i + '3'] = model.Toukyuu3;
                 dbModel['Honsuu' + i + '3'] = model.Honsuu3;
             }
+            count++;
         }
     }
 
     dbModel.BukkenNO = $('#HiuchiBukkenNO').val();
     dbModel.HiddenUpdateDateTime = $('#HiddenHiuchiUpdateDateTime').val();
     dbModel.UserID = $('#user-id').text();
+    dbModel.SouCount = count;
 
     var result = calltoApiController(url_SaveHiuchiData, dbModel);
     if (!result) {
@@ -333,6 +339,7 @@ function inputFileHiuchiChange(e) {
         var fileData = new FormData();
         fileData.append('file', files[i]);
 
+        showLoadingMessage();
         calltoApiController_FileUploadHandle(url_importHiuchiCsv, fileData,
             function (result) {
                 if (!result) return;
@@ -354,6 +361,7 @@ function inputFileHiuchiChange(e) {
 
                 setZairyouSuggestList();
                 setToukyuuSuggestList();
+                closeLoadingMessage();
             });
     }
 

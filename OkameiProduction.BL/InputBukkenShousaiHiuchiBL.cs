@@ -19,11 +19,12 @@ namespace OkameiProduction.BL
             return dt;
         }
 
-        public bool CreateBukkenHiuchi(InputBukkenShousaiHiuchiModel model, out string msgid)
+        public bool CreateBukkenHiuchiData(InputBukkenShousaiHiuchiModel model, out string msgid)
         {
             msgid = "";
 
             SqlParameter[] sqlParams = new SqlParameter[] {
+                new SqlParameter("@SouCount", SqlDbType.Int) { Value = model.SouCount.ToInt32(0) },
                 new SqlParameter("@BukkenNO", SqlDbType.VarChar) { Value = model.BukkenNO.ToStringOrNull() },
                 new SqlParameter("@Sou1", SqlDbType.VarChar) { Value = model.Sou1.ToStringOrNull() },
                 new SqlParameter("@Zairyou11", SqlDbType.VarChar) { Value = model.Zairyou11.ToStringOrNull() },
