@@ -5,6 +5,23 @@
     var serverDate = ViewBag.ServerDate;
 }
 
+<style type="text/css">
+    .detail_wrap {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .detail_left1,
+    .detail_right1 {
+        width: 49%;
+    }
+</style>
+
 <h4 class="page-title">汎用マスタメンテ</h4>
 <div id="main" class="main-content">
     <div class="form-group row">
@@ -12,7 +29,7 @@
             <label class="col-form-label label-title pk require">ID</label>
         </div>
         <div class="col-sm-10 form-inline">
-            <input type="text" class="form-control size3" maxlength="3" id="ID" name="ID" tabindex="1" />&nbsp;&nbsp;
+            <input type="text" class="form-control size3" maxlength="3" id="ID" name="ID" />&nbsp;&nbsp;
             <span id="IDName">
             </span>
         </div>
@@ -27,7 +44,7 @@
             <label class="col-form-label label-title pk require">キー</label>
         </div>
         <div class="col-sm-10">
-            <input type="text" class="form-control size10" maxlength="10" id="Key" name="Key" tabindex="2" />
+            <input type="text" class="form-control size10" maxlength="10" id="Key" name="Key" />
         </div>
     </div>
 
@@ -40,7 +57,7 @@
             <label class="col-form-label label-title">文字型項目1</label>
         </div>
         <div class="col-sm-10">
-            <input type="text" class="form-control size100" maxlength="100" id="Char1" name="Char1" tabindex="3" />
+            <input type="text" class="form-control size100" maxlength="100" id="Char1" name="Char1" />
         </div>
     </div>
     <div class="form-group row">
@@ -48,7 +65,7 @@
             <label class="col-form-label label-title">文字型項目2</label>
         </div>
         <div class="col-sm-10 form-inline">
-            <input type="text" class="form-control size100" maxlength="100" id="Char2" name="Char2" tabindex="4" />
+            <input type="text" class="form-control size100" maxlength="100" id="Char2" name="Char2" />
         </div>
     </div>
     <div class="form-group row">
@@ -56,7 +73,7 @@
             <label class="col-form-label label-title">文字型項目3</label>
         </div>
         <div class="col-sm-10">
-            <input type="text" class="form-control size100" maxlength="100" id="Char3" name="Char3" tabindex="5" />
+            <input type="text" class="form-control size100" maxlength="100" id="Char3" name="Char3" />
         </div>
     </div>
     <div class="form-group row">
@@ -64,7 +81,7 @@
             <label class="col-form-label label-title">文字型項目4</label>
         </div>
         <div class="col-sm-10">
-            <input type="text" class="form-control size100" maxlength="100" id="Char4" name="Char4" tabindex="6" />
+            <input type="text" class="form-control size100" maxlength="100" id="Char4" name="Char4" />
         </div>
     </div>
     <div class="form-group row">
@@ -72,7 +89,7 @@
             <label class="col-form-label label-title">文字型項目5</label>
         </div>
         <div class="col-sm-10">
-            <input type="text" class="form-control size100" maxlength="100" id="Char5" name="Char5" tabindex="7" />
+            <input type="text" class="form-control size100" maxlength="100" id="Char5" name="Char5" />
         </div>
     </div>
 
@@ -80,74 +97,91 @@
         @*add for null space*@
     </div>
 
-    <div class="form-group row">
-        <div class="col-sm-2">
-            <label class="col-form-label label-title">数字型項目1</label>
+    <div class="detail_wrap">
+        <div class="detail_left1">
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="col-form-label label-title">数字型項目1</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control size13" maxlength="10" id="Num1" name="Num1" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="col-form-label label-title">数字型項目2</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control size13" maxlength="10" id="Num2" name="Num2" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="col-form-label label-title">数字型項目3</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control size13" maxlength="10" id="Num3" name="Num3" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="col-form-label label-title">数字型項目4</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control size13" maxlength="10" id="Num4" name="Num4" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="col-form-label label-title">数字型項目5</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control size13" maxlength="10" id="Num5" name="Num5" />
+                </div>
+            </div>
         </div>
-        <div class="col-sm-4">
-            <input type="text" class="form-control size13" maxlength="10" id="Num1" name="Num1" tabindex="8" />
-        </div>
-        <div class="col-sm-2">
-            <label class="col-form-label label-title">日付型項目1</label>
-        </div>
-        <div class="col-sm-4">
-            <input type="text" class="form-control size10" maxlength="10" id="Date1" name="Date1" tabindex="13" />
-        </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-2">
-            <label class="col-form-label label-title">数字型項目2</label>
-        </div>
-        <div class="col-sm-4">
-            <input type="text" class="form-control size13" maxlength="10" id="Num2" name="Num2" tabindex="9" />
-        </div>
-        <div class="col-sm-2">
-            <label class="col-form-label label-title">日付型項目2</label>
-        </div>
-        <div class="col-sm-4">
-            <input type="text" class="form-control size10" maxlength="10" id="Date2" name="Date2" tabindex="14" />
-        </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-2">
-            <label class="col-form-label label-title">数字型項目3</label>
-        </div>
-        <div class="col-sm-4">
-            <input type="text" class="form-control size13" maxlength="10" id="Num3" name="Num3" tabindex="10" />
-        </div>
-        <div class="col-sm-2">
-            <label class="col-form-label label-title">日付型項目3</label>
-        </div>
-        <div class="col-sm-4">
-            <input type="text" class="form-control size10" maxlength="10" id="Date3" name="Date3" tabindex="15" />
-        </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-2">
-            <label class="col-form-label label-title">数字型項目4</label>
-        </div>
-        <div class="col-sm-4">
-            <input type="text" class="form-control size13" maxlength="10" id="Num4" name="Num4" tabindex="11" />
-        </div>
-        <div class="col-sm-2">
-            <label class="col-form-label label-title">日付型項目4</label>
-        </div>
-        <div class="col-sm-4">
-            <input type="text" class="form-control size10" maxlength="10" id="Date4" name="Date4" tabindex="16" />
-        </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-2">
-            <label class="col-form-label label-title">数字型項目5</label>
-        </div>
-        <div class="col-sm-4">
-            <input type="text" class="form-control size13" maxlength="10" id="Num5" name="Num5" tabindex="12" />
-        </div>
-        <div class="col-sm-2">
-            <label class="col-form-label label-title">日付型項目5</label>
-        </div>
-        <div class="col-sm-4">
-            <input type="text" class="form-control size10" maxlength="10" id="Date5" name="Date5" tabindex="17" />
+
+        <div class="detail_right1">
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="col-form-label label-title">日付型項目1</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control size10" maxlength="10" id="Date1" name="Date1" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="col-form-label label-title">日付型項目2</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control size10" maxlength="10" id="Date2" name="Date2" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="col-form-label label-title">日付型項目3</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control size10" maxlength="10" id="Date3" name="Date3" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="col-form-label label-title">日付型項目4</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control size10" maxlength="10" id="Date4" name="Date4" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="col-form-label label-title">日付型項目5</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control size10" maxlength="10" id="Date5" name="Date5" />
+                </div>
+            </div>
         </div>
     </div>
     <div class="form-group row">
