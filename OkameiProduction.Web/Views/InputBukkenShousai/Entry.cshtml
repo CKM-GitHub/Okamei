@@ -4,8 +4,7 @@
     ViewBag.Title = "Entry";
 }
 
-@Styles.Render("~/Content/typeahead.css")
-@Styles.Render("~/Content/InputBukkenShousai.css")
+@Styles.Render("~/Content/InputBukkenShousaiCss")
 
 <h4 class="page-title">物件詳細登録</h4>
 <div id="main" class="main-content">
@@ -265,20 +264,11 @@
                     new { @class = "form-control size10" })
                 </div>
             </div>
-            <div class="form-group row blankline">
-                <div class="col-sm-12">
-                    <label class="col-form-label"></label>
-                </div>
+            <div class="form-group row spacer">
             </div>
-            <div class="form-group row blankline">
-                <div class="col-sm-12">
-                    <label class="col-form-label"></label>
-                </div>
+            <div class="form-group row spacer">
             </div>
-            <div class="form-group row blankline">
-                <div class="col-sm-12">
-                    <label class="col-form-label"></label>
-                </div>
+            <div class="form-group row spacer">
             </div>
             <div class="form-group row">
                 <div class="col-sm-3">
@@ -421,7 +411,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-sm-3">
-                    <a href="#" class="edit-link">
+                    <a href="#" class="edit-link js-modal-open" data-target="TekakouSubEntry">
                         <label class="col-form-label label-title">手加工推定時間</label>
                     </a>
                 </div>
@@ -622,10 +612,7 @@
 </div>
 
 @section Scripts{
-    @Scripts.Render("~/Scripts/typeahead.js")
-    @Scripts.Render("~/Scripts/ModalForm.js")
-    @Scripts.Render("~/Scripts/InputBukkenShousai.js")
-    @Scripts.Render("~/Scripts/InputBukkenShousaiHiuchi.js")
+    @Scripts.Render("~/bundles/InputBukkenShousai")
     <script type="text/javascript">
         var url_homePage = '@Url.Action("Index", "Home")';
         var url_previousPage = '@Html.Raw(ViewBag.PreviousUrl)';

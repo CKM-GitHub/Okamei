@@ -285,6 +285,7 @@
     <Content Include="Global.asax" />
     <Content Include="Images\brandlogo.png" />
     <Content Include="Scripts\InputBukkenShousai.js" />
+    <Content Include="Scripts\InputBukkenShousaiTekakou.js" />
     <Content Include="Scripts\InputBukkenShousaiHiuchi.js" />
     <Content Include="Scripts\typeahead.js" />
     <Content Include="Scripts\lib\bootstrap.bundle.js" />
@@ -447,6 +448,7 @@
     <Content Include="Views\CadInputStaff\DisplayResult.cshtml" />
     <Content Include="Views\KadouKeikaku\DisplayResult.cshtml" />
     <Content Include="Views\KadouKeikaku\SetCondition.cshtml" />
+    <Content Include="Views\InputBukkenShousai\TekakouSubEntry.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

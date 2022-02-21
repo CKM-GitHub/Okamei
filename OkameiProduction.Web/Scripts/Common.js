@@ -263,6 +263,21 @@ function getApiAuthorization() {
     return 'Basic ' + btoa('ogUzkq=EopiYA,U33yzf' + ':' + 'e>gW0BXP85@7-#*~k1@a');
 }
 
+function showLoadingMessage() {
+    Swal.fire({
+        //title: '処理中'
+        html: '処理中...'
+        , allowOutsideClick: false
+        , showConfirmButton: false
+        , onBeforeOpen: () => {
+            Swal.showLoading();
+        }
+    });
+}
+function closeLoadingMessage() {
+    Swal.close();
+}
+
 function showConfirmMessage(msgid, callback) {
     var model = {
         MessageID: msgid,
@@ -314,12 +329,11 @@ function removeRequired(selector) {
 
 // date type  ----->
 function setDateTypeValidate(selector) {
-    $(selector).attr('validate-datetype', 'true').attr('inputmode', 'numeric');
+    $(selector).attr('validate-datetype', 'true'); //.attr('inputmode', 'numeric');
 }
 function removeDateTypeValidate(selector) {
     $(selector).removeAttr('validate-datetype');
 }
-
 
 //// dateYM type  ----->
 function setDateYMTypeValidate(selector) {
