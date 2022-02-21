@@ -159,7 +159,9 @@ namespace OkameiProduction.Web.Controllers
                 }
                 catch(Exception ex)
                 {
-                   return GetBadRequestResult();
+                    //var log =  Logger.GetInstance();
+                    //log.Debug(ex.StackTrace.ToString()); 
+                    return GetBadRequestResult();
                 }
             }
         }
