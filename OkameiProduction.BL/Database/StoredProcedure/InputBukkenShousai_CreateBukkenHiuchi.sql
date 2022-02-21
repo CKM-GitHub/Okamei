@@ -5,7 +5,8 @@ END
 GO
 
 CREATE PROCEDURE [dbo].[InputBukkenShousai_CreateBukkenHiuchi](
-     @BukkenNO                  varchar(8)
+     @SouCount                  int
+    ,@BukkenNO                  varchar(8)
     ,@Sou1                      varchar(10)
     ,@Zairyou11                 varchar(30)
     ,@Toukyuu11                 varchar(10)
@@ -81,117 +82,119 @@ BEGIN
         RETURN
     END
 
-
-    INSERT INTO D_BukkenHiuchi
-    (
-        BukkenNO
-        ,Sou1
-        ,Zairyou11
-        ,Toukyuu11
-        ,Honsuu11
-        ,Zairyou12
-        ,Toukyuu12
-        ,Honsuu12
-        ,Zairyou13
-        ,Toukyuu13
-        ,Honsuu13
-        ,Sou1Sumi
-        ,Sou1KakouDateTime
-        ,Sou2
-        ,Zairyou21
-        ,Toukyuu21
-        ,Honsuu21
-        ,Zairyou22
-        ,Toukyuu22
-        ,Honsuu22
-        ,Zairyou23
-        ,Toukyuu23
-        ,Honsuu23
-        ,Sou2Sumi
-        ,Sou2KakouDateTime
-        ,Sou3
-        ,Zairyou31
-        ,Toukyuu31
-        ,Honsuu31
-        ,Zairyou32
-        ,Toukyuu32
-        ,Honsuu32
-        ,Zairyou33
-        ,Toukyuu33
-        ,Honsuu33
-        ,Sou3Sumi
-        ,Sou3KakouDateTime
-        ,Sou4
-        ,Zairyou41
-        ,Toukyuu41
-        ,Honsuu41
-        ,Zairyou42
-        ,Toukyuu42
-        ,Honsuu42
-        ,Zairyou43
-        ,Toukyuu43
-        ,Honsuu43
-        ,Sou4Sumi
-        ,Sou4KakouDateTime
-        ,InsertOperator
-        ,InsertDateTime
-        ,UpdateOperator
-        ,UpdateDateTime
-    )
-    VALUES
-    (
-         @BukkenNO
-        ,@Sou1
-        ,@Zairyou11
-        ,@Toukyuu11
-        ,@Honsuu11
-        ,@Zairyou12
-        ,@Toukyuu12
-        ,@Honsuu12
-        ,@Zairyou13
-        ,@Toukyuu13
-        ,@Honsuu13
-        ,@Sou1Sumi
-        ,CASE @Sou1Sumi WHEN 1 THEN ISNULL(@OldSou1KakouDateTime, @SysDatetime) ELSE NULL END
-        ,@Sou2
-        ,@Zairyou21
-        ,@Toukyuu21
-        ,@Honsuu21
-        ,@Zairyou22
-        ,@Toukyuu22
-        ,@Honsuu22
-        ,@Zairyou23
-        ,@Toukyuu23
-        ,@Honsuu23
-        ,@Sou2Sumi
-        ,CASE @Sou2Sumi WHEN 1 THEN ISNULL(@OldSou2KakouDateTime, @SysDatetime) ELSE NULL END
-        ,@Sou3
-        ,@Zairyou31
-        ,@Toukyuu31
-        ,@Honsuu31
-        ,@Zairyou32
-        ,@Toukyuu32
-        ,@Honsuu32
-        ,@Zairyou33
-        ,@Toukyuu33
-        ,@Honsuu33
-        ,@Sou3Sumi
-        ,CASE @Sou3Sumi WHEN 1 THEN ISNULL(@OldSou3KakouDateTime, @SysDatetime) ELSE NULL END
-        ,@Sou4
-        ,@Zairyou41
-        ,@Toukyuu41
-        ,@Honsuu41
-        ,@Zairyou42
-        ,@Toukyuu42
-        ,@Honsuu42
-        ,@Zairyou43
-        ,@Toukyuu43
-        ,@Honsuu43
-        ,@Sou4Sumi
-        ,CASE @Sou4Sumi WHEN 1 THEN ISNULL(@OldSou4KakouDateTime, @SysDatetime) ELSE NULL END
-        ,@Operator
-        ,@SysDatetime
-        ,@Operator
-        ,@SysDatetime
-    )
+    IF @SouCount > 1
+	BEGIN
+        INSERT INTO D_BukkenHiuchi
+        (
+            BukkenNO
+            ,Sou1
+            ,Zairyou11
+            ,Toukyuu11
+            ,Honsuu11
+            ,Zairyou12
+            ,Toukyuu12
+            ,Honsuu12
+            ,Zairyou13
+            ,Toukyuu13
+            ,Honsuu13
+            ,Sou1Sumi
+            ,Sou1KakouDateTime
+            ,Sou2
+            ,Zairyou21
+            ,Toukyuu21
+            ,Honsuu21
+            ,Zairyou22
+            ,Toukyuu22
+            ,Honsuu22
+            ,Zairyou23
+            ,Toukyuu23
+            ,Honsuu23
+            ,Sou2Sumi
+            ,Sou2KakouDateTime
+            ,Sou3
+            ,Zairyou31
+            ,Toukyuu31
+            ,Honsuu31
+            ,Zairyou32
+            ,Toukyuu32
+            ,Honsuu32
+            ,Zairyou33
+            ,Toukyuu33
+            ,Honsuu33
+            ,Sou3Sumi
+            ,Sou3KakouDateTime
+            ,Sou4
+            ,Zairyou41
+            ,Toukyuu41
+            ,Honsuu41
+            ,Zairyou42
+            ,Toukyuu42
+            ,Honsuu42
+            ,Zairyou43
+            ,Toukyuu43
+            ,Honsuu43
+            ,Sou4Sumi
+            ,Sou4KakouDateTime
+            ,InsertOperator
+            ,InsertDateTime
+            ,UpdateOperator
+            ,UpdateDateTime
+        )
+        VALUES
+        (
+             @BukkenNO
+            ,@Sou1
+            ,@Zairyou11
+            ,@Toukyuu11
+            ,@Honsuu11
+            ,@Zairyou12
+            ,@Toukyuu12
+            ,@Honsuu12
+            ,@Zairyou13
+            ,@Toukyuu13
+            ,@Honsuu13
+            ,@Sou1Sumi
+            ,CASE @Sou1Sumi WHEN 1 THEN ISNULL(@OldSou1KakouDateTime, @SysDatetime) ELSE NULL END
+            ,@Sou2
+            ,@Zairyou21
+            ,@Toukyuu21
+            ,@Honsuu21
+            ,@Zairyou22
+            ,@Toukyuu22
+            ,@Honsuu22
+            ,@Zairyou23
+            ,@Toukyuu23
+            ,@Honsuu23
+            ,@Sou2Sumi
+            ,CASE @Sou2Sumi WHEN 1 THEN ISNULL(@OldSou2KakouDateTime, @SysDatetime) ELSE NULL END
+            ,@Sou3
+            ,@Zairyou31
+            ,@Toukyuu31
+            ,@Honsuu31
+            ,@Zairyou32
+            ,@Toukyuu32
+            ,@Honsuu32
+            ,@Zairyou33
+            ,@Toukyuu33
+            ,@Honsuu33
+            ,@Sou3Sumi
+            ,CASE @Sou3Sumi WHEN 1 THEN ISNULL(@OldSou3KakouDateTime, @SysDatetime) ELSE NULL END
+            ,@Sou4
+            ,@Zairyou41
+            ,@Toukyuu41
+            ,@Honsuu41
+            ,@Zairyou42
+            ,@Toukyuu42
+            ,@Honsuu42
+            ,@Zairyou43
+            ,@Toukyuu43
+            ,@Honsuu43
+            ,@Sou4Sumi
+            ,CASE @Sou4Sumi WHEN 1 THEN ISNULL(@OldSou4KakouDateTime, @SysDatetime) ELSE NULL END
+            ,@Operator
+            ,@SysDatetime
+            ,@Operator
+            ,@SysDatetime
+        )
+	END
 END

@@ -21,7 +21,6 @@
             border-radius: 0;
             height: 33px;
         }
-
         #HiuchiSubEntry .detail_content .form-control:focus {
             outline: none;
             box-shadow: none;
@@ -42,7 +41,6 @@
             height: 33px;
             line-height: 1;
         }
-
 
     #HiuchiSubEntry .size-sou {
         width: 168px; /* select.size12 */
@@ -68,22 +66,20 @@
         padding-top: 4px;
     }
 
-
     #HiuchiSubEntry div.size-sumi {
         height: 33px;
         border: 1px solid #ced4da;
     }
-        #HiuchiSubEntry div.size-sumi.blank_sumi {
-            border: none;
-        }
-
-    #HiuchiSubEntry .blank_sou {
+    #HiuchiSubEntry div.spacer_sumi {
+        border: none;
+    }
+    #HiuchiSubEntry div.spacer_sou {
         margin-left: 168px; /* select.size12 */
     }
-    #HiuchiSubEntry .blank_kakoudate {
+    #HiuchiSubEntry div.spacer_kakoudate {
         margin-left: 238px; /* select.size19 */
     }
-    #HiuchiSubEntry .blank_pdf {
+    #HiuchiSubEntry div.spacer_pdf {
         margin-left: 100px; /* Same as button of pdf's width + margin-left */
     }
 
@@ -91,7 +87,7 @@
         .modal_body {
             display: none;
         }
-        #btnSaveSub {
+        #btnSaveHiuchi {
             display: none;
         }
     }
@@ -161,8 +157,8 @@
                         <button class="btn btn-primary size-pdf" id="btnPdf1" nofocus>PDF</button>
                     </div>
                     <div class="d-flex flex-row">
-                        <div class="blank_sou"></div>
-                        <div class="blank_kakoudate"></div>
+                        <div class="spacer_sou"></div>
+                        <div class="spacer_kakoudate"></div>
                         <div id="divZairyou12">
                             <input class="typeahead form-control size-zairyou" type="text" maxlength="30" autocomplete="off"
                                    id="Zairyou12" name="Zairyou12" value="@Model.Zairyou12">
@@ -173,12 +169,12 @@
                         </div>
                         <input type="text" class="form-control size-honsuu" maxlength="3" id="Honsuu12" name="Honsuu12"
                                value="@Model.Honsuu12" />
-                        <div class="blank_sumi size-sumi"></div>
-                        <div class="blank_pdf"></div>
+                        <div class="spacer_sumi size-sumi"></div>
+                        <div class="spacer_pdf"></div>
                     </div>
                     <div class="d-flex flex-row">
-                        <div class="blank_sou"></div>
-                        <div class="blank_kakoudate"></div>
+                        <div class="spacer_sou"></div>
+                        <div class="spacer_kakoudate"></div>
                         <div id="divZairyou13">
                             <input class="typeahead form-control size-zairyou" type="text" maxlength="30" autocomplete="off"
                                    id="Zairyou13" name="Zairyou13" value="@Model.Zairyou13">
@@ -189,8 +185,8 @@
                         </div>
                         <input type="text" class="form-control size-honsuu" maxlength="3" id="Honsuu13" name="Honsuu13"
                                value="@Model.Honsuu13" />
-                        <div class="blank_sumi size-sumi"></div>
-                        <div class="blank_pdf"></div>
+                        <div class="spacer_sumi size-sumi"></div>
+                        <div class="spacer_pdf"></div>
                     </div>
                 </div>
                 @*--------------------*@
@@ -220,8 +216,8 @@
                         <button class="btn btn-primary size-pdf" id="btnPdf2" nofocus>PDF</button>
                     </div>
                     <div class="d-flex flex-row">
-                        <div class="blank_sou"></div>
-                        <div class="blank_kakoudate"></div>
+                        <div class="spacer_sou"></div>
+                        <div class="spacer_kakoudate"></div>
                         <div id="divZairyou22">
                             <input class="typeahead form-control size-zairyou" type="text" maxlength="30" autocomplete="off"
                                    id="Zairyou22" name="Zairyou22" value="@Model.Zairyou22">
@@ -232,12 +228,12 @@
                         </div>
                         <input type="text" class="form-control size-honsuu" maxlength="3" id="Honsuu22" name="Honsuu22"
                                value="@Model.Honsuu22" />
-                        <div class="blank_sumi size-sumi"></div>
-                        <div class="blank_pdf"></div>
+                        <div class="spacer_sumi size-sumi"></div>
+                        <div class="spacer_pdf"></div>
                     </div>
                     <div class="d-flex flex-row">
-                        <div class="blank_sou"></div>
-                        <div class="blank_kakoudate"></div>
+                        <div class="spacer_sou"></div>
+                        <div class="spacer_kakoudate"></div>
                         <div id="divZairyou23">
                             <input class="typeahead form-control size-zairyou" type="text" maxlength="30" autocomplete="off"
                                    id="Zairyou23" name="Zairyou23" value="@Model.Zairyou23">
@@ -248,8 +244,8 @@
                         </div>
                         <input type="text" class="form-control size-honsuu" maxlength="3" id="Honsuu23" name="Honsuu23"
                                value="@Model.Honsuu23" />
-                        <div class="blank_sumi size-sumi"></div>
-                        <div class="blank_pdf"></div>
+                        <div class="spacer_sumi size-sumi"></div>
+                        <div class="spacer_pdf"></div>
                     </div>
                 </div>
                 @*--------------------*@
@@ -279,8 +275,8 @@
                         <button class="btn btn-primary size-pdf" id="btnPdf3" nofocus>PDF</button>
                     </div>
                     <div class="d-flex flex-row">
-                        <div class="blank_sou"></div>
-                        <div class="blank_kakoudate"></div>
+                        <div class="spacer_sou"></div>
+                        <div class="spacer_kakoudate"></div>
                         <div id="divZairyou32">
                             <input class="typeahead form-control size-zairyou" type="text" maxlength="30" autocomplete="off"
                                    id="Zairyou32" name="Zairyou32" value="@Model.Zairyou32">
@@ -291,12 +287,12 @@
                         </div>
                         <input type="text" class="form-control size-honsuu" maxlength="3" id="Honsuu32" name="Honsuu32"
                                value="@Model.Honsuu32" />
-                        <div class="blank_sumi size-sumi"></div>
-                        <div class="blank_pdf"></div>
+                        <div class="spacer_sumi size-sumi"></div>
+                        <div class="spacer_pdf"></div>
                     </div>
                     <div class="d-flex flex-row">
-                        <div class="blank_sou"></div>
-                        <div class="blank_kakoudate"></div>
+                        <div class="spacer_sou"></div>
+                        <div class="spacer_kakoudate"></div>
                         <div id="divZairyou33">
                             <input class="typeahead form-control size-zairyou" type="text" maxlength="30" autocomplete="off"
                                    id="Zairyou33" name="Zairyou33" value="@Model.Zairyou33">
@@ -307,8 +303,8 @@
                         </div>
                         <input type="text" class="form-control size-honsuu" maxlength="3" id="Honsuu33" name="Honsuu33"
                                value="@Model.Honsuu33" />
-                        <div class="blank_sumi size-sumi"></div>
-                        <div class="blank_pdf"></div>
+                        <div class="spacer_sumi size-sumi"></div>
+                        <div class="spacer_pdf"></div>
                     </div>
                 </div>
                 @*--------------------*@
@@ -338,8 +334,8 @@
                         <button class="btn btn-primary size-pdf" id="btnPdf4" nofocus>PDF</button>
                     </div>
                     <div class="d-flex flex-row">
-                        <div class="blank_sou"></div>
-                        <div class="blank_kakoudate"></div>
+                        <div class="spacer_sou"></div>
+                        <div class="spacer_kakoudate"></div>
                         <div id="divZairyou42">
                             <input class="typeahead form-control size-zairyou" type="text" maxlength="30" autocomplete="off"
                                    id="Zairyou42" name="Zairyou42" value="@Model.Zairyou42">
@@ -350,12 +346,12 @@
                         </div>
                         <input type="text" class="form-control size-honsuu" maxlength="3" id="Honsuu42" name="Honsuu42"
                                value="@Model.Honsuu42" />
-                        <div class="blank_sumi size-sumi"></div>
-                        <div class="blank_pdf"></div>
+                        <div class="spacer_sumi size-sumi"></div>
+                        <div class="spacer_pdf"></div>
                     </div>
                     <div class="d-flex flex-row">
-                        <div class="blank_sou"></div>
-                        <div class="blank_kakoudate"></div>
+                        <div class="spacer_sou"></div>
+                        <div class="spacer_kakoudate"></div>
                         <div id="divZairyou43">
                             <input class="typeahead form-control size-zairyou" type="text" maxlength="30" autocomplete="off"
                                    id="Zairyou43" name="Zairyou43" value="@Model.Zairyou43">
@@ -366,8 +362,8 @@
                         </div>
                         <input type="text" class="form-control size-honsuu" maxlength="3" id="Honsuu43" name="Honsuu43"
                                value="@Model.Honsuu43" />
-                        <div class="blank_sumi size-sumi"></div>
-                        <div class="blank_pdf"></div>
+                        <div class="spacer_sumi size-sumi"></div>
+                        <div class="spacer_pdf"></div>
                     </div>
                 </div>
             </div>
@@ -383,7 +379,7 @@
                 <button type="button" class="btn btn-info" id="btnFileOpen" nofocus>ファイルを選択</button>
                 &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                 <button type="button" class="btn btn-secondary" id="btnClose" nofocus>閉じる</button>
-                <button type="button" class="btn btn-primary" id="btnSaveSub">登録</button>
+                <button type="button" class="btn btn-primary" id="btnSaveHiuchi">登録</button>
             </div>
         </div>
     </div>

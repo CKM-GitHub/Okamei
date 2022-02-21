@@ -147,7 +147,7 @@ namespace OkameiProduction.Web.Controllers
 
 
 
-        //Hiuchi -------------------->
+        //Hiuchi SubForm -------------------->
         [HttpPost]
         public ActionResult HiuchiSubEntry()
         {
@@ -175,7 +175,30 @@ namespace OkameiProduction.Web.Controllers
             CommonBL bl = new CommonBL();
             vm.SouDropDownListItems = bl.GetMultiPorposeDropDownListItems(EMultiPorpose.HiuchiSou);
         }
-        //Hiuchi <--------------------
+        //Hiuchi SubForm <--------------------
 
+        //Tekakou SubForm -------------------->
+        [HttpPost]
+        public ActionResult TekakouSubEntry()
+        {
+            var vm = new InputBukkenShousaiTekakouModel();
+
+            var form = System.Web.HttpContext.Current.Request.Form;
+            vm.BukkenNO = form["BukkenNO"].ToStringOrEmpty();
+            vm.BukkenName = form["BukkenName"].ToStringOrEmpty();
+
+            //var bl = new InputBukkenShousaiTeKakouBL();
+            //var dt = bl.GetBukkenTeKakouData(vm);
+            //if (dt.Rows.Count > 0)
+            //{
+            //    var bukkenName = vm.BukkenName;
+            //    vm = dt.AsEnumerableEntity<InputBukkenShousaiTekakouModel>().FirstOrDefault();
+            //    vm.BukkenName = bukkenName;
+            //}
+
+            return View(vm);
+        }
+
+        //Tekakou SubForm <--------------------    
     }
 }

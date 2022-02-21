@@ -13,15 +13,17 @@ $(document).ready(function () {
 
         var url;
         var funcInitialize;
-        var funcfinalize;
 
         // ----->
-
         if (target == 'HiuchiSubEntry') {
             url = gApplicationPath + '/InputBukkenShousai/HiuchiSubEntry';
             funcInitialize = initialize_Hiuchi;
         }
 
+        if (target == 'TekakouSubEntry') {
+            url = gApplicationPath + '/InputBukkenShousai/TekakouSubEntry';
+            funcInitialize = initialize_Tekakou;
+        }
         //<-----
 
         var model = {
@@ -30,17 +32,17 @@ $(document).ready(function () {
         };
         if (model.BukkenNO == "") return;
 
-        return { model, url, funcInitialize, funcfinalize };
+        return { model, url, funcInitialize };
     }
 
     $('.js-modal-open').each(function () {
         $(this).on('click', function () {
 
             var target = $(this).data('target');
-            var option = getModalSettings(target);
-            if (!option) return;
+            var info = getModalSettings(target);
+            if (!info) return;
 
-            $.post(option.url, option.model, function (content) {
+            $.post(info.url, info.model, function (content) {
                 modalcontent = $(content);
                 modalcontent.appendTo('body');
 
@@ -48,7 +50,7 @@ $(document).ready(function () {
                 $(modal).fadeIn();
                 $('body').css('overflow-y', 'hidden');
 
-                option.funcInitialize();
+                if (info.funcInitialize) info.funcInitialize();
                 return false;
             });
 

@@ -38,6 +38,9 @@ hr {
     margin-left: 10px;
 }
 
+div.spacer{
+    height: 38px;
+}
 /* radio button
 --------------------------------------------------
 */
@@ -243,7 +246,7 @@ div.dataTables_scrollBody > table > tbody tr td {
 }
 
 @media (max-width: 991px) {
-    .blankline {
+    .spacer {
         display: none;
     }
 

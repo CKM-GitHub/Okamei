@@ -11,7 +11,7 @@ namespace Models
         public string BukkenNO { get; set; }
         public string BukkenName { get; set; }
         public string HiddenUpdateDateTime { get; set; }
-
+        public int SouCount { get; set; }
 
         public string Sou1 { get; set; }
         public string Sou1KakouDateTime { get; set; }

@@ -41,7 +41,7 @@ namespace OkameiProduction.Web.Controllers
 
             var msgid = "";
             var bl = new InputBukkenShousaiHiuchiBL();
-            if (bl.CreateBukkenHiuchi(model, out msgid))
+            if (bl.CreateBukkenHiuchiData(model, out msgid))
             {
                 return GetSuccessResult();
             }

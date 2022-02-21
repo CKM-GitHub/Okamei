@@ -111,6 +111,8 @@
     <Content Include="Database\StoredProcedure\InputBukkenShousai_Create.sql" />
     <Content Include="Database\StoredProcedure\FusezuMiteisyutu_SelectDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\InputStep_SelectDisplayResult.sql" />
+    <Content Include="Database\StoredProcedure\KadouKeikaku_ExistsDisplayResult.sql" />
+    <Content Include="Database\StoredProcedure\KadouKeikaku_SelectDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\KubunTaisyou_SelectDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\MoulderItiran_SelectDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\M_Control_Select.sql" />
