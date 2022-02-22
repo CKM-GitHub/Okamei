@@ -45,11 +45,11 @@ namespace Models
                     if (DateTime.TryParse(date, out DateTime result))
                     {
                         var dtMonth = result.ToString("yyyy-MM-dd");
-                        res = "'" + dtMonth.Split('-')[1].PadLeft(2, '0') + "月" + dtMonth.ToString().Replace("/", "-").Split('-')[2].PadLeft(2, '0') + "日";
+                        res = "'" + Convert.ToInt32(dtMonth.Split('-')[1]).ToString() + "月" + Convert.ToInt32(dtMonth.ToString().Replace("/", "-").Split('-')[2]).ToString() + "日";
                     }
                     else
                     {
-                        res = "'" + date.ToString().Replace("/", "-").Split('-')[0].PadLeft(2, '0') + "月" + date.ToString().Replace("/", "-").Split('-')[1].PadLeft(2, '0') + "日";
+                        res = "'" + Convert.ToInt32(date.ToString().Replace("/", "-").Split('-')[0]).ToString() + "月" + Convert.ToInt32(date.ToString().Replace("/", "-").Split('-')[1]).ToString() + "日";
                     }
                 }
                 catch
