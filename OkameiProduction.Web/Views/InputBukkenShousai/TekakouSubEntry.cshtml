@@ -5,7 +5,6 @@
     Layout = "";
 }
 
-@Styles.Render("~/Content/modalForm.css")
 <style>
     .TekakouSubEntry_content {
         width: 650px;
@@ -25,7 +24,6 @@
         #TekakouSubEntry .detail_content .label-title {
             margin-left: 0;
             padding-right: 15px;
-            border: 1px solid #ced4da;
             border-radius: 0;
         }
 
@@ -38,30 +36,40 @@
 
     #TekakouSubEntry .size-kakoutype {
         width: 326px; /* input.size30 */
+        flex-shrink: 0;
     }
     #TekakouSubEntry .size-honsuu {
         width: 66px; /*input.size4 */
+        flex-shrink: 0;
+        text-align: right;
     }
     #TekakouSubEntry .size-unittime {
         width: 96px; /* select.size7 */
+        flex-shrink: 0;
         text-align: right;
     }
     #TekakouSubEntry .size-time {
         width: 96px; /* select.size7 */
+        flex-shrink: 0;
         text-align: right;
     }
     #TekakouSubEntry .size-total {
         width: calc(326px + 66px + 96px); /* kakoutype + honsuu + unittime */
+        flex-shrink: 0;
     }
 
-    /*@@media (max-height: 800px) {
-        .modal_body {
-            display: none;
+    @@media (max-width: 575px) {
+        .TekakouSubEntry_content {
+            max-width: 90%;
+            max-height: 90%;
         }
-        #btnSaveSub {
-            display: none;
+    }
+    @@media (max-height: 660px) {
+        .TekakouSubEntry_content {
+            max-width: 90%;
+            max-height: 90%;
         }
-    }*/
+    }
 </style>
 
 <div id="TekakouSubEntry" class="modal js-modal">
@@ -96,16 +104,16 @@
             </div>
             <div class="detail_content">
                 <div class="d-flex flex-row">
-                    <label class="col-form-label label-title size-kakoutype">加工種</label>
-                    <label class="col-form-label label-title size-honsuu">本数</label>
-                    <label class="col-form-label label-title size-unittime">単位時間</label>
-                    <label class="col-form-label label-title size-time">時間</label>
+                    <label class="col-form-label label-title non-responsive border size-kakoutype">加工種</label>
+                    <label class="col-form-label label-title non-responsive border size-honsuu">本数</label>
+                    <label class="col-form-label label-title non-responsive border size-unittime">単位時間</label>
+                    <label class="col-form-label label-title non-responsive border size-time">時間</label>
                 </div>
                 <div class="d-flex flex-row align-items-center">
                     <span class="size-kakoutype">化粧（長さ4m以下、幅20cm以下）</span>
                     <input type="text" class="form-control size-honsuu" maxlength="3" id="TekakouHonsuu1" name="TekakouHonsuu1"
                            value="@Model.TeKakou1Honsuu" />
-                    <span class="size-unittime"id="TekakouUnitTime1"></span>
+                    <span class="size-unittime" id="TekakouUnitTime1"></span>
                     <span class="size-time" id="TekakouTime1"></span>
                 </div>
                 <div class="d-flex flex-row align-items-center">
@@ -164,13 +172,13 @@
             </div>
             <div class="hidden-area">
                 <input type="text" hidden id="HiddenTekakouUpdateDateTime" name="HiddenTekakouUpdateDateTime" value="@Model.HiddenUpdateDateTime" />
-                <input type="file" hidden id="inputFileTekakou" accept=".csv">
             </div>
-        </div>
-        <div class="row">
-            <div class="footer-btn mx-auto">
-                <button type="button" class="btn btn-secondary" id="btnClose" nofocus>閉じる</button>
-                <button type="button" class="btn btn-primary" id="btnSaveTekakou">登録</button>
+            <br/>
+            <div class="row">
+                <div class="footer-btn mx-auto">
+                    <button type="button" class="btn btn-secondary" id="btnClose" nofocus>閉じる</button>
+                    <button type="button" class="btn btn-primary" id="btnSaveTekakou">登録</button>
+                </div>
             </div>
         </div>
     </div>

@@ -42,9 +42,12 @@ $(document).ready(function () {
             var info = getModalSettings(target);
             if (!info) return;
 
+            showLoadingMessage();
+
             $.post(info.url, info.model, function (content) {
                 modalcontent = $(content);
                 modalcontent.appendTo('body');
+                closeLoadingMessage();
 
                 var modal = document.getElementById(target);
                 $(modal).fadeIn();
