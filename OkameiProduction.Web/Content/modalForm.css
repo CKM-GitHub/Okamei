@@ -16,11 +16,13 @@
 .modal_content {
     background: #fff;
     left: 50%;
-    padding: 0 0 40px 0;
+    padding: 0 0 0 0;
     position: absolute;
     top: 50%;
     transform: translate(-50%,-50%);
     border-radius: 5px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .modal_header {
@@ -33,6 +35,8 @@
 
 .modal_body {
     padding: 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
 .modal_title {

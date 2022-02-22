@@ -204,7 +204,8 @@ function calltoApiController_FileDownLoadHandle(url, model) {
             };
             return xhr;
         },
-        success: function (data) { 
+        success: function (data) {
+            result = JSON.parse(data);
         },
         complete: function () {
             // alert('hi')
@@ -214,6 +215,9 @@ function calltoApiController_FileDownLoadHandle(url, model) {
            
             link.click();
             link.remove();
+        },
+        error: function (err) {
+            //alert(err.status + ":" + err.statusText);
         }
     });
     return result;

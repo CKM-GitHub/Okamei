@@ -228,6 +228,7 @@
     <Compile Include="Controllers\CadStaffMitei\CadStaffMiteiController.cs" />
     <Compile Include="Controllers\EigyouJisseki\EigyouJissekiApiController.cs" />
     <Compile Include="Controllers\EigyouJisseki\EigyouJissekiController.cs" />
+    <Compile Include="Controllers\InputBukkenShousai\InputBukkenShousaiTekakouApiController.cs" />
     <Compile Include="Controllers\InputBukkenShousai\InputBukkenShousaiHiuchiApiController.cs" />
     <Compile Include="Controllers\InputStep\InputStepApiController.cs" />
     <Compile Include="Controllers\InputStep\InputStepController.cs" />

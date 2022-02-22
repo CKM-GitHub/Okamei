@@ -177,6 +177,8 @@ namespace OkameiProduction.Web.Controllers
         }
         //Hiuchi SubForm <--------------------
 
+            
+            
         //Tekakou SubForm -------------------->
         [HttpPost]
         public ActionResult TekakouSubEntry()
@@ -187,14 +189,14 @@ namespace OkameiProduction.Web.Controllers
             vm.BukkenNO = form["BukkenNO"].ToStringOrEmpty();
             vm.BukkenName = form["BukkenName"].ToStringOrEmpty();
 
-            //var bl = new InputBukkenShousaiTeKakouBL();
-            //var dt = bl.GetBukkenTeKakouData(vm);
-            //if (dt.Rows.Count > 0)
-            //{
-            //    var bukkenName = vm.BukkenName;
-            //    vm = dt.AsEnumerableEntity<InputBukkenShousaiTekakouModel>().FirstOrDefault();
-            //    vm.BukkenName = bukkenName;
-            //}
+            var bl = new InputBukkenShousaiTekakouBL();
+            var dt = bl.GetBukkenTekakouData(vm);
+            if (dt.Rows.Count > 0)
+            {
+                var bukkenName = vm.BukkenName;
+                vm = dt.AsEnumerableEntity<InputBukkenShousaiTekakouModel>().FirstOrDefault();
+                vm.BukkenName = bukkenName;
+            }
 
             return View(vm);
         }

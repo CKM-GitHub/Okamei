@@ -1,6 +1,10 @@
 ﻿//InputBukkenShousaiTekakou.js
 var url_SaveTekakouData = gApplicationPath + '/api/InputBukkenShousaiTekakouApi/SaveTekakouData';
 
+function finalize_Tekakou() {
+    $('#TekakouTime').focus();
+}
+
 function initialize_Tekakou() {
 
     //addEvents
@@ -14,12 +18,10 @@ function initialize_Tekakou() {
 
     $('#TekakouSubEntry #btnSaveTekakou').click(function () {
         if (checkErrorOnSave('#TekakouSubEntry')) {
-            if (checkAll_Tekakou()) {
-                showConfirmMessage('Q101', function () {
-                    btnSaveTekakouClick();
-                    return true;
-                });
-            }
+            showConfirmMessage('Q101', function () {
+                btnSaveTekakouClick();
+                return true;
+            });
         }
         return false;
     });
@@ -30,14 +32,14 @@ function initialize_Tekakou() {
     });
 
     //addValidate
-    setNumericValidate('#TekakouHonsuu1', 3, 0);
-    setNumericValidate('#TekakouHonsuu2', 3, 0);
-    setNumericValidate('#TekakouHonsuu3', 3, 0);
-    setNumericValidate('#TekakouHonsuu4', 3, 0);
-    setNumericValidate('#TekakouHonsuu5', 3, 0);
-    setNumericValidate('#TekakouHonsuu6', 3, 0);
-    setNumericValidate('#TekakouHonsuu7', 3, 0);
-    setNumericValidate('#TekakouHonsuu8', 3, 0);
+    setNumericValidate('#TekakouSubEntry #TekakouHonsuu1', 3, 0);
+    setNumericValidate('#TekakouSubEntry #TekakouHonsuu2', 3, 0);
+    setNumericValidate('#TekakouSubEntry #TekakouHonsuu3', 3, 0);
+    setNumericValidate('#TekakouSubEntry #TekakouHonsuu4', 3, 0);
+    setNumericValidate('#TekakouSubEntry #TekakouHonsuu5', 3, 0);
+    setNumericValidate('#TekakouSubEntry #TekakouHonsuu6', 3, 0);
+    setNumericValidate('#TekakouSubEntry #TekakouHonsuu7', 3, 0);
+    setNumericValidate('#TekakouSubEntry #TekakouHonsuu8', 3, 0);
 
     //setScreen
     setTekakouUnitTime();
@@ -52,36 +54,41 @@ function initialize_Tekakou() {
 }
 
 function setTekakouUnitTime() {
-    calcTekakouTime($('#TekakouUnitTime1').text('0.5'));
-    calcTekakouTime($('#TekakouUnitTime2').text('1.0'));
-    calcTekakouTime($('#TekakouUnitTime3').text('2.0'));
-    calcTekakouTime($('#TekakouUnitTime4').text('4.0'));
-    calcTekakouTime($('#TekakouUnitTime5').text('20.0'));
-    calcTekakouTime($('#TekakouUnitTime6').text('30.0'));
-    calcTekakouTime($('#TekakouUnitTime7').text('10.0'));
-    calcTekakouTime($('#TekakouUnitTime8').text('20.0'));
+    calcTekakouTime($('#TekakouSubEntry #TekakouUnitTime1').text('0.5'));
+    calcTekakouTime($('#TekakouSubEntry #TekakouUnitTime2').text('1.0'));
+    calcTekakouTime($('#TekakouSubEntry #TekakouUnitTime3').text('2.0'));
+    calcTekakouTime($('#TekakouSubEntry #TekakouUnitTime4').text('4.0'));
+    calcTekakouTime($('#TekakouSubEntry #TekakouUnitTime5').text('20.0'));
+    calcTekakouTime($('#TekakouSubEntry #TekakouUnitTime6').text('30.0'));
+    calcTekakouTime($('#TekakouSubEntry #TekakouUnitTime7').text('10.0'));
+    calcTekakouTime($('#TekakouSubEntry #TekakouUnitTime8').text('20.0'));
 
     calcTotalTekakouTime();
 }
 
 function calcTekakouTime(ctrl) {
     var id = ctrl.attr('id');
+    var row = id.slice(-1);
 
-    if (id.slice(0, 13) == 'TekakouHonsuu') {
-        var row = id.slice(-1);
+    var honsuu;
+    var unitTime;
 
-        var honsuu = ctrl.val();
-        var unitTime = $('#TekakouUnitTime' + row).text();
-        if (!honsuu || !unitTime || isNaN(honsuu) || isNaN(unitTime)) {
-            $('#TekakouTime' + row).text('');
-        }
-        else {
-            var time = parseFloat(honsuu) * parseFloat(unitTime);
-            $('#TekakouTime' + row).text(time.toFixed(1));
-        }
+    if (~id.indexOf('TekakouHonsuu')) {
+        honsuu = ctrl.val();
+        unitTime = $('#TekakouSubEntry #TekakouUnitTime' + row).text();
+    }
+    else if (~id.indexOf('TekakouUnitTime')) {
+        honsuu = $('#TekakouSubEntry #TekakouHonsuu' + row).val();
+        unitTime = ctrl.text();
     }
 
-    return true;
+    if (!honsuu || !unitTime || isNaN(honsuu) || isNaN(unitTime)) {
+        $('#TekakouSubEntry #TekakouTime' + row).text('');
+    }
+    else {
+        var time = parseFloat(honsuu) * parseFloat(unitTime);
+        $('#TekakouSubEntry #TekakouTime' + row).text(time.toFixed(1));
+    }
 }
 
 function calcTotalTekakouTime() {
@@ -92,16 +99,20 @@ function calcTotalTekakouTime() {
             sum = sum + parseFloat(time);
         }
     });
-    $('#TotalTekakouTime').text(sum.toFixed(1));
-}
-
-function checkAll_Tekakou() {
-    return true;
+    $('#TekakouSubEntry #TotalTekakouTime').text(sum.toFixed(1));
 }
 
 function btnSaveTekakouClick() {
     var model = {
-        BukkenNO: $('#TekakouBukkenNO').val(),
+        BukkenNO: $('#TekakouSubEntry #TekakouBukkenNO').val(),
+        TeKakou1Honsuu: $('#TekakouSubEntry #TekakouHonsuu1').val(),
+        TeKakou2Honsuu: $('#TekakouSubEntry #TekakouHonsuu2').val(),
+        TeKakou3Honsuu: $('#TekakouSubEntry #TekakouHonsuu3').val(),
+        TeKakou4Honsuu: $('#TekakouSubEntry #TekakouHonsuu4').val(),
+        TeKakou5Honsuu: $('#TekakouSubEntry #TekakouHonsuu5').val(),
+        TeKakou6Honsuu: $('#TekakouSubEntry #TekakouHonsuu6').val(),
+        TeKakou7Honsuu: $('#TekakouSubEntry #TekakouHonsuu7').val(),
+        TeKakou8Honsuu: $('#TekakouSubEntry #TekakouHonsuu8').val(),
         HiddenUpdateDateTime: $('#HiddenTekakouUpdateDateTime').val(),
         UserID: $('#user-id').text(),
     }
@@ -116,6 +127,7 @@ function btnSaveTekakouClick() {
     }
 
     showMessage('I101', function () {
+        $('#TekakouTime').val($('#TekakouSubEntry #TotalTekakouTime').text());
         ModalForm.Close();
     });
 }

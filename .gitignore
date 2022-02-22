@@ -7,6 +7,9 @@
 *.userosscache
 *.sln.docstates
 *.pdf
+*.xlsx
+!/Initializer/AgreementForm.xlsx
+!/Initializer/AgreementFormOriginal.xlsx
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -143,7 +146,7 @@ publish/
 *.azurePubxml
 # TODO: Comment the next line if you want to checkin your web deploy settings
 # but database connection strings (with potential passwords) will be unencrypted
-#*.pubxml
+*.pubxml
 *.publishproj
 
 # Microsoft Azure Web App publish settings. Comment the next line if you want to
@@ -259,4 +262,8 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
-/OkameiProduction.Web/Properties/PublishProfiles/CustomProfile.pubxml
+
+# Okamei project
+[Oo]utput/
+[Oo]utput/[Pp]roject/
+[Tt]emp/
