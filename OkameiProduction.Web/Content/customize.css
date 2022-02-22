@@ -106,6 +106,17 @@ a.not-available {
     padding-top: 8px;
 }
 
+.custom-check {
+    padding-bottom: 0px;
+    padding-left: 3px !important;
+}
+
+.label-custom-check {
+    margin-bottom: 0px;
+    padding-right: 10px !important;
+    padding-top: 8px;
+}
+
 .btn_search {
     color: #fff;
     background-color: #6c757d;
