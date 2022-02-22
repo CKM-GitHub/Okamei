@@ -110,7 +110,7 @@
                         <td class="@columns[i].Caption">
                             @Html.DropDownListFor(
                             model => model.TantouCad,
-                            new SelectList(Model.TantouCadDropDownListItems, "DisplayText", "DisplayText", @items[i]),
+                            new SelectList(Model.TantouCadDropDownListItems, "Value", "DisplayText", @items[i]),
                             "",
                             new { @class = "form-control" })
                         </td>
@@ -120,7 +120,7 @@
                         <td class="@columns[i].Caption">
                             @Html.DropDownListFor(
                             model => model.KoumutenName,
-                            new SelectList(Model.KoumutenDropDownListItems, "DisplayText", "DisplayText", @items[i]),
+                            new SelectList(Model.KoumutenDropDownListItems, "Value", "DisplayText", @items[i]),
                             "",
                             new { @class = "form-control size20" })
                         </td>
@@ -130,7 +130,7 @@
                         <td class="@columns[i].Caption">
                             @Html.DropDownListFor(
                             model => model.TantouSiten,
-                            new SelectList(Model.TantouSitenDropDownListItems, "DisplayText", "DisplayText", @items[i]),
+                            new SelectList(Model.TantouSitenDropDownListItems, "Value", "DisplayText", @items[i]),
                             "",
                             new { @class = "form-control size20" })
                         </td>
@@ -140,7 +140,7 @@
                         <td class="@columns[i].Caption">
                             @Html.DropDownListFor(
                             model => model.TantouEigyou,
-                            new SelectList(Model.TantouEigyouDropDownListItems, "DisplayText", "DisplayText", @items[i]),
+                            new SelectList(Model.TantouEigyouDropDownListItems, "Value", "DisplayText", @items[i]),
                             "",
                             new { @class = "form-control size20" })
                         </td>
@@ -169,7 +169,7 @@
                 <td class="TantouCad">
                     @Html.DropDownListFor(
                     model => model.TantouCad,
-                    new SelectList(Model.TantouCadDropDownListItems, "DisplayText", "DisplayText"),
+                    new SelectList(Model.TantouCadDropDownListItems, "Value", "DisplayText"),
                     "",
                     new { @class = "form-control" })
                 </td>
@@ -179,7 +179,7 @@
                 <td class="KoumutenName">
                     @Html.DropDownListFor(
                     model => model.KoumutenName,
-                    new SelectList(Model.KoumutenDropDownListItems, "DisplayText", "DisplayText"),
+                    new SelectList(Model.KoumutenDropDownListItems, "Value", "DisplayText"),
                     "",
                     new { @class = "form-control size20" })
                 </td>
@@ -189,14 +189,14 @@
                 <td class="TantouSiten">
                     @Html.DropDownListFor(
                     model => model.TantouSiten,
-                    new SelectList(Model.TantouSitenDropDownListItems, "DisplayText", "DisplayText"),
+                    new SelectList(Model.TantouSitenDropDownListItems, "Value", "DisplayText"),
                     "",
                     new { @class = "form-control size20" })
                 </td>
                 <td class="TantouEigyou">
                     @Html.DropDownListFor(
                     model => model.TantouEigyou,
-                    new SelectList(Model.TantouEigyouDropDownListItems, "DisplayText", "DisplayText"),
+                    new SelectList(Model.TantouEigyouDropDownListItems, "Value", "DisplayText"),
                     "",
                     new { @class = "form-control size20" })
                 </td>
@@ -242,6 +242,11 @@
                 btnProcess_click();
             });
 
+            setRequired('#TantouCad');
+            setRequired('#KoumutenName');
+            setRequired('#TantouSiten');
+            setRequired('#TantouEigyou');
+
             //check user id who has access or not to edit
             var model = {
                 UserID: $('#user-id').text()
@@ -281,9 +286,18 @@
         }
 
         function btnAdd_click() {
-            if ($('#tblSmitumoriKanri tbody tr:last-child td:nth-child(9)').text().trim() != "") {
+            if (checkErrorOnSave('#main')) {
                 $('#tblSmitumoriKanri_next a').click();
                 $('#tblSmitumoriKanri tbody:last-child').append($('#tblSmitumoriKanri_Clone tbody tr').clone());
+
+                setRequired('#txtSagyouDate');
+                setRequired('#TantouCad');
+                setRequired('#txtBukkenName');
+                setRequired('#KoumutenName');
+                setRequired('#txtKakoutuboSuu');
+                setRequired('#TantouSiten');
+                setRequired('#TantouEigyou');
+                setRequired('#txtKaesiYoteiDate');
 
                 setDateTypeValidate('#txtSagyouDate');
                 setDoubleByteValidate('#txtBukkenName');
@@ -303,6 +317,8 @@
                     ErrorCheck(this, "#tblSmitumoriKanri tbody tr:last-child td button");
                 })
             }
+            else
+                showMessage('E102');
         }
 
         function ErrorCheck(ctrl, nextctrl) {
@@ -317,20 +333,22 @@
                 showMessage(result);
                 return false;
             }
-            else
+            else if (nextctrl != '')
                 $(nextctrl).focus();
         }
 
         function btnProcess_click() {
-            var model = {
-                DetailDataJson: JSON.stringify(getDetailData),
-                UserID: $('#user-id').text()
+            if (checkErrorOnSave('#main')) {
+                var model = {
+                    DetailDataJson: JSON.stringify(getDetailData()),
+                    UserID: $('#user-id').text()
+                }
+                var result = calltoApiController('@Url.Action("ModifySMitumoriCounterData", "api/SmitumoriKanriApi")', model);
+                if (!result)
+                    return false;
+                else
+                    window.location.reload();
             }
-            var result = calltoApiController('@Url.Action("ModifySMitumoriCounterData", "api/SmitumoriKanriApi")', model);
-            if (!result)
-                return false;
-            else
-                window.location.reload();
             return true;
         }
 
@@ -339,17 +357,18 @@
             $("#tblSmitumoriKanri tr").each(function (i, tr) {
                 item = {};
                 item["SagyouDate"] = $(tr).find('td:eq(0)').text().trim() ? $(tr).find('td:eq(0)').text().trim() : $(tr).find('td:eq(0) input[type="text"]').val();
-                item["TantouCad"] = $(tr).find('td:eq(1) :selected').text();
+                item["TantouCad"] = $(tr).find('td:eq(1) :selected').val();
                 item["BukkenName"] = $(tr).find('td:eq(2)').text().trim() ? $(tr).find('td:eq(2)').text().trim() : $(tr).find('td:eq(2) input[type="text"]').val();
-                item["KoumutenName"] = $(tr).find('td:eq(3) :selected').text().trim();
+                item["KoumutenName"] = $(tr).find('td:eq(3) :selected').val();
                 item["KakoutuboSuu"] = $(tr).find('td:eq(4)').text().trim() ? $(tr).find('td:eq(4)').text().trim() : $(tr).find('td:eq(4) input[type="text"]').val();
-                item["TantouSiten"] = $(tr).find('td:eq(5) :selected').text().trim();
-                item["TantouEigyou"] = $(tr).find('td:eq(6) :selected').text().trim();
+                item["TantouSiten"] = $(tr).find('td:eq(5) :selected').val();
+                item["TantouEigyou"] = $(tr).find('td:eq(6) :selected').val();
                 item["KaesiYoteiDate"] = $(tr).find('td:eq(7)').text().trim() ? $(tr).find('td:eq(7)').text().trim() : $(tr).find('td:eq(7) input[type="text"]').val();
                 item["SMitumoriCounter"] = $(tr).find('td:eq(8)').text().trim() ? $(tr).find('td:eq(8)').text().trim() : $(tr).find('td:eq(8)').text().trim();
                 jsonObj.push(item);
             })
             jsonObj.shift();
+            return jsonObj;
         }
     </script>
 }
