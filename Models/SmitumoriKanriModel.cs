@@ -16,6 +16,7 @@ namespace Models
         public string TantouSiten { get; set; }
         public string TantouEigyou { get; set; }
         public string KaesiYoteiDate { get; set; }
+        public string DetailDataJson { get; set; }
         public IEnumerable<DropDownListItem> TantouCadDropDownListItems { get; set; }
         public IEnumerable<DropDownListItem> KoumutenDropDownListItems { get; set; }
         public IEnumerable<DropDownListItem> TantouSitenDropDownListItems { get; set; }

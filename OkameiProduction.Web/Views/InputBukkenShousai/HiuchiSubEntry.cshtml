@@ -5,7 +5,6 @@
     Layout = "";
 }
 
-@Styles.Render("~/Content/modalForm.css")
 <style>
     .HiuchiSubEntry_content {
         width: 1200px;
@@ -17,9 +16,9 @@
 
         /* Override BootStrap　---> */
         #HiuchiSubEntry .detail_content .form-control {
+            height: 33px;
             line-height: 1;
             border-radius: 0;
-            height: 33px;
         }
         #HiuchiSubEntry .detail_content .form-control:focus {
             outline: none;
@@ -27,68 +26,69 @@
         }
         /* <--- */
 
-        #HiuchiSubEntry .detail_content label {
-            margin-left: 0;
-            border: 1px solid #ced4da;
-            border-radius: 0;
-        }
-
-        #HiuchiSubEntry .detail_content input[type=checkbox] {
-            margin: 0;
-        }
-
         #HiuchiSubEntry .detail_content button {
             height: 33px;
             line-height: 1;
         }
 
+        #HiuchiSubEntry .detail_content .label-title {
+            width: auto;
+            margin-left: 0;
+            border-radius: 0;
+        }
+
+    #HiuchiSubEntry .footer-btn {
+        white-space: nowrap;
+    }
+
+    #HiuchiSubEntry .footer-left {
+        padding-left: 10px;
+        padding-right: 60px;
+    }
+
     #HiuchiSubEntry .size-sou {
-        width: 168px; /* select.size12 */
+        width: 168px !important; /* select.size12 */
+        flex-shrink: 0;
     }
     #HiuchiSubEntry .size-kakoudate {
-        width: 238px; /* select.size19 */
+        width: 238px !important; /* select.size19 */
+        flex-shrink: 0;
     }
     #HiuchiSubEntry .size-zairyou {
-        width: 348px; /*select_size30*/
+        width: 348px !important; /*select_size30*/
+        flex-shrink: 0;
     }
     #HiuchiSubEntry .size-toukyuu {
-        width: 148px; /*select_size10*/
+        width: 148px !important; /*select_size10*/
+        flex-shrink: 0;
     }
     #HiuchiSubEntry .size-honsuu {
-        width: 78px; /*select_size3*/
+        width: 78px !important; /*select_size3*/
+        flex-shrink: 0;
     }
     #HiuchiSubEntry .size-sumi {
-        width: 50px;
+        width: 50px !important;
+        flex-shrink: 0;
     }
     #HiuchiSubEntry .size-pdf {
-        width: 80px;
-        margin-left: 20px;
-        padding-top: 4px;
+        width: 100px !important;
+        flex-shrink: 0;
+        padding-left: 20px;
     }
-
-    #HiuchiSubEntry div.size-sumi {
-        height: 33px;
-        border: 1px solid #ced4da;
-    }
-    #HiuchiSubEntry div.spacer_sumi {
-        border: none;
-    }
-    #HiuchiSubEntry div.spacer_sou {
-        margin-left: 168px; /* select.size12 */
-    }
-    #HiuchiSubEntry div.spacer_kakoudate {
-        margin-left: 238px; /* select.size19 */
-    }
-    #HiuchiSubEntry div.spacer_pdf {
-        margin-left: 100px; /* Same as button of pdf's width + margin-left */
-    }
-
-    @@media (max-height: 800px) {
-        .modal_body {
-            display: none;
+        #HiuchiSubEntry .size-pdf button {
+            width: 80px !important;
         }
-        #btnSaveHiuchi {
-            display: none;
+
+    @@media (max-width: 575px) {
+        .HiuchiSubEntry_content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+    }
+    @@media (max-height: 800px) {
+        .HiuchiSubEntry_content {
+            max-width: 90%;
+            max-height: 90%;
         }
     }
 </style>
@@ -125,15 +125,15 @@
             </div>
             <div class="detail_content">
                 <div class="d-flex flex-row">
-                    <label class="col-form-label label-title size-sou require">層</label>
-                    <label class="col-form-label label-title size-kakoudate">加工日</label>
-                    <label class="col-form-label label-title size-zairyou">材料</label>
-                    <label class="col-form-label label-title size-toukyuu">等級</label>
-                    <label class="col-form-label label-title size-honsuu require">本数</label>
-                    <label class="col-form-label label-title size-sumi">済</label>
+                    <label class="col-form-label label-title non-responsive border size-sou require">層</label>
+                    <label class="col-form-label label-title non-responsive border size-kakoudate">加工日</label>
+                    <label class="col-form-label label-title non-responsive border size-zairyou">材料</label>
+                    <label class="col-form-label label-title non-responsive border size-toukyuu">等級</label>
+                    <label class="col-form-label label-title non-responsive border size-honsuu require">本数</label>
+                    <label class="col-form-label label-title non-responsive border size-sumi">済</label>
                 </div>
                 <div id="div1">
-                    <div class="d-flex flex-row align-items-center">
+                    <div class="d-flex flex-row">
                         @Html.DropDownListFor(
                         model => model.Sou1,
                         new SelectList(Model.SouDropDownListItems, "Value", "DisplayText"),
@@ -141,58 +141,60 @@
                         new { @class = "form-control size-sou" })
                         <input type="text" class="form-control size-kakoudate" disabled id="Sou1KakouDateTime" name="Sou1KakouDateTime"
                                value="@Model.Sou1KakouDateTime" />
-                        <div id="divZairyou11">
+                        <div class="typeahead_wrap">
                             <input class="typeahead form-control size-zairyou" type="text" maxlength="30" autocomplete="off"
                                    id="Zairyou11" name="Zairyou11" value="@Model.Zairyou11">
                         </div>
-                        <div id="divToukyuu11">
+                        <div class="typeahead_wrap">
                             <input class="typeahead form-control size-toukyuu" type="text" maxlength="10" autocomplete="off"
                                    id="Toukyuu11" name="Toukyuu11" value="@Model.Toukyuu11">
                         </div>
                         <input type="text" class="form-control size-honsuu" maxlength="3" id="Honsuu11" name="Honsuu11"
                                value="@Model.Honsuu11" />
-                        <div class="size-sumi d-flex align-items-center justify-content-center">
+                        <div class="size-sumi d-flex align-items-center justify-content-center border">
                             <input type="checkbox" id="Sou1Sumi" name="Sou1Sumi" data-dbvalue="@Model.Sou1Sumi" />
                         </div>
-                        <button class="btn btn-primary size-pdf" id="btnPdf1" nofocus>PDF</button>
+                        <div class="size-pdf">
+                            <button class="btn btn-primary" id="btnPdf1" nofocus>PDF</button>
+                        </div>
                     </div>
                     <div class="d-flex flex-row">
-                        <div class="spacer_sou"></div>
-                        <div class="spacer_kakoudate"></div>
-                        <div id="divZairyou12">
+                        <div class="size-sou"></div>
+                        <div class="size-kakoudate"></div>
+                        <div class="typeahead_wrap">
                             <input class="typeahead form-control size-zairyou" type="text" maxlength="30" autocomplete="off"
                                    id="Zairyou12" name="Zairyou12" value="@Model.Zairyou12">
                         </div>
-                        <div id="divToukyuu12">
+                        <div class="typeahead_wrap">
                             <input class="typeahead form-control size-toukyuu" type="text" maxlength="10" autocomplete="off"
                                    id="Toukyuu12" name="Toukyuu12" value="@Model.Toukyuu12">
                         </div>
                         <input type="text" class="form-control size-honsuu" maxlength="3" id="Honsuu12" name="Honsuu12"
                                value="@Model.Honsuu12" />
-                        <div class="spacer_sumi size-sumi"></div>
-                        <div class="spacer_pdf"></div>
+                        <div class="size-sumi"></div>
+                        <div class="size-pdf"></div>
                     </div>
                     <div class="d-flex flex-row">
-                        <div class="spacer_sou"></div>
-                        <div class="spacer_kakoudate"></div>
-                        <div id="divZairyou13">
+                        <div class="size-sou"></div>
+                        <div class="size-kakoudate"></div>
+                        <div class="typeahead_wrap">
                             <input class="typeahead form-control size-zairyou" type="text" maxlength="30" autocomplete="off"
                                    id="Zairyou13" name="Zairyou13" value="@Model.Zairyou13">
                         </div>
-                        <div id="divToukyuu13">
+                        <div class="typeahead_wrap">
                             <input class="typeahead form-control size-toukyuu" type="text" maxlength="10" autocomplete="off"
                                    id="Toukyuu13" name="Toukyuu13" value="@Model.Toukyuu13">
                         </div>
                         <input type="text" class="form-control size-honsuu" maxlength="3" id="Honsuu13" name="Honsuu13"
                                value="@Model.Honsuu13" />
-                        <div class="spacer_sumi size-sumi"></div>
-                        <div class="spacer_pdf"></div>
+                        <div class="size-sumi"></div>
+                        <div class="size-pdf"></div>
                     </div>
                 </div>
                 @*--------------------*@
                 <br />
                 <div id="div2">
-                    <div class="d-flex flex-row align-items-center">
+                    <div class="d-flex flex-row">
                         @Html.DropDownListFor(
                         model => model.Sou2,
                         new SelectList(Model.SouDropDownListItems, "Value", "DisplayText"),
@@ -200,58 +202,60 @@
                         new { @class = "form-control size-sou" })
                         <input type="text" class="form-control size-kakoudate" disabled id="Sou2KakouDateTime" name="Sou2KakouDateTime"
                                value="@Model.Sou2KakouDateTime" />
-                        <div id="divZairyou21">
+                        <div class="typeahead_wrap">
                             <input class="typeahead form-control size-zairyou" type="text" maxlength="30" autocomplete="off"
                                    id="Zairyou21" name="Zairyou21" value="@Model.Zairyou21">
                         </div>
-                        <div id="divToukyuu21">
+                        <div class="typeahead_wrap">
                             <input class="typeahead form-control size-toukyuu" type="text" maxlength="10" autocomplete="off"
                                    id="Toukyuu21" name="Toukyuu21" value="@Model.Toukyuu21">
                         </div>
                         <input type="text" class="form-control size-honsuu" maxlength="3" id="Honsuu21" name="Honsuu21"
                                value="@Model.Honsuu21" />
-                        <div class="size-sumi d-flex align-items-center justify-content-center">
+                        <div class="size-sumi d-flex align-items-center justify-content-center border">
                             <input type="checkbox" id="Sou2Sumi" name="Sou2Sumi" data-dbvalue="@Model.Sou2Sumi" />
                         </div>
-                        <button class="btn btn-primary size-pdf" id="btnPdf2" nofocus>PDF</button>
+                        <div class="size-pdf">
+                            <button class="btn btn-primary" id="btnPdf2" nofocus>PDF</button>
+                        </div>
                     </div>
                     <div class="d-flex flex-row">
-                        <div class="spacer_sou"></div>
-                        <div class="spacer_kakoudate"></div>
-                        <div id="divZairyou22">
+                        <div class="size-sou"></div>
+                        <div class="size-kakoudate"></div>
+                        <div class="typeahead_wrap">
                             <input class="typeahead form-control size-zairyou" type="text" maxlength="30" autocomplete="off"
                                    id="Zairyou22" name="Zairyou22" value="@Model.Zairyou22">
                         </div>
-                        <div id="divToukyuu22">
+                        <div class="typeahead_wrap">
                             <input class="typeahead form-control size-toukyuu" type="text" maxlength="10" autocomplete="off"
                                    id="Toukyuu22" name="Toukyuu22" value="@Model.Toukyuu22">
                         </div>
                         <input type="text" class="form-control size-honsuu" maxlength="3" id="Honsuu22" name="Honsuu22"
                                value="@Model.Honsuu22" />
-                        <div class="spacer_sumi size-sumi"></div>
-                        <div class="spacer_pdf"></div>
+                        <div class="size-sumi"></div>
+                        <div class="size-pdf"></div>
                     </div>
                     <div class="d-flex flex-row">
-                        <div class="spacer_sou"></div>
-                        <div class="spacer_kakoudate"></div>
-                        <div id="divZairyou23">
+                        <div class="size-sou"></div>
+                        <div class="size-kakoudate"></div>
+                        <div class="typeahead_wrap">
                             <input class="typeahead form-control size-zairyou" type="text" maxlength="30" autocomplete="off"
                                    id="Zairyou23" name="Zairyou23" value="@Model.Zairyou23">
                         </div>
-                        <div id="divToukyuu23">
+                        <div class="typeahead_wrap">
                             <input class="typeahead form-control size-toukyuu" type="text" maxlength="10" autocomplete="off"
                                    id="Toukyuu23" name="Toukyuu23" value="@Model.Toukyuu23">
                         </div>
                         <input type="text" class="form-control size-honsuu" maxlength="3" id="Honsuu23" name="Honsuu23"
                                value="@Model.Honsuu23" />
-                        <div class="spacer_sumi size-sumi"></div>
-                        <div class="spacer_pdf"></div>
+                        <div class="size-sumi"></div>
+                        <div class="size-pdf"></div>
                     </div>
                 </div>
                 @*--------------------*@
                 <br />
                 <div id="div3">
-                    <div class="d-flex flex-row align-items-center">
+                    <div class="d-flex flex-row">
                         @Html.DropDownListFor(
                         model => model.Sou3,
                         new SelectList(Model.SouDropDownListItems, "Value", "DisplayText"),
@@ -259,58 +263,60 @@
                         new { @class = "form-control size-sou" })
                         <input type="text" class="form-control size-kakoudate" disabled id="Sou3KakouDateTime" name="Sou3KakouDateTime"
                                value="@Model.Sou3KakouDateTime" />
-                        <div id="divZairyou31">
+                        <div class="typeahead_wrap">
                             <input class="typeahead form-control size-zairyou" type="text" maxlength="30" autocomplete="off"
                                    id="Zairyou31" name="Zairyou31" value="@Model.Zairyou31">
                         </div>
-                        <div id="divToukyuu31">
+                        <div class="typeahead_wrap">
                             <input class="typeahead form-control size-toukyuu" type="text" maxlength="10" autocomplete="off"
                                    id="Toukyuu31" name="Toukyuu31" value="@Model.Toukyuu31">
                         </div>
                         <input type="text" class="form-control size-honsuu" maxlength="3" id="Honsuu31" name="Honsuu31"
                                value="@Model.Honsuu31" />
-                        <div class="size-sumi d-flex align-items-center justify-content-center">
+                        <div class="size-sumi d-flex align-items-center justify-content-center border">
                             <input type="checkbox" id="Sou3Sumi" name="Sou3Sumi" data-dbvalue="@Model.Sou3Sumi" />
                         </div>
-                        <button class="btn btn-primary size-pdf" id="btnPdf3" nofocus>PDF</button>
+                        <div class="size-pdf">
+                            <button class="btn btn-primary" id="btnPdf3" nofocus>PDF</button>
+                        </div>
                     </div>
                     <div class="d-flex flex-row">
-                        <div class="spacer_sou"></div>
-                        <div class="spacer_kakoudate"></div>
-                        <div id="divZairyou32">
+                        <div class="size-sou"></div>
+                        <div class="size-kakoudate"></div>
+                        <div class="typeahead_wrap">
                             <input class="typeahead form-control size-zairyou" type="text" maxlength="30" autocomplete="off"
                                    id="Zairyou32" name="Zairyou32" value="@Model.Zairyou32">
                         </div>
-                        <div id="divToukyuu32">
+                        <div class="typeahead_wrap">
                             <input class="typeahead form-control size-toukyuu" type="text" maxlength="10" autocomplete="off"
                                    id="Toukyuu32" name="Toukyuu32" value="@Model.Toukyuu32">
                         </div>
                         <input type="text" class="form-control size-honsuu" maxlength="3" id="Honsuu32" name="Honsuu32"
                                value="@Model.Honsuu32" />
-                        <div class="spacer_sumi size-sumi"></div>
-                        <div class="spacer_pdf"></div>
+                        <div class="size-sumi"></div>
+                        <div class="size-pdf"></div>
                     </div>
                     <div class="d-flex flex-row">
-                        <div class="spacer_sou"></div>
-                        <div class="spacer_kakoudate"></div>
-                        <div id="divZairyou33">
+                        <div class="size-sou"></div>
+                        <div class="size-kakoudate"></div>
+                        <div class="typeahead_wrap">
                             <input class="typeahead form-control size-zairyou" type="text" maxlength="30" autocomplete="off"
                                    id="Zairyou33" name="Zairyou33" value="@Model.Zairyou33">
                         </div>
-                        <div id="divToukyuu33">
+                        <div class="typeahead_wrap">
                             <input class="typeahead form-control size-toukyuu" type="text" maxlength="10" autocomplete="off"
                                    id="Toukyuu33" name="Toukyuu33" value="@Model.Toukyuu33">
                         </div>
                         <input type="text" class="form-control size-honsuu" maxlength="3" id="Honsuu33" name="Honsuu33"
                                value="@Model.Honsuu33" />
-                        <div class="spacer_sumi size-sumi"></div>
-                        <div class="spacer_pdf"></div>
+                        <div class="size-sumi"></div>
+                        <div class="size-pdf"></div>
                     </div>
                 </div>
                 @*--------------------*@
                 <br />
                 <div id="div4">
-                    <div class="d-flex flex-row align-items-center">
+                    <div class="d-flex flex-row">
                         @Html.DropDownListFor(
                         model => model.Sou4,
                         new SelectList(Model.SouDropDownListItems, "Value", "DisplayText"),
@@ -318,52 +324,54 @@
                         new { @class = "form-control size-sou" })
                         <input type="text" class="form-control size-kakoudate" disabled id="Sou4KakouDateTime" name="Sou4KakouDateTime"
                                value="@Model.Sou4KakouDateTime" />
-                        <div id="divZairyou41">
+                        <div class="typeahead_wrap">
                             <input class="typeahead form-control size-zairyou" type="text" maxlength="30" autocomplete="off"
                                    id="Zairyou41" name="Zairyou41" value="@Model.Zairyou41">
                         </div>
-                        <div id="divToukyuu41">
+                        <div class="typeahead_wrap">
                             <input class="typeahead form-control size-toukyuu" type="text" maxlength="10" autocomplete="off"
                                    id="Toukyuu41" name="Toukyuu41" value="@Model.Toukyuu41">
                         </div>
                         <input type="text" class="form-control size-honsuu" maxlength="3" id="Honsuu41" name="Honsuu41"
                                value="@Model.Honsuu41" />
-                        <div class="size-sumi d-flex align-items-center justify-content-center">
+                        <div class="size-sumi d-flex align-items-center justify-content-center border">
                             <input type="checkbox" id="Sou4Sumi" name="Sou4Sumi" data-dbvalue="@Model.Sou4Sumi" />
                         </div>
-                        <button class="btn btn-primary size-pdf" id="btnPdf4" nofocus>PDF</button>
+                        <div class="size-pdf">
+                            <button class="btn btn-primary" id="btnPdf4" nofocus>PDF</button>
+                        </div>
                     </div>
                     <div class="d-flex flex-row">
-                        <div class="spacer_sou"></div>
-                        <div class="spacer_kakoudate"></div>
-                        <div id="divZairyou42">
+                        <div class="size-sou"></div>
+                        <div class="size-kakoudate"></div>
+                        <div class="typeahead_wrap">
                             <input class="typeahead form-control size-zairyou" type="text" maxlength="30" autocomplete="off"
                                    id="Zairyou42" name="Zairyou42" value="@Model.Zairyou42">
                         </div>
-                        <div id="divToukyuu42">
+                        <div class="typeahead_wrap">
                             <input class="typeahead form-control size-toukyuu" type="text" maxlength="10" autocomplete="off"
                                    id="Toukyuu42" name="Toukyuu42" value="@Model.Toukyuu42">
                         </div>
                         <input type="text" class="form-control size-honsuu" maxlength="3" id="Honsuu42" name="Honsuu42"
                                value="@Model.Honsuu42" />
-                        <div class="spacer_sumi size-sumi"></div>
-                        <div class="spacer_pdf"></div>
+                        <div class="size-sumi"></div>
+                        <div class="size-pdf"></div>
                     </div>
                     <div class="d-flex flex-row">
-                        <div class="spacer_sou"></div>
-                        <div class="spacer_kakoudate"></div>
-                        <div id="divZairyou43">
+                        <div class="size-sou"></div>
+                        <div class="size-kakoudate"></div>
+                        <div class="typeahead_wrap">
                             <input class="typeahead form-control size-zairyou" type="text" maxlength="30" autocomplete="off"
                                    id="Zairyou43" name="Zairyou43" value="@Model.Zairyou43">
                         </div>
-                        <div id="divToukyuu43">
+                        <div class="typeahead_wrap">
                             <input class="typeahead form-control size-toukyuu" type="text" maxlength="10" autocomplete="off"
                                    id="Toukyuu43" name="Toukyuu43" value="@Model.Toukyuu43">
                         </div>
                         <input type="text" class="form-control size-honsuu" maxlength="3" id="Honsuu43" name="Honsuu43"
                                value="@Model.Honsuu43" />
-                        <div class="spacer_sumi size-sumi"></div>
-                        <div class="spacer_pdf"></div>
+                        <div class="size-sumi"></div>
+                        <div class="size-pdf"></div>
                     </div>
                 </div>
             </div>
@@ -373,13 +381,15 @@
                 <input type="text" hidden id="HiddenHiuchiUpdateDateTime" name="HiddenHiuchiUpdateDateTime" value="@Model.HiddenUpdateDateTime" />
                 <input type="file" hidden id="inputFileHiuchi" accept=".csv">
             </div>
-        </div>
-        <div class="row">
-            <div class="footer-btn mx-auto">
-                <button type="button" class="btn btn-info" id="btnFileOpen" nofocus>ファイルを選択</button>
-                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-                <button type="button" class="btn btn-secondary" id="btnClose" nofocus>閉じる</button>
-                <button type="button" class="btn btn-primary" id="btnSaveHiuchi">登録</button>
+            <br/>
+            <div class="d-flex flex-row">
+                <div class="footer-btn footer-left">
+                    <button type="button" class="btn btn-info" id="btnFileOpen" nofocus>ファイルを選択</button>
+                </div>
+                <div class="footer-btn mx-auto">
+                    <button type="button" class="btn btn-secondary" id="btnClose" nofocus>閉じる</button>
+                    <button type="button" class="btn btn-primary" id="btnSaveHiuchi">登録</button>
+                </div>
             </div>
         </div>
     </div>

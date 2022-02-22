@@ -127,14 +127,14 @@ a.not-available {
         margin: 0px;
     }
 
-    .label-title {
+    .label-title:not(.non-responsive) {
         font-weight: bold;
         background-color: transparent;
         margin-left: 0px;
         padding-left: 0px;
     }
 
-        .label-title.pk {
+        .label-title:not(.non-responsive).pk {
             background-color: transparent;
             color: #FF4F6F;
         }
