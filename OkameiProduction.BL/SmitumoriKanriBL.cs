@@ -50,5 +50,15 @@ namespace OkameiProduction.BL
             DBAccess db = new DBAccess();
             return db.InsertUpdateDeleteData("SmitumoriKanri_DeleteDataResult", false, sqlParams);
         }
+
+        public bool ModifySMitumoriCounterData(SmitumoriKanriModel model)
+        {
+            SqlParameter[] sqlParams = new SqlParameter[2];
+            sqlParams[0] = new SqlParameter("@DetailDataJson", SqlDbType.VarChar) { Value = model.DetailDataJson.ToStringOrNull() };
+            sqlParams[1] = new SqlParameter("@UserID", SqlDbType.VarChar) { Value = model.UserID.ToStringOrNull() };
+
+            DBAccess db = new DBAccess();
+            return db.InsertUpdateDeleteData("SmitumoriKanri_InsertUpdateDataResult", false, sqlParams);
+        }
     }
 }

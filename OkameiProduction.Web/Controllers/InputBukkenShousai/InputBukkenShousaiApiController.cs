@@ -136,6 +136,35 @@ namespace OkameiProduction.Web.Controllers
                 return GetSuccessResult();
             }
         }
+        public string ExportAgreementForm([FromBody] InputBukkenShousaiModel model)
+        {
+            if (model == null) return GetBadRequestResult();
+
+            var bl = new InputBukkenShousaiBL();
+            var dt = bl.ExportAgreementForm(model, out string msgid);
+            if (!String.IsNullOrEmpty(msgid))
+            {
+                return GetErrorResult(msgid);
+            }
+            else
+            {
+                try
+                {
+                    KakouShoudaku exportExcel = new KakouShoudaku();
+                    string SavePath = System.Web.Hosting.HostingEnvironment.MapPath("~/output/project");//AgreementForm
+                    string InitializerPath = System.Web.Hosting.HostingEnvironment.MapPath("~/Initializer/AgreementForm.xlsx");//AgreementForm
+
+                    exportExcel.AgreementFormExport(SavePath + "\\" + model.FileName  , InitializerPath, dt);
+                    return GetSuccessResult();
+                }
+                catch(Exception ex)
+                {
+                    //var log =  Logger.GetInstance();
+                    //log.Debug(ex.StackTrace.ToString()); 
+                    return GetBadRequestResult();
+                }
+            }
+        }
 
         [HttpPost]
         public async Task<string> UploadFiles()

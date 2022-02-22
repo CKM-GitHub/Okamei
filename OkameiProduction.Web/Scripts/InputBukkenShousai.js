@@ -1,6 +1,27 @@
 ﻿//InputBukkenShousai.js
 
 function addEvents() {
+    btnShoudakusho.click(function () {
+        showConfirmMessage("Q205", function () {
+            if (eMode == 'Edit') {
+                var fileName = '加工承諾書_' + txtBukkenName.val() + '.xlsx'; 
+                var model = 
+                {
+                    FileName: fileName,   
+                    TantouSitenCD: txtSitenCD.val(),
+                    BukkenName: txtBukkenName.val(),
+                    KoumutenName: $('#KoumutenName').val(),
+                    Nouki: txtNouki.val(),
+                    TantouEigyouCD: ddlTantouEigyou.val(), 
+                }; 
+                calltoApiController_FileDownLoadHandle(url_exportAgreementForm, model);
+                //location.href = url_homePage;url_exportAgreementForm 
+            }
+            else {
+                location.href = url_previousPage;
+            }
+        });
+    });
     btnReturn.click(function () {
         showConfirmMessage("Q003", function () {
             if (eMode == 'New') {

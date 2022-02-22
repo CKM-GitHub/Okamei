@@ -29,12 +29,18 @@ namespace OkameiProduction.Web.Controllers
             return bl.UserIDCheck(model);
         }
 
-
         [HttpPost]
         public bool DeleteSMitumoriCounterData([FromBody] SmitumoriKanriModel model)
         {
             var bl = new SmitumoriKanriBL();
             return bl.DeleteSMitumoriCounterData(model);
+        }
+
+        [HttpPost]
+        public bool ModifySMitumoriCounterData([FromBody] SmitumoriKanriModel model)
+        {
+            var bl = new SmitumoriKanriBL();
+            return bl.ModifySMitumoriCounterData(model);
         }
     }
 }

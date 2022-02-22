@@ -26,6 +26,7 @@ namespace Models
         public byte TokuchuuzaiUmu { get; set; }
         public string ZairyouNouki { get; set; }
         public string TokuchuuzaiComment { get; set; }
+        public string FileName { get; set; }
         //Page 2.
         public string JuchuuDate { get; set; }
         public string FusezuTeishutuDate { get; set; }
