@@ -239,7 +239,9 @@
             });
 
             $('#btnProcess').click(function () {
-                btnProcess_click();
+                showConfirmMessage("Q101", function () {
+                    btnProcess_click();
+                })
             });
 
             setRequired('#TantouCadCD');
