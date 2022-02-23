@@ -22,6 +22,19 @@ BEGIN
 		AND (@Char4 IS NULL OR Char4 = @Char4)
 		ORDER BY Char3
 	END
+	
+	--add by TZA for the dropdownlists of SmitumoriKanri Form
+	ELSE IF @Char4 = N'SmitumoriKanri'
+	BEGIN
+		SELECT
+			[Key]  AS [Value]
+			,CONVERT(varchar(50), Char2) AS DisplayText
+			,Num1  AS SortBy
+		FROM M_MultiPorpose
+		WHERE ID = @ID
+		ORDER BY Num1
+	END
+
 	BEGIN
 		SELECT
 			[Key]  AS [Value]
