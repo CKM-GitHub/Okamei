@@ -1,10 +1,12 @@
 ﻿@model Models.InputBukkenShousaiModel
 
 @{
-    ViewBag.Title = "Entry";
+    ViewBag.Title = "InputBukkenShousai";
 }
 
-@Styles.Render("~/Content/InputBukkenShousaiCss")
+@section styles{
+    @Styles.Render("~/Content/InputBukkenShousaiCss")
+}
 
 <h4 class="page-title">物件詳細登録</h4>
 <div id="main" class="main-content">
@@ -613,7 +615,7 @@
 
 @section Scripts{
     @Scripts.Render("~/bundles/InputBukkenShousai")
-<script type="text/javascript">
+    <script type="text/javascript">
         var url_homePage = '@Url.Action("Index", "Home")';
         var url_previousPage = '@Html.Raw(ViewBag.PreviousUrl)';
         var url_getBukkenNO = '@Url.Action("GetBukkenNO", "api/InputBukkenShousaiApi")';
@@ -656,5 +658,5 @@
             }
         });
 
-</script>
+    </script>
 }

@@ -7,6 +7,7 @@ var substringMatcher = function (strs) {
         var matches;
 
         matches = [];
+        matches.push('');
 
         substrRegex = new RegExp(q, 'i');
 
@@ -16,6 +17,7 @@ var substringMatcher = function (strs) {
             }
         });
 
+        if (matches.length == 1) matches.remove();
         cb(matches);
     };
 };
@@ -38,10 +40,11 @@ function setSuggestList(selector, url, key, items) {
 
     if (items.length > 0) {
         targer.typeahead({
-            minLength: 0,
+            minLength: 0
         },
             {
-                source: substringMatcher(items)
+                source: substringMatcher(items),
+                limit: 100
             });
     }
 }

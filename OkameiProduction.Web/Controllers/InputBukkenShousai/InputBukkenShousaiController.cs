@@ -18,6 +18,11 @@ namespace OkameiProduction.Web.Controllers
         public ActionResult Entry()
         {
             var vm = GetFromQueryString<InputBukkenShousaiModel>();
+            if (vm.Mode == EMode.None)
+            {
+                return this.HttpNotFound();
+            }
+
             ViewBag.PreviousUrl = base.GetPreviousUrl();
 
             if (vm.Mode == EMode.Edit || vm.Mode == EMode.Delete)
@@ -64,6 +69,7 @@ namespace OkameiProduction.Web.Controllers
         }
 
         // GET:
+        [SessionFilter(IsRedirectedToLoginPage = false)]
         [BrowsingHistory(Disable = true)]
         public ActionResult DownloadFiles(string BukkenNO, string BukkenFileRowsCsv)
         {
@@ -148,14 +154,19 @@ namespace OkameiProduction.Web.Controllers
 
 
         //Hiuchi SubForm -------------------->
+        [SessionFilter(IsRedirectedToLoginPage = false)]
         [HttpPost]
         public ActionResult HiuchiSubEntry()
         {
             var vm = new InputBukkenShousaiHiuchiModel();
-
             var form = System.Web.HttpContext.Current.Request.Form;
             vm.BukkenNO = form["BukkenNO"].ToStringOrEmpty();
             vm.BukkenName = form["BukkenName"].ToStringOrEmpty();
+
+            if (string.IsNullOrEmpty(vm.BukkenNO))
+            {
+                return this.HttpNotFound();
+            }
 
             var bl = new InputBukkenShousaiHiuchiBL();
             var dt = bl.GetBukkenHiuchiData(vm);
@@ -167,7 +178,7 @@ namespace OkameiProduction.Web.Controllers
             }
 
             SetDropDownListItemsHiuchi(vm);
-            return View(vm);
+            return PartialView(vm);
         }
 
         private void SetDropDownListItemsHiuchi(InputBukkenShousaiHiuchiModel vm)
@@ -177,17 +188,22 @@ namespace OkameiProduction.Web.Controllers
         }
         //Hiuchi SubForm <--------------------
 
-            
-            
+
+
         //Tekakou SubForm -------------------->
+        [SessionFilter(IsRedirectedToLoginPage = false)]
         [HttpPost]
         public ActionResult TekakouSubEntry()
         {
             var vm = new InputBukkenShousaiTekakouModel();
-
             var form = System.Web.HttpContext.Current.Request.Form;
             vm.BukkenNO = form["BukkenNO"].ToStringOrEmpty();
             vm.BukkenName = form["BukkenName"].ToStringOrEmpty();
+
+            if (string.IsNullOrEmpty(vm.BukkenNO))
+            {
+                return this.HttpNotFound();
+            }
 
             var bl = new InputBukkenShousaiTekakouBL();
             var dt = bl.GetBukkenTekakouData(vm);
@@ -198,7 +214,7 @@ namespace OkameiProduction.Web.Controllers
                 vm.BukkenName = bukkenName;
             }
 
-            return View(vm);
+            return PartialView(vm);
         }
 
         //Tekakou SubForm <--------------------    

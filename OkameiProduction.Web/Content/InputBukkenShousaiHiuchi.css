@@ -1,0 +1,96 @@
+﻿/* InputBukkenShousai HiuchiSubEntry*/
+
+.HiuchiSubEntry_content {
+    width: 1200px;
+}
+
+#HiuchiSubEntry .detail_content {
+    padding-left: 10px;
+}
+
+    /* Override BootStrap　---> */
+    #HiuchiSubEntry .detail_content .form-control {
+        height: 33px;
+        line-height: 1;
+        border-radius: 0;
+    }
+
+        #HiuchiSubEntry .detail_content .form-control:focus {
+            outline: none;
+            box-shadow: none;
+        }
+    /* <--- */
+
+    #HiuchiSubEntry .detail_content button {
+        height: 33px;
+        line-height: 1;
+    }
+
+    #HiuchiSubEntry .detail_content .label-title {
+        width: auto;
+        margin-left: 0;
+        border-radius: 0;
+    }
+
+#HiuchiSubEntry .footer-btn {
+    white-space: nowrap;
+}
+
+#HiuchiSubEntry .footer-left {
+    padding-left: 10px;
+    padding-right: 60px;
+}
+
+#HiuchiSubEntry .size-sou {
+    width: 168px !important; /* select.size12 */
+    flex-shrink: 0;
+}
+
+#HiuchiSubEntry .size-kakoudate {
+    width: 238px !important; /* select.size19 */
+    flex-shrink: 0;
+}
+
+#HiuchiSubEntry .size-zairyou {
+    width: 348px !important; /*select_size30*/
+    flex-shrink: 0;
+}
+
+#HiuchiSubEntry .size-toukyuu {
+    width: 148px !important; /*select_size10*/
+    flex-shrink: 0;
+}
+
+#HiuchiSubEntry .size-honsuu {
+    width: 78px !important; /*select_size3*/
+    flex-shrink: 0;
+}
+
+#HiuchiSubEntry .size-sumi {
+    width: 50px !important;
+    flex-shrink: 0;
+}
+
+#HiuchiSubEntry .size-pdf {
+    width: 100px !important;
+    flex-shrink: 0;
+    padding-left: 20px;
+}
+
+    #HiuchiSubEntry .size-pdf button {
+        width: 80px !important;
+    }
+
+@media (max-width: 575px) {
+    .HiuchiSubEntry_content {
+        max-width: 90%;
+        max-height: 90%;
+    }
+}
+
+@media (max-height: 800px) {
+    .HiuchiSubEntry_content {
+        max-width: 90%;
+        max-height: 90%;
+    }
+}

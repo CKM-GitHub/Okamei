@@ -9,23 +9,23 @@ namespace OkameiProduction.Web
         public static void RegisterBundles(BundleCollection bundles)
         {
             //js
-            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
+            bundles.Add(new ScriptBundle("~/bundles/lib/modernizr").Include(
                         "~/Scripts/lib/modernizr-*"
                         ));
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+            bundles.Add(new ScriptBundle("~/bundles/lib/jquery").Include(
                         "~/Scripts/lib/jquery-{version}.js"
                         ));
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+            bundles.Add(new ScriptBundle("~/bundles/lib/bootstrap").Include(
                         "~/Scripts/lib/bootstrap.bundle.js"
+                        ));
+            bundles.Add(new ScriptBundle("~/bundles/login").Include(
+                        "~/Scripts/SweetAlert2.js",
+                        "~/Scripts/tilt.jquery.js"
                         ));
             bundles.Add(new ScriptBundle("~/bundles/common").Include(
                         "~/Scripts/SweetAlert2.js",
                         "~/Scripts/typeahead.js",
                         "~/Scripts/Common.js"
-                        ));
-            bundles.Add(new ScriptBundle("~/bundles/login").Include(
-                        "~/Scripts/SweetAlert2.js",
-                        "~/Scripts/tilt.jquery.js"
                         ));
             bundles.Add(new ScriptBundle("~/bundles/InputBukkenShousai").Include(
                         "~/Scripts/InputBukkenShousai.js",
@@ -35,13 +35,13 @@ namespace OkameiProduction.Web
                         ));
 
             //css
-            bundles.Add(new StyleBundle("~/Content/lib/Css").Include(
-                        "~/Content/lib/bootstrap.css"
-                        ));
-            bundles.Add(new StyleBundle("~/Content/login/Css").Include(
+            //bundles.Add(new StyleBundle("~/Content/lib/Css").Include(
+            //            "~/Content/lib/bootstrap.css"
+            //            ));
+            bundles.Add(new StyleBundle("~/Content/logincss").Include(
                         "~/Content/login.css"
                         ));
-            bundles.Add(new StyleBundle("~/Content/common/Css").Include(
+            bundles.Add(new StyleBundle("~/Content/sitecss").Include(
                         "~/Content/typeahead.css",
                         "~/Content/menu.css",
                         "~/Content/customize.css",
@@ -49,6 +49,8 @@ namespace OkameiProduction.Web
                         ));
             bundles.Add(new StyleBundle("~/Content/InputBukkenShousaiCss").Include(
                         "~/Content/InputBukkenShousai.css",
+                        "~/Content/InputBukkenShousaiHiuchi.css",
+                        "~/Content/InputBukkenShousaiTekakou.css",
                         "~/Content/ModalForm.css"
                         ));
 

@@ -272,6 +272,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\InputBukkenShousaiTekakou.css" />
+    <Content Include="Content\InputBukkenShousaiHiuchi.css" />
     <Content Include="Content\InputBukkenShousai.css" />
     <Content Include="Content\lib\bootstrap-grid.css" />
     <Content Include="Content\lib\bootstrap-grid.min.css" />

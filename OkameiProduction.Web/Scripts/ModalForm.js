@@ -36,7 +36,7 @@ $(document).ready(function () {
         };
         if (model.BukkenNO == "") return;
 
-        return { model, url, funcInitialize, funcFinalize };
+        return { url, model, funcInitialize, funcFinalize };
     }
 
     $('.js-modal-open').each(function () {
@@ -48,18 +48,23 @@ $(document).ready(function () {
 
             showLoadingMessage();
 
-            $.post(info.url, info.model, function (content) {
-                modalcontent = $(content);
-                modalcontent.appendTo('body');
-                closeLoadingMessage();
+            $.post(info.url, info.model)
+                .done(function (content) {
+                    modalcontent = $(content);
+                    modalcontent.appendTo('body');
+                    closeLoadingMessage();
 
-                var modal = document.getElementById(target);
-                $(modal).fadeIn();
-                $('body').css('overflow-y', 'hidden');
+                    var modal = document.getElementById(target);
+                    $(modal).fadeIn();
+                    $('body').css('overflow-y', 'hidden');
 
-                if (info.funcInitialize) info.funcInitialize();
-                return false;
-            });
+                    if (info.funcInitialize) info.funcInitialize();
+                    return false;
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    closeLoadingMessage();
+                    alert(jqXHR.status + ':' + jqXHR.statusText);
+                });
 
             return false;
         });

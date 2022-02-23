@@ -1,76 +1,9 @@
 ﻿@model Models.InputBukkenShousaiTekakouModel
 
 @{
-    ViewBag.Title = "TekakouSubEntry";
+    ViewBag.Title = "InputBukkenShousai Tekakou";
     Layout = "";
 }
-
-<style>
-    .TekakouSubEntry_content {
-        width: 650px;
-    }
-
-    #TekakouSubEntry .detail_content {
-        padding-left: 10px;
-    }
-
-        /* Override BootStrap　---> */
-        #TekakouSubEntry .detail_content .form-control:focus {
-            outline: none;
-            box-shadow: none;
-        }
-        /* <--- */
-
-        #TekakouSubEntry .detail_content .label-title {
-            margin-left: 0;
-            padding-right: 15px;
-            border-radius: 0;
-        }
-
-        #TekakouSubEntry .detail_content span {
-            padding: 6px 15px;
-            height: 38px;
-            background-color: #e9ecef;
-            border: 1px solid #ced4da;
-        }
-
-    #TekakouSubEntry .size-kakoutype {
-        width: 326px; /* input.size30 */
-        flex-shrink: 0;
-    }
-    #TekakouSubEntry .size-honsuu {
-        width: 66px; /*input.size4 */
-        flex-shrink: 0;
-        text-align: right;
-    }
-    #TekakouSubEntry .size-unittime {
-        width: 96px; /* select.size7 */
-        flex-shrink: 0;
-        text-align: right;
-    }
-    #TekakouSubEntry .size-time {
-        width: 96px; /* select.size7 */
-        flex-shrink: 0;
-        text-align: right;
-    }
-    #TekakouSubEntry .size-total {
-        width: calc(326px + 66px + 96px); /* kakoutype + honsuu + unittime */
-        flex-shrink: 0;
-    }
-
-    @@media (max-width: 575px) {
-        .TekakouSubEntry_content {
-            max-width: 90%;
-            max-height: 90%;
-        }
-    }
-    @@media (max-height: 660px) {
-        .TekakouSubEntry_content {
-            max-width: 90%;
-            max-height: 90%;
-        }
-    }
-</style>
 
 <div id="TekakouSubEntry" class="modal js-modal">
     <div class="modal_bg"></div>
