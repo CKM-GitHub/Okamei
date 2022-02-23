@@ -30,21 +30,19 @@
 
     #tblSmitumoriKanri .SagyouDate,
     #tblSmitumoriKanri .KaesiYoteiDate,
-    #tblSmitumoriKanri .TantouSiten,
-    #tblSmitumoriKanri .TantouEigyou {
+    #tblSmitumoriKanri .TantouSitenCD,
+    #tblSmitumoriKanri .IraiEigyouCD {
         min-width: 110px;
         max-width: 110px;
     }
 
-    #tblSmitumoriKanri .TantouCad {
+    #tblSmitumoriKanri .TantouCadCD {
         min-width: 150px;
     }
 
-    #tblSmitumoriKanri .BukkenName {
-        min-width: 300px;
-    }
+    #tblSmitumoriKanri .BukkenName,
     #tblSmitumoriKanri .KoumutenName {
-        min-width: 200px;
+        min-width: 300px;
     }
 
     #tblSmitumoriKanri .KakoutuboSuu {
@@ -78,14 +76,14 @@
     <table class='table table-bordered' id="tblSmitumoriKanri">
         <thead>
             <tr>
-                <th>作業日</th>
-                <th>担当</th>
-                <th>物件名</th>
-                <th>工務店</th>
-                <th>坪数</th>
-                <th>支店</th>
-                <th>営業</th>
-                <th>返し予定日</th>
+                <th>作業日<span style="color: red; margin-left: 2px;">*</span></th>
+                <th>担当<span style="color: red; margin-left: 2px;">*</span></th>
+                <th>物件名<span style="color: red; margin-left: 2px;">*</span></th>
+                <th>工務店<span style="color: red; margin-left: 2px;">*</span></th>
+                <th>坪数<span style="color: red; margin-left: 2px;">*</span></th>
+                <th>支店<span style="color: red; margin-left: 2px;">*</span></th>
+                <th>営業<span style="color: red; margin-left: 2px;">*</span></th>
+                <th>返し予定日<span style="color: red; margin-left: 2px;">*</span></th>
                 <th style="display: none;">SMitumoriCounter</th>
                 <th></th>
             </tr>
@@ -105,12 +103,12 @@
                 }
                 @for (var i = 0; i < count; i++)
                 {
-                    if (@columns[i].Caption == "TantouCad")
+                    if (@columns[i].Caption == "TantouCadCD")
                     {
                         <td class="@columns[i].Caption">
                             @Html.DropDownListFor(
-                            model => model.TantouCad,
-                            new SelectList(Model.TantouCadDropDownListItems, "DisplayText", "DisplayText", @items[i]),
+                            model => model.TantouCadCD,
+                            new SelectList(Model.TantouCadDropDownListItems, "Value", "DisplayText", @items[i]),
                             "",
                             new { @class = "form-control" })
                         </td>
@@ -118,29 +116,30 @@
                     else if (@columns[i].Caption == "KoumutenName")
                     {
                         <td class="@columns[i].Caption">
-                            @Html.DropDownListFor(
+                            <input type="text" class="typeahead form-control size30" maxlength="30" autocomplete="off" validate-required="true" id="txtKoumutenName" name="@columns[i].Caption" value="@items[i]" />
+                            @*@Html.DropDownListFor(
                             model => model.KoumutenName,
-                            new SelectList(Model.KoumutenDropDownListItems, "DisplayText", "DisplayText", @items[i]),
+                            new SelectList(Model.KoumutenDropDownListItems, "Value", "DisplayText", @items[i]),
+                            "",
+                            new { @class = "form-control size20" })*@
+                        </td>
+                    }
+                    else if (@columns[i].Caption == "TantouSitenCD")
+                    {
+                        <td class="@columns[i].Caption">
+                            @Html.DropDownListFor(
+                            model => model.TantouSitenCD,
+                            new SelectList(Model.TantouSitenDropDownListItems, "Value", "DisplayText", @items[i]),
                             "",
                             new { @class = "form-control size20" })
                         </td>
                     }
-                    else if (@columns[i].Caption == "TantouSiten")
+                    else if (@columns[i].Caption == "IraiEigyouCD")
                     {
                         <td class="@columns[i].Caption">
                             @Html.DropDownListFor(
-                            model => model.TantouSiten,
-                            new SelectList(Model.TantouSitenDropDownListItems, "DisplayText", "DisplayText", @items[i]),
-                            "",
-                            new { @class = "form-control size20" })
-                        </td>
-                    }
-                    else if (@columns[i].Caption == "TantouEigyou")
-                    {
-                        <td class="@columns[i].Caption">
-                            @Html.DropDownListFor(
-                            model => model.TantouEigyou,
-                            new SelectList(Model.TantouEigyouDropDownListItems, "DisplayText", "DisplayText", @items[i]),
+                            model => model.IraiEigyouCD,
+                            new SelectList(Model.IraiEigyouDropDownListItems, "Value", "DisplayText", @items[i]),
                             "",
                             new { @class = "form-control size20" })
                         </td>
@@ -166,10 +165,10 @@
                 <td class="SagyouDate">
                     <input type="text" class="form-control size10" maxlength="10" id="txtSagyouDate" name="SagyouDate" />
                 </td>
-                <td class="TantouCad">
+                <td class="TantouCadCD">
                     @Html.DropDownListFor(
-                    model => model.TantouCad,
-                    new SelectList(Model.TantouCadDropDownListItems, "DisplayText", "DisplayText"),
+                    model => model.TantouCadCD,
+                    new SelectList(Model.TantouCadDropDownListItems, "Value", "DisplayText"),
                     "",
                     new { @class = "form-control" })
                 </td>
@@ -177,26 +176,27 @@
                     <input type="text" class="form-control size30" maxlength="30" id="txtBukkenName" name="BukkenName" />
                 </td>
                 <td class="KoumutenName">
-                    @Html.DropDownListFor(
+                    <input type="text" class="typeahead form-control size30" maxlength="30" autocomplete="off"  id="txtKoumutenName" name="KoumutenName" />
+                    @*@Html.DropDownListFor(
                     model => model.KoumutenName,
-                    new SelectList(Model.KoumutenDropDownListItems, "DisplayText", "DisplayText"),
+                    new SelectList(Model.KoumutenDropDownListItems, "Value", "DisplayText"),
                     "",
-                    new { @class = "form-control size20" })
+                    new { @class = "form-control size20" })*@
                 </td>
                 <td class="KakoutuboSuu">
                     <input type="text" class="form-control size7" maxlength="6" id="txtKakoutuboSuu" name="KakoutuboSuu" />
                 </td>
-                <td class="TantouSiten">
+                <td class="TantouSitenCD">
                     @Html.DropDownListFor(
-                    model => model.TantouSiten,
-                    new SelectList(Model.TantouSitenDropDownListItems, "DisplayText", "DisplayText"),
+                    model => model.TantouSitenCD,
+                    new SelectList(Model.TantouSitenDropDownListItems, "Value", "DisplayText"),
                     "",
                     new { @class = "form-control size20" })
                 </td>
-                <td class="TantouEigyou">
+                <td class="IraiEigyouCD">
                     @Html.DropDownListFor(
-                    model => model.TantouEigyou,
-                    new SelectList(Model.TantouEigyouDropDownListItems, "DisplayText", "DisplayText"),
+                    model => model.IraiEigyouCD,
+                    new SelectList(Model.IraiEigyouDropDownListItems, "Value", "DisplayText"),
                     "",
                     new { @class = "form-control size20" })
                 </td>
@@ -239,8 +239,17 @@
             });
 
             $('#btnProcess').click(function () {
-                btnProcess_click();
+                showConfirmMessage("Q101", function () {
+                    btnProcess_click();
+                })
             });
+
+            setRequired('#TantouCadCD');
+            setRequired('#KoumutenName');
+            setRequired('#TantouSitenCD');
+            setRequired('#IraiEigyouCD');
+            setDoubleByteValidate('#txtKoumutenName');
+            setSuggestList('#txtKoumutenName', '@Url.Action("GetKoumutenSuggestItems", "api/InputBukkenShousaiApi")', '');
 
             //check user id who has access or not to edit
             var model = {
@@ -281,28 +290,41 @@
         }
 
         function btnAdd_click() {
-            if ($('#tblSmitumoriKanri tbody tr:last-child td:nth-child(9)').text().trim() != "") {
+            if (checkErrorOnSave('#main')) {
                 $('#tblSmitumoriKanri_next a').click();
                 $('#tblSmitumoriKanri tbody:last-child').append($('#tblSmitumoriKanri_Clone tbody tr').clone());
+
+                setRequired('#txtSagyouDate');
+                setRequired('#TantouCadCD');
+                setRequired('#txtBukkenName');
+                setRequired('#txtKoumutenName');
+                setRequired('#txtKakoutuboSuu');
+                setRequired('#TantouSitenCD');
+                setRequired('#IraiEigyouCD');
+                setRequired('#txtKaesiYoteiDate');
 
                 setDateTypeValidate('#txtSagyouDate');
                 setDoubleByteValidate('#txtBukkenName');
                 setNumericValidate('#txtKakoutuboSuu', 3, 2);
                 setDateTypeValidate('#txtKaesiYoteiDate');
+                setDoubleByteValidate('#txtKoumutenName');
+                setSuggestList('#txtKoumutenName', '@Url.Action("GetKoumutenSuggestItems", "api/InputBukkenShousaiApi")', '');
 
                 $('#txtSagyouDate').change(function () {
-                    ErrorCheck(this, "#tblSmitumoriKanri tbody tr:last-child td #TantouCad");
+                    ErrorCheck(this, "#tblSmitumoriKanri tbody tr:last-child td #TantouCadCD");
                 })
                 $('#txtBukkenName').change(function () {
                     ErrorCheck(this, "#tblSmitumoriKanri tbody tr:last-child td #KoumutenName");
                 })
                 $('#txtKakoutuboSuu').change(function () {
-                    ErrorCheck(this, "#tblSmitumoriKanri tbody tr:last-child td #TantouSiten");
+                    ErrorCheck(this, "#tblSmitumoriKanri tbody tr:last-child td #TantouSitenCD");
                 })
                 $('#txtKaesiYoteiDate').change(function () {
                     ErrorCheck(this, "#tblSmitumoriKanri tbody tr:last-child td button");
                 })
             }
+            else
+                showMessage('E102');
         }
 
         function ErrorCheck(ctrl, nextctrl) {
@@ -317,20 +339,22 @@
                 showMessage(result);
                 return false;
             }
-            else
+            else if (nextctrl != '')
                 $(nextctrl).focus();
         }
 
         function btnProcess_click() {
-            var model = {
-                DetailDataJson: JSON.stringify(getDetailData),
-                UserID: $('#user-id').text()
+            if (checkErrorOnSave('#main')) {
+                var model = {
+                    DetailDataJson: JSON.stringify(getDetailData()),
+                    UserID: $('#user-id').text()
+                }
+                var result = calltoApiController('@Url.Action("ModifySMitumoriCounterData", "api/SmitumoriKanriApi")', model);
+                if (!result)
+                    return false;
+                else
+                    window.location.reload();
             }
-            var result = calltoApiController('@Url.Action("ModifySMitumoriCounterData", "api/SmitumoriKanriApi")', model);
-            if (!result)
-                return false;
-            else
-                window.location.reload();
             return true;
         }
 
@@ -339,17 +363,19 @@
             $("#tblSmitumoriKanri tr").each(function (i, tr) {
                 item = {};
                 item["SagyouDate"] = $(tr).find('td:eq(0)').text().trim() ? $(tr).find('td:eq(0)').text().trim() : $(tr).find('td:eq(0) input[type="text"]').val();
-                item["TantouCad"] = $(tr).find('td:eq(1) :selected').text();
+                item["TantouCadCD"] = $(tr).find('td:eq(1) :selected').val();
                 item["BukkenName"] = $(tr).find('td:eq(2)').text().trim() ? $(tr).find('td:eq(2)').text().trim() : $(tr).find('td:eq(2) input[type="text"]').val();
-                item["KoumutenName"] = $(tr).find('td:eq(3) :selected').text().trim();
+                //item["KoumutenName"] = $(tr).find('td:eq(3) :selected').val();
+                item["KoumutenName"] = $(tr).find('td:eq(3) #txtKoumutenName').val();
                 item["KakoutuboSuu"] = $(tr).find('td:eq(4)').text().trim() ? $(tr).find('td:eq(4)').text().trim() : $(tr).find('td:eq(4) input[type="text"]').val();
-                item["TantouSiten"] = $(tr).find('td:eq(5) :selected').text().trim();
-                item["TantouEigyou"] = $(tr).find('td:eq(6) :selected').text().trim();
+                item["TantouSitenCD"] = $(tr).find('td:eq(5) :selected').val();
+                item["IraiEigyouCD"] = $(tr).find('td:eq(6) :selected').val();
                 item["KaesiYoteiDate"] = $(tr).find('td:eq(7)').text().trim() ? $(tr).find('td:eq(7)').text().trim() : $(tr).find('td:eq(7) input[type="text"]').val();
                 item["SMitumoriCounter"] = $(tr).find('td:eq(8)').text().trim() ? $(tr).find('td:eq(8)').text().trim() : $(tr).find('td:eq(8)').text().trim();
                 jsonObj.push(item);
             })
             jsonObj.shift();
+            return jsonObj;
         }
     </script>
 }
