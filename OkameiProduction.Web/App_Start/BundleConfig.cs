@@ -31,6 +31,7 @@ namespace OkameiProduction.Web
                         "~/Scripts/InputBukkenShousai.js",
                         "~/Scripts/InputBukkenShousaiHiuchi.js",
                         "~/Scripts/InputBukkenShousaiTekakou.js",
+                        "~/Scripts/InputBukkenShousaiMoulder.js",
                         "~/Scripts/ModalForm.js"
                         ));
 
@@ -51,6 +52,7 @@ namespace OkameiProduction.Web
                         "~/Content/InputBukkenShousai.css",
                         "~/Content/InputBukkenShousaiHiuchi.css",
                         "~/Content/InputBukkenShousaiTekakou.css",
+                        "~/Content/InputBukkenShousaiMoulder.css",
                         "~/Content/ModalForm.css"
                         ));
 

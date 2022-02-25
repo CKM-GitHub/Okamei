@@ -218,5 +218,47 @@ namespace OkameiProduction.Web.Controllers
         }
 
         //Tekakou SubForm <--------------------    
+
+
+
+        //Moulder SubForm -------------------->
+        [SessionFilter(IsRedirectedToLoginPage = false)]
+        [HttpPost]
+        public ActionResult MoulderSubEntry()
+        {
+            var vm = new InputBukkenShousaiMoulderModel();
+            var form = System.Web.HttpContext.Current.Request.Form;
+            vm.BukkenNO = form["BukkenNO"].ToStringOrEmpty();
+            vm.BukkenName = form["BukkenName"].ToStringOrEmpty();
+
+            if (string.IsNullOrEmpty(vm.BukkenNO))
+            {
+                return this.HttpNotFound();
+            }
+
+            var bl = new InputBukkenShousaiMoulderBL();
+            var dt = bl.GetBukkenMoulderData(vm);
+            if (dt.Rows.Count > 0)
+            {
+                var bukkenName = vm.BukkenName;
+                vm.Records = dt.AsEnumerableEntity<InputBukkenShousaiMoulderRow>().ToList();
+                vm.BukkenName = bukkenName;
+            }
+            else
+            {
+                vm.Records = new List<InputBukkenShousaiMoulderRow>();
+            }
+
+            SetDropDownListItemsMoulder(vm);
+            return PartialView(vm);
+        }
+
+        private void SetDropDownListItemsMoulder(InputBukkenShousaiMoulderModel vm)
+        {
+            CommonBL bl = new CommonBL();
+            vm.HinmokuDropDownListItems = bl.GetMultiPorposeDropDownListItems(EMultiPorpose.MoulderHinmoku);
+            vm.ZairyouDropDownListItems = bl.GetMultiPorposeDropDownListItems(EMultiPorpose.MoulderZairyou);
+        }
+        //Moulder SubForm <--------------------    
     }
 }

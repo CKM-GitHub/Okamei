@@ -73,10 +73,10 @@ function setDropDownList(selector, url, key, items) {
     }
 }
 
-function setDisabledAll(selector, isDisabledFooterbuttons) {
+function setDisabledAll(selector, exceptSelector) {
     $(selector + ' :input:not(:hidden)').prop('disabled', true);
-    if (!isDisabledFooterbuttons) {
-        $('.main-content-footer :button').prop('disabled', false);
+    if (exceptSelector) {
+        $(exceptSelector).prop('disabled', false);
     }
 }
 
@@ -336,7 +336,7 @@ function removeRequired(selector) {
 
 // date type  ----->
 function setDateTypeValidate(selector) {
-    $(selector).attr('validate-datetype', 'true'); //.attr('inputmode', 'numeric');
+    $(selector).attr('validate-datetype', 'true').attr('autocomplete', 'off'); //.attr('inputmode', 'numeric');
 }
 function removeDateTypeValidate(selector) {
     $(selector).removeAttr('validate-datetype');
@@ -344,7 +344,7 @@ function removeDateTypeValidate(selector) {
 
 //// dateYM type  ----->
 function setDateYMTypeValidate(selector) {
-    $(selector).attr('validate-dateYMtype', 'true');
+    $(selector).attr('validate-dateYMtype', 'true').attr('autocomplete', 'off');
 }
 function removeDateYMTypeValidate(selector) {
     $(selector).removeAttr('validate-dateYMtype'); 
@@ -390,7 +390,8 @@ function setNumericValidate(selector, integerdigits, decimaldigits) {
     $(selector).attr('validate-numeric', 'true')
         .attr('integerdigits', integerdigits)
         .attr('decimaldigits', decimaldigits)
-        .attr('inputmode', 'decimal');
+        .attr('inputmode', 'decimal')
+        .attr('autocomplete', 'off');
 }
 function removeNumericValidate(selector) {
     $(selector).removeAttr('validate-numeric')
@@ -494,7 +495,7 @@ function bindKeyPressEvent(areaid) {
     }
 
     var selector = areaid + ' :input:not(:hidden)';
-    $(selector).keypress(function (e) {
+    $(document).on('keypress', selector, function (e) {
         var c = e.which ? e.which : e.keyCode;
         if (c == 13 || c == 9) {
 

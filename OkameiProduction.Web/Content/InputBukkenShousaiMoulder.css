@@ -1,0 +1,108 @@
+﻿/* InputBukkenShousai MoulderSubEntry*/
+
+#MoulderSubEntry .modal_content {
+    width: 1000px;
+    max-height: 95%;
+}
+
+#MoulderSubEntry .detail_content {
+    padding-left: 10px;
+}
+
+    /* override BootStrap　---> */
+    #MoulderSubEntry .detail_content .form-control {
+        border: none;
+        line-height: 1;
+        height: calc(1em + 0.45rem + 2px);
+        /*padding: 0 0.75rem;*/
+        padding: 0 0.5rem;
+    }
+
+        #MoulderSubEntry .detail_content .form-control:focus {
+            border: 1px solid #80bdff;
+            outline: none;
+            box-shadow: none;
+        }
+    /* <--- */
+
+    #MoulderSubEntry .detail_content .label-title { /* override customize.css */
+        margin-left: 0;
+        padding-right: 15px;
+        border-radius: 0;
+    }
+
+#MoulderSubEntry .footer-btn { /* override customize.css */
+    white-space: nowrap;
+}
+
+#MoulderSubEntry .footer-left {
+    padding-left: 10px;
+    padding-right: 60px;
+}
+
+#MoulderSubEntry .templatetable {
+    display: none;
+}
+
+#MoulderSubEntry .table th {
+    padding: 2px 12px;
+    font-weight: normal;
+    vertical-align: middle;
+}
+
+#MoulderSubEntry .table td {
+    padding: 0;
+    line-height: 1;
+    vertical-align: middle;
+    background-color: #fff;
+}
+
+#MoulderSubEntry .table .MoulderRows {
+    display: none;
+}
+
+#MoulderSubEntry .table .MoulderHinmoku {
+    min-width: 148px;
+    max-width: 148px;
+    width: 148px;
+}
+
+#MoulderSubEntry .table .MoulderZairyou {
+    min-width: 248px;
+    max-width: 248px;
+    width: 248px;
+}
+
+#MoulderSubEntry .table .MoulderHaba,
+#MoulderSubEntry .table .MoulderNari,
+#MoulderSubEntry .table .MoulderNagasa,
+#MoulderSubEntry .table .MoulderHonsuu {
+    min-width: 76px;
+    max-width: 76px;
+    width: 76px;
+    text-align: right;
+}
+
+#MoulderSubEntry .table .MoulderKakouDateTime {
+    min-width: 126px;
+    max-width: 126px;
+    width: 126px;
+}
+
+#MoulderSubEntry .table td.MoulderKakouDateTime {
+    background-color: #e9ecef;
+}
+
+#MoulderSubEntry .table .MoulderSumi {
+    min-width: 46px;
+    max-width: 46px;
+    width: 46px;
+    text-align: center;
+}
+
+@media (max-width: 1000px) {
+    #MoulderSubEntry .modal_content {
+        max-width: 90%;
+    }
+}
+

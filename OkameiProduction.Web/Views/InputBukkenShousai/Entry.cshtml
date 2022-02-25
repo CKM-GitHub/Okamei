@@ -570,10 +570,12 @@
         <div class="col-sm-2">
         </div>
         <div class="col-sm-10">
-            <table class='table' id="tblBukkenFile">
-                <thead></thead>
-                <tbody></tbody>
-            </table>
+            <div class="fixedtable-wrap">
+                <table class='table' id="tblBukkenFile">
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
     </div>
     @*--------------------------------------------------*@
@@ -592,10 +594,12 @@
             <label class="col-form-label label-title">コメント履歴</label>
         </div>
         <div class="col-sm-10">
-            <table class='table' id="tblBukkenComment">
-                <thead></thead>
-                <tbody></tbody>
-            </table>
+            <div class="fixedtable-wrap">
+                <table class='table' id="tblBukkenComment">
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
     </div>
     <div class="hidden-area">
@@ -604,7 +608,7 @@
     <a id="downloadBukkenFile" hidden download>物件ファイルダウンロード</a>
     <div class="form-group row">
         <div class="main-content-footer mx-auto">
-            <button type="button" id="btnKakousiji" class="btn btn-info">加工指示</button>
+            <button type="button" id="btnKakousiji" class="btn btn-info js-modal-open" data-target="MoulderSubEntry">加工指示</button>
             <button type="button" id="btnShoudakusho" class="btn btn-info">加工承諾書</button>
             <button type="button" id="btnJissekiNippou" class="btn btn-info">ﾌﾟﾚｶｯﾄ実績日報</button>
             <button type="button" id="btnReturn" class="btn btn-secondary" nofocus>戻る</button>
