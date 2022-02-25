@@ -36,6 +36,10 @@ function initialize_Moulder() {
     setNumericValidate('#MoulderSubEntry [name="MoulderHonsuu"]', 5, 0);
 
     //setScreen
+    $('#MoulderSubEntry input[type=checkbox]').each(function () {
+        $(this).prop('checked', $(this).data('dbvalue') == "1");
+    });
+
     if (eMode == 'Delete') {
         setDisabledAll('#MoulderSubEntry', '.js-modal-close, #MoulderSubEntry #btnClose');
         $('#MoulderSubEntry #btnClose').focus();

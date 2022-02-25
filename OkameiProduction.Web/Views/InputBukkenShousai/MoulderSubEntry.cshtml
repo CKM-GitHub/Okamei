@@ -56,7 +56,7 @@
             </td>
             <td class="MoulderKakouDateTime"></td>
             <td class="MoulderSumi">
-                <input type="checkbox" id="MoulderSumi" />
+                <input type="checkbox" name="MoulderSumi" />
             </td>
         </tr>
     </table>
@@ -80,7 +80,7 @@
                 {
                     <tr>
                         <td class="MoulderRows">
-                            @Html.TextBox("BukkenMoulderRows", row.BukkenMoulderRows, new { @class = "form-control", @maxlength = "5" })
+                            <input type="text" class="form-control" name="BukkenMoulderRows" value="@row.BukkenMoulderRows" />
                         </td>
                         <td class="MoulderHinmoku">
                             @Html.DropDownList(
@@ -97,22 +97,22 @@
                             new { @class = "form-control" })
                         </td>
                         <td class="MoulderHaba">
-                            @Html.TextBox("MoulderHaba", row.MoulderHaba, new { @class = "form-control", @maxlength = "5" })
+                            <input type="text" class="form-control" name="MoulderHaba" maxlength="5" value="@row.MoulderHaba" />
                         </td>
                         <td class="MoulderNari">
-                            @Html.TextBox("MoulderNari", row.MoulderNari, new { @class = "form-control", @maxlength = "5" })
+                            <input type="text" class="form-control" name="MoulderNari" maxlength="5" value="@row.MoulderNari" />
                         </td>
                         <td class="MoulderNagasa">
-                            @Html.TextBox("MoulderNagasa", row.MoulderNagasa, new { @class = "form-control", @maxlength = "5" })
+                            <input type="text" class="form-control" name="MoulderNagasa" maxlength="5" value="@row.MoulderNagasa" />
                         </td>
                         <td class="MoulderHonsuu">
-                            @Html.TextBox("MoulderHonsuu", row.MoulderHonsuu, new { @class = "form-control", @maxlength = "5" })
+                            <input type="text" class="form-control" name="MoulderHonsuu" maxlength="5" value="@row.MoulderHonsuu" />
                         </td>
                         <td class="MoulderKakouDateTime">
                             @row.MoulderKakouDateTime
                         </td>
                         <td class="MoulderSumi">
-                            @Html.CheckBox("MoulderSumi", row.MoulderSumi == 1)
+                            <input type="checkbox" name="MoulderSumi" data-dbvalue="@row.MoulderSumi" />
                         </td>
                     </tr>
                 }
