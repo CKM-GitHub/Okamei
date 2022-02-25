@@ -273,7 +273,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\InputBukkenShousaiMoulder - コピー.css" />
     <Content Include="Content\InputBukkenShousaiMoulder.css" />
     <Content Include="Content\InputBukkenShousaiTekakou.css" />
     <Content Include="Content\InputBukkenShousaiHiuchi.css" />
@@ -295,7 +294,6 @@
     <Content Include="Global.asax" />
     <Content Include="Images\brandlogo.png" />
     <Content Include="Scripts\InputBukkenShousai.js" />
-    <Content Include="Scripts\InputBukkenShousaiMoulder - コピー.js" />
     <Content Include="Scripts\InputBukkenShousaiMoulder.js" />
     <Content Include="Scripts\InputBukkenShousaiTekakou.js" />
     <Content Include="Scripts\InputBukkenShousaiHiuchi.js" />
