@@ -208,7 +208,7 @@
                     <input type="text" class="form-control size30" maxlength="30" id="txtBukkenName" name="BukkenName" validate-required="true" />
                 </td>
                 <td class="KoumutenName">
-                    <input type="text" class="typeahead form-control size30" maxlength="30" autocomplete="off"  id="txtKoumutenName" name="KoumutenName" validate-required="true" />
+                    <input type="text" class="form-control size30" maxlength="30" autocomplete="off"  id="txtKoumutenName" name="KoumutenName" validate-required="true" />
                     @*@Html.DropDownListFor(
                     model => model.KoumutenName,
                     new SelectList(Model.KoumutenDropDownListItems, "Value", "DisplayText"),
@@ -305,6 +305,12 @@
                 setSuggestList('#txtKoumutenName', '@Url.Action("GetKoumutenSuggestItems", "api/InputBukkenShousaiApi")', '');
             }
 
+            $('#txtKoumutenName').on("focusin", function () {
+                focus_in();
+            })
+            $('#txtKoumutenName').on("focusout", function () {
+                focus_in();
+            })
             var t = bindDataTables($('#tblSmitumoriKanri'), { displayLength: 15 });
         });
 
@@ -343,7 +349,15 @@
                 setNumericValidate('#tblSmitumoriKanri tbody tr:last-child td #txtKakoutuboSuu', 3, 2);
                 setDateTypeValidate('#tblSmitumoriKanri tbody tr:last-child td #txtKaesiYoteiDate');
                 setDoubleByteValidate('#tblSmitumoriKanri tbody tr:last-child td #txtKoumutenName');
+                $('#tblSmitumoriKanri tbody tr:last-child td #txtKoumutenName').addClass("typeahead");
                 setSuggestList('#tblSmitumoriKanri tbody tr:last-child td #txtKoumutenName', '@Url.Action("GetKoumutenSuggestItems", "api/InputBukkenShousaiApi")', '');
+
+                $('#txtKoumutenName').on("focusin", function () {
+                    focus_in();
+                })
+                $('#txtKoumutenName').on("focusout", function () {
+                    focus_in();
+                })
 
                 bindKeyPressEvent("#main");
                 $('#tblSmitumoriKanri tbody tr:last-child td #txtSagyouDate').focus();
@@ -400,6 +414,19 @@
             })
             jsonObj.shift();
             return jsonObj;
+        }
+
+        function focus_in() {
+            $('.tt-menu').css('position', 'fixed');
+            $('.tt-menu').css('top', 'unset');
+            $('.tt-menu').css('left', 'unset');
+            $('.tt-menu').css('width', '300px');
+        }
+        function focus_out() {
+            $('.tt-menu').css('position', 'absolute');
+            $('.tt-menu').css('top', '100%');
+            $('.tt-menu').css('left', '0px');
+            $('.tt-menu').css('width', '300px');
         }
     </script>
 }
