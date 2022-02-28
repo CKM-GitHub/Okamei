@@ -58,7 +58,6 @@ CREATE PROCEDURE [dbo].[InputBukkenShousai_Create](
     ,@HundeggerTime             decimal(5,1)
     ,@BukkenComment             varchar(100)
     ,@Operator                  varchar(10)
-    ,@BukkenMoulderTBL          T_BukkenMoulder READONLY
 	,@OutExclusionError         tinyint OUTPUT
 )AS
 BEGIN

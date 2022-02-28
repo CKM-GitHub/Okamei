@@ -355,11 +355,11 @@ namespace OkameiProduction.BL
             //out val
             if (decimaldigits == 0)
             {
-                outVal = decimalValue.ToString("#,##0");
+                outVal = decimalValue.ToString("###0");
             }
             else
             {
-                var format = "#,##0." + new String('0', decimaldigits);
+                var format = "###0." + new String('0', decimaldigits);
                 outVal = decimalValue.ToString(format);
             }
 

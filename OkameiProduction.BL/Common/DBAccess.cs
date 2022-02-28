@@ -2,8 +2,6 @@
 using System.Data.SqlClient;
 using System.Configuration;
 using System;
-using System.Text;
-using System.Linq;
 
 namespace OkameiProduction.BL
 {
@@ -47,36 +45,6 @@ namespace OkameiProduction.BL
                 throw ex;
             }
         }
-
-        //public DataSet SelectDataSet(string sSQL, params SqlParameter[] para)
-        //{
-        //    DataSet ds = new DataSet();
-
-        //    try
-        //    {
-        //        using (var conn = new SqlConnection(connectionString))
-        //        using (var adapt = new SqlDataAdapter(sSQL, conn))
-        //        {
-        //            conn.Open();
-        //            adapt.SelectCommand.CommandTimeout = commandTimeout;
-        //            adapt.SelectCommand.CommandType = CommandType.StoredProcedure;
-
-        //            if (para != null)
-        //            {
-        //                para = ChangeToDBNull(para);
-        //                adapt.SelectCommand.Parameters.AddRange(para);
-        //            }
-        //            adapt.Fill(ds);
-        //            conn.Close();
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        WriteLog(ex, sSQL);
-        //        throw;
-        //    }
-        //    //return ds;
-        //}
 
         public bool InsertUpdateDeleteData(string sSQL, bool useOptimisticExclusion, params SqlParameter[] para)
         {
@@ -136,18 +104,24 @@ namespace OkameiProduction.BL
         {
             foreach (var p in para)
             {
-                if (p.Value == null || string.IsNullOrWhiteSpace(p.Value.ToString()))
+                if (p.Value == null)
                 {
                     p.Value = DBNull.Value;
                     p.SqlValue = DBNull.Value;
                 }
-                else
+                else if (p.SqlDbType == SqlDbType.VarChar)
                 {
-                    p.Value = p.Value.ToString().Replace("\t", string.Empty);
-
+                    if (string.IsNullOrWhiteSpace(p.Value.ToString()))
+                    {
+                        p.Value = DBNull.Value;
+                        p.SqlValue = DBNull.Value;
+                    }
+                    else
+                    {
+                        p.Value = p.Value.ToString().Replace("\t", string.Empty);
+                    }
                 }
             }
-
             return para;
         }
 

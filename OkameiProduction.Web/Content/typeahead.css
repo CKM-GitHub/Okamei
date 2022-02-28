@@ -14,7 +14,7 @@
 
 .typeahead_normal .tt-menu {
     margin: 12px 0;
-    padding: 8px 0;
+    padding: 0;
     background-color: #fff;
     border: 1px solid #ccc;
     border: 1px solid rgba(0, 0, 0, 0.2);

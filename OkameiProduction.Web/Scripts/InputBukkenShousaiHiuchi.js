@@ -6,6 +6,7 @@ var url_importHiuchiCsv = gApplicationPath + '/api/InputBukkenShousaiHiuchiApi/I
 var url_exportHiuchiPdf = gApplicationPath + '/api/InputBukkenShousaiHiuchiApi/HiuchiPdfExport';
 
 function finalize_Hiuchi() {
+    undindKeyPressEvent('#HiuchiSubEntry');
     $('#HiuchiKakou').focus();
 }
 

@@ -17,7 +17,7 @@ var substringMatcher = function (strs) {
             }
         });
 
-        if (matches.length == 1) matches.remove();
+        if (matches.length == 1) matches = [];
         cb(matches);
     };
 };
@@ -486,6 +486,11 @@ function checkErrorOnSave(selector) {
     });
 
     return success;
+}
+
+function undindKeyPressEvent(areaid) {
+    var selector = areaid + ' :input:not(:hidden)';
+    $(document).off("keypress", selector);
 }
 
 function bindKeyPressEvent(areaid) {

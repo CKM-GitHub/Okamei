@@ -2,6 +2,7 @@
 var url_SaveTekakouData = gApplicationPath + '/api/InputBukkenShousaiTekakouApi/SaveTekakouData';
 
 function finalize_Tekakou() {
+    undindKeyPressEvent('#TekakouSubEntry');
     $('#TekakouTime').focus();
 }
 

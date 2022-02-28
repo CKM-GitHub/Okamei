@@ -8,6 +8,7 @@ namespace Models
 {
     public class InputBukkenShousaiMoulderRow
     {
+        public string BukkenNO { get; set; }
         public string BukkenMoulderRows { get; set; }
         public string MoulderHinmoku { get; set; }
         public string MoulderZairyou { get; set; }
@@ -17,6 +18,8 @@ namespace Models
         public string MoulderHonsuu { get; set; }
         public string MoulderKakouDateTime { get; set; }
         public byte MoulderSumi { get; set; }
+        public string UpdateDateTime { get; set; }
+        public int DisplayOrder { get; set; }
     }
 
     public class InputBukkenShousaiMoulderModel : BaseModel
@@ -24,7 +27,7 @@ namespace Models
         public string BukkenNO { get; set; }
         public string BukkenName { get; set; }
         public string HiddenUpdateDateTime { get; set; }
-        public List<InputBukkenShousaiMoulderRow> Records { get; set; }
+        public List<InputBukkenShousaiMoulderRow> Records { get; set; } = new List<InputBukkenShousaiMoulderRow>();
         public string RecordsJson { get; set; }
 
         public IEnumerable<DropDownListItem> HinmokuDropDownListItems { get; set; }

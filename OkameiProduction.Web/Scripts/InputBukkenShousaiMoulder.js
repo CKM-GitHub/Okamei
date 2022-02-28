@@ -2,6 +2,7 @@
 var url_SaveMoulderData = gApplicationPath + '/api/InputBukkenShousaiMoulderApi/SaveMoulderData';
 
 function finalize_Moulder() {
+    undindKeyPressEvent('#MoulderSubEntry');
     $('#btnKakousiji').focus();
 }
 
@@ -45,7 +46,7 @@ function initialize_Moulder() {
         $('#MoulderSubEntry #btnClose').focus();
     }
     else {
-        moveFocus($('#tblBukkenMoulder [name="MoulderHinmoku"]').first());
+        moveFocus($('#tblBukkenMoulder tr:not(.rowTemplate) [name="MoulderHinmoku"]').first());
     }
 }
 
@@ -54,9 +55,11 @@ function moveFocus(obj) {
 }
 
 function btnAddMoulderClick() {
-    const tr = $('.templatetable tr').clone();
-    $('#tblBukkenMoulder tbody').append(tr);
-    $(tr).find('[name="MoulderHinmoku"]').focus();
+    const tbody = $('#tblBukkenMoulder tbody');
+    const tr = tbody.find('tr.rowTemplate').clone();
+    tr.removeClass('rowTemplate');
+    tbody.append(tr);
+    tr.find('[name="MoulderHinmoku"]').focus();
 }
 
 function checkAll_Moulder(model, tr) {
@@ -94,9 +97,11 @@ function checkAll_Moulder(model, tr) {
 
 function btnSaveMoulderClick() {
 
+    const bukkenNO = $('#MoulderSubEntry #MoulderBukkenNO').val();
+
     var error = false;
     var array = [];
-    $.each($("#tblBukkenMoulder tbody tr"), function (i, tr) {
+    $.each($("#tblBukkenMoulder tbody tr:not(.rowTemplate)"), function (i, tr) {
         var data = {};
         $(tr).find("select, input").each(function () {
             var key = $(this).attr('name');
@@ -113,13 +118,15 @@ function btnSaveMoulderClick() {
             return false;
         }
 
+        data.BukkenNO = bukkenNO;
+        data.DisplayOrder = i;
         if (data.MoulderHinmoku) array.push(data);
     });
 
     if (error) return false;
 
     var model = {
-        BukkenNO: $('#MoulderSubEntry #MoulderBukkenNO').val(),
+        BukkenNO: bukkenNO,
         HiddenUpdateDateTime: $('#HiddenMoulderUpdateDateTime').val(),
         UserID: $('#user-id').text(),
         RecordsJson: JSON.stringify(array)

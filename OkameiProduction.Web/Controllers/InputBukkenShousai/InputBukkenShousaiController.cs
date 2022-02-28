@@ -238,15 +238,14 @@ namespace OkameiProduction.Web.Controllers
 
             var bl = new InputBukkenShousaiMoulderBL();
             var dt = bl.GetBukkenMoulderData(vm);
+            vm.Records.Add(new InputBukkenShousaiMoulderRow() { BukkenMoulderRows = "-1" });
+
             if (dt.Rows.Count > 0)
             {
                 var bukkenName = vm.BukkenName;
-                vm.Records = dt.AsEnumerableEntity<InputBukkenShousaiMoulderRow>().ToList();
+                vm.Records.AddRange(dt.AsEnumerableEntity<InputBukkenShousaiMoulderRow>());
+                vm.HiddenUpdateDateTime = dt.Rows[0]["HiddenUpdateDateTime"].ToStringOrEmpty();
                 vm.BukkenName = bukkenName;
-            }
-            else
-            {
-                vm.Records = new List<InputBukkenShousaiMoulderRow>();
             }
 
             SetDropDownListItemsMoulder(vm);

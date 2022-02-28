@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using Models;
@@ -25,14 +24,7 @@ namespace OkameiProduction.BL
 
             SqlParameter[] sqlParams = new SqlParameter[] {
                 new SqlParameter("@BukkenNO", SqlDbType.VarChar) { Value = model.BukkenNO.ToStringOrNull() },
-                //new SqlParameter("@Moulder1Honsuu", SqlDbType.Int) { Value = model.Moulder1Honsuu.ToInt32(0) },
-                //new SqlParameter("@Moulder2Honsuu", SqlDbType.Int) { Value = model.Moulder2Honsuu.ToInt32(0) },
-                //new SqlParameter("@Moulder3Honsuu", SqlDbType.Int) { Value = model.Moulder3Honsuu.ToInt32(0) },
-                //new SqlParameter("@Moulder4Honsuu", SqlDbType.Int) { Value = model.Moulder4Honsuu.ToInt32(0) },
-                //new SqlParameter("@Moulder5Honsuu", SqlDbType.Int) { Value = model.Moulder5Honsuu.ToInt32(0) },
-                //new SqlParameter("@Moulder6Honsuu", SqlDbType.Int) { Value = model.Moulder6Honsuu.ToInt32(0) },
-                //new SqlParameter("@Moulder7Honsuu", SqlDbType.Int) { Value = model.Moulder7Honsuu.ToInt32(0) },
-                //new SqlParameter("@Moulder8Honsuu", SqlDbType.Int) { Value = model.Moulder8Honsuu.ToInt32(0) },
+                new SqlParameter("@BukkenMoulderTable", SqlDbType.Structured) { TypeName = "dbo.T_BukkenMoulder", Value = model.Records.ToDataTable() },
                 new SqlParameter("@Operator", SqlDbType.VarChar) { Value = model.UserID.ToStringOrNull() },
                 new SqlParameter("@UpdateDateTime", SqlDbType.VarChar) { Value = model.HiddenUpdateDateTime.ToStringOrNull() },
             };
@@ -47,7 +39,6 @@ namespace OkameiProduction.BL
                 msgid = "S004"; //他端末エラー
                 return false;
             }
-
         }
     }
 }

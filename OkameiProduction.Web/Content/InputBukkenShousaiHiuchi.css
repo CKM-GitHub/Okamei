@@ -1,36 +1,27 @@
 ﻿/* InputBukkenShousai HiuchiSubEntry*/
 
 #HiuchiSubEntry .modal_content {
-    width: 1200px;
+    width: 1190px;
 }
 
-#HiuchiSubEntry .detail_content {
-    padding-left: 10px;
+#HiuchiSubEntry .label-title { /* override customize.css */
+    margin-left: 0;
 }
 
-    /* override BootStrap　---> */
-    #HiuchiSubEntry .detail_content .form-control {
-        height: calc(1.2em + 0.75rem + 2px);
-        line-height: 1;
-        border-radius: 0;
-        padding: 0.25rem 0.75rem;
-    }
+#HiuchiSubEntry .detail_content .label-title { /* override customize.css */
+    border-radius: 0;
+}
 
-        #HiuchiSubEntry .detail_content .form-control:focus {
-            outline: none;
-            box-shadow: none;
-        }
-    /* <--- */
+#HiuchiSubEntry .detail_content .form-control { /* override BootStrap */
+    height: calc(1.2em + 0.75rem + 2px);
+    line-height: 1;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0;
+}
 
-    #HiuchiSubEntry .detail_content button {
-        height: calc(1.2em + 0.75rem + 2px);
-        line-height: 1;
-    }
-
-    #HiuchiSubEntry .detail_content .label-title { /* override customize.css */
-        width: auto;
-        margin-left: 0;
-        border-radius: 0;
+    #HiuchiSubEntry .detail_content .form-control:focus { /* override BootStrap */
+        outline: none;
+        box-shadow: none;
     }
 
 #HiuchiSubEntry .footer-btn { /* override customize.css */
@@ -38,7 +29,6 @@
 }
 
 #HiuchiSubEntry .footer-left {
-    padding-left: 10px;
     padding-right: 60px;
 }
 
@@ -75,14 +65,16 @@
 #HiuchiSubEntry .size-pdf {
     width: 100px !important;
     flex-shrink: 0;
-    padding-left: 20px;
+    text-align: right;
 }
 
     #HiuchiSubEntry .size-pdf button {
         width: 80px !important;
+        height: calc(1.2em + 0.75rem + 2px); /* same as .form-control */
+        line-height: 1;
     }
 
-@media (max-width: 1200px) {
+@media (max-width: 1190px) {
     #HiuchiSubEntry .modal_content {
         max-width: 90%;
     }
