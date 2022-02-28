@@ -2167,7 +2167,7 @@ namespace Models
                 });
                 #endregion
 
-                var Coor = File.ReadAllLines("D:\\pdf\\ptk.txt")[0].Split(',');
+                //var Coor = File.ReadAllLines("D:\\pdf\\ptk.txt")[0].Split(',');
                 PdfContentByte cb = writer.DirectContentUnder;
                 cb.SetColorStroke(BaseColor.BLACK);
                 //cb.Rectangle(Convert.ToInt32(Coor.First()), Convert.ToInt32(Coor.Last()), 10f, 10f);
@@ -2179,7 +2179,7 @@ namespace Models
                 //cb.Rectangle(Convert.ToInt32(Coor.First()), Convert.ToInt32(Coor.Last()), 10f, 10f);
                 //cb.Stroke();
 
-                var Coor1 = File.ReadAllLines("D:\\pdf\\ptk.txt")[3].Split(',');
+                //var Coor1 = File.ReadAllLines("D:\\pdf\\ptk.txt")[3].Split(',');
                 PdfContentByte cb1 = writer.DirectContent;
                 //cb1.SetColorStroke(CMYKColor.MAGENTA);
                 //cb1.MoveTo(Convert.ToInt32(Coor1.First()), Convert.ToInt32(Coor1[1]));
@@ -2188,18 +2188,18 @@ namespace Models
                 //cb1.SetColorFill(new CMYKColor(0f, 0f, 1f, 0f));
                 //cb1.Stroke();
                 //cb1.Fill();
-
-                Coor1 = File.ReadAllLines("D:\\pdf\\ptk.txt")[4].Split(',');
+                //
+              //  Coor1 = File.ReadAllLines("D:\\pdf\\ptk.txt")[4].Split(',');
                 cb1.MoveTo(Convert.ToInt32(450), Convert.ToInt32(335));
                 cb1.LineTo(Convert.ToInt32(507), Convert.ToInt32(295));
                 cb1.Stroke();
 
-                Coor1 = File.ReadAllLines("D:\\pdf\\ptk.txt")[5].Split(',');
+             // Coor1 = File.ReadAllLines("D:\\pdf\\ptk.txt")[5].Split(',');
                 cb1.MoveTo(Convert.ToInt32(89), Convert.ToInt32(335));
                 cb1.LineTo(Convert.ToInt32(150), Convert.ToInt32(295));
                 cb1.Stroke();
 
-                Coor1 = File.ReadAllLines("D:\\pdf\\ptk.txt")[6].Split(',');
+              //  ။။Coor1 = File.ReadAllLines("D:\\pdf\\ptk.txt")[6].Split(',');
                 cb1.MoveTo(Convert.ToInt32(196), Convert.ToInt32(335));
                 cb1.LineTo(Convert.ToInt32(406), Convert.ToInt32(295));
                 cb1.Stroke();
@@ -2209,7 +2209,7 @@ namespace Models
             }
             catch(Exception ex)
             {
-
+                File.WriteAllText("C:\\Okamei\\Okamei.log", ex.StackTrace);
             }
         }
     }
