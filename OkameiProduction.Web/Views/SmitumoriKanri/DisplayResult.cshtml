@@ -138,10 +138,10 @@
                                 <input type="text" class="typeahead form-control size30" maxlength="30" autocomplete="off" validate-required="true" id="txtKoumutenName" name="@columns[i].Caption" value="@items[i]" />
                             </div>
                             @*@Html.DropDownListFor(
-                    model => model.KoumutenName,
-                    new SelectList(Model.KoumutenDropDownListItems, "Value", "DisplayText", @items[i]),
-                    "",
-                    new { @class = "form-control size20" })*@
+                            model => model.KoumutenName,
+                            new SelectList(Model.KoumutenDropDownListItems, "Value", "DisplayText", @items[i]),
+                            "",
+                            new { @class = "form-control size20" })*@
                         </td>
                     }
                     else if (@columns[i].Caption == "KakoutuboSuu")
@@ -208,12 +208,14 @@
                     <input type="text" class="form-control size30" maxlength="30" id="txtBukkenName" name="BukkenName" validate-required="true" />
                 </td>
                 <td class="KoumutenName">
-                    <input type="text" class="form-control size30" maxlength="30" autocomplete="off"  id="txtKoumutenName" name="KoumutenName" validate-required="true" />
-                    @*@Html.DropDownListFor(
-                    model => model.KoumutenName,
-                    new SelectList(Model.KoumutenDropDownListItems, "Value", "DisplayText"),
-                    "",
-                    new { @class = "form-control size20" })*@
+                    <div class="typeahead_normal">
+                        <input type="text" class="form-control size30" maxlength="30" autocomplete="off" id="txtKoumutenName" name="KoumutenName" validate-required="true" />
+                    </div>
+                        @*@Html.DropDownListFor(
+                        model => model.KoumutenName,
+                        new SelectList(Model.KoumutenDropDownListItems, "Value", "DisplayText"),
+                        "",
+                        new { @class = "form-control size20" })*@
                 </td>
                 <td class="KakoutuboSuu">
                     <input type="text" class="form-control size7" maxlength="6" id="txtKakoutuboSuu" name="KakoutuboSuu" validate-required="true" />
@@ -352,11 +354,13 @@
                 $('#tblSmitumoriKanri tbody tr:last-child td #txtKoumutenName').addClass("typeahead");
                 setSuggestList('#tblSmitumoriKanri tbody tr:last-child td #txtKoumutenName', '@Url.Action("GetKoumutenSuggestItems", "api/InputBukkenShousaiApi")', '');
 
-                $('#txtKoumutenName').on("focusin", function () {
-                    focus_in();
-                })
-                $('#txtKoumutenName').on("focusout", function () {
-                    focus_in();
+                $("#tblSmitumoriKanri tr").each(function (i, tr) {
+                    $(tr).find('td:eq(3) #txtKoumutenName').on("focusin", function () {
+                        focus_in();
+                    })
+                    $(tr).find('td:eq(3) #txtKoumutenName').on("focusout", function () {
+                        focus_in();
+                    })
                 })
 
                 bindKeyPressEvent("#main");
@@ -421,12 +425,14 @@
             $('.tt-menu').css('top', 'unset');
             $('.tt-menu').css('left', 'unset');
             $('.tt-menu').css('width', '300px');
+            $('.tt-menu').css('margin-top', '-19px');
         }
         function focus_out() {
             $('.tt-menu').css('position', 'absolute');
             $('.tt-menu').css('top', '100%');
             $('.tt-menu').css('left', '0px');
             $('.tt-menu').css('width', '300px');
+            $('.tt-menu').css('margin-top', 'unset');
         }
     </script>
 }
