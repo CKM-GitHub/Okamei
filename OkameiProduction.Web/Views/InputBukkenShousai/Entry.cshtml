@@ -615,7 +615,7 @@
 
 @section Scripts{
     @Scripts.Render("~/bundles/InputBukkenShousai")
-    <script type="text/javascript">
+<script type="text/javascript">
         var url_homePage = '@Url.Action("Index", "Home")';
         var url_previousPage = '@Html.Raw(ViewBag.PreviousUrl)';
         var url_getBukkenNO = '@Url.Action("GetBukkenNO", "api/InputBukkenShousaiApi")';
@@ -629,11 +629,13 @@
         var url_deleteBukkenComment = '@Url.Action("DeleteBukkenComment", "api/InputBukkenShousaiApi")';
         var url_uploadFiles = '@Url.Action("UploadFiles", "api/InputBukkenShousaiApi")';
         var url_downloadFiles = '@Url.Action("DownloadFiles", "InputBukkenShousai")';
-        var url_exportAgreementForm ='@Url.Action("ExportAgreementForm", "api/InputBukkenShousaiApi")';
+        var url_exportAgreementForm = '@Url.Action("ExportAgreementForm", "api/InputBukkenShousaiApi")';//btnJissekiNippou
+        var url_exportPurecattoForm = '@Url.Action("ExportPurecattoForm", "api/InputBukkenShousaiApi")'
         var eMode = '@Model.Mode';
         var formData = new FormData();
         var fileCount = 0;
         var btnShoudakusho = $('#btnShoudakusho');
+        var btnJissekiNippou = $('#btnJissekiNippou');
         var btnReturn = $('#btnReturn');
         var btnSave = $('#btnSave');
         var btnSet = $('#btnSet');
@@ -658,5 +660,5 @@
             }
         });
 
-    </script>
+</script>
 }

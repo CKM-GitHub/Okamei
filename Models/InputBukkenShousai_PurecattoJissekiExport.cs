@@ -1,0 +1,2256 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ClosedXML.Excel;
+using System.Data; 
+using System.IO;
+using iDiTect.Converter;
+using iTextSharp;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.Drawing;
+
+namespace Models
+{
+    public class InputBukkenShousai_PurecattoJissekiExport
+    {
+        public InputBukkenShousai_PurecattoJissekiExport()
+        {
+
+        }
+
+        public void PurecattoExport(string SavePath, string IniPath, DataTable dt)
+        {
+            //var wbook = new XLWorkbook(IniPath);
+            //var weSheet = wbook.Worksheets.Worksheet("プレカット実績");//加工承諾書 
+            //weSheet.Cell("F9").Value = dt.Rows[0]["BukkenName"].ToString();
+            //weSheet.Cell("F10").Value = dt.Rows[0]["KoumuTenName"].ToString();
+            //weSheet.Cell("F11").Value = dt.Rows[0]["ShopName"].ToString();
+            //weSheet.Cell("I11").Value = dt.Rows[0]["TentouName"].ToString();
+            //weSheet.Cell("M9").Value = dt.Rows[0]["KakouTubosuu"].ToString();
+            //weSheet.Cell("L11").Value = dt.Rows[0]["BukkenNo"].ToString();
+            //wbook.SaveAs(SavePath.Replace(".pdf", ".xlsx"));
+
+        }
+
+        public readonly static String source = @"D:\\PDF\hello.pdf";
+        public readonly static String des = @"D:\helloWorld.pdf";
+        void VerySimpleReplaceText(string OrigFile, string ResultFile, string origText, string replaceText)
+        {
+            using (PdfReader reader = new PdfReader(OrigFile))
+            { 
+                PdfDictionary dict = reader.GetPageN(1); 
+                PdfObject _object = dict.GetDirectObject(PdfName.CONTENTS);
+                PRStream stream = (PRStream)_object;
+                byte[] data = PdfReader.GetStreamBytes(stream);
+                 
+                for (int i = 1; i <= reader.NumberOfPages; i++)
+                {
+                    byte[] contentBytes = reader.GetPageContent(i);
+                    string contentString = PdfEncodings.ConvertToString(contentBytes, PdfObject.TEXT_PDFDOCENCODING);
+                    contentString = contentString.Replace(origText, replaceText);
+                    reader.SetPageContent(i, PdfEncodings.ConvertToBytes(contentString, PdfObject.TEXT_PDFDOCENCODING));
+                }
+                new PdfStamper(reader, new FileStream(ResultFile, FileMode.Create, FileAccess.Write)).Close();
+            }
+        }
+
+
+        public void Export(string Hostpath, string SavePath, string IniPath, DataTable dt)
+        {
+            //Create PDF
+            PDF_Font font_Class = new PDF_Font(); 
+            string font_folder = Hostpath;
+            var doc1 = new iTextSharp.text.Document();
+            #region DocSet
+            doc1.SetPageSize(PageSize.A4);
+            var mstr = new FileStream(SavePath, FileMode.Create);
+            var writer = PdfWriter.GetInstance(doc1, mstr);
+            doc1.Open();
+          
+            var Tablea = new PdfPTable(11);
+            float[] widths = new float[] { 40f, 40f,60f,60f,60f,60f,30f,60f,60f,60f,15f }; 
+            Tablea.SetWidths(widths);
+            Tablea.AddCell(new PdfPCell(new Phrase("プ   レ    カ    ッ    ト    実    績    日    報", font_Class.CreateJapaneseFont(font_folder, 17,1)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 50,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                BorderWidthLeft = 0,
+                BorderWidthRight = 0,
+                PaddingBottom = 0f, 
+                Colspan = 11,
+               
+            });
+            //first Check
+            Tablea.AddCell(new PdfPCell(new Phrase("▢", font_Class.CreateJapaneseFont(font_folder, 14)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20,
+                PaddingTop=0f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                BorderWidthLeft = 0,
+                BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                BackgroundColor = new BaseColor(144, 238, 144),
+                
+                // Colspan = 1
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("住友林業物件", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_LEFT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                BorderWidthLeft = 0,
+                BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 2
+            });
+            
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                BorderWidthLeft = 0,
+                BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 6
+            });
+           
+            Tablea.AddCell(new PdfPCell(new Phrase("作　成", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 2
+            });
+            //second check
+            Tablea.AddCell(new PdfPCell(new Phrase("▢", font_Class.CreateJapaneseFont(font_folder, 14)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                BorderWidthLeft = 0,
+                BorderWidthRight = 0,
+                PaddingTop=0f,
+               // PaddingBottom = 0f,
+                BackgroundColor = new BaseColor(144, 238, 144),
+                // Colspan = 1
+            });
+          
+            Tablea.AddCell(new PdfPCell(new Phrase("イノス物件", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_LEFT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                BorderWidthLeft = 0,
+                BorderWidthRight = 0,
+               // PaddingBottom = 0f,
+                Colspan = 2
+            });
+            
+            Tablea.AddCell(new PdfPCell(new Phrase("[ 横架材ライン　Ａ・Ｂ ]", font_Class.CreateJapaneseFont(font_folder, 14)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                PaddingLeft=-30f,
+                FixedHeight = 20,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                BorderWidthLeft = 0,
+                BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 6
+            });
+           
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 6
+            });
+            
+            //Third Check
+            Tablea.AddCell(new PdfPCell(new Phrase("▢", font_Class.CreateJapaneseFont(font_folder, 14)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                BorderWidthLeft = 0,
+                BorderWidthRight = 0,
+                BackgroundColor = new BaseColor(144, 238, 144),//BaseColor.MAGENTA,
+                PaddingTop=0f,
+                //PaddingBottom = 0f,
+                // Colspan = 1
+            });
+           
+            Tablea.AddCell(new PdfPCell(new Phrase("一般物件", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_LEFT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                BorderWidthLeft = 0,
+                BorderWidthRight = 0,
+                PaddingTop=0f,
+               // PaddingBottom = 0f,
+                Colspan = 2,
+
+            });
+             
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                BorderWidthLeft = 0,
+                BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 6
+            });
+             
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 6, 
+
+            });
+
+            //BukkenName Check
+          
+            Tablea.AddCell(new PdfPCell(new Phrase("邸名", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                 Colspan = 2, 
+            });
+            //BukkenName
+            Tablea.AddCell(new PdfPCell(new Phrase(dt.Rows[0]["BukkenName"].ToString(), font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 5,
+                BackgroundColor =  new BaseColor(144, 238, 144), //System.Drawing.KnownColor.LightGreen ,// SetRGBColorFill(144, 238, 144);
+        });
+          
+            Tablea.AddCell(new PdfPCell(new Phrase("様邸", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1
+            });
+            
+            Tablea.AddCell(new PdfPCell(new Phrase("坪数", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+
+            });
+            //Kakoubutusuu
+            Tablea.AddCell(new PdfPCell(new Phrase(dt.Rows[0]["KakouTubosuu"].ToString(), font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+                BackgroundColor = new BaseColor(144, 238, 144),
+
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("坪 ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20,
+                PaddingLeft=-1.5f,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+
+            }); 
+            //Kakou Check 
+            Tablea.AddCell(new PdfPCell(new Phrase("工事店名", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 2,
+            });
+
+            //KoumuTenName
+            Tablea.AddCell(new PdfPCell(new Phrase(dt.Rows[0]["KoumuTenName"].ToString(), font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 5,
+                BackgroundColor = new BaseColor(144, 238, 144),
+            });
+           
+            Tablea.AddCell(new PdfPCell(new Phrase("様", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1
+            });
+             
+            Tablea.AddCell(new PdfPCell(new Phrase("総本数", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+
+            }); 
+            Tablea.AddCell(new PdfPCell(new Phrase("本", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 2,
+
+            }); 
+            //Shiten Check 
+            Tablea.AddCell(new PdfPCell(new Phrase("支店名", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 2,
+            });
+           //ShitenName
+            Tablea.AddCell(new PdfPCell(new Phrase(dt.Rows[0]["ShopName"].ToString(), font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 2,
+                BackgroundColor = new BaseColor(144, 238, 144),
+            });
+           
+            Tablea.AddCell(new PdfPCell(new Phrase("支店担当", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1
+            });
+            //Tantou
+            Tablea.AddCell(new PdfPCell(new Phrase(dt.Rows[0]["TentouName"].ToString(), font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+                BackgroundColor = new BaseColor(144, 238, 144),
+
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("様", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("邸別管理番号", font_Class.CreateJapaneseFont(font_folder, 7)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+
+            });
+            //BukkenNo
+            Tablea.AddCell(new PdfPCell(new Phrase(dt.Rows[0]["BukkenNo"].ToString(), font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER, 
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 3,
+                BackgroundColor = new BaseColor(144, 238, 144),
+
+            });
+
+            //Space br 
+            Tablea.AddCell(new PdfPCell(new Phrase("  ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 5f,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 11,
+            }); 
+            //date
+            Tablea.AddCell(new PdfPCell(new Phrase("日付", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 2,
+            });
+
+            Tablea.AddCell(new PdfPCell(new Phrase("加工時間", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("加工本数", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("坪数", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+            });
+
+            Tablea.AddCell(new PdfPCell(new Phrase("特記事項", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 3,
+            });
+
+            Tablea.AddCell(new PdfPCell(new Phrase("停止時間", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+            });
+
+            Tablea.AddCell(new PdfPCell(new Phrase("印", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 2,
+            }); 
+            #region Content1
+            //First  Content1
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 2,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(":", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 1,
+            });
+
+            //dotted
+            Tablea.AddCell(new PdfPCell(new Phrase("--------------------------", font_Class.CreateJapaneseFont(font_folder, 10, 0)))
+            {
+                HorizontalAlignment = Element.ALIGN_BOTTOM,
+                VerticalAlignment = Element.ALIGN_BOTTOM,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0f, 
+                PaddingBottom = -4.0f,
+                PaddingRight=0f,
+                PaddingLeft = 0f,
+                Colspan = 3,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(":", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 2,
+            });
+
+
+            //First Content2
+            Tablea.AddCell(new PdfPCell(new Phrase("／", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 2,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("≀", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 1,
+            });
+
+            //dotted
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 3,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("≀", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 2,
+            });
+
+            //First Content3
+            Tablea.AddCell(new PdfPCell(new Phrase("", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 2,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(":", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                PaddingTop=0,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("本", font_Class.CreateJapaneseFont(font_folder, 8)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingTop = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("坪", font_Class.CreateJapaneseFont(font_folder, 8)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingTop = 0f,
+                Colspan = 1,
+            }); 
+            Tablea.AddCell(  new PdfPCell(new Phrase("--------------------------", font_Class.CreateJapaneseFont(font_folder, 10, 0)))
+            {
+                HorizontalAlignment = Element.ALIGN_TOP,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 18.5f,
+                PaddingTop=-6.2f, 
+                BorderWidthTop = 0,  
+                PaddingBottom = 0f,
+                PaddingRight = 0f,
+                PaddingLeft = 0f,
+                Colspan = 3,
+            }  );
+            Tablea.AddCell(new PdfPCell(new Phrase(":", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                PaddingTop = 0,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 2,
+            });
+            #endregion
+            #region Content2
+            //First  Content1
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 2,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(":", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 1,
+            });
+
+            //dotted
+            Tablea.AddCell(new PdfPCell(new Phrase("--------------------------", font_Class.CreateJapaneseFont(font_folder, 10, 0)))
+            {
+                HorizontalAlignment = Element.ALIGN_BOTTOM,
+                VerticalAlignment = Element.ALIGN_BOTTOM,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0f,
+                PaddingBottom = -4.0f,
+                PaddingRight = 0f,
+                PaddingLeft = 0f,
+                Colspan = 3,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(":", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 2,
+            });
+
+
+            //First Content2
+            Tablea.AddCell(new PdfPCell(new Phrase("／", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 2,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("≀", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 1,
+            });
+
+            //dotted
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 3,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("≀", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 2,
+            });
+
+            //First Content3
+            Tablea.AddCell(new PdfPCell(new Phrase("", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 2,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(":", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                PaddingTop = 0,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("本", font_Class.CreateJapaneseFont(font_folder, 8)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingTop = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("坪", font_Class.CreateJapaneseFont(font_folder, 8)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingTop = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("--------------------------", font_Class.CreateJapaneseFont(font_folder, 10, 0)))
+            {
+                HorizontalAlignment = Element.ALIGN_TOP,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 18.5f,
+                PaddingTop = -6.2f,
+                BorderWidthTop = 0,
+                PaddingBottom = 0f,
+                PaddingRight = 0f,
+                PaddingLeft = 0f,
+                Colspan = 3,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(":", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                PaddingTop = 0,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 2,
+            });
+            #endregion #region Content1 
+            #region Content3
+            //First  Content1
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 2,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(":", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 1,
+            });
+
+            //dotted
+            Tablea.AddCell(new PdfPCell(new Phrase("--------------------------", font_Class.CreateJapaneseFont(font_folder, 10, 0)))
+            {
+                HorizontalAlignment = Element.ALIGN_BOTTOM,
+                VerticalAlignment = Element.ALIGN_BOTTOM,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0f,
+                PaddingBottom = -4.0f,
+                PaddingRight = 0f,
+                PaddingLeft = 0f,
+                Colspan = 3,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(":", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 2,
+            });
+
+
+            //First Content2
+            Tablea.AddCell(new PdfPCell(new Phrase("／", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 2,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("≀", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 1,
+            });
+
+            //dotted
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 3,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("≀", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 2,
+            });
+
+            //First Content3
+            Tablea.AddCell(new PdfPCell(new Phrase("", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 2,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(":", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                PaddingTop = 0,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("本", font_Class.CreateJapaneseFont(font_folder, 8)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingTop = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("坪", font_Class.CreateJapaneseFont(font_folder, 8)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingTop = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("--------------------------", font_Class.CreateJapaneseFont(font_folder, 10, 0)))
+            {
+                HorizontalAlignment = Element.ALIGN_TOP,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 18.5f,
+                PaddingTop = -6.2f,
+                BorderWidthTop = 0,
+                PaddingBottom = 0f,
+                PaddingRight = 0f,
+                PaddingLeft = 0f,
+                Colspan = 3,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(":", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                PaddingTop = 0,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 2,
+            });
+            #endregion
+            #region Content4
+            //First  Content1
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 2,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(":", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 1,
+            });
+
+            //dotted
+            Tablea.AddCell(new PdfPCell(new Phrase("--------------------------", font_Class.CreateJapaneseFont(font_folder, 10, 0)))
+            {
+                HorizontalAlignment = Element.ALIGN_BOTTOM,
+                VerticalAlignment = Element.ALIGN_BOTTOM,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0f,
+                PaddingBottom = -4.0f,
+                PaddingRight = 0f,
+                PaddingLeft = 0f,
+                Colspan = 3,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(":", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 2,
+            });
+
+
+            //First Content2
+            Tablea.AddCell(new PdfPCell(new Phrase("／", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 2,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("≀", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 1,
+            });
+
+            //dotted
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 3,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("≀", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 2,
+            });
+
+            //First Content3
+            Tablea.AddCell(new PdfPCell(new Phrase("", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 2,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(":", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                PaddingTop = 0,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("本", font_Class.CreateJapaneseFont(font_folder, 8)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingTop = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("坪", font_Class.CreateJapaneseFont(font_folder, 8)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingTop = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("--------------------------", font_Class.CreateJapaneseFont(font_folder, 10, 0)))
+            {
+                HorizontalAlignment = Element.ALIGN_TOP,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 18.5f,
+                PaddingTop = -6.2f,
+                BorderWidthTop = 0,
+                PaddingBottom = 0f,
+                PaddingRight = 0f,
+                PaddingLeft = 0f,
+                Colspan = 3,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(":", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                PaddingTop = 0,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 2,
+            });
+            #endregion
+            #region Content5
+            //First  Content1
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 2,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(":", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 1,
+            });
+
+            //dotted
+            Tablea.AddCell(new PdfPCell(new Phrase("--------------------------", font_Class.CreateJapaneseFont(font_folder, 10, 0)))
+            {
+                HorizontalAlignment = Element.ALIGN_BOTTOM,
+                VerticalAlignment = Element.ALIGN_BOTTOM,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0f,
+                PaddingBottom = -4.0f,
+                PaddingRight = 0f,
+                PaddingLeft = 0f,
+                Colspan = 3,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(":", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 2,
+            });
+
+
+            //First Content2
+            Tablea.AddCell(new PdfPCell(new Phrase("／", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 2,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("≀", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 1,
+            });
+
+            //dotted
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 3,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("≀", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 2,
+            });
+
+            //First Content3
+            Tablea.AddCell(new PdfPCell(new Phrase("", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 2,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(":", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                PaddingTop = 0,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("本", font_Class.CreateJapaneseFont(font_folder, 8)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingTop = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("坪", font_Class.CreateJapaneseFont(font_folder, 8)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingTop = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("--------------------------", font_Class.CreateJapaneseFont(font_folder, 10, 0)))
+            {
+                HorizontalAlignment = Element.ALIGN_TOP,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 18.5f,
+                PaddingTop = -6.2f,
+                BorderWidthTop = 0,
+                PaddingBottom = 0f,
+                PaddingRight = 0f,
+                PaddingLeft = 0f,
+                Colspan = 3,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(":", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                //PaddingBottom = 0f,
+                PaddingTop = 0,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 18.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0,
+                //BorderWidthRight = 0,
+                PaddingBottom = 0f,
+                Colspan = 2,
+            });
+            #endregion
+
+            #region ContentBase
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 14.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0, 
+                //PaddingBottom = 0f,
+                Colspan = 2,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("累計時間", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 14.5f,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0, 
+                //PaddingBottom = 0f,
+                Colspan = 1 ,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 14.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0, 
+                //PaddingBottom = 0f,
+                Colspan = 5,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("累計時間", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 14.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0, 
+                //PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 14.5f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0, 
+                //PaddingBottom = 0f,
+                Colspan = 2,
+            });
+
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 25.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0, 
+                //PaddingBottom = 0f,
+                Colspan = 2,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(":", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 25.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0, 
+                //PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 25.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0, 
+                //PaddingBottom = 0f,
+                Colspan = 5,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(":", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 25.5f,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0, 
+                //PaddingBottom = 0f,
+                Colspan = 1,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 25.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0, 
+                //PaddingBottom = 0f,
+                Colspan = 2,
+            });
+            #endregion
+
+            #region 2baseSpace
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 5f,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0, 
+                //PaddingBottom = 0f,
+                Colspan = 11,
+            });
+
+            Tablea.AddCell(new PdfPCell(new Phrase("1H／坪数", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 22.1f,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0, 
+                //PaddingBottom = 0f,
+                Colspan = 2,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 22.1f,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0, 
+                //PaddingBottom = 0f,
+                Colspan = 9,
+            });
+
+            Tablea.AddCell(new PdfPCell(new Phrase("1本／分", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 22.1f,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0, 
+                //PaddingBottom = 0f,
+                Colspan = 2,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 22.1f,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0, 
+                //PaddingBottom = 0f,
+                Colspan = 9,
+            });
+
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 5f,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0, 
+                //PaddingBottom = 0f,
+                Colspan = 11,
+            });
+
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 2.0f,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0, 
+                //PaddingBottom = 0f,
+                Colspan = 11,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("最終データ処理日時     ：          月          日          時          分", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20.5f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0, 
+                //PaddingBottom = 0f,
+                Colspan = 11,
+                BackgroundColor = new BaseColor(144, 238, 144),
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_RIGHT,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 2.0f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0, 
+                //PaddingBottom = 0f,
+                Colspan = 11,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("[連絡事項]", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_LEFT,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 20.0f,
+                BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0, 
+                //PaddingBottom = 0f,
+                Colspan = 9,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("最終チェック", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 20.0f,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0, 
+                //PaddingBottom = 0f,
+                Colspan = 2,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_LEFT,
+                VerticalAlignment = Element.ALIGN_TOP,
+                FixedHeight = 60.0f,
+                //BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                //BorderWidthLeft = 0, 
+                //PaddingBottom = 0f,
+                Colspan = 9,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 60.0f,
+                //BorderWidthBottom = 0,
+                //BorderWidthTop = 0,
+                //BorderWidthLeft = 0, 
+                //PaddingBottom = 0f,
+                Colspan = 2,
+            });
+            Tablea.AddCell(new PdfPCell(new Phrase("株式会社　岡本銘木店　プレカット事業部　三田工場", font_Class.CreateJapaneseFont(font_folder, 15)))
+            {
+                HorizontalAlignment = Element.ALIGN_CENTER,
+                VerticalAlignment = Element.ALIGN_MIDDLE,
+                FixedHeight = 35.0f,
+                BorderWidthBottom = 0,
+                BorderWidthTop = 0,
+                BorderWidthLeft = 0,
+                BorderWidthRight = 0,
+
+                //PaddingBottom = 0f,
+                Colspan = 11,
+            });
+            #endregion
+
+            var Coor = File.ReadAllLines("D:\\pdf\\ptk.txt")[0].Split(',');
+            PdfContentByte cb = writer.DirectContentUnder;
+            cb.SetColorStroke(BaseColor.BLACK);
+            //cb.Rectangle(Convert.ToInt32(Coor.First()), Convert.ToInt32(Coor.Last()), 10f, 10f);
+            //cb.Stroke();
+            //Coor = File.ReadAllLines("D:\\pdf\\ptk.txt")[1].Split(',');
+            //cb.Rectangle(Convert.ToInt32(Coor.First()), Convert.ToInt32(Coor.Last()), 10f, 10f);
+            //cb.Stroke();
+            //Coor = File.ReadAllLines("D:\\pdf\\ptk.txt")[2].Split(',');
+            //cb.Rectangle(Convert.ToInt32(Coor.First()), Convert.ToInt32(Coor.Last()), 10f, 10f);
+            //cb.Stroke();
+
+            var Coor1 = File.ReadAllLines("D:\\pdf\\ptk.txt")[3].Split(',');
+            PdfContentByte cb1 = writer.DirectContent;
+            //cb1.SetColorStroke(CMYKColor.MAGENTA);
+            //cb1.MoveTo(Convert.ToInt32(Coor1.First()), Convert.ToInt32(Coor1[1]));
+            //cb1.Rectangle(Convert.ToInt32(Coor1.First()), Convert.ToInt32(Coor1[1]), Convert.ToInt32(Coor1[2]), Convert.ToInt32(Coor1[3]));
+            //cb1.SetRGBColorFill(144, 238, 144);
+            //cb1.SetColorFill(new CMYKColor(0f, 0f, 1f, 0f));
+            //cb1.Stroke();
+            //cb1.Fill();
+
+            Coor1 = File.ReadAllLines("D:\\pdf\\ptk.txt")[4].Split(',');
+            cb1.MoveTo(Convert.ToInt32(450), Convert.ToInt32(335));
+            cb1.LineTo(Convert.ToInt32(507), Convert.ToInt32(295));
+            cb1.Stroke();
+
+            Coor1 = File.ReadAllLines("D:\\pdf\\ptk.txt")[5].Split(',');
+            cb1.MoveTo(Convert.ToInt32(89), Convert.ToInt32(335));
+            cb1.LineTo(Convert.ToInt32(150), Convert.ToInt32(295));
+            cb1.Stroke();
+
+            Coor1 = File.ReadAllLines("D:\\pdf\\ptk.txt")[6].Split(',');
+            cb1.MoveTo(Convert.ToInt32(196), Convert.ToInt32(335));
+            cb1.LineTo(Convert.ToInt32(406), Convert.ToInt32(295));
+            cb1.Stroke();
+            #endregion
+            doc1.Add(Tablea);
+            doc1.Close();
+            //System.Diagnostics.Process.Start("D:\\pdf\\hello.pdf");
+           
+        }
+    }
+}

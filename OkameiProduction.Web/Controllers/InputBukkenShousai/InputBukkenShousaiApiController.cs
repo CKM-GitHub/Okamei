@@ -166,6 +166,34 @@ namespace OkameiProduction.Web.Controllers
             }
         }
 
+        public string ExportPurecattoForm([FromBody] InputBukkenShousaiModel model)
+        {
+            if (model == null) return GetBadRequestResult();
+
+            var bl = new InputBukkenShousaiBL();
+            var dt = bl.ExportPurecattoForm(model, out string msgid);
+            if (!String.IsNullOrEmpty(msgid))
+            {
+                return GetErrorResult(msgid);
+            }
+            else
+            {
+                try
+                {
+                    InputBukkenShousai_PurecattoJissekiExport exportExcel = new InputBukkenShousai_PurecattoJissekiExport();
+                    string SavePath = System.Web.Hosting.HostingEnvironment.MapPath("~/output/project");//AgreementForm
+                    string InitializerPath = System.Web.Hosting.HostingEnvironment.MapPath("~/Initializer/PurecattoForm.xlsx");//AgreementForm 
+                    string FontPath= System.Web.Hosting.HostingEnvironment.MapPath("~/fonts/");
+                    exportExcel.Export(FontPath,SavePath + "\\" + model.FileName, InitializerPath, dt);
+                    return GetSuccessResult();
+                }
+                catch (Exception ex)
+                { 
+                    return GetBadRequestResult();
+                }
+            }
+        }
+
         [HttpPost]
         public async Task<string> UploadFiles()
         {

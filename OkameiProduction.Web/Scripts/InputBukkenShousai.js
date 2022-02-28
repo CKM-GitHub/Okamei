@@ -22,6 +22,29 @@ function addEvents() {
             }
         });
     });
+    btnJissekiNippou.click(function () {
+        showConfirmMessage("Q204", function () {
+            if (eMode == 'Edit') {
+                //プレカット実績日報_ああああああああ.pdf
+                var fileName = 'プレカット実績日報_' + txtBukkenName.val() + '.pdf';
+                var model =
+                {
+                    FileName: fileName,
+                    TantouSitenCD: txtSitenCD.val(),
+                    TantouEigyouCD: ddlTantouEigyou.val(),
+                    BukkenName: txtBukkenName.val(),
+                    KoumutenName: $('#KoumutenName').val(),
+                    KakouTubosuu: $('#KakouTubosuu').val(),
+                    BukkenNO: txtBukkenNO.val(), 
+                };
+                calltoApiController_FileDownLoadHandle(url_exportPurecattoForm, model);
+                //location.href = url_homePage;url_exportAgreementForm 
+            }
+            else {
+                location.href = url_previousPage;
+            }
+        });
+    });
     btnReturn.click(function () {
         showConfirmMessage("Q003", function () {
             if (eMode == 'New') {
