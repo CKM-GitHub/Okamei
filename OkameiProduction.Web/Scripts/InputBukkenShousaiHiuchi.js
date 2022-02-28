@@ -69,7 +69,7 @@ function initialize_Hiuchi() {
     setToukyuuSuggestList();
 
     if (eMode == 'Delete') {
-        setDisabledAll('#HiuchiSubEntry');
+        setDisabledAll('#HiuchiSubEntry', '.js-modal-close, #HiuchiSubEntry #btnClose');
         $('#HiuchiSubEntry #btnClose').focus();
     }
     else {

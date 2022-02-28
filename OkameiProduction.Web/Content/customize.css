@@ -1,4 +1,4 @@
-﻿/* Override bootstrap
+﻿/* override bootstrap
 --------------------------------------------------*/
 .form-group {
     margin-bottom: 0.8rem;
@@ -33,6 +33,12 @@ div.dataTables_filter {
 
 div.dataTables_paginate ul.pagination {
     justify-content: flex-start !important;
+}
+
+/* override SweetAlert2
+--------------------------------------------------*/
+.swal2-loading {
+    border-radius: 0px!important;
 }
 
 /* Okamei 

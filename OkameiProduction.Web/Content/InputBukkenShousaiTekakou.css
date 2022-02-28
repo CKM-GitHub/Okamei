@@ -1,6 +1,6 @@
 ﻿/* InputBukkenShousai TekakouSubEntry*/
 
-.TekakouSubEntry_content {
+#TekakouSubEntry .modal_content {
     width: 650px;
 }
 
@@ -8,14 +8,14 @@
     padding-left: 10px;
 }
 
-    /* Override BootStrap　---> */
+    /* override BootStrap　---> */
     #TekakouSubEntry .detail_content .form-control:focus {
         outline: none;
         box-shadow: none;
     }
     /* <--- */
 
-    #TekakouSubEntry .detail_content .label-title {
+    #TekakouSubEntry .detail_content .label-title { /* override customize.css */
         margin-left: 0;
         padding-right: 15px;
         border-radius: 0;
@@ -56,16 +56,14 @@
     flex-shrink: 0;
 }
 
-@media (max-width: 575px) {
-    .TekakouSubEntry_content {
+@media (max-width: 650px) {
+    #TekakouSubEntry .modal_content {
         max-width: 90%;
-        max-height: 90%;
     }
 }
 
 @media (max-height: 660px) {
-    .TekakouSubEntry_content {
-        max-width: 90%;
+    #TekakouSubEntry .modal_content {
         max-height: 90%;
     }
 }

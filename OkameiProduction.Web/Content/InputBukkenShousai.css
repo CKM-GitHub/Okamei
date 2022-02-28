@@ -71,56 +71,62 @@ div.spacer{
 /* table
 --------------------------------------------------
 */
-.table td {
+.main-content .fixedtable-wrap {
+    table-layout: fixed;
+    height: calc(31px * 5 + 17px + 38px); /* td height * rows + scrollbar + pagenation */
+}
+
+.main-content .table thead {
+    display: none;
+}
+
+.main-content .table td {
     padding-top: 4px;
     padding-bottom: 4px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-size: 14px;
 }
 
-.table thead {
-    display: none;
-}
-
-.table input[type=checkbox] {
+.main-content .table input[type=checkbox] {
     margin: 0;
 }
 
-div.dataTables_scrollBody > table > tbody tr:first-child th,
-div.dataTables_scrollBody > table > tbody tr:first-child td {
+.main-content div.dataTables_scrollBody > table > tbody tr:first-child th,
+.main-content div.dataTables_scrollBody > table > tbody tr:first-child td {
     border-top: 1px solid #979797 !important;
 }
 
-div.dataTables_scrollBody > table > tbody tr th,
-div.dataTables_scrollBody > table > tbody tr td {
+.main-content div.dataTables_scrollBody > table > tbody tr th,
+.main-content div.dataTables_scrollBody > table > tbody tr td {
     border-bottom: 1px solid #979797 !important;
 }
 
-.table tbody td:first-child {
+.main-content .table tbody td:first-child {
     border-left: 1px solid #979797;
 }
 
-.table tbody td {
+.main-content .table tbody td {
     border-right: 1px solid #979797;
 }
 
-.table .BukkenFileShurui {
+.main-content .table .BukkenFileShurui {
     min-width: 120px;
     max-width: 120px;
 }
 
-.table .BukkenFileName {
+.main-content .table .BukkenFileName {
     min-width: 660px;
     max-width: 660px;
 }
 
-.table .BukkenComment {
+.main-content .table .BukkenComment {
     min-width: 848px;
     max-width: 848px;
 }
 
-.table .InsertOperator {
+.main-content .table .InsertOperator {
     min-width: 120px;
     max-width: 120px;
 }

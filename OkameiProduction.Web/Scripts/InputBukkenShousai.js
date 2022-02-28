@@ -18,6 +18,7 @@ function addEvents() {
                 //location.href = url_homePage;url_exportAgreementForm 
             }
             else {
+                showLoadingMessage();
                 location.href = url_previousPage;
             }
         });
@@ -51,6 +52,7 @@ function addEvents() {
                 location.href = url_homePage;
             }
             else {
+                showLoadingMessage();
                 location.href = url_previousPage;
             }
         });
@@ -112,19 +114,23 @@ function addEvents() {
     $('#BukkenComment').keydown(function (e) {
         var c = e.which ? e.which : e.keyCode;
         if (c == 13) {
-            var model = {
-                BukkenNO: txtBukkenNO.val(),
-                BukkenComment: $(this).val(),
-                UserID: $('#user-id').text()
+            var inputval = $(this).val();
+            if (inputval) {
+                var model = {
+                    BukkenNO: txtBukkenNO.val(),
+                    BukkenComment: $(this).val(),
+                    UserID: $('#user-id').text()
+                }
+                var result = calltoApiController(url_SaveBukkenComment, model);
+                if (!result) return;
+                if (result.MessageID) {
+                    showMessage(result);
+                    return;
+                }
+
+                $(this).val("");
+                createBukkenCommentTable(true);
             }
-            var result = calltoApiController(url_SaveBukkenComment, model);
-            if (!result) return;
-            if (result.MessageID) {
-                showMessage(result);
-                return;
-            }
-            $(this).val("");
-            createBukkenCommentTable();
         }
     });
 
@@ -204,8 +210,7 @@ function setScreen() {
         if (txtBukkenNO.val() == "") {
             $('#main :input:not(button)').val('');
             $('#main a').addClass('not-available');
-            setDisabledAll('#main', true);
-            btnReturn.prop('disabled', false).focus();
+            setDisabledAll('#main', '#btnReturn');
             return;
         }
     }
@@ -222,7 +227,7 @@ function setScreen() {
         setSuggestList('#KoumutenName', url_getKoumutenListItems, txtSitenCD.val());
     }
     else if (eMode == 'Delete') {
-        setDisabledAll('#main');
+        setDisabledAll('#main', '#btnKakousiji, #btnReturn, #btnSave');
         btnSave.text('削除');
     }
 }
@@ -273,13 +278,14 @@ function createBukkenFileTable() {
         option.drawCallback = function () { setDisabledAll('#tblBukkenFile'); }
     }
 
-    option.paging = false;
+    option.displayLength = 5;
+    option.paging = data.length > 1
     option.info = false;
 
     bindDataTables($('#tblBukkenFile'), option);
 }
 
-function createBukkenCommentTable() {
+function createBukkenCommentTable(isSetFocusToText) {
     var data;
 
     var model = {
@@ -316,8 +322,12 @@ function createBukkenCommentTable() {
     if (eMode == 'Delete') {
         option.drawCallback = function() { setDisabledAll('#tblBukkenComment'); }
     }
+    if (isSetFocusToText) {
+        option.drawCallback = function () { $('#BukkenComment').focus(); }
+    }
 
-    option.paging = false;
+    option.displayLength = 5;
+    option.paging = data.length > 1
     option.info = false;
 
     bindDataTables($('#tblBukkenComment'), option);
@@ -465,6 +475,7 @@ function btnSaveClick() {
             window.location.reload();
         }
         else {
+            showLoadingMessage();
             location.href = url_previousPage;
         }
     });

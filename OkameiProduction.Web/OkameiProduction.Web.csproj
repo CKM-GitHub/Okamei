@@ -234,6 +234,7 @@
     <Compile Include="Controllers\CadStaffMitei\CadStaffMiteiController.cs" />
     <Compile Include="Controllers\EigyouJisseki\EigyouJissekiApiController.cs" />
     <Compile Include="Controllers\EigyouJisseki\EigyouJissekiController.cs" />
+    <Compile Include="Controllers\InputBukkenShousai\InputBukkenShousaiMoulderApiController.cs" />
     <Compile Include="Controllers\InputBukkenShousai\InputBukkenShousaiTekakouApiController.cs" />
     <Compile Include="Controllers\InputBukkenShousai\InputBukkenShousaiHiuchiApiController.cs" />
     <Compile Include="Controllers\InputStep\InputStepApiController.cs" />
@@ -285,6 +286,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\InputBukkenShousaiMoulder.css" />
     <Content Include="Content\InputBukkenShousaiTekakou.css" />
     <Content Include="Content\InputBukkenShousaiHiuchi.css" />
     <Content Include="Content\InputBukkenShousai.css" />
@@ -305,6 +307,7 @@
     <Content Include="Global.asax" />
     <Content Include="Images\brandlogo.png" />
     <Content Include="Scripts\InputBukkenShousai.js" />
+    <Content Include="Scripts\InputBukkenShousaiMoulder.js" />
     <Content Include="Scripts\InputBukkenShousaiTekakou.js" />
     <Content Include="Scripts\InputBukkenShousaiHiuchi.js" />
     <Content Include="Scripts\typeahead.js" />
@@ -470,6 +473,8 @@
     <Content Include="Views\KadouKeikaku\DisplayResult.cshtml" />
     <Content Include="Views\KadouKeikaku\SetCondition.cshtml" />
     <Content Include="Views\InputBukkenShousai\TekakouSubEntry.cshtml" />
+    <Content Include="Views\InputBukkenShousai\MoulderSubEntry.cshtml" />
+    <Content Include="Views\Shared\_ModalForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

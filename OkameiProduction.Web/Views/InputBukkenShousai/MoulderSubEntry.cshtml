@@ -1,0 +1,135 @@
+﻿@model Models.InputBukkenShousaiMoulderModel
+
+@{
+    Layout = "~/Views/Shared/_ModalForm.cshtml";
+}
+
+<div class="form-group row">
+    <div class="col-sm-3">
+        <label class="col-form-label label-title pk">物件番号</label>
+    </div>
+    <div class="col-sm-9">
+        <input type="text" class="form-control size8" readonly maxlength="8" id="MoulderBukkenNO" name="MoulderBukkenNO"
+               value="@Model.BukkenNO" />
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-sm-3">
+        <label class="col-form-label label-title">物件名</label>
+    </div>
+    <div class="col-sm-9">
+        <input type="text" class="form-control size16" readonly maxlength="16" id="MoulderBukkenName" name="MoulderBukkenName"
+               value="@Model.BukkenName" />
+    </div>
+</div>
+<div class="detail_content">
+    <table class="templatetable">
+        <tr>
+            <td class="MoulderRows">
+                <input type="text" class="form-control" name="BukkenMoulderRows"/>
+            </td>
+            <td class="MoulderHinmoku">
+                @Html.DropDownList(
+                "MoulderHinmoku",
+                new SelectList(Model.HinmokuDropDownListItems, "Value", "DisplayText"),
+                "",
+                new { @class = "form-control" })
+            </td>
+            <td class="MoulderZairyou">
+                @Html.DropDownList(
+                "MoulderZairyou",
+                new SelectList(Model.ZairyouDropDownListItems, "Value", "DisplayText"),
+                "",
+                new { @class = "form-control" })
+            </td>
+            <td class="MoulderHaba">
+                <input type="text" class="form-control" name="MoulderHaba" maxlength="5" />
+            </td>
+            <td class="MoulderNari">
+                <input type="text" class="form-control" name="MoulderNari" maxlength="5" />
+            </td>
+            <td class="MoulderNagasa">
+                <input type="text" class="form-control" name="MoulderNagasa" maxlength="5" />
+            </td>
+            <td class="MoulderHonsuu">
+                <input type="text" class="form-control" name="MoulderHonsuu" maxlength="5" />
+            </td>
+            <td class="MoulderKakouDateTime"></td>
+            <td class="MoulderSumi">
+                <input type="checkbox" name="MoulderSumi" />
+            </td>
+        </tr>
+    </table>
+    <div class="fixedtable-wrap">
+        <table class='table table-bordered' id="tblBukkenMoulder">
+            <thead>
+                <tr>
+                    <th class="MoulderRows"></th>
+                    <th class="label-title non-responsive MoulderHinmoku require">品目</th>
+                    <th class="label-title non-responsive MoulderZairyou require">樹種</th>
+                    <th class="label-title non-responsive MoulderHaba require">幅</th>
+                    <th class="label-title non-responsive MoulderNari require">成</th>
+                    <th class="label-title non-responsive MoulderNagasa require">長さ</th>
+                    <th class="label-title non-responsive MoulderHonsuu require">本数</th>
+                    <th class="label-title non-responsive MoulderKakouDateTime">加工日</th>
+                    <th class="label-title non-responsive MoulderSumi">済</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var row in Model.Records)
+                {
+                    <tr>
+                        <td class="MoulderRows">
+                            <input type="text" class="form-control" name="BukkenMoulderRows" value="@row.BukkenMoulderRows" />
+                        </td>
+                        <td class="MoulderHinmoku">
+                            @Html.DropDownList(
+                            "MoulderHinmoku",
+                            new SelectList(Model.HinmokuDropDownListItems, "Value", "DisplayText", row.MoulderHinmoku),
+                            "",
+                            new { @class = "form-control" })
+                        </td>
+                        <td class="MoulderZairyou">
+                            @Html.DropDownList(
+                            "MoulderZairyou",
+                            new SelectList(Model.ZairyouDropDownListItems, "Value", "DisplayText", row.MoulderZairyou),
+                            "",
+                            new { @class = "form-control" })
+                        </td>
+                        <td class="MoulderHaba">
+                            <input type="text" class="form-control" name="MoulderHaba" maxlength="5" value="@row.MoulderHaba" />
+                        </td>
+                        <td class="MoulderNari">
+                            <input type="text" class="form-control" name="MoulderNari" maxlength="5" value="@row.MoulderNari" />
+                        </td>
+                        <td class="MoulderNagasa">
+                            <input type="text" class="form-control" name="MoulderNagasa" maxlength="5" value="@row.MoulderNagasa" />
+                        </td>
+                        <td class="MoulderHonsuu">
+                            <input type="text" class="form-control" name="MoulderHonsuu" maxlength="5" value="@row.MoulderHonsuu" />
+                        </td>
+                        <td class="MoulderKakouDateTime">
+                            @row.MoulderKakouDateTime
+                        </td>
+                        <td class="MoulderSumi">
+                            <input type="checkbox" name="MoulderSumi" data-dbvalue="@row.MoulderSumi" />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="hidden-area">
+    <input type="text" hidden id="HiddenMoulderUpdateDateTime" name="HiddenMoulderUpdateDateTime" value="@Model.HiddenUpdateDateTime" />
+</div>
+<div class="d-flex flex-row">
+    <div class="footer-btn footer-left">
+        <button type="button" class="btn btn-secondary" id="btnAdd" nofocus>行追加</button>
+    </div>
+    <div class="footer-btn mx-auto">
+        <button type="button" class="btn btn-secondary" id="btnClose" nofocus>閉じる</button>
+        <button type="button" class="btn btn-primary" id="btnSaveMoulder">登録</button>
+    </div>
+</div>
+

@@ -1,6 +1,6 @@
 ﻿/* InputBukkenShousai HiuchiSubEntry*/
 
-.HiuchiSubEntry_content {
+#HiuchiSubEntry .modal_content {
     width: 1200px;
 }
 
@@ -8,11 +8,12 @@
     padding-left: 10px;
 }
 
-    /* Override BootStrap　---> */
+    /* override BootStrap　---> */
     #HiuchiSubEntry .detail_content .form-control {
-        height: 33px;
+        height: calc(1.2em + 0.75rem + 2px);
         line-height: 1;
         border-radius: 0;
+        padding: 0.25rem 0.75rem;
     }
 
         #HiuchiSubEntry .detail_content .form-control:focus {
@@ -22,17 +23,17 @@
     /* <--- */
 
     #HiuchiSubEntry .detail_content button {
-        height: 33px;
+        height: calc(1.2em + 0.75rem + 2px);
         line-height: 1;
     }
 
-    #HiuchiSubEntry .detail_content .label-title {
+    #HiuchiSubEntry .detail_content .label-title { /* override customize.css */
         width: auto;
         margin-left: 0;
         border-radius: 0;
     }
 
-#HiuchiSubEntry .footer-btn {
+#HiuchiSubEntry .footer-btn { /* override customize.css */
     white-space: nowrap;
 }
 
@@ -81,16 +82,14 @@
         width: 80px !important;
     }
 
-@media (max-width: 575px) {
-    .HiuchiSubEntry_content {
+@media (max-width: 1200px) {
+    #HiuchiSubEntry .modal_content {
         max-width: 90%;
-        max-height: 90%;
     }
 }
 
 @media (max-height: 800px) {
-    .HiuchiSubEntry_content {
-        max-width: 90%;
+    #HiuchiSubEntry .modal_content {
         max-height: 90%;
     }
 }

@@ -45,7 +45,7 @@ function initialize_Tekakou() {
     setTekakouUnitTime();
 
     if (eMode == 'Delete') {
-        setDisabledAll('#TekakouSubEntry');
+        setDisabledAll('#TekakouSubEntry', '.js-modal-close, #TekakouSubEntry #btnClose');
         $('#TekakouSubEntry #btnClose').focus();
     }
     else {

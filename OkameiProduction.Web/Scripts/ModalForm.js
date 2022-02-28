@@ -7,26 +7,33 @@ ModalForm.Close = function () {
 
 $(document).ready(function () {
 
-    var modalcontent;
-    var info;
-
     function getModalSettings(target) {
 
+        var title = target;
         var url;
         var funcInitialize;
         var funcFinalize;
 
         // ----->
         if (target == 'HiuchiSubEntry') {
+            title = '火打';
             url = gApplicationPath + '/InputBukkenShousai/HiuchiSubEntry';
             funcInitialize = initialize_Hiuchi;
             funcFinalize = finalize_Hiuchi;
         }
 
         if (target == 'TekakouSubEntry') {
+            title = '手加工入力';
             url = gApplicationPath + '/InputBukkenShousai/TekakouSubEntry';
             funcInitialize = initialize_Tekakou;
             funcFinalize = finalize_Tekakou;
+        }
+
+        if (target == 'MoulderSubEntry') {
+            title = '加工指示（モルダー）';
+            url = gApplicationPath + '/InputBukkenShousai/MoulderSubEntry';
+            funcInitialize = initialize_Moulder;
+            funcFinalize = finalize_Moulder;
         }
         //<-----
 
@@ -36,8 +43,12 @@ $(document).ready(function () {
         };
         if (model.BukkenNO == "") return;
 
-        return { url, model, funcInitialize, funcFinalize };
+        return { title, url, model, funcInitialize, funcFinalize };
     }
+
+
+    var modalcontent;
+    var info;
 
     $('.js-modal-open').each(function () {
         $(this).on('click', function () {
@@ -46,25 +57,36 @@ $(document).ready(function () {
             info = getModalSettings(target);
             if (!info) return;
 
-            showLoadingMessage();
+            if (info.url) {
+                showLoadingMessage();
 
-            $.post(info.url, info.model)
-                .done(function (content) {
-                    modalcontent = $(content);
-                    modalcontent.appendTo('body');
-                    closeLoadingMessage();
+                $.post(info.url, info.model)
+                    .done(function (content) {
+                        modalcontent = $(content);
+                        modalcontent.appendTo('body');
 
-                    var modal = document.getElementById(target);
-                    $(modal).fadeIn();
-                    $('body').css('overflow-y', 'hidden');
+                        var modal = $('.js-modal');
+                        modal.attr('id', target);
+                        $('.modal-title-text').text(info.title);
 
-                    if (info.funcInitialize) info.funcInitialize();
-                    return false;
-                })
-                .fail(function (jqXHR, textStatus, errorThrown) {
-                    closeLoadingMessage();
-                    alert(jqXHR.status + ':' + jqXHR.statusText);
-                });
+                        closeLoadingMessage();
+                        $(modal).fadeIn();
+                        $('body').css('overflow-y', 'hidden');
+                        if (info.funcInitialize) info.funcInitialize();
+                        return false;
+                    })
+                    .fail(function (jqXHR, textStatus, errorThrown) {
+                        closeLoadingMessage();
+                        alert(jqXHR.status + ':' + jqXHR.statusText);
+                    });
+            }
+            else {
+                var modal = document.getElementById(target);
+                $(modal).fadeIn();
+                $('body').css('overflow-y', 'hidden');
+                if (info.funcInitialize) info.funcInitialize();
+                return false;
+            }
 
             return false;
         });
