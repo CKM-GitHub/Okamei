@@ -346,6 +346,7 @@
                 setSuggestList('#tblSmitumoriKanri tbody tr:last-child td #txtKoumutenName', '@Url.Action("GetKoumutenSuggestItems", "api/InputBukkenShousaiApi")', '');
 
                 bindKeyPressEvent("#main");
+                $('#tblSmitumoriKanri tbody tr:last-child td #txtSagyouDate').focus();
             }
             else
                 showMessage('E102');
