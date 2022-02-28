@@ -1,6 +1,7 @@
 ﻿using System; 
 using System.Data; 
-using System.IO; 
+using System.IO;
+using System.Text;
 using iTextSharp.text;
 using iTextSharp.text.pdf; 
 
@@ -30,7 +31,7 @@ namespace Models
                 var Tablea = new PdfPTable(11);
                 float[] widths = new float[] { 40f, 40f, 60f, 60f, 60f, 60f, 30f, 60f, 60f, 60f, 15f };
                 Tablea.SetWidths(widths);
-                Tablea.AddCell(new PdfPCell(new Phrase("プ   レ    カ    ッ    ト    実    績    日    報", font_Class.CreateJapaneseFont(font_folder, 17, 1)))
+                Tablea.AddCell(new PdfPCell(new Phrase("プ  レ  カ  ッ  ト  実  績  日  報", font_Class.CreateJapaneseFont(font_folder, 20, 1)))
                 {
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
@@ -55,7 +56,7 @@ namespace Models
                     BorderWidthLeft = 0,
                     BorderWidthRight = 0,
                     //PaddingBottom = 0f,
-                    BackgroundColor = new BaseColor(144, 238, 144),
+                    BackgroundColor = new BaseColor(204, 255, 204),
 
                     // Colspan = 1
                 });
@@ -109,7 +110,7 @@ namespace Models
                     BorderWidthRight = 0,
                     PaddingTop = 0f,
                     // PaddingBottom = 0f,
-                    BackgroundColor = new BaseColor(144, 238, 144),
+                    BackgroundColor = new BaseColor(204, 255, 204),
                     // Colspan = 1
                 });
 
@@ -163,7 +164,7 @@ namespace Models
                     BorderWidthTop = 0,
                     BorderWidthLeft = 0,
                     BorderWidthRight = 0,
-                    BackgroundColor = new BaseColor(144, 238, 144),//BaseColor.MAGENTA,
+                    BackgroundColor = new BaseColor(204, 255, 204),//BaseColor.MAGENTA,
                     PaddingTop = 0f,
                     //PaddingBottom = 0f,
                     // Colspan = 1
@@ -224,9 +225,11 @@ namespace Models
                     //BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 2,
-                });
-                //BukkenName
-                Tablea.AddCell(new PdfPCell(new Phrase(dt.Rows[0]["BukkenName"].ToString(), font_Class.CreateJapaneseFont(font_folder, 10)))
+                });  
+                //BukkenName  
+                //var msze = File.ReadAllLines("D:\\pdf\\ptk.txt")[0].Split(',');
+               // var BukkenName = msze[0];  //dt.Rows[0]["BukkenName"].ToString();
+                Tablea.AddCell(new PdfPCell(new Phrase(dt.Rows[0]["BukkenName"].ToString(), font_Class.CreateJapaneseFont(font_folder,  15)))
                 {
 
                     HorizontalAlignment = Element.ALIGN_CENTER,
@@ -236,9 +239,9 @@ namespace Models
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
                     //BorderWidthRight = 0,
-                    //PaddingBottom = 0f,
+                    PaddingBottom = 3f,
                     Colspan = 5,
-                    BackgroundColor = new BaseColor(144, 238, 144), //System.Drawing.KnownColor.LightGreen ,// SetRGBColorFill(144, 238, 144);
+                    BackgroundColor = new BaseColor(204, 255, 204), //System.Drawing.KnownColor.LightGreen ,// SetRGBColorFill(144, 238, 144);
                 });
 
                 Tablea.AddCell(new PdfPCell(new Phrase("様邸", font_Class.CreateJapaneseFont(font_folder, 10)))
@@ -267,7 +270,8 @@ namespace Models
                     Colspan = 1,
 
                 });
-                //Kakoubutusuu
+                //Kakoubutusuu   dt.Rows[0]["KakouTubosuu"].ToString()
+
                 Tablea.AddCell(new PdfPCell(new Phrase(dt.Rows[0]["KakouTubosuu"].ToString(), font_Class.CreateJapaneseFont(font_folder, 10)))
                 {
                     HorizontalAlignment = Element.ALIGN_CENTER,
@@ -277,9 +281,9 @@ namespace Models
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
                     BorderWidthRight = 0,
-                    //PaddingBottom = 0f,
+                    
                     Colspan = 1,
-                    BackgroundColor = new BaseColor(144, 238, 144),
+                    BackgroundColor = new BaseColor(204, 255, 204),
 
                 });
                 Tablea.AddCell(new PdfPCell(new Phrase("坪 ", font_Class.CreateJapaneseFont(font_folder, 10)))
@@ -310,8 +314,9 @@ namespace Models
                     Colspan = 2,
                 });
 
-                //KoumuTenName
-                Tablea.AddCell(new PdfPCell(new Phrase(dt.Rows[0]["KoumuTenName"].ToString(), font_Class.CreateJapaneseFont(font_folder, 10)))
+                //KoumuTenName   //new Phrase(dt.Rows[0]["KoumuTenName"].ToString(), font_Class.CreateJapaneseFont(font_folder, 10))
+                //msze = File.ReadAllLines("D:\\pdf\\ptk.txt")[1].Split(',');
+                Tablea.AddCell(new PdfPCell(new Phrase(dt.Rows[0]["KoumuTenName"].ToString(), font_Class.CreateJapaneseFont(font_folder, 13)))
                 {
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
@@ -321,8 +326,9 @@ namespace Models
                     //BorderWidthLeft = 0,
                     //BorderWidthRight = 0,
                     //PaddingBottom = 0f,
+                    PaddingBottom = 3f,
                     Colspan = 5,
-                    BackgroundColor = new BaseColor(144, 238, 144),
+                    BackgroundColor = new BaseColor(204, 255, 204),
                 });
 
                 Tablea.AddCell(new PdfPCell(new Phrase("様", font_Class.CreateJapaneseFont(font_folder, 10)))
@@ -378,7 +384,7 @@ namespace Models
                     Colspan = 2,
                 });
                 //ShitenName
-                Tablea.AddCell(new PdfPCell(new Phrase(dt.Rows[0]["ShopName"].ToString(), font_Class.CreateJapaneseFont(font_folder, 10)))
+                Tablea.AddCell(new PdfPCell(new Phrase(dt.Rows[0]["ShopName"].ToString(), font_Class.CreateJapaneseFont(font_folder, 13)))
                 {
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
@@ -389,7 +395,7 @@ namespace Models
                     //BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 2,
-                    BackgroundColor = new BaseColor(144, 238, 144),
+                    BackgroundColor = new BaseColor(204, 255, 204),
                 });
 
                 Tablea.AddCell(new PdfPCell(new Phrase("支店担当", font_Class.CreateJapaneseFont(font_folder, 10)))
@@ -405,7 +411,7 @@ namespace Models
                     Colspan = 1
                 });
                 //Tantou
-                Tablea.AddCell(new PdfPCell(new Phrase(dt.Rows[0]["TentouName"].ToString(), font_Class.CreateJapaneseFont(font_folder, 10)))
+                Tablea.AddCell(new PdfPCell(new Phrase(dt.Rows[0]["TentouName"].ToString(), font_Class.CreateJapaneseFont(font_folder, 13)))
                 {
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
@@ -416,7 +422,7 @@ namespace Models
                     //BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
-                    BackgroundColor = new BaseColor(144, 238, 144),
+                    BackgroundColor = new BaseColor(204, 255, 204),
 
                 });
                 Tablea.AddCell(new PdfPCell(new Phrase("様", font_Class.CreateJapaneseFont(font_folder, 10)))
@@ -446,7 +452,7 @@ namespace Models
 
                 });
                 //BukkenNo
-                Tablea.AddCell(new PdfPCell(new Phrase(dt.Rows[0]["BukkenNo"].ToString(), font_Class.CreateJapaneseFont(font_folder, 10)))
+                Tablea.AddCell(new PdfPCell(new Phrase(dt.Rows[0]["BukkenNo"].ToString(), font_Class.CreateJapaneseFont(font_folder, 13)))
                 {
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
@@ -457,7 +463,7 @@ namespace Models
                     //BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 3,
-                    BackgroundColor = new BaseColor(144, 238, 144),
+                    BackgroundColor = new BaseColor(204, 255, 204),
 
                 });
 
@@ -2095,7 +2101,7 @@ namespace Models
                     //BorderWidthLeft = 0, 
                     //PaddingBottom = 0f,
                     Colspan = 11,
-                    BackgroundColor = new BaseColor(144, 238, 144),
+                    BackgroundColor = new BaseColor(204, 255, 204),
                 });
                 Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
                 {
@@ -2210,6 +2216,32 @@ namespace Models
             catch(Exception ex)
             {
                 File.WriteAllText("C:\\Okamei\\Okamei.log", ex.StackTrace);
+            }
+        }
+
+        public (int, float) ShrinkValue(string val)
+        {
+            int LengthShrink = Convert.ToInt32(Encoding.GetEncoding(932).GetByteCount(val).ToString());
+
+            if (LengthShrink > 40)
+            {
+                return (21, 5f);
+            }
+            else if (LengthShrink > 30)
+            {
+                return (27, 7f);
+            }
+            else if (LengthShrink > 20)
+            {
+                return (35, 7f);
+            }
+            else if (LengthShrink > 10)
+            {
+                return (45, 9f);
+            }
+            else
+            {
+                return (49, 9f);
             }
         }
     }
