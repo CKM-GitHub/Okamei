@@ -10,6 +10,9 @@
 *.xlsx
 !/Initializer/AgreementForm.xlsx
 !/Initializer/AgreementFormOriginal.xlsx
+!/Initializer/PurecattoForm.xlsx
+!/Initializer/PurecattoFormOriginal.xlsx
+!/Initializer/PurecattoFormOriginal1.xlsx
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
