@@ -1364,6 +1364,18 @@
                 www = WWW(o.classNames);
                 return this.each(attach);
                 function attach() {
+                    //okamei customize 2022.03.01 ----->
+                    var menupos = $(this).attr('tt-menuposition');
+                    if (menupos == 'top') {
+                        www.css.menu.top = "unset";
+                        www.css.menu.bottom = "100%";
+                    }
+                    else {
+                        www.css.menu.top = "100%";
+                        www.css.menu.bottom = "unset";
+                    }
+                    //okamei customize 2022.03.01 <-----
+
                     var $input, $wrapper, $hint, $menu, defaultHint, defaultMenu, eventBus, input, menu, typeahead, MenuConstructor;
                     _.each(datasets, function (d) {
                         d.highlight = !!o.highlight;

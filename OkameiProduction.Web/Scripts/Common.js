@@ -19,30 +19,30 @@ var substringMatcher = function (strs) {
         cb(matches);
     };
 };
-function getSuggestMenuPosition(input, items) {
+function getSuggestMenuPosition(input, datacount) {
+    var $input = $(input);
     var position = 'bottom';
 
-    const displayRows = 10;
-    const menuHeight = 24 * ((items.length > displayRows ? displayRows : items.length) + 1) + 20; //row height * rows + scroll height
-    var windowHeight = window.innerHeight;
+    const displayRows = 10; //Same as typeahead.css(the number of rows used in the tt-menu height calculation)
+    const menuHeight = 24 * ((datacount > displayRows ? displayRows : datacount) + 1) + 20; //row height * rows + scroll height
+    var windowBottom = window.innerHeight;
     var windowTop = 0;
 
-    var parent = input.parents('table');
-    if (parent.length == 0) parent = input.parents('.modal_content');
-    if (parent.length == 0) parent = input.parents('.main-content');
+    var parent = $input.parents('table tbody');
+    if (parent.length == 0) parent = $input.parents('.modal_content');
+    if (parent.length == 0) parent = $input.parents('.main-content');
 
     if (parent) {
         var parentRect = parent.get(0).getBoundingClientRect();
         windowTop = parentRect.top;
-        windowHeight = parentRect.top + parentRect.height;
+        windowBottom = parentRect.top + parentRect.height;
     }
 
-    var elemRect = input.get(0).getBoundingClientRect();
+    var elemRect = input.getBoundingClientRect();
     //var elemtop = elemRect.top + window.pageYOffset;
 
-    if (elemRect.top - windowTop > menuHeight && windowHeight - elemRect.bottom < menuHeight) {
+    if (elemRect.top - windowTop > menuHeight && windowBottom - elemRect.bottom < menuHeight) {
         position = 'top';
-
     }
 
     return position;
@@ -64,14 +64,13 @@ function setSuggestList(selector, url, key, items) {
         items = result;
     }
 
-    var menuCss = getSuggestMenuPosition(target, items) == 'top' ? 'tt-menu topleft' : 'tt-menu';
+    $.each(target, function (i, input) {
+        $(input).attr('tt-menuposition', getSuggestMenuPosition(input, items.length));
+    });
 
     if (items.length > 0) {
         target.typeahead({
             minLength: 0,
-            classNames: {
-                menu: menuCss,
-            }
         },
             {
                 source: substringMatcher(items),

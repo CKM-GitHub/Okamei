@@ -28,16 +28,6 @@
     overflow-y: scroll;
 }
 
-    .typeahead_normal .tt-menu:not(.topleft) {
-        top: 100%;
-        bottom: unset;
-    }
-
-    .typeahead_normal .tt-menu.topleft {
-        top: unset;
-        bottom: 100%;
-    }
-
 .typeahead_normal .tt-suggestion {
     padding: 0.15rem 15px;
     line-height: 1.2;
