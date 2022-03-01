@@ -24,7 +24,7 @@ namespace OkameiProduction.Web
                         ));
             bundles.Add(new ScriptBundle("~/bundles/common").Include(
                         "~/Scripts/SweetAlert2.js",
-                        "~/Scripts/typeahead.js",
+                        "~/Scripts/typeahead_customize.js",
                         "~/Scripts/Common.js"
                         ));
             bundles.Add(new ScriptBundle("~/bundles/InputBukkenShousai").Include(

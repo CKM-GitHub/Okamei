@@ -10,11 +10,8 @@ $(document).ready(function () {
     function getModalSettings(target) {
 
         var title = target;
-        var url;
-        var funcInitialize;
-        var funcFinalize;
+        var url, funcInitialize, funcFinalize;
 
-        // ----->
         if (target == 'HiuchiSubEntry') {
             title = '火打';
             url = gApplicationPath + '/InputBukkenShousai/HiuchiSubEntry';
@@ -35,13 +32,15 @@ $(document).ready(function () {
             funcInitialize = initialize_Moulder;
             funcFinalize = finalize_Moulder;
         }
-        //<-----
 
         var model = {
             BukkenNO: txtBukkenNO.val(),
             BukkenName: txtBukkenName.val(),
         };
-        if (model.BukkenNO == "") return;
+        if (model.BukkenNO == "") {
+            showMessage('E288');
+            return;
+        }
 
         return { title, url, model, funcInitialize, funcFinalize };
     }

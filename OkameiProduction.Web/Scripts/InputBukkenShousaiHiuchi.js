@@ -328,7 +328,7 @@ function btnExportPdfHiuchi(e) {
         Honsuu3: $('#HiuchiSubEntry #Honsuu' + row + '3').val(),
     };
 
-    if (model.SouName && model.Zairyou1) {
+    if (model.BukkenName && model.SouName && model.Zairyou1) {
         showConfirmMessage('Q204', function () {
             model.FileName = '火打材ラベル_' + model.BukkenName + '.pdf';
             calltoApiController_FileDownLoadHandle(url_exportHiuchiPdf, model);
@@ -366,6 +366,9 @@ function inputFileHiuchiChange(e) {
 
                 setZairyouSuggestList();
                 setToukyuuSuggestList();
+                closeLoadingMessage();
+            },
+            function () {
                 closeLoadingMessage();
             });
     }

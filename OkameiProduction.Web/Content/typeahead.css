@@ -13,10 +13,9 @@
 }
 
 .typeahead_normal .tt-menu {
-    margin: 12px 0;
+    margin: 0;
     padding: 0;
     background-color: #fff;
-    border: 1px solid #ccc;
     border: 1px solid rgba(0, 0, 0, 0.2);
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
@@ -25,14 +24,14 @@
     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
     box-shadow: 0 5px 10px rgba(0,0,0,.2);
     width: 100%;
-    max-height: 50vh;
-    overflow-y: auto;
+    max-height: calc((1.2em + 0.3rem) * 11 + 2px); /* 10 lines + blank line*/
+    overflow-y: scroll;
 }
 
 .typeahead_normal .tt-suggestion {
-    padding: 0px 15px;
-    line-height: 24px;
-    height: 24px;
+    padding: 0.15rem 15px;
+    line-height: 1.2;
+    height: calc(1.2em + 0.3rem);
 }
 
     .typeahead_normal .tt-suggestion:hover {
