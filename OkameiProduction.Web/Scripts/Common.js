@@ -39,7 +39,6 @@ function getSuggestMenuPosition(input, datacount) {
     }
 
     var elemRect = input.getBoundingClientRect();
-    //var elemtop = elemRect.top + window.pageYOffset;
 
     if (elemRect.top - windowTop > menuHeight && windowBottom - elemRect.bottom < menuHeight) {
         position = 'top';
@@ -64,9 +63,10 @@ function setSuggestList(selector, url, key, items) {
         items = result;
     }
 
-    $.each(target, function (i, input) {
-        $(input).attr('tt-menuposition', getSuggestMenuPosition(input, items.length));
-    });
+    //$.each(target, function (i, input) {
+    //    $(input).attr('tt-menuposition', getSuggestMenuPosition(input, items.length));
+    //});
+    $(target).attr('tt-menuposition', getSuggestMenuPosition(target.get(0), items.length));
 
     if (items.length > 0) {
         target.typeahead({
