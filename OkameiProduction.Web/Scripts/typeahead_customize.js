@@ -1090,7 +1090,7 @@
             //okamei customize 2022.03.01 ----->
             //onFocused = c(this, "activate", "open", "_onFocused");
             onFocused = c(this, "activate", "isOpen", "_onFocused");
-            onClicked = c(this, "isActive", "open", "_onClicked");
+            onClicked = c(this, "isActive", "_openORclose", "_onClicked");
             //okamei customize 2022.03.01 <-----
             onBlurred = c(this, "deactivate", "_onBlurred");
             onEnterKeyed = c(this, "isActive", "isOpen", "_onEnterKeyed");
@@ -1158,7 +1158,7 @@
             },
             //okamei customize 2022.03.01 ----->
             _onClicked: function onClicked() {
-                this.moveCursor(+1);
+                this.moveCursor();
             },
             //okamei customize 2022.03.01 <-----
             _onEnterKeyed: function onEnterKeyed(type, $e) {
@@ -1206,6 +1206,11 @@
                     this.menu.setLanguageDirection(dir);
                 }
             },
+            //okamei customize 2022.03.01 ----->
+            _openORclose: function openORclose() {
+                this.isOpen() ? this.close() : this.open();
+            },
+            //okamei customize 2022.03.01 <-----
             _openIfActive: function openIfActive() {
                 this.isActive() && this.open();
             },
