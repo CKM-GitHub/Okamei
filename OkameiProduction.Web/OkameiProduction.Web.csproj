@@ -311,6 +311,7 @@
     <Content Include="Scripts\InputBukkenShousaiTekakou.js" />
     <Content Include="Scripts\InputBukkenShousaiHiuchi.js" />
     <Content Include="Scripts\typeahead.js" />
+    <Content Include="Scripts\typeahead_customize.js" />
     <Content Include="Scripts\lib\bootstrap.bundle.js" />
     <Content Include="Scripts\lib\bootstrap.bundle.min.js" />
     <Content Include="Scripts\lib\bootstrap.js" />

@@ -4,9 +4,7 @@ var gCustomValidate = function (ctrl) { return true; }
 
 var substringMatcher = function (strs) {
     return function findMatches(q, cb) {
-        var matches;
-
-        matches = [];
+        var matches = [];
         matches.push('');
 
         substrRegex = new RegExp(q, 'i');
@@ -21,10 +19,38 @@ var substringMatcher = function (strs) {
         cb(matches);
     };
 };
+function getSuggestMenuPosition(input, items) {
+    var position = 'bottom';
+
+    const displayRows = 10;
+    const menuHeight = 24 * ((items.length > displayRows ? displayRows : items.length) + 1) + 20; //row height * rows + scroll height
+    var windowHeight = window.innerHeight;
+    var windowTop = 0;
+
+    var parent = input.parents('table');
+    if (parent.length == 0) parent = input.parents('.modal_content');
+    if (parent.length == 0) parent = input.parents('.main-content');
+
+    if (parent) {
+        var parentRect = parent.get(0).getBoundingClientRect();
+        windowTop = parentRect.top;
+        windowHeight = parentRect.top + parentRect.height;
+    }
+
+    var elemRect = input.get(0).getBoundingClientRect();
+    //var elemtop = elemRect.top + window.pageYOffset;
+
+    if (elemRect.top - windowTop > menuHeight && windowHeight - elemRect.bottom < menuHeight) {
+        position = 'top';
+
+    }
+
+    return position;
+}
 function setSuggestList(selector, url, key, items) {
 
-    var targer = $(selector + '.typeahead');
-    targer.typeahead('destroy');
+    var target = $(selector + '.typeahead');
+    target.typeahead('destroy');
 
     if (url && url != "") {
         var result = calltoApiController(url, key);
@@ -38,9 +64,14 @@ function setSuggestList(selector, url, key, items) {
         items = result;
     }
 
+    var menuCss = getSuggestMenuPosition(target, items) == 'top' ? 'tt-menu topleft' : 'tt-menu';
+
     if (items.length > 0) {
-        targer.typeahead({
-            minLength: 0
+        target.typeahead({
+            minLength: 0,
+            classNames: {
+                menu: menuCss,
+            }
         },
             {
                 source: substringMatcher(items),
@@ -504,7 +535,9 @@ function bindKeyPressEvent(areaid) {
         var c = e.which ? e.which : e.keyCode;
         if (c == 13 || c == 9) {
 
-            if ($(e.target).attr('type') == 'button') return;
+            if (e.target.type == 'button') return;
+            if (e.target.tagName == 'TEXTAREA' && e.shiftKey) return;
+
             e.preventDefault();
 
             var result = checkCommon($(e.target));
