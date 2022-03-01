@@ -307,11 +307,13 @@
                 setSuggestList('#txtKoumutenName', '@Url.Action("GetKoumutenSuggestItems", "api/InputBukkenShousaiApi")', '');
             }
 
-            $('#txtKoumutenName').on("focusin", function () {
-                focus_in();
-            })
-            $('#txtKoumutenName').on("focusout", function () {
-                focus_in();
+            $("#tblSmitumoriKanri tr").each(function (i, tr) {
+                $(tr).find('td:eq(3) #txtKoumutenName').on("focusin", function () {
+                    focus_in();
+                })
+                $(tr).find('td:eq(3) #txtKoumutenName').on("focusout", function () {
+                    focus_in();
+                })
             })
             var t = bindDataTables($('#tblSmitumoriKanri'), { displayLength: 15 });
         });
