@@ -29,13 +29,15 @@ namespace Models
                 doc1.Open();
 
                 var Tablea = new PdfPTable(11);
-                float[] widths = new float[] { 40f, 40f, 60f, 60f, 60f, 60f, 30f, 60f, 60f, 60f, 15f };
+                float[] widths = new float[] { 40f, 45f, 60f, 60f, 60f, 60f, 30f, 63f, 60f, 65f, 15f };
+                //Tablea.SetTotalWidth(widths);
                 Tablea.SetWidths(widths);
+                
                 Tablea.AddCell(new PdfPCell(new Phrase("プ  レ  カ  ッ  ト  実  績  日  報", font_Class.CreateJapaneseFont(font_folder, 20, 1)))
                 {
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
-                    FixedHeight = 50,
+                    FixedHeight = 60,
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     BorderWidthLeft = 0,
@@ -91,7 +93,7 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 20,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
                     //BorderWidthRight = 0,
@@ -219,10 +221,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 20,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 2,
                 });  
@@ -235,10 +237,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 20,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingBottom = 3f,
                     Colspan = 5,
                     BackgroundColor = new BaseColor(204, 255, 204), //System.Drawing.KnownColor.LightGreen ,// SetRGBColorFill(144, 238, 144);
@@ -249,10 +251,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 20,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1
                 });
@@ -262,10 +264,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 20,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
 
@@ -277,8 +279,8 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 20,
-                    //BorderWidthBottom = 0,
-                    //BorderWidthTop = 0,
+                    BorderWidthBottom = 0,
+                    BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
                     BorderWidthRight = 0,
                     
@@ -292,8 +294,8 @@ namespace Models
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 20,
                     PaddingLeft = -1.5f,
-                    //BorderWidthBottom = 0,
-                    //BorderWidthTop = 0,
+                    BorderWidthBottom = 0,
+                    BorderWidthTop = 0,
                     BorderWidthLeft = 0,
                     //BorderWidthRight = 0,
                     //PaddingBottom = 0f,
@@ -306,10 +308,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 20,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 2,
                 });
@@ -321,10 +323,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 20,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     PaddingBottom = 3f,
                     Colspan = 5,
@@ -336,23 +338,23 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 20,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1
                 });
 
                 Tablea.AddCell(new PdfPCell(new Phrase("総本数", font_Class.CreateJapaneseFont(font_folder, 10)))
                 {
-                    HorizontalAlignment = Element.ALIGN_RIGHT,
+                    HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 20,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
 
@@ -362,7 +364,7 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 20,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
                     //BorderWidthRight = 0,
@@ -376,10 +378,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 20,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 2,
                 });
@@ -389,10 +391,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 20,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 2,
                     BackgroundColor = new BaseColor(204, 255, 204),
@@ -403,10 +405,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 20,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1
                 });
@@ -416,10 +418,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 20,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
                     BackgroundColor = new BaseColor(204, 255, 204),
@@ -430,10 +432,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 20,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
 
@@ -443,10 +445,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 20,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
 
@@ -457,7 +459,7 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 20,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
                     //BorderWidthRight = 0,
@@ -473,7 +475,7 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
                     //BorderWidthRight = 0,
@@ -486,10 +488,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 2,
                 });
@@ -499,10 +501,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -511,10 +513,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -523,10 +525,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -536,10 +538,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 3,
                 });
@@ -549,10 +551,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -562,7 +564,7 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
                     //BorderWidthRight = 0,
@@ -579,7 +581,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingBottom = 0f,
                     Colspan = 2,
                 });
@@ -591,7 +593,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -603,7 +605,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -615,7 +617,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -629,6 +631,7 @@ namespace Models
                     BorderWidthBottom = 0f,
                     PaddingBottom = -4.0f,
                     PaddingRight = 0f,
+                    BorderWidthRight = 0,
                     PaddingLeft = 0f,
                     Colspan = 3,
                 });
@@ -640,7 +643,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -652,7 +655,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                   // BorderWidthRight = 0f,
                     PaddingBottom = 0f,
                     Colspan = 2,
                 });
@@ -667,7 +670,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 2,
                 });
@@ -679,7 +682,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -691,7 +694,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0f,
                     PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -703,7 +706,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -717,7 +720,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingBottom = 0f,
                     Colspan = 3,
                 });
@@ -729,7 +732,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -752,10 +755,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0f,
                     PaddingBottom = 0f,
                     Colspan = 2,
                 });
@@ -764,10 +767,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_TOP,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0f,
                     //PaddingBottom = 0f,
                     PaddingTop = 0,
                     Colspan = 1,
@@ -777,10 +780,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_TOP,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0f,
                     PaddingTop = 0f,
                     Colspan = 1,
                 });
@@ -789,10 +792,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_TOP,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingTop = 0f,
                     Colspan = 1,
                 });
@@ -805,6 +808,8 @@ namespace Models
                     BorderWidthTop = 0,
                     PaddingBottom = 0f,
                     PaddingRight = 0f,
+                    BorderWidthRight = 0f,
+                    BorderWidthBottom = 0,
                     PaddingLeft = 0f,
                     Colspan = 3,
                 });
@@ -813,10 +818,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_TOP,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     PaddingTop = 0,
                     Colspan = 1,
@@ -826,7 +831,7 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
                     //BorderWidthRight = 0,
@@ -844,7 +849,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingBottom = 0f,
                     Colspan = 2,
                 });
@@ -856,7 +861,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -868,7 +873,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -880,7 +885,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -894,6 +899,7 @@ namespace Models
                     BorderWidthBottom = 0f,
                     PaddingBottom = -4.0f,
                     PaddingRight = 0f,
+                    BorderWidthRight = 0,
                     PaddingLeft = 0f,
                     Colspan = 3,
                 });
@@ -905,7 +911,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -917,7 +923,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    // BorderWidthRight = 0f,
                     PaddingBottom = 0f,
                     Colspan = 2,
                 });
@@ -932,7 +938,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 2,
                 });
@@ -944,7 +950,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -956,7 +962,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0f,
                     PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -968,7 +974,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -982,7 +988,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingBottom = 0f,
                     Colspan = 3,
                 });
@@ -994,7 +1000,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -1017,10 +1023,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0f,
                     PaddingBottom = 0f,
                     Colspan = 2,
                 });
@@ -1029,10 +1035,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_TOP,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0f,
                     //PaddingBottom = 0f,
                     PaddingTop = 0,
                     Colspan = 1,
@@ -1042,10 +1048,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_TOP,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0f,
                     PaddingTop = 0f,
                     Colspan = 1,
                 });
@@ -1054,10 +1060,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_TOP,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingTop = 0f,
                     Colspan = 1,
                 });
@@ -1070,6 +1076,8 @@ namespace Models
                     BorderWidthTop = 0,
                     PaddingBottom = 0f,
                     PaddingRight = 0f,
+                    BorderWidthRight = 0f,
+                    BorderWidthBottom = 0,
                     PaddingLeft = 0f,
                     Colspan = 3,
                 });
@@ -1078,10 +1086,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_TOP,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     PaddingTop = 0,
                     Colspan = 1,
@@ -1091,14 +1099,14 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
                     //BorderWidthRight = 0,
                     PaddingBottom = 0f,
                     Colspan = 2,
                 });
-                #endregion #region Content1 
+                #endregion
                 #region Content3
                 //First  Content1
                 Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
@@ -1109,7 +1117,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingBottom = 0f,
                     Colspan = 2,
                 });
@@ -1121,7 +1129,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -1133,7 +1141,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -1145,7 +1153,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -1159,6 +1167,7 @@ namespace Models
                     BorderWidthBottom = 0f,
                     PaddingBottom = -4.0f,
                     PaddingRight = 0f,
+                    BorderWidthRight = 0,
                     PaddingLeft = 0f,
                     Colspan = 3,
                 });
@@ -1170,7 +1179,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -1182,7 +1191,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    // BorderWidthRight = 0f,
                     PaddingBottom = 0f,
                     Colspan = 2,
                 });
@@ -1197,7 +1206,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 2,
                 });
@@ -1209,7 +1218,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -1221,7 +1230,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0f,
                     PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -1233,7 +1242,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -1247,7 +1256,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingBottom = 0f,
                     Colspan = 3,
                 });
@@ -1259,7 +1268,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -1282,10 +1291,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0f,
                     PaddingBottom = 0f,
                     Colspan = 2,
                 });
@@ -1294,10 +1303,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_TOP,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0f,
                     //PaddingBottom = 0f,
                     PaddingTop = 0,
                     Colspan = 1,
@@ -1307,10 +1316,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_TOP,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0f,
                     PaddingTop = 0f,
                     Colspan = 1,
                 });
@@ -1319,10 +1328,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_TOP,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingTop = 0f,
                     Colspan = 1,
                 });
@@ -1335,6 +1344,8 @@ namespace Models
                     BorderWidthTop = 0,
                     PaddingBottom = 0f,
                     PaddingRight = 0f,
+                    BorderWidthRight = 0f,
+                    BorderWidthBottom = 0,
                     PaddingLeft = 0f,
                     Colspan = 3,
                 });
@@ -1343,10 +1354,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_TOP,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     PaddingTop = 0,
                     Colspan = 1,
@@ -1356,7 +1367,7 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
                     //BorderWidthRight = 0,
@@ -1374,7 +1385,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingBottom = 0f,
                     Colspan = 2,
                 });
@@ -1386,7 +1397,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -1398,7 +1409,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -1410,7 +1421,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -1424,6 +1435,7 @@ namespace Models
                     BorderWidthBottom = 0f,
                     PaddingBottom = -4.0f,
                     PaddingRight = 0f,
+                    BorderWidthRight = 0,
                     PaddingLeft = 0f,
                     Colspan = 3,
                 });
@@ -1435,7 +1447,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -1447,7 +1459,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    // BorderWidthRight = 0f,
                     PaddingBottom = 0f,
                     Colspan = 2,
                 });
@@ -1462,7 +1474,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 2,
                 });
@@ -1474,7 +1486,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -1486,7 +1498,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0f,
                     PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -1498,7 +1510,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -1512,7 +1524,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingBottom = 0f,
                     Colspan = 3,
                 });
@@ -1524,7 +1536,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -1547,10 +1559,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0f,
                     PaddingBottom = 0f,
                     Colspan = 2,
                 });
@@ -1559,10 +1571,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_TOP,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0f,
                     //PaddingBottom = 0f,
                     PaddingTop = 0,
                     Colspan = 1,
@@ -1572,10 +1584,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_TOP,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0f,
                     PaddingTop = 0f,
                     Colspan = 1,
                 });
@@ -1584,10 +1596,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_TOP,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingTop = 0f,
                     Colspan = 1,
                 });
@@ -1600,6 +1612,8 @@ namespace Models
                     BorderWidthTop = 0,
                     PaddingBottom = 0f,
                     PaddingRight = 0f,
+                    BorderWidthRight = 0f,
+                    BorderWidthBottom = 0,
                     PaddingLeft = 0f,
                     Colspan = 3,
                 });
@@ -1608,10 +1622,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_TOP,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     PaddingTop = 0,
                     Colspan = 1,
@@ -1621,7 +1635,7 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
                     //BorderWidthRight = 0,
@@ -1639,7 +1653,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingBottom = 0f,
                     Colspan = 2,
                 });
@@ -1651,7 +1665,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -1663,7 +1677,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -1675,7 +1689,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -1689,6 +1703,7 @@ namespace Models
                     BorderWidthBottom = 0f,
                     PaddingBottom = -4.0f,
                     PaddingRight = 0f,
+                    BorderWidthRight = 0,
                     PaddingLeft = 0f,
                     Colspan = 3,
                 });
@@ -1700,7 +1715,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -1712,7 +1727,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    // BorderWidthRight = 0f,
                     PaddingBottom = 0f,
                     Colspan = 2,
                 });
@@ -1727,7 +1742,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 2,
                 });
@@ -1739,7 +1754,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -1751,7 +1766,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0f,
                     PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -1763,7 +1778,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -1777,7 +1792,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingBottom = 0f,
                     Colspan = 3,
                 });
@@ -1789,7 +1804,7 @@ namespace Models
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
                 });
@@ -1812,10 +1827,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0f,
                     PaddingBottom = 0f,
                     Colspan = 2,
                 });
@@ -1824,10 +1839,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_TOP,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0f,
                     //PaddingBottom = 0f,
                     PaddingTop = 0,
                     Colspan = 1,
@@ -1837,10 +1852,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_TOP,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0f,
                     PaddingTop = 0f,
                     Colspan = 1,
                 });
@@ -1849,10 +1864,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_TOP,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     PaddingTop = 0f,
                     Colspan = 1,
                 });
@@ -1865,6 +1880,8 @@ namespace Models
                     BorderWidthTop = 0,
                     PaddingBottom = 0f,
                     PaddingRight = 0f,
+                    BorderWidthRight = 0f,
+                    BorderWidthBottom = 0,
                     PaddingLeft = 0f,
                     Colspan = 3,
                 });
@@ -1873,10 +1890,10 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_TOP,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
-                    //BorderWidthRight = 0,
+                    BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     PaddingTop = 0,
                     Colspan = 1,
@@ -1886,7 +1903,7 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 18.5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0,
                     //BorderWidthRight = 0,
@@ -1900,10 +1917,10 @@ namespace Models
                 {
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
-                    FixedHeight = 14.5f,
+                    FixedHeight = 18.5f,
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
-                    //BorderWidthLeft = 0, 
+                    BorderWidthRight = 0, 
                     //PaddingBottom = 0f,
                     Colspan = 2,
                 });
@@ -1911,8 +1928,8 @@ namespace Models
                 {
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
-                    FixedHeight = 14.5f,
-                    //BorderWidthBottom = 0,
+                    FixedHeight = 18.5f,
+                    BorderWidthRight = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0, 
                     //PaddingBottom = 0f,
@@ -1922,10 +1939,10 @@ namespace Models
                 {
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
-                    FixedHeight = 14.5f,
+                    FixedHeight = 18.5f,
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
-                    //BorderWidthLeft = 0, 
+                    BorderWidthRight = 0, 
                     //PaddingBottom = 0f,
                     Colspan = 5,
                 });
@@ -1933,9 +1950,9 @@ namespace Models
                 {
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
-                    FixedHeight = 14.5f,
+                    FixedHeight = 18.5f,
                     BorderWidthBottom = 0,
-                    //BorderWidthTop = 0,
+                    BorderWidthRight = 0,
                     //BorderWidthLeft = 0, 
                     //PaddingBottom = 0f,
                     Colspan = 1,
@@ -1944,20 +1961,22 @@ namespace Models
                 {
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
-                    FixedHeight = 14.5f,
+                    FixedHeight = 18.5f,
                     BorderWidthBottom = 0,
-                    //BorderWidthTop = 0,
+                    //BorderWidthRight = 0,
                     //BorderWidthLeft = 0, 
                     //PaddingBottom = 0f,
                     Colspan = 2,
                 });
 
+
+                //second base
                 Tablea.AddCell(new PdfPCell(new Phrase(" ", font_Class.CreateJapaneseFont(font_folder, 10)))
                 {
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
-                    FixedHeight = 25.5f,
-                    //BorderWidthBottom = 0,
+                    FixedHeight = 39.0f,
+                    BorderWidthRight = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0, 
                     //PaddingBottom = 0f,
@@ -1967,8 +1986,8 @@ namespace Models
                 {
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
-                    FixedHeight = 25.5f,
-                    //BorderWidthBottom = 0,
+                    FixedHeight = 39.0f,
+                    BorderWidthRight = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0, 
                     //PaddingBottom = 0f,
@@ -1978,8 +1997,8 @@ namespace Models
                 {
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
-                    FixedHeight = 25.5f,
-                    //BorderWidthBottom = 0,
+                    FixedHeight = 39.0f,
+                    BorderWidthRight = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0, 
                     //PaddingBottom = 0f,
@@ -1989,8 +2008,8 @@ namespace Models
                 {
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
-                    FixedHeight = 25.5f,
-                    //BorderWidthBottom = 0,
+                    FixedHeight = 39.0f,
+                    BorderWidthRight = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0, 
                     //PaddingBottom = 0f,
@@ -2000,7 +2019,7 @@ namespace Models
                 {
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
-                    FixedHeight = 25.5f,
+                    FixedHeight = 39.0f,
                     //BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     //BorderWidthLeft = 0, 
@@ -2015,8 +2034,8 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 5f,
-                    //BorderWidthBottom = 0,
-                    //BorderWidthTop = 0,
+                    BorderWidthBottom = 0,
+                    BorderWidthTop = 0,
                     //BorderWidthLeft = 0, 
                     //PaddingBottom = 0f,
                     Colspan = 11,
@@ -2027,8 +2046,8 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 22.1f,
-                    //BorderWidthBottom = 0,
-                    //BorderWidthTop = 0,
+                    BorderWidthBottom = 0,
+                    BorderWidthRight = 0,
                     //BorderWidthLeft = 0, 
                     //PaddingBottom = 0f,
                     Colspan = 2,
@@ -2038,7 +2057,7 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 22.1f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0, 
                     //PaddingBottom = 0f,
@@ -2050,8 +2069,8 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 22.1f,
-                    //BorderWidthBottom = 0,
-                    //BorderWidthTop = 0,
+                    BorderWidthBottom = 0,
+                    BorderWidthRight = 0,
                     //BorderWidthLeft = 0, 
                     //PaddingBottom = 0f,
                     Colspan = 2,
@@ -2061,7 +2080,7 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 22.1f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0, 
                     //PaddingBottom = 0f,
@@ -2073,7 +2092,7 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 5f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0, 
                     //PaddingBottom = 0f,
@@ -2085,7 +2104,7 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 2.0f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0, 
                     //PaddingBottom = 0f,
@@ -2095,9 +2114,9 @@ namespace Models
                 {
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
-                    FixedHeight = 20.5f,
-                    //BorderWidthBottom = 0,
-                    BorderWidthTop = 0,
+                    FixedHeight = 25.5f,
+                    BorderWidthBottom = 0,
+                    //BorderWidthTop = 0,
                     //BorderWidthLeft = 0, 
                     //PaddingBottom = 0f,
                     Colspan = 11,
@@ -2108,20 +2127,21 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_RIGHT,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 2.0f,
-                    //BorderWidthBottom = 0,
-                    BorderWidthTop = 0,
+                    BorderWidthBottom = 0,
+                    //BorderWidthTop = 0,
                     //BorderWidthLeft = 0, 
                     //PaddingBottom = 0f,
                     Colspan = 11,
                 });
                 Tablea.AddCell(new PdfPCell(new Phrase("[連絡事項]", font_Class.CreateJapaneseFont(font_folder, 10)))
                 {
+                    PaddingTop=3f,
                     HorizontalAlignment = Element.ALIGN_LEFT,
                     VerticalAlignment = Element.ALIGN_TOP,
                     FixedHeight = 20.0f,
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
-                    //BorderWidthLeft = 0, 
+                    BorderWidthRight = 0, 
                     //PaddingBottom = 0f,
                     Colspan = 9,
                 });
@@ -2130,7 +2150,7 @@ namespace Models
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
                     FixedHeight = 20.0f,
-                    //BorderWidthBottom = 0,
+                    BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0, 
                     //PaddingBottom = 0f,
@@ -2140,10 +2160,10 @@ namespace Models
                 {
                     HorizontalAlignment = Element.ALIGN_LEFT,
                     VerticalAlignment = Element.ALIGN_TOP,
-                    FixedHeight = 60.0f,
+                    FixedHeight = 64.0f,
                     //BorderWidthBottom = 0,
                     BorderWidthTop = 0,
-                    //BorderWidthLeft = 0, 
+                    BorderWidthRight = 0, 
                     //PaddingBottom = 0f,
                     Colspan = 9,
                 });
@@ -2151,7 +2171,7 @@ namespace Models
                 {
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
-                    FixedHeight = 60.0f,
+                    FixedHeight = 64.0f,
                     //BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
                     //BorderWidthLeft = 0, 
@@ -2162,11 +2182,12 @@ namespace Models
                 {
                     HorizontalAlignment = Element.ALIGN_CENTER,
                     VerticalAlignment = Element.ALIGN_MIDDLE,
-                    FixedHeight = 35.0f,
+                    FixedHeight = 45.0f,
                     BorderWidthBottom = 0,
                     BorderWidthTop = 0,
                     BorderWidthLeft = 0,
                     BorderWidthRight = 0,
+                    PaddingTop=5.5f,
 
                     //PaddingBottom = 0f,
                     Colspan = 11,
@@ -2194,20 +2215,26 @@ namespace Models
                 //cb1.SetColorFill(new CMYKColor(0f, 0f, 1f, 0f));
                 //cb1.Stroke();
                 //cb1.Fill();
-                //
-              //  Coor1 = File.ReadAllLines("D:\\pdf\\ptk.txt")[4].Split(',');
-                cb1.MoveTo(Convert.ToInt32(450), Convert.ToInt32(335));
-                cb1.LineTo(Convert.ToInt32(507), Convert.ToInt32(295));
+
+                //446.7,324.7,506.5,268
+                //    88.55,324.5,152,268
+                //197,324.5,402.5,268
+                //Coor1 = File.ReadAllLines("D:\\pdf\\ptk.txt")[3].Split(',');
+                cb1.MoveTo(Convert.ToDouble(446.7), Convert.ToDouble(324.7));
+                cb1.LineTo(Convert.ToDouble(506.5), Convert.ToDouble(268));
+                cb1.SetLineWidth(0.2f);
                 cb1.Stroke();
 
-             // Coor1 = File.ReadAllLines("D:\\pdf\\ptk.txt")[5].Split(',');
-                cb1.MoveTo(Convert.ToInt32(89), Convert.ToInt32(335));
-                cb1.LineTo(Convert.ToInt32(150), Convert.ToInt32(295));
+             // Coor1 = File.ReadAllLines("D:\\pdf\\ptk.txt")[4].Split(',');
+                cb1.MoveTo(Convert.ToDouble(88.55), Convert.ToDouble(324.5));
+                cb1.LineTo(Convert.ToDouble(152), Convert.ToDouble(268));
+                cb1.SetLineWidth(0.2f);
                 cb1.Stroke();
 
-              //  ။။Coor1 = File.ReadAllLines("D:\\pdf\\ptk.txt")[6].Split(',');
-                cb1.MoveTo(Convert.ToInt32(196), Convert.ToInt32(335));
-                cb1.LineTo(Convert.ToInt32(406), Convert.ToInt32(295));
+               //Coor1 = File.ReadAllLines("D:\\pdf\\ptk.txt")[5].Split(',');
+                cb1.MoveTo(Convert.ToDouble(197), Convert.ToDouble(324.5));
+                cb1.LineTo(Convert.ToDouble(402.5), Convert.ToDouble(268));
+                cb1.SetLineWidth(0.2f);
                 cb1.Stroke();
                 #endregion
                 doc1.Add(Tablea);
