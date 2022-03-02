@@ -18,6 +18,7 @@ namespace OkameiProduction.Web
             {
                 if (IsRedirectedToLoginPage)
                 {
+                    filterContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                     filterContext.Result = new RedirectResult("~/User/Login");
                     return;
                 }

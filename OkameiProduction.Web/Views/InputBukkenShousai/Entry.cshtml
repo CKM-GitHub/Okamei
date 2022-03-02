@@ -606,15 +606,18 @@
         <input type="text" hidden id="HiddenUpdateDateTime" name="HiddenUpdateDateTime" value="@Model.HiddenUpdateDateTime" />
     </div>
     <a id="downloadBukkenFile" hidden download>物件ファイルダウンロード</a>
-    <div class="form-group row">
-        <div class="main-content-footer mx-auto">
+    <div id="divFooter" class="d-flex flex-row">
+        <div class="main-content-footer max-auto footer-btn-left">
             <button type="button" id="btnKakousiji" class="btn btn-info js-modal-open" data-target="MoulderSubEntry">加工指示</button>
             <button type="button" id="btnShoudakusho" class="btn btn-info">加工承諾書</button>
             <button type="button" id="btnJissekiNippou" class="btn btn-info">ﾌﾟﾚｶｯﾄ実績日報</button>
+        </div>
+        <div class="main-content-footer max-auto">
             <button type="button" id="btnReturn" class="btn btn-secondary" nofocus>戻る</button>
             <button type="button" id="btnSave" class="btn btn-primary active">登録</button>
         </div>
     </div>
+    <br/>
 </div>
 
 @section Scripts{

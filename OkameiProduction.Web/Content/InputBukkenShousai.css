@@ -41,6 +41,30 @@ hr {
 div.spacer{
     height: 38px;
 }
+
+/* footer button
+--------------------------------------------------
+*/
+.main-content-footer .btn-info {
+    min-width: 9vw;
+}
+
+.main-content-footer .btn-secondary {
+    min-width: 9vw;
+}
+
+.main-content-footer .btn-primary {
+    min-width: 15vw;
+}
+
+.main-content-footer.footer-btn-left {
+    padding-right: 5px;
+}
+
+#divFooter {
+    justify-content:center;
+}
+
 /* radio button
 --------------------------------------------------
 */
@@ -289,8 +313,23 @@ div.spacer{
             color: #FF4F6F;
         }
     /* <-------------------------------------------------- */
-
     .left-margin-adjuster {
         margin-left: 0;
+    }
+
+    .main-content-footer .btn-info {
+        min-width: unset;
+    }
+
+    .main-content-footer .btn-secondary {
+        min-width: 30vw;
+    }
+
+    .main-content-footer .btn-primary {
+        min-width: 60vw;
+    }
+
+    #divFooter {
+        display: block!important;
     }
 }
