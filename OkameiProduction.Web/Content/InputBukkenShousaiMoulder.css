@@ -78,6 +78,13 @@
     text-align: right;
 }
 
+#MoulderSubEntry .table th.MoulderHaba,
+#MoulderSubEntry .table th.MoulderNari,
+#MoulderSubEntry .table th.MoulderNagasa,
+#MoulderSubEntry .table th.MoulderHonsuu {
+    text-align: center;
+}
+
 #MoulderSubEntry .table .MoulderKakouDateTime {
     min-width: 112px;
     max-width: 112px;
