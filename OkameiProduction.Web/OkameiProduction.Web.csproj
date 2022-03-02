@@ -481,7 +481,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Initializer\" />
     <Folder Include="Models\" />
-    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="References\" />
   </ItemGroup>
   <ItemGroup>

@@ -48,6 +48,8 @@ $(document).ready(function () {
 
     var modalcontent;
     var info;
+    var isShowModalForm = false;
+    var focusOnModal = false;
 
     $('.js-modal-open').each(function () {
         $(this).on('click', function () {
@@ -71,6 +73,7 @@ $(document).ready(function () {
                         closeLoadingMessage();
                         $(modal).fadeIn();
                         $('body').css('overflow-y', 'hidden');
+                        isShowModalForm = true;
                         if (info.funcInitialize) info.funcInitialize();
                         return false;
                     })
@@ -93,9 +96,22 @@ $(document).ready(function () {
 
     $(document).on('click', '.js-modal-close', function () {
         $('.js-modal').fadeOut();
+        isShowModalForm = false;
         if (modalcontent) modalcontent.remove();
         if (info.funcFinalize) info.funcFinalize();
         $('body').css('overflow-y', 'auto');
         return false;
+    });
+
+    $(document).on('focusin', 'body', function () {
+        if (isShowModalForm && !focusOnModal) {
+            document.activeElement.blur()
+            $('.modal_close').focus();
+        }
+        focusOnModal = false;
+    });
+
+    $(document).on('focusin', '.modal_content', function () {
+        focusOnModal = true;
     });
 });
