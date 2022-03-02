@@ -337,6 +337,8 @@
     <Content Include="fonts\Meiryo UI W53 Regular.ttf" />
     <Content Include="fonts\Meiryo W53 Regular.otf" />
     <Content Include="fonts\SIMSUN.ttf" />
+    <Content Include="Initializer\AgreementForm.xlsx" />
+    <Content Include="Initializer\AgreementFormOriginal.xlsx" />
     <None Include="Scripts\lib\jquery.validate-vsdoc.js" />
     <None Include="Scripts\lib\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\lib\jquery-3.6.0.js" />
@@ -487,7 +489,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Initializer\" />
     <Folder Include="Models\" />
     <Folder Include="References\" />
   </ItemGroup>
