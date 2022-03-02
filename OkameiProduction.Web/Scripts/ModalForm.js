@@ -104,6 +104,9 @@ $(document).ready(function () {
     });
 
     $(document).on('focusin', 'body', function () {
+        if ($(this).attr("class").indexOf('swal2') >= 0) {
+            return;
+        }
         if (isShowModalForm && !focusOnModal) {
             document.activeElement.blur()
             $('.modal_close').focus();
