@@ -280,6 +280,9 @@
                 }
             });
 
+            setRequired('#tblSmitumoriKanri tbody tr td #TantouCadCD');
+            setRequired('#tblSmitumoriKanri tbody tr td #TantouSitenCD');
+            setRequired('#tblSmitumoriKanri tbody tr td #IraiEigyouCD');
             setDoubleByteValidate('#tblSmitumoriKanri tbody tr td #txtBukkenName');
             setNumericValidate('#tblSmitumoriKanri tbody tr td #txtKakoutuboSuu', 3, 2);
             setDoubleByteValidate('#tblSmitumoriKanri tbody tr td #txtKoumutenName');
@@ -348,6 +351,9 @@
                 else
                     $('#tblSmitumoriKanri tbody tr:last-child').addClass("odd");
 
+                setRequired('#tblSmitumoriKanri tbody tr:last-child td #TantouCadCD');
+                setRequired('#tblSmitumoriKanri tbody tr:last-child td #TantouSitenCD');
+                setRequired('#tblSmitumoriKanri tbody tr:last-child td #IraiEigyouCD');
                 setDateTypeValidate('#tblSmitumoriKanri tbody tr:last-child td #txtSagyouDate');
                 setDoubleByteValidate('#tblSmitumoriKanri tbody tr:last-child td #txtBukkenName');
                 setNumericValidate('#tblSmitumoriKanri tbody tr:last-child td #txtKakoutuboSuu', 3, 2);
