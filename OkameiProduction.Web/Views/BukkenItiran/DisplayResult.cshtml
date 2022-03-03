@@ -199,13 +199,16 @@
         function btnDisplayClick() {
             const params = new URLSearchParams(window.location.search)
             var fileName = '物件一覧.csv';
+            var Startdate = decodeURIComponent(params.get('NoukiStart'));
+            var Enddate = decodeURIComponent(params.get('NoukiEnd'));
+           
             var model =
             {
                 TantouSitenCD: params.get('TantouSitenCD'),
                 JuchuuOption: params.get('JuchuuOption'),
                 BukkenSiteiOption: params.get('BukkenSiteiOption'),
-                NoukiStart: params.get('NoukiStart'),
-                NoukiEnd: params.get('NoukiEnd'),
+                NoukiStart: Startdate,
+                NoukiEnd: Enddate,
                 TantouEigyouCD: params.get('TantouEigyouCD'),
                 TantouCadCD: params.get('TantouCadCD'),
                 TantouPcCD: params.get('TantouPcCD'),
