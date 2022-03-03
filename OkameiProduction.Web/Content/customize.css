@@ -67,26 +67,37 @@ a.not-available {
     min-height: 840px;
 }
 
-.main-content-footer, footer-btn {
-    margin-top: 10px;
-    margin-bottom: 0px;
+.main-content-footer, .footer-btn {
+    white-space: nowrap;
 }
 
-    .main-content-footer .btn, .footer-btn .btn {
-        margin: 5px 2px 0px 2px;
+.main-content-footer {
+    padding: 5px 0;
+}
+
+.footer-btn {
+    padding: 5px 0;
+}
+
+    .main-content-footer .btn,
+    .footer-btn .btn {
+        margin-right: 5px;
     }
 
-    .main-content-footer .btn-primary, .footer-btn .btn-primary {
-        min-width: 200px;
+    .main-content-footer .btn-primary,
+    .footer-btn .btn-primary {
+        min-width: 240px;
     }
 
-    .main-content-footer .btn-secondary, .footer-btn .btn-secondary,
-    .main-content-footer .btn-info, .footer-btn .btn-info {
-        min-width: 120px;
+    .main-content-footer .btn-secondary,
+    .main-content-footer .btn-info,
+    .footer-btn .btn-secondary,
+    .footer-btn .btn-info {
+        min-width: 150px;
     }
 
 .page-title {
-    margin-left: 4px;
+    padding-left: 15px;
 }
 
 .label-title {
@@ -156,12 +167,15 @@ a.not-available {
             color: #FF4F6F;
         }
 
-    .main-content-footer .btn-primary, .footer-btn .btn-primary {
-        min-width: 140px;
+    .main-content-footer .btn-primary,
+    .footer-btn .btn-primary {
+        min-width: 60vw;
     }
 
-    .main-content-footer .btn-secondary, .footer-btn .btn-secondary,
-    .main-content-footer .btn-info, .footer-btn .btn-info {
-        min-width: 90px;
+    .main-content-footer .btn-secondary,
+    .main-content-footer .btn-info,
+    .footer-btn .btn-secondary,
+    .footer-btn .btn-info {
+        min-width: 30vw;
     }
 }

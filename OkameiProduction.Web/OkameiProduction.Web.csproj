@@ -304,6 +304,7 @@
     <Content Include="Content\typeahead.css" />
     <Content Include="Error2.html" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\brandlogo.png" />
     <Content Include="Scripts\InputBukkenShousai.js" />
@@ -329,6 +330,15 @@
     <Content Include="Scripts\Common.js" />
     <Content Include="Scripts\lib\jquery-3.6.0.min.map" />
     <Content Include="Scripts\lib\jquery-3.6.0.slim.min.map" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\Meiryo UI W53 Regular.ttf" />
+    <Content Include="fonts\Meiryo W53 Regular.otf" />
+    <Content Include="fonts\SIMSUN.ttf" />
+    <Content Include="Initializer\AgreementForm.xlsx" />
+    <Content Include="Initializer\AgreementFormOriginal.xlsx" />
     <None Include="Scripts\lib\jquery.validate-vsdoc.js" />
     <None Include="Scripts\lib\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\lib\jquery-3.6.0.js" />
@@ -479,9 +489,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Initializer\" />
     <Folder Include="Models\" />
-    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="References\" />
   </ItemGroup>
   <ItemGroup>

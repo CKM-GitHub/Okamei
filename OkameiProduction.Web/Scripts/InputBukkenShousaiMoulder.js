@@ -46,7 +46,13 @@ function initialize_Moulder() {
         $('#MoulderSubEntry #btnClose').focus();
     }
     else {
-        moveFocus($('#tblBukkenMoulder tr:not(.rowTemplate) [name="MoulderHinmoku"]').first());
+        var tr = $('#tblBukkenMoulder tbody tr:not(.rowTemplate)');
+        if (tr.length == 0) {
+            moveFocus($('#btnAdd'));
+        }
+        else {
+            moveFocus(tr.find('[name="MoulderHinmoku"]').first());
+        }
     }
 }
 
