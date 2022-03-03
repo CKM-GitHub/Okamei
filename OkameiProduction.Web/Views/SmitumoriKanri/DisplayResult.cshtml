@@ -184,7 +184,7 @@
                     }
                 }
                 <td class="delete-td">
-                    <button type="button" class="btn btn-link delete-link" onclick="DeleteData('@SMitumoriCounter', this)">削除</button>
+                    <button type="button" class="btn btn-link delete-link" value="btn_削除" onclick="DeleteData('@SMitumoriCounter', this)">削除</button>
                 </td>
             </tr>
             }
@@ -240,7 +240,7 @@
                 <td class="SMitumoriCounter">
                 </td>
                 <td class="delete-td">
-                    <button type="button" class="btn btn-link delete-link" onclick="DeleteData(0, this)">削除</button>
+                    <button type="button" class="btn btn-link delete-link" value="btn_削除" onclick="DeleteData(0, this)">削除</button>
                 </td>
             </tr>
         </tbody>
@@ -310,14 +310,14 @@
                 setSuggestList('#txtKoumutenName', '@Url.Action("GetKoumutenSuggestItems", "api/InputBukkenShousaiApi")', '');
             }
 
-            $("#tblSmitumoriKanri tr").each(function (i, tr) {
-                $(tr).find('td:eq(3) #txtKoumutenName').on("focusin", function () {
-                    focus_in();
-                })
-                $(tr).find('td:eq(3) #txtKoumutenName').on("focusout", function () {
-                    focus_in();
-                })
-            })
+            //$("#tblSmitumoriKanri tr").each(function (i, tr) {
+            //    $(tr).find('td:eq(3) #txtKoumutenName').on("focusin", function () {
+            //        focus_in();
+            //    })
+            //    $(tr).find('td:eq(3) #txtKoumutenName').on("focusout", function () {
+            //        focus_out();
+            //    })
+            //})
             var t = bindDataTables($('#tblSmitumoriKanri'), { displayLength: 15 });
         });
 
@@ -362,14 +362,14 @@
                 $('#tblSmitumoriKanri tbody tr:last-child td #txtKoumutenName').addClass("typeahead");
                 setSuggestList('#tblSmitumoriKanri tbody tr:last-child td #txtKoumutenName', '@Url.Action("GetKoumutenSuggestItems", "api/InputBukkenShousaiApi")', '');
 
-                $("#tblSmitumoriKanri tr").each(function (i, tr) {
-                    $(tr).find('td:eq(3) #txtKoumutenName').on("focusin", function () {
-                        focus_in();
-                    })
-                    $(tr).find('td:eq(3) #txtKoumutenName').on("focusout", function () {
-                        focus_in();
-                    })
-                })
+                //$("#tblSmitumoriKanri tr").each(function (i, tr) {
+                //    $(tr).find('td:eq(3) #txtKoumutenName').on("focusin", function () {
+                //        focus_in();
+                //    })
+                //    $(tr).find('td:eq(3) #txtKoumutenName').on("focusout", function () {
+                //        focus_out();
+                //    })
+                //})
 
                 bindKeyPressEvent("#main");
                 $('#tblSmitumoriKanri tbody tr:last-child td #txtSagyouDate').focus();
@@ -433,14 +433,12 @@
             $('.tt-menu').css('top', 'unset');
             $('.tt-menu').css('left', 'unset');
             $('.tt-menu').css('width', '300px');
-            //$('.tt-menu').css('margin-top', '-19px');
         }
         function focus_out() {
             $('.tt-menu').css('position', 'absolute');
             $('.tt-menu').css('top', '100%');
             $('.tt-menu').css('left', '0px');
             $('.tt-menu').css('width', '300px');
-            //$('.tt-menu').css('margin-top', 'unset');
         }
     </script>
 }
