@@ -403,7 +403,8 @@
             if (!result)
                 return false;
             else
-                window.location.reload();
+                location.href = '@Url.Action("SetCondition", "SmitumoriKanri")';
+                //window.location.reload(); //task 54
 
             return true;
         }
