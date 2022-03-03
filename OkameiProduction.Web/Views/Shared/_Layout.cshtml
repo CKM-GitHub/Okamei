@@ -26,12 +26,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Okamei Production Web System">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>OkameiProduction.Web</title>
-    @Styles.Render("~/Content/lib/Css")
-    @Styles.Render("~/Content/common/Css")
+    <title>OkameiProduction</title>
+    <link rel="stylesheet" href="@Url.Content("~/Content/lib/bootstrap.min.css")" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.4/fc-4.0.1/datatables.min.css" />
-    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/sitecss")
+    @Scripts.Render("~/bundles/lib/modernizr")
+    @RenderSection("styles", required: false)
 </head>
 <body>
     <div class="nav-toggle">
@@ -45,7 +46,7 @@
         <nav class="nav-menu">
             <ul id="accordionOwner">
                 <li class="nav-menu-category">
-                    <a id="home" href="~/Home/Index">Home</a>
+                    <a id="home" href="~/Home/Index">ホーム</a>
                 </li>
                 <li class="nav-menu-category">
                     <a data-toggle="collapse" href="#category01" aria-controls="category01" aria-expanded="false">物件詳細登録</a>
@@ -101,10 +102,9 @@
             @RenderBody()
         </main>
     </div><!-- /#container -->
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/lib/jquery")
+    @Scripts.Render("~/bundles/lib/bootstrap")
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.4/fc-4.0.1/datatables.min.js"></script>
-    @*<script src="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/bundles/common")" type="text/javascript"></script>*@
     @Scripts.Render("~/bundles/common")
     <script type="text/javascript">
         gApplicationPath = '@appPath';
@@ -136,6 +136,5 @@
 
     </script>
     @RenderSection("scripts", required: false)
-    @RenderSection("styles", required: false)
 </body>
 </html>

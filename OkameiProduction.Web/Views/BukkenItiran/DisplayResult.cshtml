@@ -3,75 +3,81 @@
     ViewBag.Title = "BukkenItiranList";
 }
 
-<style>
-    .table th {
-        padding-top: 2px;
-        padding-bottom: 2px;
-        background-color: #ffff66;
-        font-size: 14px;
-        white-space: nowrap;
-    }
+@section styles{
+    <style>
+        .table th {
+            padding-top: 2px;
+            padding-bottom: 2px;
+            background-color: #ffff66;
+            font-size: 14px;
+            white-space: nowrap;
+        }
 
-    .table tbody td {
-        padding-top: 2px;
-        padding-bottom: 2px;
-        font-size: 14px;
-    }
+        .table tbody td {
+            padding-top: 2px;
+            padding-bottom: 2px;
+            font-size: 14px;
+        }
 
-    #tblBukkenItiran .KakouTubosuu,
-    #tblBukkenItiran .KakouNissuu {
-        text-align: right;
-    }
+        .table thead th:nth-child(5), .table thead th:nth-child(6) {
+            text-align: center;
+        }
 
-    #tblBukkenItiran .BukkenNO {
-    }
+        #tblBukkenItiran .KakouTubosuu,
+        #tblBukkenItiran .KakouNissuu {
+            text-align: right;
+        }
 
-    #tblBukkenItiran .delete-td {
-        min-width: 36px;
-    }
+        #tblBukkenItiran .BukkenNO {
+        }
 
-    #tblBukkenItiran .Nouki,
-    #tblBukkenItiran .UnsouKuraireDate,
-    #tblBukkenItiran .KakouTubosuu,
-    #tblBukkenItiran .JuchuuDate,
-    #tblBukkenItiran .TokuchuuzaiUmu {
-        min-width: 50px;
-    }
+        #tblBukkenItiran .delete-td {
+            min-width: 36px;
+        }
 
-    #tblBukkenItiran .TantouSitenName,
-    #tblBukkenItiran .TantouEigyouName,
-    #tblBukkenItiran .TantouCadName {
-        min-width: 54px;
-    }
+        #tblBukkenItiran .Nouki,
+        #tblBukkenItiran .UnsouKuraireDate,
+        #tblBukkenItiran .KakouTubosuu,
+        #tblBukkenItiran .JuchuuDate,
+        #tblBukkenItiran .TokuchuuzaiUmu {
+            min-width: 50px;
+        }
 
-    #tblBukkenItiran .FusezuTeishutuDate,
-    #tblBukkenItiran .ShouninKijitu,
-    #tblBukkenItiran .KakouShouninDate,
-    #tblBukkenItiran .SijiKikitu,
-    #tblBukkenItiran .UpdateDateTime,
-    #tblBukkenItiran .NyuuryokusakiName,
-    #tblBukkenItiran .KakouNissuu {
-        min-width: 60px;
-    }
+        #tblBukkenItiran .TantouSitenName,
+        #tblBukkenItiran .TantouEigyouName,
+        #tblBukkenItiran .TantouCadName {
+            min-width: 54px;
+        }
 
-    #tblBukkenItiran .KanamonoName {
-        min-width: 88px;
-    }
+        #tblBukkenItiran .FusezuTeishutuDate,
+        #tblBukkenItiran .ShouninKijitu,
+        #tblBukkenItiran .KakouShouninDate,
+        #tblBukkenItiran .SijiKikitu,
+        #tblBukkenItiran .UpdateDateTime,
+        #tblBukkenItiran .NyuuryokusakiName,
+        #tblBukkenItiran .KakouNissuu {
+            min-width: 60px;
+        }
 
-    #tblBukkenItiran .SinchokuJoukyou {
-        min-width: 106px;
-    }
+        #tblBukkenItiran .KanamonoName {
+            min-width: 88px;
+        }
 
-    #tblBukkenItiran .BukkenName {
-        min-width: 140px;
-    }
+        #tblBukkenItiran .SinchokuJoukyou {
+            min-width: 106px;
+        }
 
-    #tblBukkenItiran .KoumutenName {
-        min-width: 262px;
-    }
-</style>
+        #tblBukkenItiran .BukkenName {
+            min-width: 140px;
+        }
 
-<h4>物件一覧</h4>
+        #tblBukkenItiran .KoumutenName {
+            min-width: 262px;
+        }
+    </style>
+}
+
+<h4 class="page-title">物件一覧</h4>
 <div id="main" class="main-content">
     <table class='table table-bordered' id="tblBukkenItiran">
         <thead>
@@ -101,31 +107,31 @@
         </thead>
         <tbody>
             @*@for (var iii = 0; iii < 1000; iii++)
-        {
-            <tr>
-                <td class="Nouki">99/99</td>
-                <td class="UnsouKuraireDate">99/99</td>
-                <td class="BukkenNO">12345678</td>
-                <td class="BukkenName">1234567890123456</td>
-                <td class="KoumutenName">123456789012345678901234567890</td>
-                <td class="KakouTubosuu">999.99</td>
-                <td class="TantouSitenName">123456</td>
-                <td class="TantouEigyouName">123456</td>
-                <td class="TantouCadName">123456</td>
-                <td class="JuchuuDate">99/99</td>
-                <td class="FusezuTeishutuDate">99/99</td>
-                <td class="ShouninKijitu">99/99</td>
-                <td class="KakouShouninDate">99/99</td>
-                <td class="SijiKikitu">99/99</td>
-                <td class="KakouNissuu">999</td>
-                <td class="UpdateDateTime">99/99</td>
-                <td class="KanamonoName">1234567890</td>
-                <td class="NyuuryokusakiName">123456</td>
-                <td class="TokuchuuzaiUmu">1234</td>
-                <td class="SinchokuJoukyou">123456789012</td>
-                <td class="delete-td">1234</td>
-            </tr>
-        }*@
+                {
+                    <tr>
+                        <td class="Nouki">99/99</td>
+                        <td class="UnsouKuraireDate">99/99</td>
+                        <td class="BukkenNO">12345678</td>
+                        <td class="BukkenName">1234567890123456</td>
+                        <td class="KoumutenName">123456789012345678901234567890</td>
+                        <td class="KakouTubosuu">999.99</td>
+                        <td class="TantouSitenName">123456</td>
+                        <td class="TantouEigyouName">123456</td>
+                        <td class="TantouCadName">123456</td>
+                        <td class="JuchuuDate">99/99</td>
+                        <td class="FusezuTeishutuDate">99/99</td>
+                        <td class="ShouninKijitu">99/99</td>
+                        <td class="KakouShouninDate">99/99</td>
+                        <td class="SijiKikitu">99/99</td>
+                        <td class="KakouNissuu">999</td>
+                        <td class="UpdateDateTime">99/99</td>
+                        <td class="KanamonoName">1234567890</td>
+                        <td class="NyuuryokusakiName">123456</td>
+                        <td class="TokuchuuzaiUmu">1234</td>
+                        <td class="SinchokuJoukyou">123456789012</td>
+                        <td class="delete-td">1234</td>
+                    </tr>
+                }*@
 
             @{
                 var columns = ViewBag.Data.Columns;

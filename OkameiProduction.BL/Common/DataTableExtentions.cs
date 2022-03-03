@@ -45,5 +45,29 @@ namespace OkameiProduction.BL
                 yield return r;
             }
         }
+
+        public static DataTable ToDataTable<T>(this IEnumerable<T> valuesList)
+        {
+            DataTable dt = new DataTable();
+            var objectReference = valuesList.GetType().GetGenericArguments()[0];
+            var properties = objectReference.GetProperties();
+            foreach (var prop in properties)
+            {
+                dt.Columns.Add(prop.Name, prop.PropertyType);
+            }
+
+            foreach (var item in valuesList)
+            {
+                var dataArray = new List<object>();
+                foreach (var prop in properties)
+                {
+                    dataArray.Add(prop.GetValue(item));
+                }
+
+                dt.Rows.Add(dataArray.ToArray());
+            }
+
+            return dt;
+        }
     }
 }

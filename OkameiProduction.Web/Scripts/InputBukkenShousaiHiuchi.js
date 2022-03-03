@@ -6,6 +6,7 @@ var url_importHiuchiCsv = gApplicationPath + '/api/InputBukkenShousaiHiuchiApi/I
 var url_exportHiuchiPdf = gApplicationPath + '/api/InputBukkenShousaiHiuchiApi/HiuchiPdfExport';
 
 function finalize_Hiuchi() {
+    undindKeyPressEvent('#HiuchiSubEntry');
     $('#HiuchiKakou').focus();
 }
 
@@ -69,7 +70,7 @@ function initialize_Hiuchi() {
     setToukyuuSuggestList();
 
     if (eMode == 'Delete') {
-        setDisabledAll('#HiuchiSubEntry');
+        setDisabledAll('#HiuchiSubEntry', '.js-modal-close, #HiuchiSubEntry #btnClose');
         $('#HiuchiSubEntry #btnClose').focus();
     }
     else {
@@ -188,11 +189,11 @@ function checkAll_Hiuchi(models) {
     for (var i = 1; i <= models.length; i++) {
         var model = models[i - 1];
 
-        if (model.Sou == "") {
+        if (!model.Sou) {
             //その段の他項目が1つでも入力されていたら必須項目。空白はエラー。
-            if (model.Zairyou1 != "" || model.Toukyuu1 != "" || model.Honsuu1 != "" ||
-                model.Zairyou2 != "" || model.Toukyuu2 != "" || model.Honsuu2 != "" ||
-                model.Zairyou3 != "" || model.Toukyuu3 != "" || model.Honsuu3 != "") {
+            if (model.Zairyou1 || model.Toukyuu1 || model.Honsuu1 ||
+                model.Zairyou2 || model.Toukyuu2 || model.Honsuu2 ||
+                model.Zairyou3 || model.Toukyuu3 || model.Honsuu3) {
                 $('#HiuchiSubEntry #Sou' + i).focus();
                 showMessage('E102');
                 return false;
@@ -200,49 +201,49 @@ function checkAll_Hiuchi(models) {
         }
         else {
             //その段の層が入力されていたら1行目の材料は必須項目。空白はエラー。
-            if (model.Zairyou1 == "") {
+            if (!model.Zairyou1) {
                 $('#HiuchiSubEntry #Zairyou' + i + '1').focus();
                 showMessage('E102');
                 return false;
             }
         }
 
-        if (model.Zairyou1 != "") {
+        if (model.Zairyou1) {
             //その行の材料が入力されていたら必須項目。空白はエラー。
-            if (model.Toukyuu1 == "") {
+            if (!model.Toukyuu1) {
                 $('#HiuchiSubEntry #Toukyuu' + i + '1').focus();
                 showMessage('E102');
                 return false;
             }
-            if (model.Honsuu1 == "") {
+            if (!model.Honsuu1) {
                 $('#HiuchiSubEntry #Honsuu' + i + '1').focus();
                 showMessage('E102');
                 return false;
             }
         }
 
-        if (model.Zairyou2 != "") {
+        if (model.Zairyou2) {
             //その行の材料が入力されていたら必須項目。空白はエラー。
-            if (model.Toukyuu2 == "") {
+            if (!model.Toukyuu2) {
                 $('#HiuchiSubEntry #Toukyuu' + i + '2').focus();
                 showMessage('E102');
                 return false;
             }
-            if (model.Honsuu2 == "") {
+            if (!model.Honsuu2) {
                 $('#HiuchiSubEntry #Honsuu' + i + '2').focus();
                 showMessage('E102');
                 return false;
             }
         }
 
-        if (model.Zairyou3 != "") {
+        if (model.Zairyou3) {
             //その行の材料が入力されていたら必須項目。空白はエラー。
-            if (model.Toukyuu3 == "") {
+            if (!model.Toukyuu3) {
                 $('#HiuchiSubEntry #Toukyuu' + i + '3').focus();
                 showMessage('E102');
                 return false;
             }
-            if (model.Honsuu3 == "") {
+            if (!model.Honsuu3) {
                 $('#HiuchiSubEntry #Honsuu' + i + '3').focus();
                 showMessage('E102');
                 return false;
@@ -327,7 +328,7 @@ function btnExportPdfHiuchi(e) {
         Honsuu3: $('#HiuchiSubEntry #Honsuu' + row + '3').val(),
     };
 
-    if (model.SouName && model.Zairyou1) {
+    if (model.BukkenName && model.SouName && model.Zairyou1) {
         showConfirmMessage('Q204', function () {
             model.FileName = '火打材ラベル_' + model.BukkenName + '.pdf';
             calltoApiController_FileDownLoadHandle(url_exportHiuchiPdf, model);
@@ -365,6 +366,9 @@ function inputFileHiuchiChange(e) {
 
                 setZairyouSuggestList();
                 setToukyuuSuggestList();
+                closeLoadingMessage();
+            },
+            function () {
                 closeLoadingMessage();
             });
     }

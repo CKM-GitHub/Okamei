@@ -1,10 +1,12 @@
 ﻿@model Models.InputBukkenShousaiModel
 
 @{
-    ViewBag.Title = "Entry";
+    ViewBag.Title = "InputBukkenShousai";
 }
 
-@Styles.Render("~/Content/InputBukkenShousaiCss")
+@section styles{
+    @Styles.Render("~/Content/InputBukkenShousaiCss")
+}
 
 <h4 class="page-title">物件詳細登録</h4>
 <div id="main" class="main-content">
@@ -52,7 +54,7 @@
                     <label class="col-form-label label-title require">工務店</label>
                 </div>
                 <div class="col-sm-8">
-                    <div id="divKoumutenName">
+                    <div class="typeahead_normal">
                         <input class="typeahead form-control size50" type="text" maxlength="50" autocomplete="off" id="KoumutenName" name="KoumutenName" value="@Model.KoumutenName" />
                     </div>
                 </div>
@@ -244,7 +246,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-sm-6">
-                    <label class="col-form-label label-title">最終更新日時</label>
+                    <label class="col-form-label label-title">最終更新日</label>
                 </div>
                 <div class="col-sm-6">
                     <input type="text" class="form-control size19" disabled maxlength="19" id="UpdateDateTime" name="UpdateDateTime" value="@Model.UpdateDateTime" />
@@ -568,10 +570,12 @@
         <div class="col-sm-2">
         </div>
         <div class="col-sm-10">
-            <table class='table' id="tblBukkenFile">
-                <thead></thead>
-                <tbody></tbody>
-            </table>
+            <div class="fixedtable-wrap">
+                <table class='table' id="tblBukkenFile">
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
     </div>
     @*--------------------------------------------------*@
@@ -590,25 +594,30 @@
             <label class="col-form-label label-title">コメント履歴</label>
         </div>
         <div class="col-sm-10">
-            <table class='table' id="tblBukkenComment">
-                <thead></thead>
-                <tbody></tbody>
-            </table>
+            <div class="fixedtable-wrap">
+                <table class='table' id="tblBukkenComment">
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
     </div>
     <div class="hidden-area">
         <input type="text" hidden id="HiddenUpdateDateTime" name="HiddenUpdateDateTime" value="@Model.HiddenUpdateDateTime" />
     </div>
     <a id="downloadBukkenFile" hidden download>物件ファイルダウンロード</a>
-    <div class="form-group row">
-        <div class="main-content-footer mx-auto">
-            <button type="button" id="btnKakousiji" class="btn btn-info">加工指示</button>
+    <div id="divFooter" class="d-flex flex-row">
+        <div class="main-content-footer max-auto footer-btn-left">
+            <button type="button" id="btnKakousiji" class="btn btn-info js-modal-open" data-target="MoulderSubEntry">加工指示</button>
             <button type="button" id="btnShoudakusho" class="btn btn-info">加工承諾書</button>
             <button type="button" id="btnJissekiNippou" class="btn btn-info">ﾌﾟﾚｶｯﾄ実績日報</button>
+        </div>
+        <div class="main-content-footer max-auto">
             <button type="button" id="btnReturn" class="btn btn-secondary" nofocus>戻る</button>
             <button type="button" id="btnSave" class="btn btn-primary active">登録</button>
         </div>
     </div>
+    <br/>
 </div>
 
 @section Scripts{
@@ -627,11 +636,13 @@
         var url_deleteBukkenComment = '@Url.Action("DeleteBukkenComment", "api/InputBukkenShousaiApi")';
         var url_uploadFiles = '@Url.Action("UploadFiles", "api/InputBukkenShousaiApi")';
         var url_downloadFiles = '@Url.Action("DownloadFiles", "InputBukkenShousai")';
-        var url_exportAgreementForm ='@Url.Action("ExportAgreementForm", "api/InputBukkenShousaiApi")';
+        var url_exportAgreementForm = '@Url.Action("ExportAgreementForm", "api/InputBukkenShousaiApi")';//btnJissekiNippou
+        var url_exportPurecattoForm = '@Url.Action("ExportPurecattoForm", "api/InputBukkenShousaiApi")'
         var eMode = '@Model.Mode';
         var formData = new FormData();
         var fileCount = 0;
         var btnShoudakusho = $('#btnShoudakusho');
+        var btnJissekiNippou = $('#btnJissekiNippou');
         var btnReturn = $('#btnReturn');
         var btnSave = $('#btnSave');
         var btnSet = $('#btnSet');

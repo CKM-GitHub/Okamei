@@ -49,7 +49,9 @@
     <Content Include="Database\StoredProcedure\CadInputStaff_ExistDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\CadInputStaff_SelectDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\EigyouJisseki_SelectDisplayResult.sql" />
+    <Content Include="Database\StoredProcedure\InputBukkenShousai_PurecattoExport.sql" />
     <Compile Include="EigyouJissekiBL.cs" />
+    <Compile Include="InputBukkenShousaiMoulderBL .cs" />
     <Compile Include="InputBukkenShousaiTekakouBL.cs" />
     <Compile Include="InputBukkenShousaiHiuchiBL.cs" />
     <Compile Include="InputStepBL.cs" />
@@ -95,9 +97,11 @@
     <Content Include="Database\StoredProcedure\HanyouMasterMaintenance_InsertUpdateDeleteData.sql" />
     <Content Include="Database\StoredProcedure\HiuchiItiran_SelectDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\HundeggerItiran_SelectDisplayResult.sql" />
+    <Content Include="Database\StoredProcedure\InputBukkenShousai_CreateBukkenMoulder.sql" />
     <Content Include="Database\StoredProcedure\InputBukkenShousai_CreateBukkenTeKakou.sql" />
     <Content Include="Database\StoredProcedure\InputBukkenShousai_CreateBukkenHiuchi.sql" />
     <Content Include="Database\StoredProcedure\InputBukkenShousai_KakoukadoShoExport.sql" />
+    <Content Include="Database\StoredProcedure\InputBukkenShousai_SelectBukkenMoulder.sql" />
     <Content Include="Database\StoredProcedure\InputBukkenShousai_SelectBukkenTeKakou.sql" />
     <Content Include="Database\StoredProcedure\InputBukkenShousai_SelectBukkenHiuchi.sql" />
     <Content Include="Database\StoredProcedure\InputBukkenShousai_SendMail.sql" />
@@ -132,10 +136,10 @@
     <Content Include="Database\StoredProcedure\SmitumoriKanri_SelectDisplayResult.sql" />
     <Content Include="Database\StoredProcedure\UnsouSoukoire_SelectDisplayResult.sql" />
     <Content Include="Database\TableType\T_BukkenMoulder.sql" />
-    <Content Include="Database\TableType\T_BukkenComment.sql" />
     <Content Include="Setting\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Setting\Okamei.ini" />
   </ItemGroup>
   <ItemGroup />

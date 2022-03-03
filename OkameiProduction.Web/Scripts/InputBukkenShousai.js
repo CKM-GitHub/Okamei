@@ -2,39 +2,57 @@
 
 function addEvents() {
     btnShoudakusho.click(function () {
+        if (!txtBukkenName.val()) return;
         showConfirmMessage("Q205", function () {
-            if (eMode == 'Edit') {
-                var fileName = '加工承諾書_' + txtBukkenName.val() + '.xlsx'; 
-                var model = 
-                {
-                    FileName: fileName,   
-                    TantouSitenCD: txtSitenCD.val(),
-                    BukkenName: txtBukkenName.val(),
-                    KoumutenName: $('#KoumutenName').val(),
-                    Nouki: txtNouki.val(),
-                    TantouEigyouCD: ddlTantouEigyou.val(), 
-                }; 
-                calltoApiController_FileDownLoadHandle(url_exportAgreementForm, model);
-                //location.href = url_homePage;url_exportAgreementForm 
-            }
-            else {
-                location.href = url_previousPage;
-            }
+            var fileName = '加工承諾書_' + txtBukkenName.val() + '.xlsx'; 
+            var model = 
+            {
+                FileName: fileName,   
+                TantouSitenCD: txtSitenCD.val(),
+                BukkenName: txtBukkenName.val(),
+                KoumutenName: $('#KoumutenName').val(),
+                Nouki: txtNouki.val(),
+                TantouEigyouCD: ddlTantouEigyou.val(), 
+            }; 
+            calltoApiController_FileDownLoadHandle(url_exportAgreementForm, model);
+            //location.href = url_homePage;url_exportAgreementForm 
         });
     });
+
+    btnJissekiNippou.click(function () {
+        if (!txtBukkenName.val()) return;
+        showConfirmMessage("Q204", function () {
+            //プレカット実績日報_ああああああああ.pdf
+            var fileName = 'プレカット実績日報_' + txtBukkenName.val() + '.pdf';
+            var model =
+            {
+                FileName: fileName,
+                TantouSitenCD: txtSitenCD.val(),
+                TantouEigyouCD: ddlTantouEigyou.val(),
+                BukkenName: txtBukkenName.val(),
+                KoumutenName: $('#KoumutenName').val(),
+                KakouTubosuu: $('#KakouTubosuu').val(),
+                BukkenNO: txtBukkenNO.val(), 
+            };
+            calltoApiController_FileDownLoadHandle(url_exportPurecattoForm, model);
+            //location.href = url_homePage;url_exportAgreementForm 
+        });
+    });
+
     btnReturn.click(function () {
         showConfirmMessage("Q003", function () {
             if (eMode == 'New') {
                 location.href = url_homePage;
             }
             else {
+                showLoadingMessage();
                 location.href = url_previousPage;
             }
         });
     });
 
     btnSave.click(function () {
-        if (checkErrorOnSave('#main') && checkBukkenNO()) {
+        if (checkErrorOnSave('#main') && checkBukkenNO(true)) {
             showConfirmMessage(eMode == 'Delete' ? 'Q102' : 'Q101', function () {
                 btnSaveClick();
             });
@@ -89,19 +107,23 @@ function addEvents() {
     $('#BukkenComment').keydown(function (e) {
         var c = e.which ? e.which : e.keyCode;
         if (c == 13) {
-            var model = {
-                BukkenNO: txtBukkenNO.val(),
-                BukkenComment: $(this).val(),
-                UserID: $('#user-id').text()
+            var inputval = $(this).val();
+            if (inputval) {
+                var model = {
+                    BukkenNO: txtBukkenNO.val(),
+                    BukkenComment: $(this).val(),
+                    UserID: $('#user-id').text()
+                }
+                var result = calltoApiController(url_SaveBukkenComment, model);
+                if (!result) return;
+                if (result.MessageID) {
+                    showMessage(result);
+                    return;
+                }
+
+                $(this).val("");
+                createBukkenCommentTable(true);
             }
-            var result = calltoApiController(url_SaveBukkenComment, model);
-            if (!result) return;
-            if (result.MessageID) {
-                showMessage(result);
-                return;
-            }
-            $(this).val("");
-            createBukkenCommentTable();
         }
     });
 
@@ -181,8 +203,7 @@ function setScreen() {
         if (txtBukkenNO.val() == "") {
             $('#main :input:not(button)').val('');
             $('#main a').addClass('not-available');
-            setDisabledAll('#main', true);
-            btnReturn.prop('disabled', false).focus();
+            setDisabledAll('#main', '#btnReturn');
             return;
         }
     }
@@ -199,7 +220,7 @@ function setScreen() {
         setSuggestList('#KoumutenName', url_getKoumutenListItems, txtSitenCD.val());
     }
     else if (eMode == 'Delete') {
-        setDisabledAll('#main');
+        setDisabledAll('#main', '#btnKakousiji, #btnReturn, #btnSave');
         btnSave.text('削除');
     }
 }
@@ -231,7 +252,12 @@ function createBukkenFileTable() {
         {
             "data": null,
             render: function (data, type, row) {
-                return '<a class="delete-link" onclick="deleteBukkenFile(' + data.BukkenFileRows.toString() + ');">削除</a>';
+                if (eMode == 'Delete') {
+                    return '<span class="delete-link">削除</span>';
+                }
+                else {
+                    return '<a class="delete-link" onclick="deleteBukkenFile(' + data.BukkenFileRows.toString() + ');">削除</a>';
+                }
             }
         },
         {
@@ -250,13 +276,14 @@ function createBukkenFileTable() {
         option.drawCallback = function () { setDisabledAll('#tblBukkenFile'); }
     }
 
-    option.paging = false;
+    option.displayLength = 5;
+    option.paging = data.length > 5
     option.info = false;
 
     bindDataTables($('#tblBukkenFile'), option);
 }
 
-function createBukkenCommentTable() {
+function createBukkenCommentTable(isSetFocusToText) {
     var data;
 
     var model = {
@@ -281,7 +308,12 @@ function createBukkenCommentTable() {
         {
             "data": null,
             render: function (data, type, row) {
-                return '<a class="delete-link" onclick="deleteBukkenComment(' + data.BukkenCommentRows.toString() + ');">削除</a>';
+                if (eMode == 'Delete') {
+                    return '<span class="delete-link">削除</span>';
+                }
+                else {
+                    return '<a class="delete-link" onclick="deleteBukkenComment(' + data.BukkenCommentRows.toString() + ');">削除</a>';
+                }
             }
         }
     ];
@@ -293,8 +325,12 @@ function createBukkenCommentTable() {
     if (eMode == 'Delete') {
         option.drawCallback = function() { setDisabledAll('#tblBukkenComment'); }
     }
+    if (isSetFocusToText) {
+        option.drawCallback = function () { $('#BukkenComment').focus(); }
+    }
 
-    option.paging = false;
+    option.displayLength = 5;
+    option.paging = data.length > 5
     option.info = false;
 
     bindDataTables($('#tblBukkenComment'), option);
@@ -355,10 +391,10 @@ function getNewBukkenNO() {
     }
 }
 
-function checkBukkenNO() {
+function checkBukkenNO(focusSet) {
     if (txtBukkenNO.val() == "") {
-        txtSitenCD.focus();
-        showMessage('E288', function () { txtSitenCD.focus(); });
+        if (focusSet) txtSitenCD.focus();
+        showMessage('E288', function () { if (focusSet) txtSitenCD.focus(); });
         return false;
     }
     return true;
@@ -442,12 +478,35 @@ function btnSaveClick() {
             window.location.reload();
         }
         else {
+            showLoadingMessage();
             location.href = url_previousPage;
         }
     });
 }
 
+function downloadFiles() {
 
+    var rowcsv = "";
+    $('#tblBukkenFile input[type=checkbox]:checked').each(function () {
+        rowcsv += $(this).data('bukkenfilerows') + ",";
+    });
+
+    if (rowcsv == "") {
+        showMessage('E289');
+        return;
+    }
+
+    var model = {
+        BukkenNO: txtBukkenNO.val(),
+        BukkenFileRowsCsv: rowcsv.slice(0, -1)
+    }
+
+    const link = document.getElementById("downloadBukkenFile");
+    link.href = url_downloadFiles + querySerialize(model);
+    link.click();
+
+    $('#tblBukkenFile input[type=checkbox]:checked').prop('checked', false);
+}
 
 //upload files -------------------->
 function clearFileInfo() {
@@ -505,30 +564,3 @@ function dropFiles(files, obj) {
     sendFileToServer(formData, status);
 }
 
-
-
-
-//download files
-function downloadFiles() {
-
-    var rowcsv = "";
-    $('#tblBukkenFile input[type=checkbox]:checked').each(function () {
-        rowcsv += $(this).data('bukkenfilerows') + ",";
-    });
-
-    if (rowcsv == "") {
-        showMessage('E289');
-        return;
-    }
-
-    var model = {
-        BukkenNO: txtBukkenNO.val(),
-        BukkenFileRowsCsv: rowcsv.slice(0, -1)
-    }
-
-    const link = document.getElementById("downloadBukkenFile");
-    link.href = url_downloadFiles + querySerialize(model);
-    link.click();
-
-    $('#tblBukkenFile input[type=checkbox]:checked').prop('checked', false);
-}

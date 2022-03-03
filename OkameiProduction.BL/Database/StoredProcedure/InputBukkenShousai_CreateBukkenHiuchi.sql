@@ -82,7 +82,7 @@ BEGIN
         RETURN
     END
 
-    IF @SouCount > 1
+    IF @SouCount > 0
 	BEGIN
         INSERT INTO D_BukkenHiuchi
         (

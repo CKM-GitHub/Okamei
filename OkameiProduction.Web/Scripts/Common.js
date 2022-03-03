@@ -4,9 +4,8 @@ var gCustomValidate = function (ctrl) { return true; }
 
 var substringMatcher = function (strs) {
     return function findMatches(q, cb) {
-        var matches;
-
-        matches = [];
+        var matches = [];
+        matches.push('');
 
         substrRegex = new RegExp(q, 'i');
 
@@ -16,13 +15,41 @@ var substringMatcher = function (strs) {
             }
         });
 
+        if (matches.length == 1) matches = [];
         cb(matches);
     };
 };
+function getSuggestMenuPosition(input, datacount) {
+    var $input = $(input);
+    var position = 'bottom';
+
+    const displayRows = 10; //Same as typeahead.css(the number of rows used in the tt-menu height calculation)
+    const menuHeight = 24 * ((datacount > displayRows ? displayRows : datacount) + 1) + 20; //row height * rows + scroll height
+    var windowBottom = window.innerHeight;
+    var windowTop = 0;
+
+    var parent = $input.parents('table tbody');
+    if (parent.length == 0) parent = $input.parents('.modal_content');
+    if (parent.length == 0) parent = $input.parents('.main-content');
+
+    if (parent) {
+        var parentRect = parent.get(0).getBoundingClientRect();
+        windowTop = parentRect.top;
+        windowBottom = parentRect.top + parentRect.height;
+    }
+
+    var elemRect = input.getBoundingClientRect();
+
+    if (elemRect.top - windowTop > menuHeight && windowBottom - elemRect.bottom < menuHeight) {
+        position = 'top';
+    }
+
+    return position;
+}
 function setSuggestList(selector, url, key, items) {
 
-    var targer = $(selector + '.typeahead');
-    targer.typeahead('destroy');
+    var target = $(selector + '.typeahead');
+    target.typeahead('destroy');
 
     if (url && url != "") {
         var result = calltoApiController(url, key);
@@ -36,12 +63,18 @@ function setSuggestList(selector, url, key, items) {
         items = result;
     }
 
+    //$.each(target, function (i, input) {
+    //    $(input).attr('tt-menuposition', getSuggestMenuPosition(input, items.length));
+    //});
+    $(target).attr('tt-menuposition', getSuggestMenuPosition(target.get(0), items.length));
+
     if (items.length > 0) {
-        targer.typeahead({
+        target.typeahead({
             minLength: 0,
         },
             {
-                source: substringMatcher(items)
+                source: substringMatcher(items),
+                limit: 100
             });
     }
 }
@@ -70,10 +103,10 @@ function setDropDownList(selector, url, key, items) {
     }
 }
 
-function setDisabledAll(selector, isDisabledFooterbuttons) {
+function setDisabledAll(selector, exceptSelector) {
     $(selector + ' :input:not(:hidden)').prop('disabled', true);
-    if (!isDisabledFooterbuttons) {
-        $('.main-content-footer :button').prop('disabled', false);
+    if (exceptSelector) {
+        $(exceptSelector).prop('disabled', false);
     }
 }
 
@@ -333,7 +366,7 @@ function removeRequired(selector) {
 
 // date type  ----->
 function setDateTypeValidate(selector) {
-    $(selector).attr('validate-datetype', 'true'); //.attr('inputmode', 'numeric');
+    $(selector).attr('validate-datetype', 'true').attr('autocomplete', 'off'); //.attr('inputmode', 'numeric');
 }
 function removeDateTypeValidate(selector) {
     $(selector).removeAttr('validate-datetype');
@@ -341,7 +374,7 @@ function removeDateTypeValidate(selector) {
 
 //// dateYM type  ----->
 function setDateYMTypeValidate(selector) {
-    $(selector).attr('validate-dateYMtype', 'true');
+    $(selector).attr('validate-dateYMtype', 'true').attr('autocomplete', 'off');
 }
 function removeDateYMTypeValidate(selector) {
     $(selector).removeAttr('validate-dateYMtype'); 
@@ -387,7 +420,8 @@ function setNumericValidate(selector, integerdigits, decimaldigits) {
     $(selector).attr('validate-numeric', 'true')
         .attr('integerdigits', integerdigits)
         .attr('decimaldigits', decimaldigits)
-        .attr('inputmode', 'decimal');
+        .attr('inputmode', 'decimal')
+        .attr('autocomplete', 'off');
 }
 function removeNumericValidate(selector) {
     $(selector).removeAttr('validate-numeric')
@@ -484,6 +518,11 @@ function checkErrorOnSave(selector) {
     return success;
 }
 
+function undindKeyPressEvent(areaid) {
+    var selector = areaid + ' :input:not(:hidden)';
+    $(document).off("keypress", selector);
+}
+
 function bindKeyPressEvent(areaid) {
 
     if (typeof areaid === 'undefined') {
@@ -491,11 +530,13 @@ function bindKeyPressEvent(areaid) {
     }
 
     var selector = areaid + ' :input:not(:hidden)';
-    $(selector).keypress(function (e) {
+    $(document).on('keypress', selector, function (e) {
         var c = e.which ? e.which : e.keyCode;
         if (c == 13 || c == 9) {
 
-            if ($(e.target).attr('type') == 'button') return;
+            if (e.target.type == 'button') return;
+            if (e.target.tagName == 'TEXTAREA' && e.shiftKey) return;
+
             e.preventDefault();
 
             var result = checkCommon($(e.target));

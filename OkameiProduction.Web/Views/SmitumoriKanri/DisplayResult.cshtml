@@ -29,24 +29,30 @@
     }
 
     #tblSmitumoriKanri .SagyouDate,
-    #tblSmitumoriKanri .KaesiYoteiDate,
-    #tblSmitumoriKanri .TantouSitenCD,
-    #tblSmitumoriKanri .IraiEigyouCD {
+    #tblSmitumoriKanri .KaesiYoteiDate {
         min-width: 110px;
         max-width: 110px;
     }
 
-    #tblSmitumoriKanri .TantouCadCD {
-        min-width: 150px;
+    #tblSmitumoriKanri .TantouCadCD,
+    #tblSmitumoriKanri .TantouSitenCD,
+    #tblSmitumoriKanri .IraiEigyouCD {
+        min-width: 130px;
     }
 
     #tblSmitumoriKanri .BukkenName,
     #tblSmitumoriKanri .KoumutenName {
         min-width: 300px;
     }
+    .KoumutenName span{
+        width: 100%;
+    }
 
     #tblSmitumoriKanri .KakoutuboSuu {
-        min-width: 80px;
+        min-width: 75px;
+        text-align: right;
+    }
+    #txtKakoutuboSuu{
         text-align: right;
     }
 
@@ -71,7 +77,7 @@
     }
 </style>
 
-<h4>S見積管理表</h4>
+<h4 class="page-title">S見積管理表</h4>
 <div id="main" class="main-content">
     <table class='table table-bordered' id="tblSmitumoriKanri">
         <thead>
@@ -103,7 +109,13 @@
                 }
                 @for (var i = 0; i < count; i++)
                 {
-                    if (@columns[i].Caption == "TantouCadCD")
+                    if (@columns[i].Caption == "SagyouDate")
+                    {
+                        <td class="@columns[i].Caption">
+                            <input type="text" class="form-control size10" maxlength="10" id="txtSagyouDate" name="@columns[i].Caption" validate-required="true" validate-datetype="true" value="@items[i]" />
+                        </td>
+                    }
+                    else if (@columns[i].Caption == "TantouCadCD")
                     {
                         <td class="@columns[i].Caption">
                             @Html.DropDownListFor(
@@ -113,15 +125,29 @@
                             new { @class = "form-control" })
                         </td>
                     }
+                    else if (@columns[i].Caption == "BukkenName")
+                    {
+                        <td class="@columns[i].Caption">
+                            <input type="text" class="form-control size30" maxlength="30" id="txtBukkenName" name="@columns[i].Caption" validate-required="true" value="@items[i]" />
+                        </td>
+                    }
                     else if (@columns[i].Caption == "KoumutenName")
                     {
                         <td class="@columns[i].Caption">
-                            <input type="text" class="typeahead form-control size30" maxlength="30" autocomplete="off" validate-required="true" id="txtKoumutenName" name="@columns[i].Caption" value="@items[i]" />
+                            <div class="typeahead_normal">
+                                <input type="text" class="typeahead form-control size30" maxlength="30" autocomplete="off" validate-required="true" id="txtKoumutenName" name="@columns[i].Caption" value="@items[i]" />
+                            </div>
                             @*@Html.DropDownListFor(
                             model => model.KoumutenName,
                             new SelectList(Model.KoumutenDropDownListItems, "Value", "DisplayText", @items[i]),
                             "",
                             new { @class = "form-control size20" })*@
+                        </td>
+                    }
+                    else if (@columns[i].Caption == "KakoutuboSuu")
+                    {
+                        <td class="@columns[i].Caption">
+                            <input type="text" class="form-control size7" maxlength="6" id="txtKakoutuboSuu" name="@columns[i].Caption" validate-required="true" value="@items[i]" />
                         </td>
                     }
                     else if (@columns[i].Caption == "TantouSitenCD")
@@ -144,6 +170,12 @@
                             new { @class = "form-control size20" })
                         </td>
                     }
+                    else if (@columns[i].Caption == "KaesiYoteiDate")
+                    {
+                        <td class="@columns[i].Caption">
+                            <input type="text" class="form-control size10" maxlength="10" id="txtKaesiYoteiDate" name="@columns[i].Caption" validate-required="true" validate-datetype="true" value="@items[i]" />
+                        </td>
+                    }
                     else
                     {
                         <td class="@columns[i].Caption">
@@ -163,7 +195,7 @@
         <tbody>
             <tr>
                 <td class="SagyouDate">
-                    <input type="text" class="form-control size10" maxlength="10" id="txtSagyouDate" name="SagyouDate" />
+                    <input type="text" class="form-control size10" maxlength="10" id="txtSagyouDate" name="SagyouDate" validate-required="true" validate-datetype="true" />
                 </td>
                 <td class="TantouCadCD">
                     @Html.DropDownListFor(
@@ -173,18 +205,20 @@
                     new { @class = "form-control" })
                 </td>
                 <td class="BukkenName">
-                    <input type="text" class="form-control size30" maxlength="30" id="txtBukkenName" name="BukkenName" />
+                    <input type="text" class="form-control size30" maxlength="30" id="txtBukkenName" name="BukkenName" validate-required="true" />
                 </td>
                 <td class="KoumutenName">
-                    <input type="text" class="typeahead form-control size30" maxlength="30" autocomplete="off"  id="txtKoumutenName" name="KoumutenName" />
-                    @*@Html.DropDownListFor(
-                    model => model.KoumutenName,
-                    new SelectList(Model.KoumutenDropDownListItems, "Value", "DisplayText"),
-                    "",
-                    new { @class = "form-control size20" })*@
+                    <div class="typeahead_normal">
+                        <input type="text" class="form-control size30" maxlength="30" autocomplete="off" id="txtKoumutenName" name="KoumutenName" validate-required="true" />
+                    </div>
+                        @*@Html.DropDownListFor(
+                        model => model.KoumutenName,
+                        new SelectList(Model.KoumutenDropDownListItems, "Value", "DisplayText"),
+                        "",
+                        new { @class = "form-control size20" })*@
                 </td>
                 <td class="KakoutuboSuu">
-                    <input type="text" class="form-control size7" maxlength="6" id="txtKakoutuboSuu" name="KakoutuboSuu" />
+                    <input type="text" class="form-control size7" maxlength="6" id="txtKakoutuboSuu" name="KakoutuboSuu" validate-required="true" />
                 </td>
                 <td class="TantouSitenCD">
                     @Html.DropDownListFor(
@@ -201,7 +235,7 @@
                     new { @class = "form-control size20" })
                 </td>
                 <td class="KaesiYoteiDate">
-                    <input type="text" class="form-control size10" maxlength="10" id="txtKaesiYoteiDate" name="KaesiYoteiDate" />
+                    <input type="text" class="form-control size10" maxlength="10" id="txtKaesiYoteiDate" name="KaesiYoteiDate" validate-required="true" validate-datetype="true" />
                 </td>
                 <td class="SMitumoriCounter">
                 </td>
@@ -239,17 +273,19 @@
             });
 
             $('#btnProcess').click(function () {
-                showConfirmMessage("Q101", function () {
-                    btnProcess_click();
-                })
+                if (checkErrorOnSave('#main')) {
+                    showConfirmMessage("Q101", function () {
+                        btnProcess_click();
+                    })
+                }
             });
 
-            setRequired('#TantouCadCD');
-            setRequired('#KoumutenName');
-            setRequired('#TantouSitenCD');
-            setRequired('#IraiEigyouCD');
-            setDoubleByteValidate('#txtKoumutenName');
-            setSuggestList('#txtKoumutenName', '@Url.Action("GetKoumutenSuggestItems", "api/InputBukkenShousaiApi")', '');
+            setRequired('#tblSmitumoriKanri tbody tr td #TantouCadCD');
+            setRequired('#tblSmitumoriKanri tbody tr td #TantouSitenCD');
+            setRequired('#tblSmitumoriKanri tbody tr td #IraiEigyouCD');
+            setDoubleByteValidate('#tblSmitumoriKanri tbody tr td #txtBukkenName');
+            setNumericValidate('#tblSmitumoriKanri tbody tr td #txtKakoutuboSuu', 3, 2);
+            setDoubleByteValidate('#tblSmitumoriKanri tbody tr td #txtKoumutenName');
 
             //check user id who has access or not to edit
             var model = {
@@ -257,21 +293,36 @@
             }
             var user_role = calltoApiController('@Url.Action("UserIDCheck", "api/SmitumoriKanriApi")', model);
             if (!user_role) {
+                $('#tblSmitumoriKanri tr td:first-child #txtSagyouDate').attr("disabled", true);
                 $('#tblSmitumoriKanri tr td:nth-child(2) select').attr("disabled", true);
-                $('#tblSmitumoriKanri tr td:nth-child(4) select').attr("disabled", true);
+                $('#tblSmitumoriKanri tr td:nth-child(3) #txtBukkenName').attr("disabled", true);
+                $('#tblSmitumoriKanri tr td:nth-child(4) #txtKoumutenName').attr("disabled", true);
+                $('#tblSmitumoriKanri tr td:nth-child(5) #txtKakoutuboSuu').attr("disabled", true);
                 $('#tblSmitumoriKanri tr td:nth-child(6) select').attr("disabled", true);
                 $('#tblSmitumoriKanri tr td:nth-child(7) select').attr("disabled", true);
+                $('#tblSmitumoriKanri tr td:nth-child(8) #txtKaesiYoteiDate').attr("disabled", true);
                 $('#tblSmitumoriKanri tr th:last-child').attr("style", "display: none;");
                 $('#tblSmitumoriKanri tr td:last-child').attr("style", "display: none;");
                 $('#btnAdd').attr("style", "display: none;");
                 $('#btnProcess').attr("style", "display: none;");
             }
+            else {
+                setSuggestList('#txtKoumutenName', '@Url.Action("GetKoumutenSuggestItems", "api/InputBukkenShousaiApi")', '');
+            }
 
-            var t = bindDataTables($('#tblSmitumoriKanri'));
+            $("#tblSmitumoriKanri tr").each(function (i, tr) {
+                $(tr).find('td:eq(3) #txtKoumutenName').on("focusin", function () {
+                    focus_in();
+                })
+                $(tr).find('td:eq(3) #txtKoumutenName').on("focusout", function () {
+                    focus_in();
+                })
+            })
+            var t = bindDataTables($('#tblSmitumoriKanri'), { displayLength: 15 });
         });
 
         function DeleteData(SMitumoriCounter, ctrl) {
-            showConfirmMessage("Q003", function () {
+            showConfirmMessage("Q102", function () {
                 if (SMitumoriCounter != 0) {
                     var model = {
                         SMitumoriCounter: SMitumoriCounter
@@ -292,36 +343,36 @@
         function btnAdd_click() {
             if (checkErrorOnSave('#main')) {
                 $('#tblSmitumoriKanri_next a').click();
+                var c_name = $('#tblSmitumoriKanri tbody tr:last-child').attr("class");
                 $('#tblSmitumoriKanri tbody:last-child').append($('#tblSmitumoriKanri_Clone tbody tr').clone());
 
-                setRequired('#txtSagyouDate');
-                setRequired('#TantouCadCD');
-                setRequired('#txtBukkenName');
-                setRequired('#txtKoumutenName');
-                setRequired('#txtKakoutuboSuu');
-                setRequired('#TantouSitenCD');
-                setRequired('#IraiEigyouCD');
-                setRequired('#txtKaesiYoteiDate');
+                if (c_name == 'odd')
+                    $('#tblSmitumoriKanri tbody tr:last-child').addClass("even");
+                else
+                    $('#tblSmitumoriKanri tbody tr:last-child').addClass("odd");
 
-                setDateTypeValidate('#txtSagyouDate');
-                setDoubleByteValidate('#txtBukkenName');
-                setNumericValidate('#txtKakoutuboSuu', 3, 2);
-                setDateTypeValidate('#txtKaesiYoteiDate');
-                setDoubleByteValidate('#txtKoumutenName');
-                setSuggestList('#txtKoumutenName', '@Url.Action("GetKoumutenSuggestItems", "api/InputBukkenShousaiApi")', '');
+                setRequired('#tblSmitumoriKanri tbody tr:last-child td #TantouCadCD');
+                setRequired('#tblSmitumoriKanri tbody tr:last-child td #TantouSitenCD');
+                setRequired('#tblSmitumoriKanri tbody tr:last-child td #IraiEigyouCD');
+                setDateTypeValidate('#tblSmitumoriKanri tbody tr:last-child td #txtSagyouDate');
+                setDoubleByteValidate('#tblSmitumoriKanri tbody tr:last-child td #txtBukkenName');
+                setNumericValidate('#tblSmitumoriKanri tbody tr:last-child td #txtKakoutuboSuu', 3, 2);
+                setDateTypeValidate('#tblSmitumoriKanri tbody tr:last-child td #txtKaesiYoteiDate');
+                setDoubleByteValidate('#tblSmitumoriKanri tbody tr:last-child td #txtKoumutenName');
+                $('#tblSmitumoriKanri tbody tr:last-child td #txtKoumutenName').addClass("typeahead");
+                setSuggestList('#tblSmitumoriKanri tbody tr:last-child td #txtKoumutenName', '@Url.Action("GetKoumutenSuggestItems", "api/InputBukkenShousaiApi")', '');
 
-                $('#txtSagyouDate').change(function () {
-                    ErrorCheck(this, "#tblSmitumoriKanri tbody tr:last-child td #TantouCadCD");
+                $("#tblSmitumoriKanri tr").each(function (i, tr) {
+                    $(tr).find('td:eq(3) #txtKoumutenName').on("focusin", function () {
+                        focus_in();
+                    })
+                    $(tr).find('td:eq(3) #txtKoumutenName').on("focusout", function () {
+                        focus_in();
+                    })
                 })
-                $('#txtBukkenName').change(function () {
-                    ErrorCheck(this, "#tblSmitumoriKanri tbody tr:last-child td #KoumutenName");
-                })
-                $('#txtKakoutuboSuu').change(function () {
-                    ErrorCheck(this, "#tblSmitumoriKanri tbody tr:last-child td #TantouSitenCD");
-                })
-                $('#txtKaesiYoteiDate').change(function () {
-                    ErrorCheck(this, "#tblSmitumoriKanri tbody tr:last-child td button");
-                })
+
+                bindKeyPressEvent("#main");
+                $('#tblSmitumoriKanri tbody tr:last-child td #txtSagyouDate').focus();
             }
             else
                 showMessage('E102');
@@ -344,17 +395,16 @@
         }
 
         function btnProcess_click() {
-            if (checkErrorOnSave('#main')) {
-                var model = {
-                    DetailDataJson: JSON.stringify(getDetailData()),
-                    UserID: $('#user-id').text()
-                }
-                var result = calltoApiController('@Url.Action("ModifySMitumoriCounterData", "api/SmitumoriKanriApi")', model);
-                if (!result)
-                    return false;
-                else
-                    window.location.reload();
+            var model = {
+                DetailDataJson: JSON.stringify(getDetailData()),
+                UserID: $('#user-id').text()
             }
+            var result = calltoApiController('@Url.Action("ModifySMitumoriCounterData", "api/SmitumoriKanriApi")', model);
+            if (!result)
+                return false;
+            else
+                window.location.reload();
+
             return true;
         }
 
@@ -376,6 +426,21 @@
             })
             jsonObj.shift();
             return jsonObj;
+        }
+
+        function focus_in() {
+            $('.tt-menu').css('position', 'fixed');
+            $('.tt-menu').css('top', 'unset');
+            $('.tt-menu').css('left', 'unset');
+            $('.tt-menu').css('width', '300px');
+            //$('.tt-menu').css('margin-top', '-19px');
+        }
+        function focus_out() {
+            $('.tt-menu').css('position', 'absolute');
+            $('.tt-menu').css('top', '100%');
+            $('.tt-menu').css('left', '0px');
+            $('.tt-menu').css('width', '300px');
+            //$('.tt-menu').css('margin-top', 'unset');
         }
     </script>
 }

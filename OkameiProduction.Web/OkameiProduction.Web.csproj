@@ -53,6 +53,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>References\ClosedXML.dll</HintPath>
     </Reference>
+    <Reference Include="iDiTect.Converter">
+      <HintPath>References\iDiTect.Converter.dll</HintPath>
+    </Reference>
     <Reference Include="itext.barcodes, Version=7.2.1.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\itext7.7.2.1\lib\net461\itext.barcodes.dll</HintPath>
     </Reference>
@@ -110,6 +113,9 @@
     </Reference>
     <Reference Include="Microsoft.Extensions.Primitives, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Primitives.5.0.0\lib\net461\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="SautinSoft.ExcelToPdf, Version=5.5.7.22, Culture=neutral, PublicKeyToken=239046b8a1e8c07b, processorArchitecture=MSIL">
+      <HintPath>..\packages\sautinsoft.exceltopdf.5.5.7.22\lib\net48\SautinSoft.ExcelToPdf.dll</HintPath>
     </Reference>
     <Reference Include="SautinSoft.PdfFocus, Version=8.2.1.18, Culture=neutral, PublicKeyToken=0b79b934109b3e9e, processorArchitecture=MSIL">
       <HintPath>..\packages\sautinsoft.pdffocus.8.2.1.18\lib\net48\SautinSoft.PdfFocus.dll</HintPath>
@@ -228,6 +234,7 @@
     <Compile Include="Controllers\CadStaffMitei\CadStaffMiteiController.cs" />
     <Compile Include="Controllers\EigyouJisseki\EigyouJissekiApiController.cs" />
     <Compile Include="Controllers\EigyouJisseki\EigyouJissekiController.cs" />
+    <Compile Include="Controllers\InputBukkenShousai\InputBukkenShousaiMoulderApiController.cs" />
     <Compile Include="Controllers\InputBukkenShousai\InputBukkenShousaiTekakouApiController.cs" />
     <Compile Include="Controllers\InputBukkenShousai\InputBukkenShousaiHiuchiApiController.cs" />
     <Compile Include="Controllers\InputStep\InputStepApiController.cs" />
@@ -270,8 +277,18 @@
     </Compile>
     <Compile Include="Filters\CustomExceptionFilterAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="test.aspx.cs">
+      <DependentUpon>test.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="test.aspx.designer.cs">
+      <DependentUpon>test.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\InputBukkenShousaiMoulder.css" />
+    <Content Include="Content\InputBukkenShousaiTekakou.css" />
+    <Content Include="Content\InputBukkenShousaiHiuchi.css" />
     <Content Include="Content\InputBukkenShousai.css" />
     <Content Include="Content\lib\bootstrap-grid.css" />
     <Content Include="Content\lib\bootstrap-grid.min.css" />
@@ -287,12 +304,15 @@
     <Content Include="Content\typeahead.css" />
     <Content Include="Error2.html" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\brandlogo.png" />
     <Content Include="Scripts\InputBukkenShousai.js" />
+    <Content Include="Scripts\InputBukkenShousaiMoulder.js" />
     <Content Include="Scripts\InputBukkenShousaiTekakou.js" />
     <Content Include="Scripts\InputBukkenShousaiHiuchi.js" />
     <Content Include="Scripts\typeahead.js" />
+    <Content Include="Scripts\typeahead_customize.js" />
     <Content Include="Scripts\lib\bootstrap.bundle.js" />
     <Content Include="Scripts\lib\bootstrap.bundle.min.js" />
     <Content Include="Scripts\lib\bootstrap.js" />
@@ -310,6 +330,15 @@
     <Content Include="Scripts\Common.js" />
     <Content Include="Scripts\lib\jquery-3.6.0.min.map" />
     <Content Include="Scripts\lib\jquery-3.6.0.slim.min.map" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\Meiryo UI W53 Regular.ttf" />
+    <Content Include="fonts\Meiryo W53 Regular.otf" />
+    <Content Include="fonts\SIMSUN.ttf" />
+    <Content Include="Initializer\AgreementForm.xlsx" />
+    <Content Include="Initializer\AgreementFormOriginal.xlsx" />
     <None Include="Scripts\lib\jquery.validate-vsdoc.js" />
     <None Include="Scripts\lib\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\lib\jquery-3.6.0.js" />
@@ -401,6 +430,7 @@
     <Content Include="Scripts\lib\umd\popper.js.map" />
     <Content Include="Scripts\lib\umd\popper.min.js" />
     <Content Include="Scripts\lib\umd\popper.min.js.map" />
+    <Content Include="test.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -454,12 +484,12 @@
     <Content Include="Views\KadouKeikaku\DisplayResult.cshtml" />
     <Content Include="Views\KadouKeikaku\SetCondition.cshtml" />
     <Content Include="Views\InputBukkenShousai\TekakouSubEntry.cshtml" />
+    <Content Include="Views\InputBukkenShousai\MoulderSubEntry.cshtml" />
+    <Content Include="Views\Shared\_ModalForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Initializer\" />
     <Folder Include="Models\" />
-    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="References\" />
   </ItemGroup>
   <ItemGroup>

@@ -59,7 +59,6 @@ CREATE PROCEDURE [dbo].[InputBukkenShousai_Update](
     ,@BukkenComment             varchar(100)
     ,@Operator                  varchar(10)
     ,@UpdateDateTime            varchar(23)
-    ,@BukkenMoulderTBL          T_BukkenMoulder READONLY
     ,@OutExclusionError         tinyint OUTPUT
 )AS
 BEGIN
