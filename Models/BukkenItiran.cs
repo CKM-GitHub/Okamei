@@ -27,7 +27,7 @@ namespace Models
                 IEnumerable<string> fields = row.ItemArray.Select(field => field.ToString());
                 sb.AppendLine(string.Join(",", fields));
             }
-             File.WriteAllText(SavePath, sb.ToString());
+             File.WriteAllText(SavePath, sb.ToString(), Encoding.UTF8);
         }
        
     }

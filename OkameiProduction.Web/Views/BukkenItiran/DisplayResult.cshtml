@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "BukkenItiranList";
+   
 }
 
 @section styles{
@@ -197,6 +198,7 @@
 
         function btnDisplayClick() {
             const params = new URLSearchParams(window.location.search)
+            var fileName = '物件一覧.csv';
             var model =
             {
                 TantouSitenCD: params.get('TantouSitenCD'),
@@ -214,7 +216,7 @@
                 KoumutenName: params.get('KoumutenName'),
                 TokuchuuzaiUmu: params.get('TokuchuuzaiUmu'),
                 UserID: $('#user-id').text(),
-                FileName: "物件一覧.csv",
+                FileName: fileName,
             };
             calltoApiController_FileDownLoadHandle('@Url.Action("CSVFormExport", "api/BukkenItiranApi")', model);
             return true;
