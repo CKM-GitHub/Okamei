@@ -138,6 +138,7 @@
                         var count = row.ItemArray.Count();
                         var items = row.ItemArray;
                         var bukkenNo = row["BukkenNO"].ToString();
+
                     }
                     @for (var i = 0; i < count; i++)
                     {
@@ -161,6 +162,7 @@
     </table>
     <div class="form-group row">
         <div class="footer-btn mx-auto">
+            <button type="button" id="btnCSV" class="btn btn-secondary">CSV出力</button>
             <button type="button" id="btnReturn" class="btn btn-secondary">戻る</button>
         </div>
     </div>
@@ -174,12 +176,42 @@
             $('#btnReturn').click(function () {
                 location.href = '@Url.Action("SetCondition", "BukkenItiran")';
             });
-
+            $('#btnCSV').click(function () {
+                if (checkErrorOnSave()) {
+                    showConfirmMessage("Q203", btnDisplayClick);
+                }
+            });
             var t = bindDataTables($('#tblBukkenItiran'));
             //new $.fn.dataTable.FixedColumns(t, {
             //    leftColumns: 1
             //});
+
+
         });
 
+        function btnDisplayClick() {
+            const params = new URLSearchParams(window.location.search)
+            var model =
+            {
+                TantouSitenCD: params.get('TantouSitenCD'),
+                JuchuuOption: params.get('JuchuuOption'),
+                BukkenSiteiOption: params.get('BukkenSiteiOption'),
+                NoukiStart: params.get('NoukiStart'),
+                NoukiEnd: params.get('NoukiEnd'),
+                TantouEigyouCD: params.get('TantouEigyouCD'),
+                TantouCadCD: params.get('TantouCadCD'),
+                TantouPcCD: params.get('TantouPcCD'),
+                SortOption: params.get('SortOption'),
+                KubunCD: params.get('KubunCD'),
+                BukkenNO: params.get('BukkenNO'),
+                BukkenName: params.get('BukkenName'),
+                KoumutenName: params.get('KoumutenName'),
+                TokuchuuzaiUmu: params.get('TokuchuuzaiUmu'),
+                UserID: $('#user-id').text(),
+                FileName: "物件一覧.csv",
+            };
+            calltoApiController_FileDownLoadHandle('@Url.Action("CSVFormExport", "api/BukkenItiranApi")', model);
+            return true;
+        }
     </script>
 }
