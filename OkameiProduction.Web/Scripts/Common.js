@@ -578,6 +578,11 @@ function bindKeyPressEvent(areaid) {
                     if (e.shiftKey) index--; // previous
                     else index++;            // next
                 }
+                //focus on the delete link btn of the table row -> skip 'S見積管理表 Display Form'
+                else if (oNext.val() == 'btn_削除') {
+                    if (e.shiftKey) index--; // previous
+                    else index++;            // next
+                }
                 else break;
             }
             if (index == nLength - 1) {
