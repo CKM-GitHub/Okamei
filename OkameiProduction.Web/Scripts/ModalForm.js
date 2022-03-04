@@ -104,7 +104,8 @@ $(document).ready(function () {
     });
 
     $(document).on('focusin', 'body', function () {
-        if ($(this).attr("class").indexOf('swal2') >= 0) {
+        var css = $(this).attr("class");
+        if (css && css.indexOf('swal2') >= 0) {
             return;
         }
         if (isShowModalForm && !focusOnModal) {
