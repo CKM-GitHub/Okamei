@@ -36,8 +36,10 @@ BEGIN
         ,CONVERT(varchar(6), eigyo.Char2)                               AS TantouEigyouName
         ,CONVERT(varchar(6), cad.Char2)                                 AS TantouCadName
         ,FORMAT(buk.JuchuuDate, 'MM/dd')                                AS JuchuuDate
-        ,FORMAT(buk.FusezuTeishutuDate, 'MM/dd')                        AS FusezuTeishutuDate
-        ,FORMAT(dbo.fnGetBusinessDay(buk.Nouki, ISNULL(mp999.Num1,0) * -1), 'MM/dd') AS ShouninKijitu
+        ,FORMAT(buk.FusezuTeishutuDate, 'MM/dd')                        AS FusezuTeishutuDate 
+        ,CASE buk.NoukiMiteiKBN 
+				WHEN 1 THEN '' 
+				ELSE FORMAT(dbo.fnGetBusinessDay(buk.Nouki, ISNULL(mp999.Num1,0) * -1), 'MM/dd') END  AS ShouninKijitu
         ,FORMAT(buk.KakoutuShouninDate, 'MM/dd')                        AS KakouShouninDate 
         ,CASE WHEN buk.KakousijishoHakkouDate IS NOT NULL THEN 'çœ'
                 ELSE FORMAT(dbo.fnGetSijiKijitu(
