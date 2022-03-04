@@ -18,6 +18,7 @@ namespace Models
         public string KubunCD { get; set; }
         public string BukkenName { get; set; }
         public string KoumutenName { get; set; }
+        public string FileName { get; set; }
         public int TokuchuuzaiUmu { get; set; }
         public IEnumerable<DropDownListItem> TantouSitenDropDownListItems { get; set; }
         public IEnumerable<DropDownListItem> TantouEigyouDropDownListItems { get; set; }

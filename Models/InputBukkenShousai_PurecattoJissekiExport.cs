@@ -253,7 +253,7 @@ namespace Models
                     FixedHeight = 20,
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
-                    //BorderWidthLeft = 0,
+                    BorderWidthLeft = 0,
                     BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1
@@ -340,7 +340,7 @@ namespace Models
                     FixedHeight = 20,
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
-                    //BorderWidthLeft = 0,
+                    BorderWidthLeft = 0,
                     BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1
@@ -434,7 +434,7 @@ namespace Models
                     FixedHeight = 20,
                     BorderWidthBottom = 0,
                     //BorderWidthTop = 0,
-                    //BorderWidthLeft = 0,
+                    BorderWidthLeft = 0,
                     BorderWidthRight = 0,
                     //PaddingBottom = 0f,
                     Colspan = 1,
