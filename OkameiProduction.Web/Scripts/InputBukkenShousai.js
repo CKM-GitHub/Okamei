@@ -487,7 +487,9 @@ function btnSaveClick() {
 function downloadFiles() {
 
     var rowcsv = "";
-    $('#tblBukkenFile input[type=checkbox]:checked').each(function () {
+    var selectedCheckbox = $('#tblBukkenFile').dataTable().$('input[type=checkbox]:checked');
+
+    selectedCheckbox.each(function () {
         rowcsv += $(this).data('bukkenfilerows') + ",";
     });
 
@@ -505,7 +507,7 @@ function downloadFiles() {
     link.href = url_downloadFiles + querySerialize(model);
     link.click();
 
-    $('#tblBukkenFile input[type=checkbox]:checked').prop('checked', false);
+    selectedCheckbox.prop('checked', false);
 }
 
 //upload files -------------------->
