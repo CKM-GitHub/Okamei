@@ -922,8 +922,18 @@
             },
             _ensureVisible: function ensureVisible($el) {
                 var elTop, elBottom, nodeScrollTop, nodeHeight;
-                elTop = $el.position().top;
-                elBottom = elTop + $el.outerHeight(true);
+                //okamei customize 2022.03.01 ----->
+                //elTop = $el.position().top;
+                //elBottom = elTop + $el.outerHeight(true);
+                if ('top' in $el.position()) {
+                    elTop = $el.position().top;
+                    elBottom = elTop + $el.outerHeight(true);
+                }
+                else {
+                    elBottom = $el.position().bottom;
+                    elTop = elBottom - $el.outerHeight(true);
+                }
+                //okamei customize 2022.03.01 <-----
                 nodeScrollTop = this.$node.scrollTop();
                 nodeHeight = this.$node.height() + parseInt(this.$node.css("paddingTop"), 10) + parseInt(this.$node.css("paddingBottom"), 10);
                 if (elTop < 0) {
