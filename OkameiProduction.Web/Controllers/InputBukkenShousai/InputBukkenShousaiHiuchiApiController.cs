@@ -94,7 +94,7 @@ namespace OkameiProduction.Web.Controllers
                     string[] readArray = reader.ReadLine().Split(',');
                     if (readArray.Length < 13) //title
                     {
-                        return GetErrorResult("E102");
+                        return GetErrorResult("E137");
                     }
 
                     int counter = 0;
