@@ -56,11 +56,13 @@
 @media (max-width: 650px) {
     #TekakouSubEntry .modal_content {
         max-width: 90%;
+        padding-bottom: 20px;
     }
 }
 
 @media (max-height: 680px) {
     #TekakouSubEntry .modal_content {
         max-height: 90%;
+        padding-bottom: 20px;
     }
 }

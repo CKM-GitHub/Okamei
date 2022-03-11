@@ -107,6 +107,7 @@
 @media (max-width: 1000px) {
     #MoulderSubEntry .modal_content {
         max-width: 90%;
+        padding-bottom: 20px;
     }
 }
 

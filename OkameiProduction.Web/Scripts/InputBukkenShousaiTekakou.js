@@ -50,7 +50,12 @@ function initialize_Tekakou() {
         $('#TekakouSubEntry #btnClose').focus();
     }
     else {
-        $('#TekakouSubEntry #TekakouHonsuu1').focus();
+        if (isSmartPhone()) {
+            $('#TekakouSubEntry #btnClose').focus();
+        }
+        else {
+            $('#TekakouSubEntry #TekakouHonsuu1').focus();
+        }
     }
 }
 

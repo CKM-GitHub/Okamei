@@ -2,6 +2,14 @@
 var gCommonApiUrl = "/api/CommonApi/";
 var gCustomValidate = function (ctrl) { return true; }
 
+function isSmartPhone() {
+    if (window.matchMedia && window.matchMedia('(max-device-width: 640px)').matches) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 var substringMatcher = function (strs) {
     return function findMatches(q, cb) {
         var matches = [];

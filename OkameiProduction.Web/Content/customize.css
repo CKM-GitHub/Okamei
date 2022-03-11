@@ -76,7 +76,7 @@ a.not-available {
 }
 
 .footer-btn {
-    padding: 5px 0;
+    padding: 20px 0 5px;
 }
 
     .main-content-footer .btn,
@@ -153,6 +153,7 @@ a.not-available {
 @media (max-width: 575px) {
     .main-content {
         margin: 0px;
+        padding-bottom: 20px;
     }
 
     .label-title:not(.non-responsive) {

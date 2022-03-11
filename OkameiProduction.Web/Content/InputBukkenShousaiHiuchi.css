@@ -77,11 +77,13 @@
 @media (max-width: 1190px) {
     #HiuchiSubEntry .modal_content {
         max-width: 90%;
+        padding-bottom: 20px;
     }
 }
 
-@media (max-height: 800px) {
+@media (max-height: 860px) {
     #HiuchiSubEntry .modal_content {
         max-height: 90%;
+        padding-bottom: 20px;
     }
 }
