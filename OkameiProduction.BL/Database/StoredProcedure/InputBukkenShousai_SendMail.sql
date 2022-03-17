@@ -25,18 +25,18 @@ BEGIN
     DECLARE @MailServerPass     varchar(50)
 
     IF @BukkenFileShurui = 1
-        SELECT @Char1 = Char1, @Char2 = Char2, @Char3 = Char3, @Char4 = '指示書･加工データ' FROM M_MultiPorpose WHERE ID = 17 AND [Key] = 1
+        SELECT @Char1 = Char1, @Char2 = Char2, @Char3 = Char3, @Char4 = ' 指示書･加工データ' FROM M_MultiPorpose WHERE ID = 17 AND [Key] = 1
 
     ELSE IF @BukkenFileShurui = 3
-        SELECT @Char1 = Char1, @Char2 = Char2, @Char3 = Char3, @Char4 = '現地案内指示書･地図' FROM M_MultiPorpose WHERE ID = 18 AND [Key] = 1
+        SELECT @Char1 = Char1, @Char2 = Char2, @Char3 = Char3, @Char4 = ' 現地案内指示書･地図' FROM M_MultiPorpose WHERE ID = 18 AND [Key] = 1
 
     ELSE IF @BukkenFileShurui = 4
-        SELECT @Char1 = Char1, @Char2 = Char2, @Char3 = Char3, @Char4 = '木出し' FROM M_MultiPorpose WHERE ID = 19 AND [Key] = 1
+        SELECT @Char1 = Char1, @Char2 = Char2, @Char3 = Char3, @Char4 = ' 木出し' FROM M_MultiPorpose WHERE ID = 19 AND [Key] = 1
 
     ELSE
         RETURN
 
-	select @Char5 = @BukkenNO + @BukkenName + @Char4
+	select @Char5 = @BukkenNO + ' ' + @BukkenName + @Char4
 	select @Char6 = @Char4 + 'が更新されました。'
     select @Char7 = case when @Char1 is not NULL and @Char2 is not NULL and @Char3 is not NULL then @Char1 + ';' + @Char2 + ';' + @Char3
 						 when @Char1 is not NULL and @Char2 is not NULL and @Char3 is     NULL then @Char1 + ';' + @Char2
