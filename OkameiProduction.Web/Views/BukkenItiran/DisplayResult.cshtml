@@ -198,7 +198,7 @@
 
         function btnDisplayClick() {
             const params = new URLSearchParams(window.location.search)
-            var fileName = '物件一覧.csv';
+            var fileName = '物件一覧_';
             var Startdate = decodeURIComponent(params.get('NoukiStart'));
             var Enddate = decodeURIComponent(params.get('NoukiEnd'));
            
@@ -219,7 +219,7 @@
                 KoumutenName: decodeURIComponent( params.get('KoumutenName')),
                 TokuchuuzaiUmu: params.get('TokuchuuzaiUmu'),
                 UserID: $('#user-id').text(),
-                FileName: fileName,
+                FileName: fileName + $('#user-id').text() + '.csv',
             };
             calltoApiController_FileDownLoadHandle('@Url.Action("CSVFormExport", "api/BukkenItiranApi")', model);
             return true;
