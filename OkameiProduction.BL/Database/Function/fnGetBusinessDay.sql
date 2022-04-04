@@ -13,10 +13,12 @@ BEGIN
 
     DECLARE @ReturnValue date
     DECLARE @Table  table (BusinessDay date, OrderNO int)
-    DECLARE @DateTo date   = DATEADD(dd, @AddDays * 2, @TargetDate) --‚·‚×‚Ä‹x“ú‚¾‚Á‚½‚Æ‚µ‚Ä2”{‚Ì“ú”•ªæ‚Ü‚ÅŒŸõ
+    DECLARE @DateTo date
 
     IF @AddDays < 0
     BEGIN
+        SET @DateTo = DATEADD(dd, @AddDays - 30, @TargetDate)
+
         ;WITH DateTable (MyDate)
         AS
         (
@@ -34,6 +36,8 @@ BEGIN
     END
     ELSE
     BEGIN
+        SET @DateTo = DATEADD(dd, @AddDays + 30, @TargetDate)
+
         ;WITH DateTable (MyDate)
         AS
         (
