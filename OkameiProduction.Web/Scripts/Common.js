@@ -251,7 +251,7 @@ function calltoApiController_FileDownLoadHandle(url, model) {
         complete: function () {
             // alert('hi')
             var link = document.createElement('a');
-            link.href = "../../output/project/" + model.FileName; 
+            link.href = gApplicationPath + "/output/project/" + model.FileName; 
             link.download = model.FileName;
            
             link.click();
