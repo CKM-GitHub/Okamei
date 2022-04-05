@@ -11,6 +11,11 @@ CREATE FUNCTION [dbo].[fnGetBusinessDay](
 RETURNS date
 BEGIN  
 
+    IF @AddDays = 0
+    BEGIN
+        RETURN @TargetDate
+    END
+
     DECLARE @ReturnValue date
     DECLARE @Table  table (BusinessDay date, OrderNO int)
     DECLARE @DateTo date
