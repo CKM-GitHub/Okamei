@@ -215,6 +215,7 @@ function setScreen() {
     if (eMode == 'New') {
         btnSet.show();
         txtSitenCD.removeClass('size50').addClass('size39');
+        $('#TokuchuuzaiUmu').val('3');
     }
     else if (eMode == 'Edit') {
         setSuggestList('#KoumutenName', url_getKoumutenListItems, txtSitenCD.val());
