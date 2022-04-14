@@ -318,6 +318,14 @@
             //        focus_out();
             //    })
             //})
+
+            $(document).on('focusin', '#txtKoumutenName', function (e) {
+                focus_in();
+            });
+            $(document).on('focusout', '#txtKoumutenName', function (e) {
+                focus_out();
+            });
+
             var t = bindDataTables($('#tblSmitumoriKanri'), { displayLength: 15 });
         });
 
@@ -371,7 +379,7 @@
                 //    })
                 //})
 
-                bindKeyPressEvent("#main");
+                //bindKeyPressEvent("#main");
                 $('#tblSmitumoriKanri tbody tr:last-child td #txtSagyouDate').focus();
             }
             else
@@ -433,12 +441,14 @@
             $('.tt-menu').css('position', 'fixed');
             $('.tt-menu').css('top', 'unset');
             $('.tt-menu').css('left', 'unset');
+            $('.tt-menu').css('bottom', 'unset');
             $('.tt-menu').css('width', '300px');
         }
         function focus_out() {
             $('.tt-menu').css('position', 'absolute');
             $('.tt-menu').css('top', '100%');
             $('.tt-menu').css('left', '0px');
+            $('.tt-menu').css('bottom', 'unset');
             $('.tt-menu').css('width', '300px');
         }
     </script>
