@@ -17,48 +17,36 @@ BEGIN
     END
 
     DECLARE @ReturnValue date
-    DECLARE @Table  table (BusinessDay date, OrderNO int)
     DECLARE @DateTo date
 
     IF @AddDays < 0
     BEGIN
         SET @DateTo = DATEADD(dd, @AddDays - 30, @TargetDate)
 
-        ;WITH DateTable (MyDate)
-        AS
+        SELECT @ReturnValue = CalendarDate FROM
         (
-            SELECT FORMAT(DATEADD(dd, -1, @TargetDate), 'yyyyMMdd') AS MyDate --指定日の前日が1日目
-            UNION ALL
-            SELECT FORMAT(DATEADD(dd, -1, MyDate), 'yyyyMMdd') AS MyDate
-            FROM   DateTable
-            WHERE  MyDate > @DateTo
-        )
-        INSERT  INTO @Table
-        SELECT  myDate, ROW_NUMBER()OVER(ORDER BY MyDate DESC) AS OrderNO 
-        FROM    DateTable    
-        WHERE   NOT EXISTS(SELECT * FROM M_MultiPorpose WHERE ID = 16 AND [Key] = MyDate)
-        OPTION　(MAXRECURSION 500)
+            SELECT  CalendarDate, ROW_NUMBER()OVER(ORDER BY CalendarDate DESC) AS OrderNO 
+            FROM    M_Calendar    
+            WHERE   NOT EXISTS(SELECT * FROM M_MultiPorpose WHERE ID = 16 AND [Key] = CalendarDate)
+            AND     CalendarDate > @DateTo 
+            AND     CalendarDate < @TargetDate
+        ) AS tbl
+        WHERE tbl.OrderNO = ABS(@AddDays)
     END
     ELSE
     BEGIN
         SET @DateTo = DATEADD(dd, @AddDays + 30, @TargetDate)
 
-        ;WITH DateTable (MyDate)
-        AS
+        SELECT @ReturnValue = CalendarDate FROM
         (
-            SELECT FORMAT(DATEADD(dd, 1, @TargetDate), 'yyyyMMdd') AS MyDate --指定日の翌日が1日目
-            UNION ALL
-            SELECT FORMAT(DATEADD(dd, 1, MyDate), 'yyyyMMdd')
-            FROM   DateTable
-            WHERE  MyDate < @DateTo
-        )
-        INSERT  INTO @Table
-        SELECT  MyDate, ROW_NUMBER()OVER(ORDER BY MyDate) AS OrderNO 
-        FROM    DateTable    
-        WHERE   NOT EXISTS(SELECT * FROM M_MultiPorpose WHERE ID = 16 AND [Key] = MyDate)
-        OPTION (MAXRECURSION 500);
+            SELECT  CalendarDate, ROW_NUMBER()OVER(ORDER BY CalendarDate) AS OrderNO 
+            FROM    M_Calendar    
+            WHERE   NOT EXISTS(SELECT * FROM M_MultiPorpose WHERE ID = 16 AND [Key] = CalendarDate)
+            AND     CalendarDate > @TargetDate
+            AND     CalendarDate < @DateTo 
+        ) AS tbl
+        WHERE tbl.OrderNO = ABS(@AddDays)
     END
 
-    SELECT @ReturnValue = BusinessDay FROM @Table WHERE OrderNO = ABS(@AddDays)
     RETURN @ReturnValue
 END

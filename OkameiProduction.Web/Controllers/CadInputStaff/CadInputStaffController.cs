@@ -38,9 +38,13 @@ namespace OkameiProduction.Web.Controllers.CadInputStaff
             var bl = new CadInputStaffBL();
             var dt = bl.GetDisplayResult(vm);
             var dtResult = GetPrepareData(dt);
-            var dataView = new DataView(dtResult); 
-                dataView.Sort = "SijiKikitu ASC,Num1 ASC,BukkenNo ASC ";
-            var result= dataView.ToTable();
+            //var dataView = new DataView(dtResult); 
+            //    dataView.Sort = "SijiKikitu ASC,Num1 ASC,BukkenNo ASC ";
+            //var result= dataView.ToTable();
+            var query = from r in dtResult.AsEnumerable()
+                        orderby r["SijiKikitu"].ToStringOrNull() ?? "99/99", r["Num1"].ToInt32(0), r.Field<string>("BukkenNo")
+                        select r;
+            var result = query.CopyToDataTable();
             result.Columns.Remove("Num1");
             //指示期限
             result.Columns["SijiKikitu"].ColumnName = "指示期限";
