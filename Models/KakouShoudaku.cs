@@ -21,7 +21,7 @@ namespace Models
         {
             var wbook = new XLWorkbook(IniPath);
             var weSheet = wbook.Worksheets.Worksheet("加工承諾書");//加工承諾書 
-            weSheet.Cell("A4").Value = dt.Rows[0]["KoumutenName"].ToString() + " " + "御中";
+            weSheet.Cell("A4").Value = dt.Rows[0]["KoumutenName"].ToString();
             weSheet.Cell("A6").Value = dt.Rows[0]["BukkenName"].ToString();
             weSheet.Cell("AB4").Value = dt.Rows[0]["ShopName"].ToString();
             weSheet.Cell("AB6").Value = dt.Rows[0]["SaleMan"].ToString();
